@@ -2,102 +2,341 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Jeziel Camara | Full-Stack Web Developer</title>
 
   <meta
     name="description"
-    content="Portfolio of Jeziel Camara, a frontend and backend web developer based in the Philippines."
+    content="Jeziel Camara is a full-stack web developer based in the Philippines, building responsive websites and web applications."
   >
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #f5f5f5;
-      background: #0d1117;
-    }
-
-    main {
-      width: min(900px, 90%);
-      min-height: 100vh;
-      margin: auto;
-      display: flex;
-      align-items: center;
-    }
-
-    .hero {
-      max-width: 700px;
-    }
-
-    .label {
-      color: #8b949e;
-      font-size: 1rem;
-    }
-
-    h1 {
-      margin: 12px 0;
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      line-height: 1;
-    }
-
-    p {
-      max-width: 600px;
-      color: #b1bac4;
-      font-size: 1.15rem;
-      line-height: 1.7;
-    }
-
-    .links {
-      display: flex;
-      gap: 12px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-    }
-
-    a {
-      display: inline-block;
-      padding: 12px 20px;
-      color: #ffffff;
-      text-decoration: none;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-    }
-
-    .primary {
-      color: #0d1117;
-      background: #ffffff;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <main>
-    <section class="hero">
-      <div class="label">Frontend and Backend Web Developer</div>
+  <a class="skip-link" href="#main-content">
+    Skip to main content
+  </a>
 
-      <h1>Hi, I'm Jeziel Camara.</h1>
+  <header class="site-header">
+    <div class="container nav-container">
+      <a class="logo" href="#home" aria-label="Jeziel Camara home">
+        Jeziel<span>.</span>
+      </a>
 
-      <p>
-        I design and build responsive websites and web applications for
-        businesses, from the user interface to the backend.
-      </p>
+      <nav class="navigation" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a class="nav-contact" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-      <div class="links">
-        <a class="primary" href="mailto:camarajeziel@gmail.com">
-          Contact Me
-        </a>
+  <main id="main-content">
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">
+            Full-Stack Web Developer · Philippines
+          </p>
 
-        <a href="https://github.com/jezielcamara">
-          View GitHub
-        </a>
+          <h1>
+            I build websites and web applications that are clear, fast, and easy to use.
+          </h1>
+
+          <p class="hero-description">
+            I handle both frontend and backend development, from responsive
+            interfaces to databases, APIs, and deployment.
+          </p>
+
+          <div class="button-group">
+            <a class="button button-primary" href="#projects">
+              View my work
+            </a>
+
+            <a class="button button-secondary" href="mailto:camarajeziel@gmail.com">
+              Email me
+            </a>
+          </div>
+
+          <div class="availability">
+            <span class="availability-dot" aria-hidden="true"></span>
+            Available for freelance projects
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Development services">
+          <p class="card-label">What I can build</p>
+
+          <ul class="service-summary">
+            <li>
+              <span>01</span>
+              Business websites
+            </li>
+
+            <li>
+              <span>02</span>
+              Responsive user interfaces
+            </li>
+
+            <li>
+              <span>03</span>
+              Backend systems and APIs
+            </li>
+
+            <li>
+              <span>04</span>
+              Website maintenance
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-border" id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2>Portfolio projects</h2>
+          </div>
+
+          <p>
+            I am currently building these projects to demonstrate my frontend
+            and backend development skills.
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-preview">
+              <span>Project 01</span>
+              <strong>Business Website</strong>
+            </div>
+
+            <div class="project-content">
+              <div class="project-status">
+                Personal project · In development
+              </div>
+
+              <h3>Responsive service business website</h3>
+
+              <p>
+                A modern website for a local service business with clear
+                service pages, lead capture, and mobile-friendly navigation.
+              </p>
+
+              <ul class="tag-list" aria-label="Technologies">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview">
+              <span>Project 02</span>
+              <strong>Booking System</strong>
+            </div>
+
+            <div class="project-content">
+              <div class="project-status">
+                Personal project · Planned
+              </div>
+
+              <h3>Appointment booking application</h3>
+
+              <p>
+                A booking system where customers can select a service, choose
+                a date, and submit their appointment details.
+              </p>
+
+              <ul class="tag-list" aria-label="Planned technologies">
+                <li>Frontend</li>
+                <li>Backend</li>
+                <li>Database</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview">
+              <span>Project 03</span>
+              <strong>Admin Dashboard</strong>
+            </div>
+
+            <div class="project-content">
+              <div class="project-status">
+                Personal project · Planned
+              </div>
+
+              <h3>Business management dashboard</h3>
+
+              <p>
+                A secure dashboard for viewing records, managing content, and
+                tracking basic business information.
+              </p>
+
+              <ul class="tag-list" aria-label="Planned technologies">
+                <li>Authentication</li>
+                <li>API</li>
+                <li>Database</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <p class="project-note">
+          These projects are clearly marked as personal work. Client projects
+          will be added as they become available.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-border" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Services</p>
+            <h2>How I can help</h2>
+          </div>
+
+          <p>
+            I provide focused web development services for small businesses,
+            professionals, and growing teams.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+            <h3>Website development</h3>
+            <p>
+              Responsive business websites, landing pages, and personal
+              websites built for desktop and mobile devices.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">02</span>
+            <h3>Frontend development</h3>
+            <p>
+              Clear interfaces, reusable components, responsive layouts, and
+              accessible user experiences.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">03</span>
+            <h3>Backend development</h3>
+            <p>
+              APIs, databases, form processing, authentication, and tools for
+              managing website content.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">04</span>
+            <h3>Website maintenance</h3>
+            <p>
+              Content updates, bug fixes, performance improvements, and
+              ongoing technical support.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-border" id="about">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow">About me</p>
+          <h2>I build the complete web experience.</h2>
+        </div>
+
+        <div class="about-content">
+          <p>
+            I am Jeziel Camara, a web developer based in the Philippines. I
+            focus on building websites and applications that work well, load
+            fast, and remain easy to maintain.
+          </p>
+
+          <p>
+            I work across the frontend and backend. This allows me to handle
+            the user interface, business logic, database, and deployment as
+            one complete project.
+          </p>
+
+          <div class="skills">
+            <h3>Current focus</h3>
+
+            <ul class="tag-list">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Responsive Design</li>
+              <li>Git</li>
+              <li>GitHub</li>
+              <li>Frontend Development</li>
+              <li>Backend Development</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-border contact-section" id="contact">
+      <div class="container contact-container">
+        <div>
+          <p class="eyebrow">Contact</p>
+
+          <h2>Have a website or web application in mind?</h2>
+
+          <p>
+            Send me a short description of your project, your target date,
+            and the main features you need.
+          </p>
+        </div>
+
+        <div class="contact-actions">
+          <a
+            class="button button-primary"
+            href="mailto:camarajeziel@gmail.com?subject=Website%20Project%20Inquiry"
+          >
+            Start a project
+          </a>
+
+          <a
+            class="text-link"
+            href="https://github.com/jezielcamara"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View GitHub profile
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a class="email-link" href="mailto:camarajeziel@gmail.com">
+            camarajeziel@gmail.com
+          </a>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <p>© 2026 Jeziel Camara</p>
+
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
 </body>
 </html>
