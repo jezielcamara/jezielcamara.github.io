@@ -31,6 +31,14 @@
   outline-offset: 3px;
 }
 
+/* Keep the hero CTA above draggable windows */
+
+.hero-contact {
+  position: absolute;
+  z-index: 1000;
+  isolation: isolate;
+}
+
 :root {
   --demo-accent: #3157e8;
   --demo-photo: #c8d5c6;
