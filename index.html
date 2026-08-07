@@ -12,14 +12,14 @@
 
   <meta
     name="description"
-    content="Jeziel Camara designs and builds clear, responsive websites for small and growing businesses."
+    content="Jeziel Camara designs and builds sharp, responsive websites for small and growing businesses."
   >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=TASA+Orbiter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=TASA+Orbiter:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
@@ -30,33 +30,48 @@
 
 <body>
 
+  <div class="scroll-progress" aria-hidden="true"></div>
+
   <a class="skip-link" href="#main">
     Skip to content
   </a>
 
 
-  <!-- HEADER -->
+  <!-- SIDE RAIL -->
 
-  <header class="site-header">
-    <div class="container header-inner">
+  <header class="side-rail">
 
-      <a class="identity" href="#home">
-        <span>JEZIEL CAMARA</span>
-        <small>WEB DESIGN / DEVELOPMENT</small>
+    <a class="rail-logo" href="#home">
+      JC
+    </a>
+
+    <nav class="rail-nav" aria-label="Main navigation">
+      <a href="#work">
+        <span>01</span>
+        Work
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Work</a>
-        <a href="#approach">Approach</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <a href="#lab">
+        <span>02</span>
+        Lab
+      </a>
 
-      <div class="header-location">
-        PH / 2026
-      </div>
+      <a href="#about">
+        <span>03</span>
+        About
+      </a>
 
+      <a href="#contact">
+        <span>04</span>
+        Contact
+      </a>
+    </nav>
+
+    <div class="rail-bottom">
+      PH
+      <span>2026</span>
     </div>
+
   </header>
 
 
@@ -65,89 +80,144 @@
 
     <!-- HERO -->
 
-    <section class="hero" id="home">
+    <section class="hero-stage" id="home">
 
-      <div class="container">
+      <div class="hero-grid" aria-hidden="true"></div>
 
-        <div class="hero-meta">
-          <span>Independent web designer + developer</span>
-          <span>Available for freelance projects</span>
-        </div>
+      <div class="hero-meta">
+        <span>JEZIEL CAMARA</span>
+        <span>WEB DESIGN + FRONT-END</span>
+        <span>AVAILABLE FOR FREELANCE</span>
+      </div>
 
-        <h1>
-          I make small businesses
-          <span>easier to understand online.</span>
-        </h1>
 
-        <div class="hero-bottom">
+      <div class="hero-name" aria-label="Jeziel Camara">
+        <span class="hero-word hero-word-one">
+          JEZIEL
+        </span>
 
-          <p class="hero-intro">
-            I combine marketing thinking, clean design, and frontend code
-            to turn business information into a website people can quickly
-            understand and use.
-          </p>
+        <span class="hero-word hero-word-two">
+          CAMARA
+        </span>
+      </div>
 
-          <div class="hero-links">
 
-            <a href="#work">
-              Selected work
-              <span>↓</span>
-            </a>
+      <div class="hero-message">
 
-            <a href="mailto:camarajeziel@gmail.com?subject=Website%20Inquiry">
-              Start a project
-              <span>↗</span>
-            </a>
+        <p class="hero-manifesto">
+          Marketing brain.<br>
+          Designer eye.<br>
+          Front-end hands.
+        </p>
 
-          </div>
-
-        </div>
+        <p class="hero-description">
+          I build sharp, no-fuss websites for small businesses.
+        </p>
 
       </div>
 
-    </section>
 
+      <!-- MAIN FLOATING WEBSITE -->
 
-    <!-- BUSINESS WEBSITE THINKING -->
+      <div
+        class="floating-window window-main"
+        data-depth="1"
+      >
 
-    <section class="questions" id="approach">
+        <div class="window-bar">
+          <span>PROJECT / 01</span>
+          <span>BUSINESS WEBSITE</span>
+        </div>
 
-      <div class="container">
-
-        <div class="questions-intro">
-
-          <span class="section-code">
-            01 / APPROACH
+        <div class="window-placeholder">
+          <span>
+            YOUR BEST<br>
+            WEBSITE IMAGE
           </span>
 
-          <p>
-            Before I design the page, I want the website to answer four things.
-          </p>
-
+          <small>1600 × 1000</small>
         </div>
 
+      </div>
 
-        <div class="question-list">
 
-          <article>
-            <span>01</span>
-            <h2>Who are you?</h2>
-          </article>
+      <!-- SECOND PROJECT -->
 
-          <article>
-            <span>02</span>
-            <h2>What do you offer?</h2>
-          </article>
+      <div
+        class="floating-window window-small"
+        data-depth="1.7"
+      >
 
-          <article>
-            <span>03</span>
-            <h2>Why should I trust you?</h2>
-          </article>
+        <div class="window-bar">
+          <span>PROJECT / 02</span>
+        </div>
 
-          <article>
-            <span>04</span>
-            <h2>How do I contact you?</h2>
-          </article>
+        <div class="window-placeholder">
+          <span>PROJECT IMAGE</span>
+          <small>1400 × 1050</small>
+        </div>
+
+      </div>
+
+
+      <!-- PORTRAIT -->
+
+      <div
+        class="floating-window window-portrait"
+        data-depth="2.2"
+      >
+
+        <div class="window-bar">
+          <span>ABOUT / JC</span>
+        </div>
+
+        <div class="window-placeholder portrait-image">
+          <span>YOUR PHOTO</span>
+          <small>4 × 5</small>
+        </div>
+
+      </div>
+
+
+      <a
+        class="hero-contact"
+        href="mailto:camarajeziel@gmail.com?subject=Website%20Inquiry"
+      >
+        Start a project
+        <span>↗</span>
+      </a>
+
+
+      <div class="scroll-cue">
+        <span></span>
+        Scroll to explore
+      </div>
+
+
+      <div class="hero-ticker" aria-hidden="true">
+
+        <div class="ticker-track">
+
+          <span>BUSINESS WEBSITES</span>
+          <i>✦</i>
+
+          <span>LANDING PAGES</span>
+          <i>✦</i>
+
+          <span>RESPONSIVE DESIGN</span>
+          <i>✦</i>
+
+          <span>WEBSITE REDESIGNS</span>
+          <i>✦</i>
+
+          <span>BUSINESS WEBSITES</span>
+          <i>✦</i>
+
+          <span>LANDING PAGES</span>
+          <i>✦</i>
+
+          <span>RESPONSIVE DESIGN</span>
+          <i>✦</i>
 
         </div>
 
@@ -156,407 +226,324 @@
     </section>
 
 
-    <!-- LIVE RESPONSIVE DEMO -->
+    <!-- HOW I THINK -->
 
-    <section class="demo-section">
+    <section class="thinking reveal">
 
-      <div class="container">
+      <div class="section-marker">
+        00 / HOW I THINK
+      </div>
 
-        <div class="section-heading">
+      <div class="thinking-intro">
+        <p>
+          I start with the message before I start styling the page.
+        </p>
+      </div>
 
-          <div>
-            <span class="section-code">
-              02 / RESPONSIVE DESIGN
-            </span>
+      <div class="thinking-lines">
 
-            <h2>
-              One website.<br>
-              Every screen.
-            </h2>
-          </div>
+        <article>
+          <span>01</span>
 
-          <div class="demo-description">
+          <h2>
+            What do you do?
+          </h2>
 
-            <p>
-              Try the preview. The layout adapts instead of simply shrinking.
-            </p>
+          <p>
+            Make it obvious.
+          </p>
+        </article>
 
-            <div
-              class="device-selector"
-              aria-label="Preview screen size"
-            >
 
-              <button
-                type="button"
-                class="device-button active"
-                data-device="desktop"
-                aria-pressed="true"
-              >
-                Desktop
-              </button>
+        <article>
+          <span>02</span>
 
-              <button
-                type="button"
-                class="device-button"
-                data-device="tablet"
-                aria-pressed="false"
-              >
-                Tablet
-              </button>
+          <h2>
+            Why choose you?
+          </h2>
 
-              <button
-                type="button"
-                class="device-button"
-                data-device="mobile"
-                aria-pressed="false"
-              >
-                Mobile
-              </button>
+          <p>
+            Give people a reason.
+          </p>
+        </article>
+
+
+        <article>
+          <span>03</span>
+
+          <h2>
+            What now?
+          </h2>
+
+          <p>
+            Give them one clear next step.
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROJECT REEL -->
+
+    <section class="work-section reveal" id="work">
+
+      <div class="work-heading">
+
+        <div>
+          <span class="section-marker">
+            01 / SELECTED WORK
+          </span>
+
+          <h2>
+            Work in motion.
+          </h2>
+        </div>
+
+        <div class="reel-instructions">
+          <span>DRAG / SWIPE</span>
+          <span>→</span>
+        </div>
+
+      </div>
+
+
+      <div class="project-reel">
+
+        <div class="reel-track">
+
+
+          <!-- PROJECT -->
+
+          <article class="project-slide">
+
+            <div class="project-image">
+              <div class="placeholder-cross"></div>
+
+              <span>PROJECT IMAGE / 01</span>
+            </div>
+
+            <div class="project-caption">
+
+              <div>
+                <span>01 / HOME SERVICES</span>
+
+                <h3>
+                  North Home
+                </h3>
+              </div>
+
+              <p>
+                Services / About / Contact
+              </p>
 
             </div>
 
-          </div>
+          </article>
+
+
+          <!-- PROJECT -->
+
+          <article class="project-slide project-slide-alt">
+
+            <div class="project-image">
+              <div class="placeholder-cross"></div>
+
+              <span>PROJECT IMAGE / 02</span>
+            </div>
+
+            <div class="project-caption">
+
+              <div>
+                <span>02 / HOSPITALITY</span>
+
+                <h3>
+                  Sola Café
+                </h3>
+              </div>
+
+              <p>
+                Menu / Gallery / Visit
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT -->
+
+          <article class="project-slide project-slide-third">
+
+            <div class="project-image">
+              <div class="placeholder-cross"></div>
+
+              <span>PROJECT IMAGE / 03</span>
+            </div>
+
+            <div class="project-caption">
+
+              <div>
+                <span>03 / PROFESSIONAL</span>
+
+                <h3>
+                  Avance
+                </h3>
+              </div>
+
+              <p>
+                Expertise / Company / Contact
+              </p>
+
+            </div>
+
+          </article>
+
 
         </div>
 
+      </div>
 
-        <div class="demo-canvas">
 
-          <div class="demo-device" data-device="desktop">
+      <div class="reel-progress">
 
-            <div class="demo-browser">
+        <div class="reel-progress-fill"></div>
 
-              <div class="demo-browser-bar">
+      </div>
 
-                <div class="browser-controls">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
+    </section>
 
-                <span class="browser-address">
-                  northhome.example
+
+    <!-- RESPONSIVE LAB -->
+
+    <section class="lab-section reveal" id="lab">
+
+      <div class="lab-heading">
+
+        <div>
+          <span class="section-marker">
+            02 / RESPONSIVE LAB
+          </span>
+
+          <h2>
+            Resize it.
+          </h2>
+        </div>
+
+        <div class="lab-control">
+
+          <div class="lab-control-top">
+            <label for="viewport-range">
+              Preview width
+            </label>
+
+            <output id="viewport-output">
+              1000px
+            </output>
+          </div>
+
+          <input
+            id="viewport-range"
+            type="range"
+            min="320"
+            max="1100"
+            value="1000"
+            step="10"
+          >
+
+        </div>
+
+      </div>
+
+
+      <p class="lab-description">
+        Drag the control. The sample website reorganizes itself based on the
+        width of its own container.
+      </p>
+
+
+      <div class="lab-canvas">
+
+        <div
+          class="responsive-preview"
+          id="responsive-preview"
+        >
+
+          <div class="preview-browser-bar">
+
+            <span class="preview-logo">
+              NO.8
+            </span>
+
+            <span>
+              northstudio.example
+            </span>
+
+          </div>
+
+
+          <div class="demo-site">
+
+            <header class="demo-header">
+
+              <strong>
+                NORTH
+              </strong>
+
+              <nav>
+                <span>Services</span>
+                <span>Company</span>
+                <span>Contact</span>
+              </nav>
+
+            </header>
+
+
+            <div class="demo-hero">
+
+              <div class="demo-copy">
+
+                <small>
+                  PROPERTY SERVICES
+                </small>
+
+                <h3>
+                  GOOD WORK.<br>
+                  NO GUESSWORK.
+                </h3>
+
+                <p>
+                  Property maintenance for homes and businesses
+                  across Metro Manila.
+                </p>
+
+                <a href="#" tabindex="-1">
+                  Request a quote →
+                </a>
+
+              </div>
+
+
+              <div class="demo-photo">
+
+                <span>
+                  IMAGE
                 </span>
 
               </div>
 
-
-              <div class="sample-site">
-
-                <div class="sample-header">
-
-                  <div class="sample-logo">
-                    NORTH
-                  </div>
-
-                  <div class="sample-nav">
-                    <span>Services</span>
-                    <span>About</span>
-                    <span>Contact</span>
-                  </div>
-
-                </div>
+            </div>
 
 
-                <div class="sample-hero">
+            <div class="demo-bottom">
 
-                  <div class="sample-copy">
-
-                    <small>
-                      HOME & PROPERTY SERVICES
-                    </small>
-
-                    <h3>
-                      Good work.<br>
-                      No guesswork.
-                    </h3>
-
-                    <p>
-                      Reliable property maintenance for homes and
-                      businesses across Metro Manila.
-                    </p>
-
-                    <span class="sample-cta">
-                      Request a quote →
-                    </span>
-
-                  </div>
-
-
-                  <div class="sample-image">
-
-                    <span>
-                      IMAGE
-                    </span>
-
-                  </div>
-
-                </div>
-
-
-                <div class="sample-services">
-
-                  <span>Repairs</span>
-                  <span>Maintenance</span>
-                  <span>Installation</span>
-
-                </div>
-
-              </div>
+              <span>Repairs</span>
+              <span>Maintenance</span>
+              <span>Installation</span>
 
             </div>
 
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- WORK -->
-
-    <section class="work" id="work">
-
-      <div class="container">
-
-        <div class="work-heading">
-
-          <span class="section-code">
-            03 / WORK
-          </span>
-
-          <h2>
-            Selected concepts
-          </h2>
-
-          <p>
-            Business websites designed around clear information and a simple
-            path to inquiry.
-          </p>
-
-        </div>
-
-
-        <!-- PROJECT 1 -->
-
-        <article class="project">
-
-          <div class="project-meta">
-
-            <span>01</span>
-
-            <div>
-              <small>HOME SERVICES</small>
-              <h3>North Home</h3>
-            </div>
-
-            <p>
-              Business website
-            </p>
-
-          </div>
-
-
-          <div class="project-image placeholder">
-
-            <span>
-              PROJECT IMAGE
-            </span>
-
-            <small>
-              1600 × 1000
-            </small>
-
-          </div>
-
-
-          <div class="project-details">
-
-            <p>
-              Goal
-              <span>
-                Make the company easier to understand and easier to contact.
-              </span>
-            </p>
-
-            <p>
-              Pages
-              <span>
-                Home / Services / About / Contact
-              </span>
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- PROJECT 2 -->
-
-        <article class="project project-offset">
-
-          <div class="project-meta">
-
-            <span>02</span>
-
-            <div>
-              <small>HOSPITALITY</small>
-              <h3>Sola Café</h3>
-            </div>
-
-            <p>
-              Restaurant website
-            </p>
-
-          </div>
-
-
-          <div class="project-image placeholder">
-
-            <span>
-              PROJECT IMAGE
-            </span>
-
-            <small>
-              1400 × 1050
-            </small>
-
-          </div>
-
-
-          <div class="project-details">
-
-            <p>
-              Goal
-              <span>
-                Help customers find the menu, location, and opening hours fast.
-              </span>
-            </p>
-
-            <p>
-              Pages
-              <span>
-                Home / Menu / Gallery / Visit
-              </span>
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- PROJECT 3 -->
-
-        <article class="project">
-
-          <div class="project-meta">
-
-            <span>03</span>
-
-            <div>
-              <small>PROFESSIONAL SERVICES</small>
-              <h3>Avance</h3>
-            </div>
-
-            <p>
-              Company website
-            </p>
-
-          </div>
-
-
-          <div class="project-image placeholder">
-
-            <span>
-              PROJECT IMAGE
-            </span>
-
-            <small>
-              1600 × 900
-            </small>
-
-          </div>
-
-
-          <div class="project-details">
-
-            <p>
-              Goal
-              <span>
-                Present services and credentials with a more established look.
-              </span>
-            </p>
-
-            <p>
-              Pages
-              <span>
-                Home / Expertise / Company / Contact
-              </span>
-            </p>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- SCOPE -->
-
-    <section class="scope">
-
-      <div class="container">
-
-        <div class="scope-heading">
-
-          <span class="section-code">
-            04 / SCOPE
-          </span>
-
-          <h2>
-            What I build right now.
-          </h2>
-
-        </div>
-
-
-        <div class="scope-list">
-
-          <div class="scope-row">
-            <span>01</span>
-            <h3>One-page websites</h3>
-            <p>
-              A focused online presence for a business or service.
-            </p>
-          </div>
-
-          <div class="scope-row">
-            <span>02</span>
-            <h3>Business websites</h3>
-            <p>
-              Three to five pages with services, company information,
-              and contact.
-            </p>
-          </div>
-
-          <div class="scope-row">
-            <span>03</span>
-            <h3>Website redesigns</h3>
-            <p>
-              A cleaner structure and updated visual direction.
-            </p>
-          </div>
-
-          <div class="scope-row">
-            <span>04</span>
-            <h3>Website updates</h3>
-            <p>
-              New text, images, services, pages, and contact information.
-            </p>
           </div>
 
         </div>
@@ -568,72 +555,68 @@
 
     <!-- ABOUT -->
 
-    <section class="about" id="about">
+    <section class="about-section reveal" id="about">
 
-      <div class="container about-grid">
-
-
-        <div class="about-image placeholder">
-
-          <span>
-            YOUR PHOTO
-          </span>
-
-          <small>
-            Portrait / workspace / candid
-          </small>
-
-        </div>
+      <div class="about-word" aria-hidden="true">
+        ABOUT
+      </div>
 
 
-        <div class="about-content">
+      <div class="about-photo">
 
-          <span class="section-code">
-            05 / ABOUT
-          </span>
+        <div class="placeholder-cross"></div>
 
-          <h2>
-            I think about the message before the layout.
-          </h2>
+        <span>YOUR PHOTO</span>
 
-          <p class="about-lead">
-            I’m Jeziel, based in the Philippines.
-          </p>
-
-          <p>
-            My background in marketing shapes the way I approach websites.
-            I am interested in what customers need to understand first,
-            what builds trust, and what gets them to take the next step.
-          </p>
-
-          <p>
-            Then I turn that structure into a responsive website using
-            HTML, CSS, and JavaScript.
-          </p>
+      </div>
 
 
-          <div class="about-specs">
+      <div class="about-copy">
 
-            <div>
-              <span>Focus</span>
-              <p>Small & growing businesses</p>
-            </div>
+        <span class="section-marker">
+          03 / JEZIEL
+        </span>
 
-            <div>
-              <span>Design</span>
-              <p>Clear, responsive, content-led</p>
-            </div>
+        <h2>
+          I think about the message before the layout.
+        </h2>
 
-            <div>
-              <span>Development</span>
-              <p>HTML / CSS / JavaScript</p>
-            </div>
+        <p class="about-lead">
+          I’m Jeziel, based in the Philippines.
+        </p>
 
-            <div>
-              <span>Location</span>
-              <p>Philippines</p>
-            </div>
+        <p>
+          My marketing background shapes how I approach websites:
+          what should customers notice first, what builds trust,
+          and what gets them to take the next step.
+        </p>
 
+        <p>
+          Then I turn that structure into a responsive website with
+          HTML, CSS, and JavaScript.
+        </p>
+
+
+        <div class="about-data">
+
+          <div>
+            <span>FOCUS</span>
+            <p>Small business websites</p>
+          </div>
+
+          <div>
+            <span>DESIGN</span>
+            <p>Clear / responsive / content-led</p>
+          </div>
+
+          <div>
+            <span>BUILD</span>
+            <p>HTML / CSS / JavaScript</p>
+          </div>
+
+          <div>
+            <span>BASE</span>
+            <p>Philippines</p>
           </div>
 
         </div>
@@ -645,22 +628,26 @@
 
     <!-- CONTACT -->
 
-    <section class="contact" id="contact">
+    <section class="contact-section reveal" id="contact">
 
-      <div class="container">
+      <div class="contact-index">
+        04
+      </div>
 
-        <span class="section-code">
-          06 / CONTACT
+      <div class="contact-main">
+
+        <span class="section-marker">
+          HAVE A BUSINESS?
         </span>
 
         <h2>
-          Have a business.<br>
-          Need the website?
+          Let’s give it<br>
+          a better home<br>
+          <em>online.</em>
         </h2>
 
         <p>
-          Send me your business name, what you offer, and what you want
-          customers to do when they visit your site.
+          Tell me what your business does and what you need the website to do.
         </p>
 
 
@@ -668,13 +655,9 @@
           class="contact-email"
           href="mailto:camarajeziel@gmail.com?subject=Website%20Inquiry"
         >
-          <span>
-            camarajeziel@gmail.com
-          </span>
+          camarajeziel@gmail.com
 
-          <span aria-hidden="true">
-            ↗
-          </span>
+          <span>↗</span>
         </a>
 
       </div>
@@ -687,23 +670,20 @@
 
   <footer class="site-footer">
 
-    <div class="container footer-inner">
+    <span>
+      JEZIEL CAMARA © 2026
+    </span>
 
-      <p>
-        JEZIEL CAMARA © 2026
-      </p>
+    <a href="https://github.com/jezielcamara">
+      GITHUB ↗
+    </a>
 
-      <p>
-        DESIGN + DEVELOPMENT / PH
-      </p>
-
-      <a href="#home">
-        TOP ↑
-      </a>
-
-    </div>
+    <a href="#home">
+      BACK TO TOP ↑
+    </a>
 
   </footer>
+
 
 </body>
 </html>
