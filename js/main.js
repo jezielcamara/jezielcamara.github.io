@@ -6,9 +6,7 @@ const prefersReducedMotion = window.matchMedia(
 ).matches;
 
 
-/* ================================
-   PAGE INTRO
-================================ */
+/* PAGE INTRO */
 
 window.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(() => {
@@ -17,9 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ================================
-   SCROLL STATE
-================================ */
+/* SCROLL PROGRESS + HERO MOVEMENT */
 
 const heroStage = document.querySelector(".hero-stage");
 const labSection = document.querySelector(".lab-section");
@@ -45,17 +41,12 @@ function updatePageState() {
   );
 
 
-  /* HERO NAME MOVEMENT */
-
   if (heroStage && !prefersReducedMotion) {
     const rect = heroStage.getBoundingClientRect();
 
     const heroScroll = Math.max(
       0,
-      Math.min(
-        -rect.top,
-        rect.height
-      )
+      Math.min(-rect.top, rect.height)
     );
 
     root.style.setProperty(
@@ -70,19 +61,16 @@ function updatePageState() {
   }
 
 
-  /* SIDE RAIL COLOR */
-
-  const viewportCenter =
-    window.innerHeight * 0.5;
+  const viewportCenter = window.innerHeight * 0.5;
 
   body.classList.remove(
     "rail-blue",
     "rail-lime"
   );
 
+
   if (labSection) {
-    const rect =
-      labSection.getBoundingClientRect();
+    const rect = labSection.getBoundingClientRect();
 
     if (
       rect.top <= viewportCenter &&
@@ -92,9 +80,9 @@ function updatePageState() {
     }
   }
 
+
   if (contactSection) {
-    const rect =
-      contactSection.getBoundingClientRect();
+    const rect = contactSection.getBoundingClientRect();
 
     if (
       rect.top <= viewportCenter &&
@@ -104,6 +92,7 @@ function updatePageState() {
       body.classList.add("rail-lime");
     }
   }
+
 
   ticking = false;
 }
@@ -131,14 +120,10 @@ window.addEventListener(
 updatePageState();
 
 
-/* ================================
-   HERO POINTER PARALLAX
-================================ */
+/* HERO POINTER PARALLAX */
 
 const floatingWindows =
-  document.querySelectorAll(
-    ".floating-window"
-  );
+  document.querySelectorAll(".floating-window");
 
 
 if (
@@ -191,29 +176,23 @@ if (
       (targetY - currentY) * 0.045;
 
 
-    floatingWindows.forEach(
-      (element) => {
-        const depth =
-          Number(
-            element.dataset.depth
-          ) || 1;
+    floatingWindows.forEach((element) => {
+      const depth =
+        Number(element.dataset.depth) || 1;
 
-        element.style.setProperty(
-          "--parallax-x",
-          `${currentX * 18 * depth}px`
-        );
+      element.style.setProperty(
+        "--parallax-x",
+        `${currentX * 18 * depth}px`
+      );
 
-        element.style.setProperty(
-          "--parallax-y",
-          `${currentY * 14 * depth}px`
-        );
-      }
-    );
+      element.style.setProperty(
+        "--parallax-y",
+        `${currentY * 14 * depth}px`
+      );
+    });
 
 
-    requestAnimationFrame(
-      animateParallax
-    );
+    requestAnimationFrame(animateParallax);
   }
 
 
@@ -221,9 +200,7 @@ if (
 }
 
 
-/* ================================
-   SECTION REVEALS
-================================ */
+/* SECTION REVEALS */
 
 const revealSections =
   document.querySelectorAll(".reveal");
@@ -237,18 +214,14 @@ const detailElements =
   `);
 
 
-detailElements.forEach(
-  (element, index) => {
-    element.classList.add(
-      "motion-item"
-    );
+detailElements.forEach((element, index) => {
+  element.classList.add("motion-item");
 
-    element.style.setProperty(
-      "--motion-delay",
-      `${(index % 4) * 70}ms`
-    );
-  }
-);
+  element.style.setProperty(
+    "--motion-delay",
+    `${(index % 4) * 70}ms`
+  );
+});
 
 
 if (
@@ -263,9 +236,7 @@ if (
             return;
           }
 
-          entry.target.classList.add(
-            "in-view"
-          );
+          entry.target.classList.add("in-view");
 
           currentObserver.unobserve(
             entry.target
@@ -274,53 +245,38 @@ if (
       },
       {
         threshold: 0.12,
-        rootMargin:
-          "0px 0px -8% 0px"
+        rootMargin: "0px 0px -8% 0px"
       }
     );
 
 
-  revealSections.forEach(
-    (element) => {
-      observer.observe(element);
-    }
-  );
+  revealSections.forEach((element) => {
+    observer.observe(element);
+  });
 
 
-  detailElements.forEach(
-    (element) => {
-      observer.observe(element);
-    }
-  );
+  detailElements.forEach((element) => {
+    observer.observe(element);
+  });
 
 } else {
-  revealSections.forEach(
-    (element) => {
-      element.classList.add("in-view");
-    }
-  );
+  revealSections.forEach((element) => {
+    element.classList.add("in-view");
+  });
 
-  detailElements.forEach(
-    (element) => {
-      element.classList.add("in-view");
-    }
-  );
+  detailElements.forEach((element) => {
+    element.classList.add("in-view");
+  });
 }
 
 
-/* ================================
-   PROJECT REEL
-================================ */
+/* PROJECT REEL DRAG */
 
 const projectReel =
-  document.querySelector(
-    ".project-reel"
-  );
+  document.querySelector(".project-reel");
 
 const reelProgressFill =
-  document.querySelector(
-    ".reel-progress-fill"
-  );
+  document.querySelector(".reel-progress-fill");
 
 
 if (projectReel) {
@@ -332,22 +288,15 @@ if (projectReel) {
   projectReel.addEventListener(
     "pointerdown",
     (event) => {
-      if (
-        event.pointerType === "touch"
-      ) {
+      if (event.pointerType === "touch") {
         return;
       }
 
       dragging = true;
-
       startX = event.clientX;
+      startingScroll = projectReel.scrollLeft;
 
-      startingScroll =
-        projectReel.scrollLeft;
-
-      projectReel.classList.add(
-        "dragging"
-      );
+      projectReel.classList.add("dragging");
 
       projectReel.setPointerCapture(
         event.pointerId
@@ -399,8 +348,7 @@ if (projectReel) {
 
     const progress =
       maximum > 0
-        ? projectReel.scrollLeft /
-          maximum
+        ? projectReel.scrollLeft / maximum
         : 0;
 
     if (reelProgressFill) {
@@ -420,24 +368,16 @@ if (projectReel) {
 }
 
 
-/* ================================
-   RESPONSIVE LAB
-================================ */
+/* RESPONSIVE LAB */
 
 const viewportRange =
-  document.querySelector(
-    "#viewport-range"
-  );
+  document.querySelector("#viewport-range");
 
 const viewportOutput =
-  document.querySelector(
-    "#viewport-output"
-  );
+  document.querySelector("#viewport-output");
 
 const responsivePreview =
-  document.querySelector(
-    "#responsive-preview"
-  );
+  document.querySelector("#responsive-preview");
 
 
 function updateResponsivePreview() {
@@ -451,12 +391,10 @@ function updateResponsivePreview() {
   const width =
     Number(viewportRange.value);
 
-
   responsivePreview.style.setProperty(
     "--preview-width",
     `${width}px`
   );
-
 
   if (viewportOutput) {
     viewportOutput.textContent =
