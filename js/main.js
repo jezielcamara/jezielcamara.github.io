@@ -384,6 +384,458 @@ if (heroStage && floatingWindows.length) {
 }
 
 /* -------------------------------------------------
+   HERO DRAGGABLE WINDOWS
+   Responsive position memory
+-------------------------------------------------- */
+
+if (heroStage && floatingWindows.length) {
+
+  let highestZIndex = 50;
+
+  const dragStates = new Map();
+
+
+  const clamp = (value, minimum, maximum) => {
+    return Math.max(
+      minimum,
+      Math.min(value, maximum)
+    );
+  };
+
+
+  /*
+   * Store a dragged position as a percentage
+   * of the available space rather than pixels.
+   */
+
+  function updatePositionRatio(
+    windowElement,
+    state,
+    left,
+    top
+  ) {
+
+    const maxLeft = Math.max(
+      0,
+      heroStage.clientWidth -
+      windowElement.offsetWidth
+    );
+
+    const maxTop = Math.max(
+      0,
+      heroStage.clientHeight -
+      windowElement.offsetHeight
+    );
+
+
+    if (maxLeft > 0) {
+      state.xRatio = clamp(
+        left / maxLeft,
+        0,
+        1
+      );
+    }
+
+
+    if (maxTop > 0) {
+      state.yRatio = clamp(
+        top / maxTop,
+        0,
+        1
+      );
+    }
+
+  }
+
+
+  /*
+   * Recalculate the card position whenever
+   * the hero or card changes size.
+   */
+
+  function placeFromRatio(
+    windowElement,
+    state
+  ) {
+
+    if (
+      !state.hasBeenDragged ||
+      state.isDragging
+    ) {
+      return;
+    }
+
+
+    const maxLeft = Math.max(
+      0,
+      heroStage.clientWidth -
+      windowElement.offsetWidth
+    );
+
+    const maxTop = Math.max(
+      0,
+      heroStage.clientHeight -
+      windowElement.offsetHeight
+    );
+
+
+    const nextLeft =
+      maxLeft * state.xRatio;
+
+    const nextTop =
+      maxTop * state.yRatio;
+
+
+    windowElement.style.left =
+      `${nextLeft}px`;
+
+    windowElement.style.top =
+      `${nextTop}px`;
+
+    windowElement.style.right =
+      "auto";
+
+    windowElement.style.bottom =
+      "auto";
+
+  }
+
+
+  floatingWindows.forEach(
+    (windowElement) => {
+
+      const dragHandle =
+        windowElement.querySelector(
+          ".window-bar"
+        );
+
+
+      if (!dragHandle) {
+        return;
+      }
+
+
+      const state = {
+        isDragging: false,
+        hasBeenDragged: false,
+
+        pointerId: null,
+
+        pointerStartX: 0,
+        pointerStartY: 0,
+
+        elementStartLeft: 0,
+        elementStartTop: 0,
+
+        xRatio: 0.5,
+        yRatio: 0.5
+      };
+
+
+      dragStates.set(
+        windowElement,
+        state
+      );
+
+
+      dragHandle.addEventListener(
+        "pointerdown",
+        (event) => {
+
+          if (
+            event.pointerType === "mouse" &&
+            event.button !== 0
+          ) {
+            return;
+          }
+
+
+          state.isDragging = true;
+
+          state.pointerId =
+            event.pointerId;
+
+
+          state.pointerStartX =
+            event.clientX;
+
+          state.pointerStartY =
+            event.clientY;
+
+
+          /*
+           * Read its current responsive
+           * CSS position before converting
+           * it into draggable coordinates.
+           */
+
+          state.elementStartLeft =
+            windowElement.offsetLeft;
+
+          state.elementStartTop =
+            windowElement.offsetTop;
+
+
+          windowElement.style.left =
+            `${state.elementStartLeft}px`;
+
+          windowElement.style.top =
+            `${state.elementStartTop}px`;
+
+          windowElement.style.right =
+            "auto";
+
+          windowElement.style.bottom =
+            "auto";
+
+
+          state.hasBeenDragged = true;
+
+
+          updatePositionRatio(
+            windowElement,
+            state,
+            state.elementStartLeft,
+            state.elementStartTop
+          );
+
+
+          /*
+           * Bring selected window forward.
+           */
+
+          highestZIndex += 1;
+
+          windowElement.style.zIndex =
+            highestZIndex;
+
+
+          windowElement.classList.add(
+            "is-dragging"
+          );
+
+
+          dragHandle.setPointerCapture(
+            state.pointerId
+          );
+
+
+          event.preventDefault();
+
+        }
+      );
+
+
+      dragHandle.addEventListener(
+        "pointermove",
+        (event) => {
+
+          if (
+            !state.isDragging ||
+            event.pointerId !==
+              state.pointerId
+          ) {
+            return;
+          }
+
+
+          const moveX =
+            event.clientX -
+            state.pointerStartX;
+
+          const moveY =
+            event.clientY -
+            state.pointerStartY;
+
+
+          let nextLeft =
+            state.elementStartLeft +
+            moveX;
+
+          let nextTop =
+            state.elementStartTop +
+            moveY;
+
+
+          const maxLeft = Math.max(
+            0,
+            heroStage.clientWidth -
+            windowElement.offsetWidth
+          );
+
+          const maxTop = Math.max(
+            0,
+            heroStage.clientHeight -
+            windowElement.offsetHeight
+          );
+
+
+          /*
+           * Never allow the card to
+           * disappear beyond the hero.
+           */
+
+          nextLeft = clamp(
+            nextLeft,
+            0,
+            maxLeft
+          );
+
+
+          nextTop = clamp(
+            nextTop,
+            0,
+            maxTop
+          );
+
+
+          windowElement.style.left =
+            `${nextLeft}px`;
+
+          windowElement.style.top =
+            `${nextTop}px`;
+
+
+          /*
+           * Continuously remember its
+           * relative position.
+           */
+
+          updatePositionRatio(
+            windowElement,
+            state,
+            nextLeft,
+            nextTop
+          );
+
+        }
+      );
+
+
+      function finishDrag(event) {
+
+        if (
+          !state.isDragging ||
+          event.pointerId !==
+            state.pointerId
+        ) {
+          return;
+        }
+
+
+        state.isDragging = false;
+
+
+        updatePositionRatio(
+          windowElement,
+          state,
+          windowElement.offsetLeft,
+          windowElement.offsetTop
+        );
+
+
+        windowElement.classList.remove(
+          "is-dragging"
+        );
+
+
+        if (
+          dragHandle.hasPointerCapture(
+            state.pointerId
+          )
+        ) {
+
+          dragHandle.releasePointerCapture(
+            state.pointerId
+          );
+
+        }
+
+
+        state.pointerId = null;
+
+      }
+
+
+      dragHandle.addEventListener(
+        "pointerup",
+        finishDrag
+      );
+
+
+      dragHandle.addEventListener(
+        "pointercancel",
+        finishDrag
+      );
+
+    }
+  );
+
+
+  /*
+   * When desktop becomes tablet/mobile,
+   * reposition dragged windows using their
+   * saved proportional coordinates.
+   *
+   * Undragged windows are left alone so
+   * normal responsive CSS still controls them.
+   */
+
+  function repositionDraggedWindows() {
+
+    requestAnimationFrame(() => {
+
+      dragStates.forEach(
+        (state, windowElement) => {
+
+          placeFromRatio(
+            windowElement,
+            state
+          );
+
+        }
+      );
+
+    });
+
+  }
+
+
+  if ("ResizeObserver" in window) {
+
+    const heroResizeObserver =
+      new ResizeObserver(
+        repositionDraggedWindows
+      );
+
+
+    heroResizeObserver.observe(
+      heroStage
+    );
+
+
+    floatingWindows.forEach(
+      (windowElement) => {
+
+        heroResizeObserver.observe(
+          windowElement
+        );
+
+      }
+    );
+
+  } else {
+
+    window.addEventListener(
+      "resize",
+      repositionDraggedWindows
+    );
+
+  }
+
+}
+
+/* -------------------------------------------------
    SCROLL REVEALS
 -------------------------------------------------- */
 
