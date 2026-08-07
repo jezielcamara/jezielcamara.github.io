@@ -27,6 +27,7 @@ const contactSection = document.querySelector(".contact-section");
 
 let pageTicking = false;
 
+
 function updatePageState() {
   const scrollTop = window.scrollY;
 
@@ -38,6 +39,7 @@ function updatePageState() {
     maxScroll > 0
       ? (scrollTop / maxScroll) * 100
       : 0;
+
 
   root.style.setProperty(
     "--scroll-progress",
@@ -52,13 +54,14 @@ function updatePageState() {
     const rect =
       heroStage.getBoundingClientRect();
 
-    const heroScroll = Math.max(
-      0,
-      Math.min(
-        -rect.top,
-        rect.height
-      )
-    );
+    const heroScroll =
+      Math.max(
+        0,
+        Math.min(
+          -rect.top,
+          rect.height
+        )
+      );
 
 
     root.style.setProperty(
@@ -88,7 +91,6 @@ function updatePageState() {
     const rect =
       labSection.getBoundingClientRect();
 
-
     if (
       rect.top <= viewportCenter &&
       rect.bottom >= viewportCenter
@@ -103,7 +105,6 @@ function updatePageState() {
   if (contactSection) {
     const rect =
       contactSection.getBoundingClientRect();
-
 
     if (
       rect.top <= viewportCenter &&
@@ -221,7 +222,6 @@ if (
       (targetX - currentX) *
       0.045;
 
-
     currentY +=
       (targetY - currentY) *
       0.045;
@@ -231,13 +231,20 @@ if (
       (element) => {
 
         /*
-         * Don't let parallax fight
-         * with the user's drag.
+         * Once a visitor manually positions
+         * a card, stop automatic parallax
+         * for that card.
+         *
+         * This prevents it drifting outside
+         * the hero after release.
          */
 
         if (
           element.classList.contains(
             "is-dragging"
+          ) ||
+          element.classList.contains(
+            "has-been-dragged"
           )
         ) {
           return;
@@ -276,7 +283,7 @@ if (
 
 /* -------------------------------------------------
    HERO DRAGGABLE WINDOWS
-   Responsive position + responsive sizing
+   Stable responsive positioning
 -------------------------------------------------- */
 
 if (
@@ -290,11 +297,14 @@ if (
     new Map();
 
 
-  const clamp = (
+  const SAFE_EDGE = 14;
+
+
+  function clamp(
     value,
     minimum,
     maximum
-  ) => {
+  ) {
     return Math.max(
       minimum,
       Math.min(
@@ -302,18 +312,16 @@ if (
         maximum
       )
     );
-  };
+  }
 
 
   /*
-   * A dragged desktop window should not
-   * keep desktop proportions on a phone.
-   *
-   * These values make each object smaller
-   * while maintaining the composition.
+   * Determine the appropriate width
+   * for a window after the visitor
+   * has interacted with it.
    */
 
-  function getWindowSize(
+  function getDraggedWidth(
     windowElement
   ) {
 
@@ -341,38 +349,24 @@ if (
     ) {
 
       if (isMobile) {
-        return {
-          width: clamp(
-            heroWidth * 0.56,
-            210,
-            300
-          ),
-
-          placeholderMinHeight:
-            165
-        };
+        return clamp(
+          heroWidth * 0.56,
+          200,
+          300
+        );
       }
 
 
       if (isTablet) {
-        return {
-          width: clamp(
-            heroWidth * 0.46,
-            300,
-            470
-          ),
-
-          placeholderMinHeight:
-            235
-        };
+        return clamp(
+          heroWidth * 0.46,
+          280,
+          470
+        );
       }
 
 
-      return {
-        width: null,
-        placeholderMinHeight:
-          null
-      };
+      return null;
     }
 
 
@@ -387,38 +381,24 @@ if (
     ) {
 
       if (isMobile) {
-        return {
-          width: clamp(
-            heroWidth * 0.34,
-            135,
-            175
-          ),
-
-          placeholderMinHeight:
-            105
-        };
+        return clamp(
+          heroWidth * 0.34,
+          125,
+          175
+        );
       }
 
 
       if (isTablet) {
-        return {
-          width: clamp(
-            heroWidth * 0.21,
-            150,
-            225
-          ),
-
-          placeholderMinHeight:
-            125
-        };
+        return clamp(
+          heroWidth * 0.21,
+          145,
+          225
+        );
       }
 
 
-      return {
-        width: null,
-        placeholderMinHeight:
-          null
-      };
+      return null;
     }
 
 
@@ -433,74 +413,42 @@ if (
     ) {
 
       if (isMobile) {
-        return {
-          width: clamp(
-            heroWidth * 0.24,
-            100,
-            130
-          ),
-
-          placeholderMinHeight:
-            null
-        };
+        return clamp(
+          heroWidth * 0.24,
+          95,
+          130
+        );
       }
 
 
       if (isTablet) {
-        return {
-          width: clamp(
-            heroWidth * 0.15,
-            110,
-            165
-          ),
-
-          placeholderMinHeight:
-            null
-        };
+        return clamp(
+          heroWidth * 0.15,
+          105,
+          165
+        );
       }
 
 
-      return {
-        width: null,
-        placeholderMinHeight:
-          null
-      };
+      return null;
     }
 
 
-    return {
-      width: null,
-      placeholderMinHeight:
-        null
-    };
+    return null;
   }
 
 
   /*
-   * Resize only windows the visitor
-   * has interacted with.
+   * Keep all inner pieces locked
+   * to the width of their card.
    *
-   * Untouched windows continue using
-   * your normal CSS layout.
+   * This is the main fix for the
+   * broken image/bar mismatch.
    */
 
-  function applyDraggedWindowSize(
-    windowElement,
-    state
+  function normalizeWindowContents(
+    windowElement
   ) {
-
-    if (
-      !state.hasBeenDragged
-    ) {
-      return;
-    }
-
-
-    const size =
-      getWindowSize(
-        windowElement
-      );
-
 
     const placeholder =
       windowElement.querySelector(
@@ -508,38 +456,150 @@ if (
       );
 
 
-    if (
-      size.width === null
-    ) {
-      windowElement.style.width =
-        "";
-    } else {
-      windowElement.style.width =
-        `${size.width}px`;
+    const bar =
+      windowElement.querySelector(
+        ".window-bar"
+      );
+
+
+    if (bar) {
+      bar.style.width =
+        "100%";
+
+      bar.style.maxWidth =
+        "100%";
+
+      bar.style.minWidth =
+        "0";
+
+      bar.style.boxSizing =
+        "border-box";
     }
 
 
     if (placeholder) {
+      placeholder.style.width =
+        "100%";
+
+      placeholder.style.maxWidth =
+        "100%";
+
+      placeholder.style.minWidth =
+        "0";
+
+      placeholder.style.boxSizing =
+        "border-box";
+
+
+      /*
+       * IMPORTANT:
+       *
+       * Remove the old minimum-height
+       * behavior on narrow screens.
+       *
+       * The existing 16 / 10 aspect
+       * ratio can now control the
+       * correct height automatically.
+       */
 
       if (
-        size.placeholderMinHeight ===
-        null
+        heroStage.clientWidth <=
+        950
       ) {
         placeholder.style.minHeight =
-          "";
+          "0px";
       } else {
         placeholder.style.minHeight =
-          `${size.placeholderMinHeight}px`;
+          "";
       }
-
     }
   }
 
 
   /*
-   * Remember position relative to the
-   * available hero space instead of
-   * remembering raw desktop pixels.
+   * Apply responsive size only after
+   * the visitor has dragged the card.
+   */
+
+  function applyDraggedWindowSize(
+    windowElement,
+    state
+  ) {
+
+    if (!state.hasBeenDragged) {
+      return;
+    }
+
+
+    const width =
+      getDraggedWidth(
+        windowElement
+      );
+
+
+    if (width === null) {
+      windowElement.style.width =
+        "";
+    } else {
+      windowElement.style.width =
+        `${width}px`;
+    }
+
+
+    windowElement.style.maxWidth =
+      `calc(100% - ${
+        SAFE_EDGE * 2
+      }px)`;
+
+
+    normalizeWindowContents(
+      windowElement
+    );
+  }
+
+
+  /*
+   * Calculate safe dragging limits.
+   *
+   * We leave a small inset so rotated
+   * corners don't get clipped.
+   */
+
+  function getBounds(
+    windowElement
+  ) {
+
+    const maxLeft =
+      Math.max(
+        SAFE_EDGE,
+        heroStage.clientWidth -
+        windowElement.offsetWidth -
+        SAFE_EDGE
+      );
+
+
+    const maxTop =
+      Math.max(
+        SAFE_EDGE,
+        heroStage.clientHeight -
+        windowElement.offsetHeight -
+        SAFE_EDGE
+      );
+
+
+    return {
+      minLeft: SAFE_EDGE,
+      maxLeft,
+
+      minTop: SAFE_EDGE,
+      maxTop
+    };
+  }
+
+
+  /*
+   * Store position as a percentage
+   * of available space.
    */
 
   function updatePositionRatio(
@@ -549,46 +609,55 @@ if (
     top
   ) {
 
-    const maxLeft =
-      Math.max(
-        0,
-        heroStage.clientWidth -
-        windowElement.offsetWidth
+    const bounds =
+      getBounds(
+        windowElement
       );
 
 
-    const maxTop =
+    const usableWidth =
       Math.max(
-        0,
-        heroStage.clientHeight -
-        windowElement.offsetHeight
+        1,
+        bounds.maxLeft -
+        bounds.minLeft
+      );
+
+
+    const usableHeight =
+      Math.max(
+        1,
+        bounds.maxTop -
+        bounds.minTop
       );
 
 
     state.xRatio =
-      maxLeft > 0
-        ? clamp(
-            left / maxLeft,
-            0,
-            1
-          )
-        : 0;
+      clamp(
+        (
+          left -
+          bounds.minLeft
+        ) /
+        usableWidth,
+        0,
+        1
+      );
 
 
     state.yRatio =
-      maxTop > 0
-        ? clamp(
-            top / maxTop,
-            0,
-            1
-          )
-        : 0;
+      clamp(
+        (
+          top -
+          bounds.minTop
+        ) /
+        usableHeight,
+        0,
+        1
+      );
   }
 
 
   /*
-   * Restore a dragged object after
-   * browser resizing.
+   * Restore a card after screen resizing.
    */
 
   function placeFromRatio(
@@ -604,52 +673,44 @@ if (
     }
 
 
-    /*
-     * Resize first.
-     */
-
     applyDraggedWindowSize(
       windowElement,
       state
     );
 
 
-    /*
-     * Then calculate where it belongs.
-     */
-
-    const maxLeft =
-      Math.max(
-        0,
-        heroStage.clientWidth -
-        windowElement.offsetWidth
+    const bounds =
+      getBounds(
+        windowElement
       );
 
 
-    const maxTop =
+    const usableWidth =
       Math.max(
         0,
-        heroStage.clientHeight -
-        windowElement.offsetHeight
+        bounds.maxLeft -
+        bounds.minLeft
+      );
+
+
+    const usableHeight =
+      Math.max(
+        0,
+        bounds.maxTop -
+        bounds.minTop
       );
 
 
     const nextLeft =
-      clamp(
-        maxLeft *
-        state.xRatio,
-        0,
-        maxLeft
-      );
+      bounds.minLeft +
+      usableWidth *
+      state.xRatio;
 
 
     const nextTop =
-      clamp(
-        maxTop *
-        state.yRatio,
-        0,
-        maxTop
-      );
+      bounds.minTop +
+      usableHeight *
+      state.yRatio;
 
 
     windowElement.style.left =
@@ -666,6 +727,23 @@ if (
 
     windowElement.style.bottom =
       "auto";
+
+
+    /*
+     * No parallax movement after
+     * manual placement.
+     */
+
+    windowElement.style.setProperty(
+      "--parallax-x",
+      "0px"
+    );
+
+
+    windowElement.style.setProperty(
+      "--parallax-y",
+      "0px"
+    );
   }
 
 
@@ -714,10 +792,6 @@ if (
         "pointerdown",
         (event) => {
 
-          /*
-           * Ignore right click etc.
-           */
-
           if (
             event.pointerType ===
               "mouse" &&
@@ -743,17 +817,43 @@ if (
             event.clientY;
 
 
-          /*
-           * Read the current CSS position
-           * before changing positioning.
-           */
-
           state.elementStartLeft =
             windowElement.offsetLeft;
 
 
           state.elementStartTop =
             windowElement.offsetTop;
+
+
+          /*
+           * Mark it before sizing so
+           * responsive sizing activates.
+           */
+
+          state.hasBeenDragged =
+            true;
+
+
+          windowElement.classList.add(
+            "has-been-dragged"
+          );
+
+
+          /*
+           * Stop parallax permanently
+           * for manually-positioned cards.
+           */
+
+          windowElement.style.setProperty(
+            "--parallax-x",
+            "0px"
+          );
+
+
+          windowElement.style.setProperty(
+            "--parallax-y",
+            "0px"
+          );
 
 
           windowElement.style.left =
@@ -772,26 +872,6 @@ if (
             "auto";
 
 
-          /*
-           * Mark this specific window as
-           * controlled by the drag system.
-           */
-
-          state.hasBeenDragged =
-            true;
-
-
-          windowElement.classList.add(
-            "has-been-dragged"
-          );
-
-
-          /*
-           * If the visitor begins dragging
-           * at a small viewport, make sure
-           * the card has the proper size.
-           */
-
           applyDraggedWindowSize(
             windowElement,
             state
@@ -799,38 +879,29 @@ if (
 
 
           /*
-           * Re-clamp after resizing.
+           * Recalculate bounds after
+           * responsive resizing.
            */
 
-          const maxLeft =
-            Math.max(
-              0,
-              heroStage.clientWidth -
-              windowElement.offsetWidth
-            );
-
-
-          const maxTop =
-            Math.max(
-              0,
-              heroStage.clientHeight -
-              windowElement.offsetHeight
+          const bounds =
+            getBounds(
+              windowElement
             );
 
 
           state.elementStartLeft =
             clamp(
               state.elementStartLeft,
-              0,
-              maxLeft
+              bounds.minLeft,
+              bounds.maxLeft
             );
 
 
           state.elementStartTop =
             clamp(
               state.elementStartTop,
-              0,
-              maxTop
+              bounds.minTop,
+              bounds.maxTop
             );
 
 
@@ -851,8 +922,7 @@ if (
 
 
           /*
-           * Bring the selected window
-           * above the other windows.
+           * Bring this card forward.
            */
 
           highestZIndex += 1;
@@ -864,24 +934,6 @@ if (
 
           windowElement.classList.add(
             "is-dragging"
-          );
-
-
-          /*
-           * Temporarily remove parallax so
-           * the object follows the pointer
-           * precisely.
-           */
-
-          windowElement.style.setProperty(
-            "--parallax-x",
-            "0px"
-          );
-
-
-          windowElement.style.setProperty(
-            "--parallax-y",
-            "0px"
           );
 
 
@@ -932,40 +984,25 @@ if (
             moveY;
 
 
-          const maxLeft =
-            Math.max(
-              0,
-              heroStage.clientWidth -
-              windowElement.offsetWidth
+          const bounds =
+            getBounds(
+              windowElement
             );
 
-
-          const maxTop =
-            Math.max(
-              0,
-              heroStage.clientHeight -
-              windowElement.offsetHeight
-            );
-
-
-          /*
-           * Never allow the full object
-           * to leave the hero.
-           */
 
           nextLeft =
             clamp(
               nextLeft,
-              0,
-              maxLeft
+              bounds.minLeft,
+              bounds.maxLeft
             );
 
 
           nextTop =
             clamp(
               nextTop,
-              0,
-              maxTop
+              bounds.minTop,
+              bounds.maxTop
             );
 
 
@@ -976,11 +1013,6 @@ if (
           windowElement.style.top =
             `${nextTop}px`;
 
-
-          /*
-           * Keep remembering its
-           * relative position.
-           */
 
           updatePositionRatio(
             windowElement,
@@ -1140,7 +1172,6 @@ detailElements.forEach(
       "--motion-delay",
       `${(index % 4) * 70}ms`
     );
-
   }
 );
 
@@ -1175,10 +1206,8 @@ if (
             observer.unobserve(
               entry.target
             );
-
           }
         );
-
       },
       {
         threshold: 0.12,
@@ -1220,7 +1249,6 @@ if (
         "in-view"
       )
   );
-
 }
 
 
@@ -1283,7 +1311,6 @@ if (projectReel) {
       projectReel.setPointerCapture(
         event.pointerId
       );
-
     }
   );
 
@@ -1303,20 +1330,17 @@ if (projectReel) {
           event.clientX -
           startX
         );
-
     }
   );
 
 
   function stopDragging() {
-
     dragging = false;
 
 
     projectReel.classList.remove(
       "dragging"
     );
-
   }
 
 
@@ -1354,9 +1378,7 @@ if (projectReel) {
           progress *
           0.72
         })`;
-
     }
-
   }
 
 
@@ -1370,7 +1392,6 @@ if (projectReel) {
 
 
   updateReelProgress();
-
 }
 
 
@@ -1421,7 +1442,6 @@ const businessButtons =
 
 
 const demoFields = {
-
   url:
     document.querySelector(
       "#demo-url"
@@ -1492,7 +1512,6 @@ const demoFields = {
 const demoBusinesses = {
 
   services: {
-
     url:
       "northhome.example",
 
@@ -1529,7 +1548,6 @@ const demoBusinesses = {
 
 
   cafe: {
-
     url:
       "solacafe.example",
 
@@ -1566,7 +1584,6 @@ const demoBusinesses = {
 
 
   consulting: {
-
     url:
       "avance.example",
 
@@ -1617,45 +1634,34 @@ function getViewportState(
 ) {
 
   if (width <= 480) {
-
     return {
-
       label:
         "Phone",
 
       text:
         "Phone: the image moves up, navigation simplifies, and content stacks."
-
     };
-
   }
 
 
   if (width <= 760) {
-
     return {
-
       label:
         "Tablet",
 
       text:
         "Tablet: the layout starts stacking while keeping the message easy to scan."
-
     };
-
   }
 
 
   return {
-
     label:
       "Desktop",
 
     text:
       "Desktop: the message and image sit side-by-side."
-
   };
-
 }
 
 
@@ -1699,28 +1705,21 @@ function updateResponsivePreview(
 
 
   if (viewportOutput) {
-
     viewportOutput.textContent =
       `${Math.round(width)}px`;
-
   }
 
 
   if (viewportMode) {
-
     viewportMode.textContent =
       state.label;
-
   }
 
 
   if (labExplainer) {
-
     labExplainer.textContent =
       state.text;
-
   }
-
 }
 
 
@@ -1747,50 +1746,38 @@ function setBusiness(
   demoFields.url.textContent =
     data.url;
 
-
   demoFields.brand.textContent =
     data.brand;
-
 
   demoFields.kicker.textContent =
     data.kicker;
 
-
   demoFields.title.innerHTML =
     data.title;
-
 
   demoFields.description.textContent =
     data.description;
 
-
   demoFields.cta.textContent =
     data.cta;
-
 
   demoFields.image.textContent =
     data.image;
 
-
   demoFields.navOne.textContent =
     data.nav[0];
-
 
   demoFields.navTwo.textContent =
     data.nav[1];
 
-
   demoFields.navThree.textContent =
     data.nav[2];
-
 
   demoFields.serviceOne.textContent =
     data.services[0];
 
-
   demoFields.serviceTwo.textContent =
     data.services[1];
-
 
   demoFields.serviceThree.textContent =
     data.services[2];
@@ -1814,7 +1801,6 @@ function setBusiness(
         "aria-pressed",
         String(active)
       );
-
     }
   );
 
@@ -1837,6 +1823,7 @@ function setBusiness(
           transform:
             "translateY(8px)"
         },
+
         {
           opacity: 1,
           transform:
@@ -1850,9 +1837,7 @@ function setBusiness(
           "cubic-bezier(.2,.75,.25,1)"
       }
     );
-
   }
-
 }
 
 
@@ -1876,11 +1861,9 @@ function animateLabWidth(
         if (
           !labAnimationFrame
         ) {
-
           resolve();
 
           return;
-
         }
 
 
@@ -1933,11 +1916,8 @@ function animateLabWidth(
           labAnimationFrame =
             0;
 
-
           resolve();
-
         }
-
       }
 
 
@@ -1945,10 +1925,8 @@ function animateLabWidth(
         requestAnimationFrame(
           frame
         );
-
     }
   );
-
 }
 
 
@@ -1967,8 +1945,7 @@ async function runLabDemo() {
   );
 
 
-  labAnimationFrame =
-    0;
+  labAnimationFrame = 0;
 
 
   if (
@@ -1979,9 +1956,7 @@ async function runLabDemo() {
       390
     );
 
-
     return;
-
   }
 
 
@@ -1991,8 +1966,7 @@ async function runLabDemo() {
     );
 
 
-  labAnimationFrame =
-    1;
+  labAnimationFrame = 1;
 
 
   await animateLabWidth(
@@ -2011,8 +1985,7 @@ async function runLabDemo() {
   );
 
 
-  labAnimationFrame =
-    1;
+  labAnimationFrame = 1;
 
 
   await animateLabWidth(
@@ -2020,7 +1993,6 @@ async function runLabDemo() {
     920,
     1350
   );
-
 }
 
 
@@ -2039,18 +2011,15 @@ if (viewportRange) {
       );
 
 
-      labAnimationFrame =
-        0;
+      labAnimationFrame = 0;
 
 
       updateResponsivePreview();
-
     }
   );
 
 
   updateResponsivePreview();
-
 }
 
 
@@ -2068,10 +2037,8 @@ businessButtons.forEach(
         setBusiness(
           button.dataset.business
         );
-
       }
     );
-
   }
 );
 
@@ -2083,10 +2050,8 @@ if (replayLabButton) {
     () => {
 
       runLabDemo();
-
     }
   );
-
 }
 
 
@@ -2122,12 +2087,9 @@ if (
               observer.unobserve(
                 entry.target
               );
-
             }
-
           }
         );
-
       },
       {
         threshold: 0.5
@@ -2138,7 +2100,6 @@ if (
   labObserver.observe(
     labSection
   );
-
 }
 
 
@@ -2183,7 +2144,6 @@ const caseNextButton =
 
 
 const caseFields = {
-
   index:
     document.querySelector(
       "#case-index"
@@ -2234,7 +2194,6 @@ const caseFields = {
 const projectCases = {
 
   north: {
-
     index:
       "01 / CASE STUDY",
 
@@ -2270,7 +2229,6 @@ const projectCases = {
 
 
   sola: {
-
     index:
       "02 / CASE STUDY",
 
@@ -2306,7 +2264,6 @@ const projectCases = {
 
 
   avance: {
-
     index:
       "03 / CASE STUDY",
 
@@ -2376,30 +2333,23 @@ function populateCase(
   caseFields.index.textContent =
     data.index;
 
-
   caseFields.category.textContent =
     data.category;
-
 
   caseFields.type.textContent =
     data.type;
 
-
   caseFields.title.textContent =
     data.title;
-
 
   caseFields.summary.textContent =
     data.summary;
 
-
   caseFields.goal.textContent =
     data.goal;
 
-
   caseFields.pages.textContent =
     data.pages;
-
 
   caseFields.imageLabel.textContent =
     data.imageLabel;
@@ -2424,10 +2374,8 @@ function populateCase(
       caseFields.approach.append(
         li
       );
-
     }
   );
-
 }
 
 
@@ -2439,7 +2387,6 @@ function clearViewTransitionNames() {
 
     currentProjectSource.style.viewTransitionName =
       "";
-
   }
 
 
@@ -2447,9 +2394,7 @@ function clearViewTransitionNames() {
 
     caseMedia.style.viewTransitionName =
       "";
-
   }
-
 }
 
 
@@ -2484,7 +2429,6 @@ function openCase(
 
         currentProjectSource.style.viewTransitionName =
           "";
-
       }
 
 
@@ -2498,7 +2442,6 @@ function openCase(
       body.classList.add(
         "case-open"
       );
-
     };
 
 
@@ -2528,9 +2471,7 @@ function openCase(
 
 
     clearViewTransitionNames();
-
   }
-
 }
 
 
@@ -2542,7 +2483,6 @@ function finishClose() {
   body.classList.remove(
     "case-open"
   );
-
 }
 
 
@@ -2568,12 +2508,10 @@ function closeCase() {
 
         currentProjectSource.style.viewTransitionName =
           "case-image";
-
       }
 
 
       finishClose();
-
     };
 
 
@@ -2610,6 +2548,7 @@ function closeCase() {
             transform:
               "translateY(0)"
           },
+
           {
             opacity: 0,
             transform:
@@ -2635,9 +2574,7 @@ function closeCase() {
   } else {
 
     finishClose();
-
   }
-
 }
 
 
@@ -2666,10 +2603,8 @@ caseOpenButtons.forEach(
           projectKey,
           source
         );
-
       }
     );
-
   }
 );
 
@@ -2688,7 +2623,6 @@ caseDialog?.addEventListener(
 
 
     closeCase();
-
   }
 );
 
@@ -2703,9 +2637,7 @@ caseDialog?.addEventListener(
     ) {
 
       closeCase();
-
     }
-
   }
 );
 
@@ -2753,6 +2685,7 @@ caseNextButton?.addEventListener(
             transform:
               "translateX(12px)"
           },
+
           {
             opacity: 1,
             transform:
@@ -2766,8 +2699,6 @@ caseNextButton?.addEventListener(
             "cubic-bezier(.2,.75,.25,1)"
         }
       );
-
     }
-
   }
 );
