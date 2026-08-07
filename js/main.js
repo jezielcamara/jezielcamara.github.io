@@ -5,8 +5,9 @@ const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 ).matches;
 
-
-/* PAGE INTRO */
+/* -------------------------------------------------
+   PAGE INTRO
+-------------------------------------------------- */
 
 window.addEventListener("DOMContentLoaded", () => {
   requestAnimationFrame(() => {
@@ -14,40 +15,26 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-/* SCROLL PROGRESS + HERO MOVEMENT */
+/* -------------------------------------------------
+   SCROLL STATE
+-------------------------------------------------- */
 
 const heroStage = document.querySelector(".hero-stage");
 const labSection = document.querySelector(".lab-section");
 const contactSection = document.querySelector(".contact-section");
 
-let ticking = false;
+let pageTicking = false;
 
 function updatePageState() {
   const scrollTop = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
 
-  const maxScroll =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
-
-  const progress =
-    maxScroll > 0
-      ? (scrollTop / maxScroll) * 100
-      : 0;
-
-  root.style.setProperty(
-    "--scroll-progress",
-    `${progress}%`
-  );
-
+  root.style.setProperty("--scroll-progress", `${progress}%`);
 
   if (heroStage && !prefersReducedMotion) {
     const rect = heroStage.getBoundingClientRect();
-
-    const heroScroll = Math.max(
-      0,
-      Math.min(-rect.top, rect.height)
-    );
+    const heroScroll = Math.max(0, Math.min(-rect.top, rect.height));
 
     root.style.setProperty(
       "--hero-word-one-x",
@@ -60,71 +47,48 @@ function updatePageState() {
     );
   }
 
-
   const viewportCenter = window.innerHeight * 0.5;
 
-  body.classList.remove(
-    "rail-blue",
-    "rail-lime"
-  );
-
+  body.classList.remove("rail-blue", "rail-lime");
 
   if (labSection) {
     const rect = labSection.getBoundingClientRect();
 
-    if (
-      rect.top <= viewportCenter &&
-      rect.bottom >= viewportCenter
-    ) {
+    if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
       body.classList.add("rail-blue");
     }
   }
 
-
   if (contactSection) {
     const rect = contactSection.getBoundingClientRect();
 
-    if (
-      rect.top <= viewportCenter &&
-      rect.bottom >= viewportCenter
-    ) {
+    if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
       body.classList.remove("rail-blue");
       body.classList.add("rail-lime");
     }
   }
 
-
-  ticking = false;
+  pageTicking = false;
 }
-
 
 function requestPageUpdate() {
-  if (!ticking) {
-    requestAnimationFrame(updatePageState);
-    ticking = true;
+  if (pageTicking) {
+    return;
   }
+
+  pageTicking = true;
+  requestAnimationFrame(updatePageState);
 }
 
-
-window.addEventListener(
-  "scroll",
-  requestPageUpdate,
-  { passive: true }
-);
-
-window.addEventListener(
-  "resize",
-  requestPageUpdate
-);
-
+window.addEventListener("scroll", requestPageUpdate, { passive: true });
+window.addEventListener("resize", requestPageUpdate);
 updatePageState();
 
+/* -------------------------------------------------
+   HERO POINTER PARALLAX
+-------------------------------------------------- */
 
-/* HERO POINTER PARALLAX */
-
-const floatingWindows =
-  document.querySelectorAll(".floating-window");
-
+const floatingWindows = document.querySelectorAll(".floating-window");
 
 if (
   heroStage &&
@@ -133,52 +97,32 @@ if (
 ) {
   let targetX = 0;
   let targetY = 0;
-
   let currentX = 0;
   let currentY = 0;
 
+  heroStage.addEventListener("pointermove", (event) => {
+    const rect = heroStage.getBoundingClientRect();
 
-  heroStage.addEventListener(
-    "pointermove",
-    (event) => {
-      const rect =
-        heroStage.getBoundingClientRect();
+    targetX =
+      (event.clientX - rect.left - rect.width / 2) /
+      rect.width;
 
-      targetX =
-        (event.clientX -
-          rect.left -
-          rect.width / 2) /
-        rect.width;
+    targetY =
+      (event.clientY - rect.top - rect.height / 2) /
+      rect.height;
+  });
 
-      targetY =
-        (event.clientY -
-          rect.top -
-          rect.height / 2) /
-        rect.height;
-    }
-  );
-
-
-  heroStage.addEventListener(
-    "pointerleave",
-    () => {
-      targetX = 0;
-      targetY = 0;
-    }
-  );
-
+  heroStage.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+  });
 
   function animateParallax() {
-    currentX +=
-      (targetX - currentX) * 0.045;
-
-    currentY +=
-      (targetY - currentY) * 0.045;
-
+    currentX += (targetX - currentX) * 0.045;
+    currentY += (targetY - currentY) * 0.045;
 
     floatingWindows.forEach((element) => {
-      const depth =
-        Number(element.dataset.depth) || 1;
+      const depth = Number(element.dataset.depth) || 1;
 
       element.style.setProperty(
         "--parallax-x",
@@ -191,165 +135,98 @@ if (
       );
     });
 
-
     requestAnimationFrame(animateParallax);
   }
-
 
   animateParallax();
 }
 
+/* -------------------------------------------------
+   SCROLL REVEALS
+-------------------------------------------------- */
 
-/* SECTION REVEALS */
-
-const revealSections =
-  document.querySelectorAll(".reveal");
-
-
-const detailElements =
-  document.querySelectorAll(`
-    .thinking-lines article,
-    .project-slide,
-    .about-data > div
-  `);
-
+const revealSections = document.querySelectorAll(".reveal");
+const detailElements = document.querySelectorAll(`
+  .thinking-lines article,
+  .project-slide,
+  .story-step,
+  .note-item
+`);
 
 detailElements.forEach((element, index) => {
   element.classList.add("motion-item");
-
-  element.style.setProperty(
-    "--motion-delay",
-    `${(index % 4) * 70}ms`
-  );
+  element.style.setProperty("--motion-delay", `${(index % 4) * 70}ms`);
 });
 
+if ("IntersectionObserver" in window && !prefersReducedMotion) {
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-if (
-  "IntersectionObserver" in window &&
-  !prefersReducedMotion
-) {
-  const observer =
-    new IntersectionObserver(
-      (entries, currentObserver) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -8% 0px"
+    }
+  );
 
-          entry.target.classList.add("in-view");
-
-          currentObserver.unobserve(
-            entry.target
-          );
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -8% 0px"
-      }
-    );
-
-
-  revealSections.forEach((element) => {
-    observer.observe(element);
-  });
-
-
-  detailElements.forEach((element) => {
-    observer.observe(element);
-  });
-
+  revealSections.forEach((element) => revealObserver.observe(element));
+  detailElements.forEach((element) => revealObserver.observe(element));
 } else {
-  revealSections.forEach((element) => {
-    element.classList.add("in-view");
-  });
-
-  detailElements.forEach((element) => {
-    element.classList.add("in-view");
-  });
+  revealSections.forEach((element) => element.classList.add("in-view"));
+  detailElements.forEach((element) => element.classList.add("in-view"));
 }
 
+/* -------------------------------------------------
+   PROJECT REEL DRAG
+-------------------------------------------------- */
 
-/* PROJECT REEL DRAG */
-
-const projectReel =
-  document.querySelector(".project-reel");
-
-const reelProgressFill =
-  document.querySelector(".reel-progress-fill");
-
+const projectReel = document.querySelector(".project-reel");
+const reelProgressFill = document.querySelector(".reel-progress-fill");
 
 if (projectReel) {
   let dragging = false;
   let startX = 0;
   let startingScroll = 0;
 
-
-  projectReel.addEventListener(
-    "pointerdown",
-    (event) => {
-      if (event.pointerType === "touch") {
-        return;
-      }
-
-      dragging = true;
-      startX = event.clientX;
-      startingScroll = projectReel.scrollLeft;
-
-      projectReel.classList.add("dragging");
-
-      projectReel.setPointerCapture(
-        event.pointerId
-      );
+  projectReel.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch" || event.target.closest("button")) {
+      return;
     }
-  );
 
+    dragging = true;
+    startX = event.clientX;
+    startingScroll = projectReel.scrollLeft;
 
-  projectReel.addEventListener(
-    "pointermove",
-    (event) => {
-      if (!dragging) {
-        return;
-      }
+    projectReel.classList.add("dragging");
+    projectReel.setPointerCapture(event.pointerId);
+  });
 
-      const distance =
-        event.clientX - startX;
-
-      projectReel.scrollLeft =
-        startingScroll - distance;
+  projectReel.addEventListener("pointermove", (event) => {
+    if (!dragging) {
+      return;
     }
-  );
 
+    projectReel.scrollLeft = startingScroll - (event.clientX - startX);
+  });
 
   function stopDragging() {
     dragging = false;
-
-    projectReel.classList.remove(
-      "dragging"
-    );
+    projectReel.classList.remove("dragging");
   }
 
-
-  projectReel.addEventListener(
-    "pointerup",
-    stopDragging
-  );
-
-  projectReel.addEventListener(
-    "pointercancel",
-    stopDragging
-  );
-
+  projectReel.addEventListener("pointerup", stopDragging);
+  projectReel.addEventListener("pointercancel", stopDragging);
 
   function updateReelProgress() {
-    const maximum =
-      projectReel.scrollWidth -
-      projectReel.clientWidth;
-
-    const progress =
-      maximum > 0
-        ? projectReel.scrollLeft / maximum
-        : 0;
+    const maximum = projectReel.scrollWidth - projectReel.clientWidth;
+    const progress = maximum > 0 ? projectReel.scrollLeft / maximum : 0;
 
     if (reelProgressFill) {
       reelProgressFill.style.transform =
@@ -357,57 +234,511 @@ if (projectReel) {
     }
   }
 
-
-  projectReel.addEventListener(
-    "scroll",
-    updateReelProgress,
-    { passive: true }
-  );
+  projectReel.addEventListener("scroll", updateReelProgress, {
+    passive: true
+  });
 
   updateReelProgress();
 }
 
+/* -------------------------------------------------
+   RESPONSIVE LAB
+-------------------------------------------------- */
 
-/* RESPONSIVE LAB */
+const viewportRange = document.querySelector("#viewport-range");
+const viewportOutput = document.querySelector("#viewport-output strong");
+const viewportMode = document.querySelector("#viewport-mode");
+const responsivePreview = document.querySelector("#responsive-preview");
+const labExplainer = document.querySelector("#lab-explainer");
+const replayLabButton = document.querySelector("#replay-lab");
+const businessButtons = document.querySelectorAll(".lab-business-button");
 
-const viewportRange =
-  document.querySelector("#viewport-range");
+const demoFields = {
+  url: document.querySelector("#demo-url"),
+  brand: document.querySelector("#demo-brand"),
+  kicker: document.querySelector("#demo-kicker"),
+  title: document.querySelector("#demo-title"),
+  description: document.querySelector("#demo-description"),
+  cta: document.querySelector("#demo-cta"),
+  image: document.querySelector("#demo-image-label"),
+  navOne: document.querySelector("#demo-nav-one"),
+  navTwo: document.querySelector("#demo-nav-two"),
+  navThree: document.querySelector("#demo-nav-three"),
+  serviceOne: document.querySelector("#demo-service-one"),
+  serviceTwo: document.querySelector("#demo-service-two"),
+  serviceThree: document.querySelector("#demo-service-three")
+};
 
-const viewportOutput =
-  document.querySelector("#viewport-output");
+const demoBusinesses = {
+  services: {
+    url: "northhome.example",
+    brand: "NORTH",
+    kicker: "PROPERTY SERVICES",
+    title: "GOOD WORK.<br>NO GUESSWORK.",
+    description:
+      "Property maintenance for homes and businesses across Metro Manila.",
+    cta: "Request a quote →",
+    image: "SERVICE IMAGE",
+    nav: ["Services", "Company", "Contact"],
+    services: ["Repairs", "Maintenance", "Installation"]
+  },
+  cafe: {
+    url: "solacafe.example",
+    brand: "SOLA",
+    kicker: "COFFEE / FOOD / PLACE",
+    title: "A PLACE<br>WORTH FINDING.",
+    description:
+      "A neighborhood cafe for coffee, simple food, and slow afternoons.",
+    cta: "See the menu →",
+    image: "CAFE IMAGE",
+    nav: ["Menu", "Story", "Visit"],
+    services: ["Coffee", "Food", "Opening hours"]
+  },
+  consulting: {
+    url: "avance.example",
+    brand: "AVANCE",
+    kicker: "CONSULTING / STRATEGY",
+    title: "CLEAR ADVICE.<br>BETTER MOVES.",
+    description:
+      "Practical guidance for growing teams that need clarity before the next move.",
+    cta: "Start a conversation →",
+    image: "CONSULTING IMAGE",
+    nav: ["Expertise", "Company", "Contact"],
+    services: ["Strategy", "Operations", "Growth"]
+  }
+};
 
-const responsivePreview =
-  document.querySelector("#responsive-preview");
+let labAnimationFrame = 0;
+let labUserInteracted = false;
+let labDemoPlayed = false;
 
+function getViewportState(width) {
+  if (width <= 480) {
+    return {
+      label: "Phone",
+      text: "Phone: the image moves up, navigation simplifies, and content stacks."
+    };
+  }
 
-function updateResponsivePreview() {
-  if (
-    !viewportRange ||
-    !responsivePreview
-  ) {
+  if (width <= 760) {
+    return {
+      label: "Tablet",
+      text: "Tablet: the layout starts stacking while keeping the message easy to scan."
+    };
+  }
+
+  return {
+    label: "Desktop",
+    text: "Desktop: the message and image sit side-by-side."
+  };
+}
+
+function updateResponsivePreview(widthOverride) {
+  if (!viewportRange || !responsivePreview) {
     return;
   }
 
-  const width =
-    Number(viewportRange.value);
+  const width = widthOverride ?? Number(viewportRange.value);
+  const state = getViewportState(width);
 
-  responsivePreview.style.setProperty(
-    "--preview-width",
-    `${width}px`
-  );
+  responsivePreview.style.setProperty("--preview-width", `${width}px`);
+  viewportRange.value = String(Math.round(width));
 
   if (viewportOutput) {
-    viewportOutput.textContent =
-      `${width}px`;
+    viewportOutput.textContent = `${Math.round(width)}px`;
+  }
+
+  if (viewportMode) {
+    viewportMode.textContent = state.label;
+  }
+
+  if (labExplainer) {
+    labExplainer.textContent = state.text;
   }
 }
 
+function setBusiness(key) {
+  const data = demoBusinesses[key];
+
+  if (!data || !responsivePreview) {
+    return;
+  }
+
+  responsivePreview.dataset.business = key;
+
+  demoFields.url.textContent = data.url;
+  demoFields.brand.textContent = data.brand;
+  demoFields.kicker.textContent = data.kicker;
+  demoFields.title.innerHTML = data.title;
+  demoFields.description.textContent = data.description;
+  demoFields.cta.textContent = data.cta;
+  demoFields.image.textContent = data.image;
+  demoFields.navOne.textContent = data.nav[0];
+  demoFields.navTwo.textContent = data.nav[1];
+  demoFields.navThree.textContent = data.nav[2];
+  demoFields.serviceOne.textContent = data.services[0];
+  demoFields.serviceTwo.textContent = data.services[1];
+  demoFields.serviceThree.textContent = data.services[2];
+
+  businessButtons.forEach((button) => {
+    const active = button.dataset.business === key;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  const demoSite = document.querySelector("#demo-site");
+
+  if (demoSite && !prefersReducedMotion) {
+    demoSite.animate(
+      [
+        { opacity: 0.35, transform: "translateY(8px)" },
+        { opacity: 1, transform: "translateY(0)" }
+      ],
+      {
+        duration: 360,
+        easing: "cubic-bezier(.2,.75,.25,1)"
+      }
+    );
+  }
+}
+
+function animateLabWidth(from, to, duration) {
+  return new Promise((resolve) => {
+    const start = performance.now();
+
+    function frame(now) {
+      if (!labAnimationFrame) {
+        resolve();
+        return;
+      }
+
+      const raw = Math.min(1, (now - start) / duration);
+      const eased = raw < 0.5
+        ? 4 * raw * raw * raw
+        : 1 - Math.pow(-2 * raw + 2, 3) / 2;
+
+      updateResponsivePreview(from + (to - from) * eased);
+
+      if (raw < 1) {
+        labAnimationFrame = requestAnimationFrame(frame);
+      } else {
+        labAnimationFrame = 0;
+        resolve();
+      }
+    }
+
+    labAnimationFrame = requestAnimationFrame(frame);
+  });
+}
+
+async function runLabDemo() {
+  if (!viewportRange || !responsivePreview) {
+    return;
+  }
+
+  cancelAnimationFrame(labAnimationFrame);
+  labAnimationFrame = 0;
+
+  if (prefersReducedMotion) {
+    updateResponsivePreview(390);
+    return;
+  }
+
+  const startWidth = Number(viewportRange.value);
+
+  labAnimationFrame = 1;
+  await animateLabWidth(startWidth, 390, 1450);
+
+  await new Promise((resolve) => setTimeout(resolve, 260));
+
+  labAnimationFrame = 1;
+  await animateLabWidth(390, 920, 1350);
+}
 
 if (viewportRange) {
-  viewportRange.addEventListener(
-    "input",
-    updateResponsivePreview
-  );
+  viewportRange.addEventListener("input", () => {
+    labUserInteracted = true;
+    cancelAnimationFrame(labAnimationFrame);
+    labAnimationFrame = 0;
+    updateResponsivePreview();
+  });
 
   updateResponsivePreview();
 }
+
+businessButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    labUserInteracted = true;
+    setBusiness(button.dataset.business);
+  });
+});
+
+if (replayLabButton) {
+  replayLabButton.addEventListener("click", () => {
+    runLabDemo();
+  });
+}
+
+if (labSection && "IntersectionObserver" in window) {
+  const labObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (
+          entry.isIntersecting &&
+          !labDemoPlayed &&
+          !labUserInteracted
+        ) {
+          labDemoPlayed = true;
+          runLabDemo();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  labObserver.observe(labSection);
+}
+
+/* -------------------------------------------------
+   PROJECT CASE STUDIES
+-------------------------------------------------- */
+
+const caseDialog = document.querySelector("#case-dialog");
+const caseShell = caseDialog?.querySelector(".case-shell");
+const caseMedia = document.querySelector("#case-hero-media");
+const caseOpenButtons = document.querySelectorAll(".case-open");
+const caseCloseButton = document.querySelector("#case-close");
+const caseNextButton = document.querySelector("#case-next");
+
+const caseFields = {
+  index: document.querySelector("#case-index"),
+  category: document.querySelector("#case-category"),
+  type: document.querySelector("#case-type"),
+  title: document.querySelector("#case-title"),
+  summary: document.querySelector("#case-summary"),
+  goal: document.querySelector("#case-goal"),
+  pages: document.querySelector("#case-pages"),
+  approach: document.querySelector("#case-approach"),
+  imageLabel: document.querySelector("#case-image-label")
+};
+
+const projectCases = {
+  north: {
+    index: "01 / CASE STUDY",
+    category: "HOME SERVICES",
+    type: "BUSINESS WEBSITE",
+    title: "North Home",
+    summary:
+      "A service website concept built around one job: help a customer understand the company and request a quote without hunting for information.",
+    goal:
+      "Make the services clear, build trust quickly, and keep the inquiry path visible.",
+    pages: "Home / Services / About / Contact",
+    imageLabel: "NORTH HOME / HERO",
+    approach: [
+      "Lead with the service promise instead of company history.",
+      "Group services into clear choices that are easy to scan.",
+      "Repeat the quote path where a customer is most likely to need it."
+    ]
+  },
+  sola: {
+    index: "02 / CASE STUDY",
+    category: "HOSPITALITY",
+    type: "CAFE WEBSITE",
+    title: "Sola Cafe",
+    summary:
+      "A hospitality concept that puts atmosphere first while keeping the practical details - menu, opening hours, and location - close at hand.",
+    goal:
+      "Make the cafe feel worth visiting while answering the questions people check before leaving home.",
+    pages: "Home / Menu / Gallery / Visit",
+    imageLabel: "SOLA CAFE / HERO",
+    approach: [
+      "Use imagery and type to establish the mood before adding detail.",
+      "Keep menu, hours, and location reachable without deep navigation.",
+      "Make the mobile version useful for someone already on the way."
+    ]
+  },
+  avance: {
+    index: "03 / CASE STUDY",
+    category: "PROFESSIONAL SERVICES",
+    type: "COMPANY WEBSITE",
+    title: "Avance",
+    summary:
+      "A professional-services concept designed to make a small firm feel established, focused, and easy to contact.",
+    goal:
+      "Present expertise and credibility without turning the website into a wall of corporate copy.",
+    pages: "Home / Expertise / Company / Contact",
+    imageLabel: "AVANCE / HERO",
+    approach: [
+      "State the value of the service before listing credentials.",
+      "Use restrained visuals and strong spacing to create confidence.",
+      "Keep expertise and contact information easy to compare and reach."
+    ]
+  }
+};
+
+const projectOrder = Object.keys(projectCases);
+let currentProjectKey = projectOrder[0];
+let currentProjectSource = null;
+
+function populateCase(key) {
+  const data = projectCases[key];
+
+  if (!data) {
+    return;
+  }
+
+  currentProjectKey = key;
+
+  caseFields.index.textContent = data.index;
+  caseFields.category.textContent = data.category;
+  caseFields.type.textContent = data.type;
+  caseFields.title.textContent = data.title;
+  caseFields.summary.textContent = data.summary;
+  caseFields.goal.textContent = data.goal;
+  caseFields.pages.textContent = data.pages;
+  caseFields.imageLabel.textContent = data.imageLabel;
+
+  caseFields.approach.replaceChildren();
+
+  data.approach.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    caseFields.approach.append(li);
+  });
+}
+
+function clearViewTransitionNames() {
+  if (currentProjectSource) {
+    currentProjectSource.style.viewTransitionName = "";
+  }
+
+  if (caseMedia) {
+    caseMedia.style.viewTransitionName = "";
+  }
+}
+
+function openCase(key, source) {
+  if (!caseDialog || !caseMedia) {
+    return;
+  }
+
+  populateCase(key);
+  currentProjectSource = source;
+
+  const showDialog = () => {
+    if (currentProjectSource) {
+      currentProjectSource.style.viewTransitionName = "";
+    }
+
+    caseMedia.style.viewTransitionName = "case-image";
+    caseDialog.showModal();
+    body.classList.add("case-open");
+  };
+
+  if (document.startViewTransition && !prefersReducedMotion && source) {
+    source.style.viewTransitionName = "case-image";
+
+    const transition = document.startViewTransition(showDialog);
+    transition.finished.finally(clearViewTransitionNames);
+  } else {
+    showDialog();
+    clearViewTransitionNames();
+  }
+}
+
+function finishClose() {
+  caseDialog.close();
+  body.classList.remove("case-open");
+}
+
+function closeCase() {
+  if (!caseDialog?.open) {
+    return;
+  }
+
+  const hideDialog = () => {
+    caseMedia.style.viewTransitionName = "";
+
+    if (currentProjectSource) {
+      currentProjectSource.style.viewTransitionName = "case-image";
+    }
+
+    finishClose();
+  };
+
+  if (
+    document.startViewTransition &&
+    !prefersReducedMotion &&
+    currentProjectSource
+  ) {
+    caseMedia.style.viewTransitionName = "case-image";
+
+    const transition = document.startViewTransition(hideDialog);
+    transition.finished.finally(clearViewTransitionNames);
+  } else if (caseShell && !prefersReducedMotion) {
+    const animation = caseShell.animate(
+      [
+        { opacity: 1, transform: "translateY(0)" },
+        { opacity: 0, transform: "translateY(22px)" }
+      ],
+      {
+        duration: 260,
+        easing: "ease-in",
+        fill: "forwards"
+      }
+    );
+
+    animation.finished.finally(finishClose);
+  } else {
+    finishClose();
+  }
+}
+
+caseOpenButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const projectKey = button.dataset.project;
+    const source = button
+      .closest(".project-slide")
+      ?.querySelector(".project-image");
+
+    openCase(projectKey, source);
+  });
+});
+
+caseCloseButton?.addEventListener("click", closeCase);
+
+caseDialog?.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeCase();
+});
+
+caseDialog?.addEventListener("click", (event) => {
+  if (event.target === caseDialog) {
+    closeCase();
+  }
+});
+
+caseNextButton?.addEventListener("click", () => {
+  const currentIndex = projectOrder.indexOf(currentProjectKey);
+  const nextKey = projectOrder[(currentIndex + 1) % projectOrder.length];
+
+  populateCase(nextKey);
+
+  currentProjectSource = document.querySelector(
+    `.project-slide[data-project="${nextKey}"] .project-image`
+  );
+
+  if (caseShell && !prefersReducedMotion) {
+    caseShell.animate(
+      [
+        { opacity: 0.55, transform: "translateX(12px)" },
+        { opacity: 1, transform: "translateX(0)" }
+      ],
+      {
+        duration: 360,
+        easing: "cubic-bezier(.2,.75,.25,1)"
+      }
+    );
+  }
+});
