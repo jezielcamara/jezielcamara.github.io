@@ -2,6 +2,34 @@
    PORTFOLIO ENHANCEMENTS
    Loaded after style.css
 -------------------------------------------------- */
+/* -------------------------------------------------
+   HERO DRAGGABLE WINDOWS
+-------------------------------------------------- */
+
+.floating-window .window-bar {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.floating-window .window-bar:active,
+.floating-window.is-dragging .window-bar {
+  cursor: grabbing;
+}
+
+.floating-window.is-dragging {
+  z-index: 40;
+}
+
+.floating-window.is-dragging .window-bar {
+  background: #fff;
+}
+
+.floating-window.is-dragging {
+  outline: 1px solid var(--blue);
+  outline-offset: 3px;
+}
 
 :root {
   --demo-accent: #3157e8;
