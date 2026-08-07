@@ -142,6 +142,248 @@ if (
 }
 
 /* -------------------------------------------------
+   HERO DRAGGABLE WINDOWS
+-------------------------------------------------- */
+
+if (heroStage && floatingWindows.length) {
+
+  let highestZIndex = 50;
+
+
+  floatingWindows.forEach((windowElement) => {
+
+    const dragHandle =
+      windowElement.querySelector(".window-bar");
+
+
+    if (!dragHandle) {
+      return;
+    }
+
+
+    let isDragging = false;
+
+    let activePointerId = null;
+
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+
+    let elementStartLeft = 0;
+    let elementStartTop = 0;
+
+
+    dragHandle.addEventListener(
+      "pointerdown",
+      (event) => {
+
+        /*
+         * Only allow the primary mouse button.
+         * Touch and pen continue normally.
+         */
+
+        if (
+          event.pointerType === "mouse" &&
+          event.button !== 0
+        ) {
+          return;
+        }
+
+
+        isDragging = true;
+
+        activePointerId =
+          event.pointerId;
+
+
+        pointerStartX =
+          event.clientX;
+
+        pointerStartY =
+          event.clientY;
+
+
+        /*
+         * offsetLeft / offsetTop give us the
+         * window's current position inside
+         * the hero before dragging.
+         */
+
+        elementStartLeft =
+          windowElement.offsetLeft;
+
+        elementStartTop =
+          windowElement.offsetTop;
+
+
+        /*
+         * Convert right/bottom positioned
+         * windows to left/top positioning.
+         * The window stays visually where it is.
+         */
+
+        windowElement.style.left =
+          `${elementStartLeft}px`;
+
+        windowElement.style.top =
+          `${elementStartTop}px`;
+
+        windowElement.style.right =
+          "auto";
+
+        windowElement.style.bottom =
+          "auto";
+
+
+        /*
+         * Bring the grabbed window forward.
+         */
+
+        highestZIndex += 1;
+
+        windowElement.style.zIndex =
+          highestZIndex;
+
+
+        windowElement.classList.add(
+          "is-dragging"
+        );
+
+
+        dragHandle.setPointerCapture(
+          activePointerId
+        );
+
+
+        event.preventDefault();
+
+      }
+    );
+
+
+    dragHandle.addEventListener(
+      "pointermove",
+      (event) => {
+
+        if (
+          !isDragging ||
+          event.pointerId !== activePointerId
+        ) {
+          return;
+        }
+
+
+        const moveX =
+          event.clientX -
+          pointerStartX;
+
+        const moveY =
+          event.clientY -
+          pointerStartY;
+
+
+        let nextLeft =
+          elementStartLeft +
+          moveX;
+
+        let nextTop =
+          elementStartTop +
+          moveY;
+
+
+        /*
+         * Keep the entire window within
+         * the hero section.
+         */
+
+        const maxLeft =
+          heroStage.clientWidth -
+          windowElement.offsetWidth;
+
+        const maxTop =
+          heroStage.clientHeight -
+          windowElement.offsetHeight;
+
+
+        nextLeft = Math.max(
+          0,
+          Math.min(
+            nextLeft,
+            maxLeft
+          )
+        );
+
+
+        nextTop = Math.max(
+          0,
+          Math.min(
+            nextTop,
+            maxTop
+          )
+        );
+
+
+        windowElement.style.left =
+          `${nextLeft}px`;
+
+        windowElement.style.top =
+          `${nextTop}px`;
+
+      }
+    );
+
+
+    function finishDrag(event) {
+
+      if (
+        !isDragging ||
+        event.pointerId !== activePointerId
+      ) {
+        return;
+      }
+
+
+      isDragging = false;
+
+
+      windowElement.classList.remove(
+        "is-dragging"
+      );
+
+
+      if (
+        dragHandle.hasPointerCapture(
+          activePointerId
+        )
+      ) {
+
+        dragHandle.releasePointerCapture(
+          activePointerId
+        );
+
+      }
+
+
+      activePointerId = null;
+
+    }
+
+
+    dragHandle.addEventListener(
+      "pointerup",
+      finishDrag
+    );
+
+
+    dragHandle.addEventListener(
+      "pointercancel",
+      finishDrag
+    );
+
+  });
+
+}
+
+/* -------------------------------------------------
    SCROLL REVEALS
 -------------------------------------------------- */
 
