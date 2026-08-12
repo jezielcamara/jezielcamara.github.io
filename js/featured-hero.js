@@ -175,6 +175,149 @@
 
 
   /* =======================================================
+     NORTH HOME / WEBSITE VIEWER
+  ======================================================= */
+
+  function openNorthViewer() {
+
+    const viewer =
+      document.querySelector(
+        "#nh-site-viewer"
+      );
+
+
+    /*
+     * Preferred route:
+     * open the existing North Home viewer directly.
+     */
+
+    if (viewer) {
+
+      if (!viewer.open) {
+
+        viewer.showModal();
+
+
+        document.body.classList.add(
+          "nh-viewer-open"
+        );
+
+
+        const scrollArea =
+          viewer.querySelector(
+            ".nh-site-viewer-scroll"
+          );
+
+
+        if (scrollArea) {
+
+          scrollArea.scrollTop =
+            0;
+
+        }
+
+      }
+
+
+      return;
+
+    }
+
+
+    /*
+     * Fallback:
+     * north-home.js already wires the desktop preview
+     * to the viewer. Trigger that existing interaction
+     * if the dialog has not been created yet.
+     */
+
+    const desktopLauncher =
+      document.querySelector(
+        ".window-main .window-placeholder.nh-view-launch"
+      );
+
+
+    desktopLauncher?.click();
+
+  }
+
+
+  function makeNorthMobileLaunchable() {
+
+    /*
+     * Avoid adding the same listeners twice if this
+     * project is rendered again later.
+     */
+
+    if (
+      mobilePreview.dataset.viewerBound ===
+      "true"
+    ) {
+      return;
+    }
+
+
+    mobilePreview.dataset.viewerBound =
+      "true";
+
+
+    mobilePreview.classList.add(
+      "nh-view-launch"
+    );
+
+
+    mobilePreview.setAttribute(
+      "role",
+      "button"
+    );
+
+
+    mobilePreview.setAttribute(
+      "tabindex",
+      "0"
+    );
+
+
+    mobilePreview.setAttribute(
+      "aria-label",
+      "View the North Home concept website from the mobile preview"
+    );
+
+
+    mobilePreview.addEventListener(
+      "click",
+      () => {
+
+        openNorthViewer();
+
+      }
+    );
+
+
+    mobilePreview.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key !== "Enter" &&
+          event.key !== " "
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        openNorthViewer();
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
      FEATURE RENDERERS
   ======================================================= */
 
@@ -233,20 +376,11 @@
           northMobileMarkup();
 
 
-        mobilePreview.setAttribute(
-          "role",
-          "img"
-        );
-
-
-        mobilePreview.setAttribute(
-          "aria-label",
-          "Mobile version of the North Home concept website"
-        );
-
-
         mobileWindow.dataset.featuredProject =
           "north";
+
+
+        makeNorthMobileLaunchable();
 
       }
 
