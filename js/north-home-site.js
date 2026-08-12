@@ -4,16 +4,19 @@
    ONE PROJECT.
    ONE WEBSITE SOURCE.
 
-   This file owns the actual North Home website DOM.
+   This file owns:
+   - North Home website DOM
+   - North Home website interactions
+   - North Home website behavior
 
    It does NOT know about:
-   - the portfolio Hero
-   - Selected Work
-   - Responsive Lab
-   - the website viewer
-   - the case-study layout
+   - portfolio Hero placement
+   - Selected Work placement
+   - Responsive Lab placement
+   - website viewer chrome
+   - case-study presentation
 
-   Every presentation environment must request a fresh
+   Every presentation environment requests a fresh
    North Home website from this factory.
 ========================================================= */
 
@@ -35,8 +38,8 @@
 
      This is the actual North Home website.
 
-     Presentation-specific browser frames, scaling,
-     dialogs and portfolio controls do not belong here.
+     Portfolio browser frames, dialogs, scaling and
+     presentation controls do not belong here.
   ======================================================= */
 
   const siteMarkup = `
@@ -988,6 +991,9 @@
 
   /* =======================================================
      CREATE FRESH WEBSITE
+
+     Every caller receives a completely new North Home DOM
+     tree from this single source.
   ======================================================= */
 
   function createNorthHomeSite() {
@@ -1024,22 +1030,852 @@
 
 
   /* =======================================================
-     PUBLIC FACTORY
+     INITIALIZE WEBSITE
 
-     Every consumer receives a new DOM instance.
+     IMPORTANT:
 
-     No consumer owns the source.
+     This function is deliberately self-contained.
+
+     PortfolioProjects can call it directly for a DOM
+     instance or serialize it into an isolated project
+     viewport later without depending on case-study code.
   ======================================================= */
 
-  window.NorthHomeSite = Object.freeze({
+  function initializeNorthHomeSite(
+    root,
+    options = {}
+  ) {
 
-    key:
-      PROJECT_KEY,
+    if (
+      !root ||
+      root.nodeType !==
+        1
+    ) {
 
-    create:
-      createNorthHomeSite
+      return null;
 
-  });
+    }
+
+
+    /*
+     * Never bind the same project instance twice.
+     */
+
+    if (
+      root.dataset.northInitialized ===
+      "true"
+    ) {
+
+      return root;
+
+    }
+
+
+    root.dataset.northInitialized =
+      "true";
+
+
+    const doc =
+      root.ownerDocument ||
+      document;
+
+
+    const windowObject =
+      doc.defaultView ||
+      window;
+
+
+    const prefersReducedMotion =
+      windowObject.matchMedia?.(
+        "(prefers-reduced-motion: reduce)"
+      ).matches ||
+      false;
+
+
+    /* =====================================================
+       SERVICE DATA
+    ===================================================== */
+
+    const serviceData = {
+
+      repairs: {
+
+        index:
+          "SERVICE / 01",
+
+        title:
+          "Small problems should stay small.",
+
+        description:
+          "General residential repairs for everyday issues that need attention before they become larger problems.",
+
+        items: [
+          "Walls, surfaces and small repairs",
+          "Doors, fittings and fixtures",
+          "General residential troubleshooting"
+        ]
+
+      },
+
+
+      maintenance: {
+
+        index:
+          "SERVICE / 02",
+
+        title:
+          "Care before something goes wrong.",
+
+        description:
+          "Preventive and recurring maintenance for homes, condos and rental properties that need consistent attention.",
+
+        items: [
+          "Routine residential checks",
+          "Preventive fixes and adjustments",
+          "Recurring property support"
+        ]
+
+      },
+
+
+      installation: {
+
+        index:
+          "SERVICE / 03",
+
+        title:
+          "The finishing details matter.",
+
+        description:
+          "Installation for fixtures, fittings and practical home upgrades where careful placement and finish matter.",
+
+        items: [
+          "Fixtures and fittings",
+          "Shelving and storage additions",
+          "Small residential upgrades"
+        ]
+
+      }
+
+    };
+
+
+    const serviceTabs =
+      root.querySelectorAll(
+        ".nh-service-tab"
+      );
+
+
+    const servicePhoto =
+      root.querySelector(
+        "#nh-service-photo"
+      );
+
+
+    const serviceIndex =
+      root.querySelector(
+        "#nh-service-index"
+      );
+
+
+    const serviceTitle =
+      root.querySelector(
+        "#nh-service-title"
+      );
+
+
+    const serviceDescription =
+      root.querySelector(
+        "#nh-service-description"
+      );
+
+
+    const serviceItems =
+      root.querySelector(
+        "#nh-service-items"
+      );
+
+
+    function setNorthService(
+      key,
+      animate = true
+    ) {
+
+      const data =
+        serviceData[
+          key
+        ];
+
+
+      if (!data) {
+
+        return;
+
+      }
+
+
+      serviceTabs.forEach(
+        (tab) => {
+
+          const active =
+            tab.dataset.nhService ===
+            key;
+
+
+          tab.classList.toggle(
+            "active",
+            active
+          );
+
+
+          tab.setAttribute(
+            "aria-selected",
+            String(
+              active
+            )
+          );
+
+        }
+      );
+
+
+      if (servicePhoto) {
+
+        servicePhoto.dataset.service =
+          key;
+
+      }
+
+
+      if (serviceIndex) {
+
+        serviceIndex.textContent =
+          data.index;
+
+      }
+
+
+      if (serviceTitle) {
+
+        serviceTitle.textContent =
+          data.title;
+
+      }
+
+
+      if (serviceDescription) {
+
+        serviceDescription.textContent =
+          data.description;
+
+      }
+
+
+      if (serviceItems) {
+
+        serviceItems.replaceChildren();
+
+
+        data.items.forEach(
+          (item) => {
+
+            const li =
+              doc.createElement(
+                "li"
+              );
+
+
+            li.textContent =
+              item;
+
+
+            serviceItems.append(
+              li
+            );
+
+          }
+        );
+
+      }
+
+
+      if (
+        animate &&
+        !prefersReducedMotion &&
+        servicePhoto &&
+        typeof servicePhoto.animate ===
+          "function"
+      ) {
+
+        servicePhoto.animate(
+          [
+            {
+              opacity:
+                .4,
+
+              transform:
+                "scale(1.015)"
+            },
+
+            {
+              opacity:
+                1,
+
+              transform:
+                "scale(1)"
+            }
+          ],
+          {
+            duration:
+              360,
+
+            easing:
+              "cubic-bezier(.2,.75,.25,1)"
+          }
+        );
+
+      }
+
+
+      if (
+        animate &&
+        !prefersReducedMotion &&
+        serviceTitle &&
+        typeof serviceTitle.animate ===
+          "function"
+      ) {
+
+        serviceTitle.animate(
+          [
+            {
+              opacity:
+                0,
+
+              transform:
+                "translateY(8px)"
+            },
+
+            {
+              opacity:
+                1,
+
+              transform:
+                "translateY(0)"
+            }
+          ],
+          {
+            duration:
+              330,
+
+            easing:
+              "cubic-bezier(.2,.75,.25,1)"
+          }
+        );
+
+      }
+
+    }
+
+
+    serviceTabs.forEach(
+      (tab) => {
+
+        tab.addEventListener(
+          "click",
+          () => {
+
+            setNorthService(
+              tab.dataset.nhService
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    /*
+     * Establish the initial service state without replaying
+     * the switch animation during first render.
+     */
+
+    setNorthService(
+      "repairs",
+      false
+    );
+
+
+    /* =====================================================
+       INTERNAL NAVIGATION
+    ===================================================== */
+
+    root
+      .querySelectorAll(
+        'a[href^="#nh-"]'
+      )
+      .forEach(
+        (link) => {
+
+          link.addEventListener(
+            "click",
+            (event) => {
+
+              const selector =
+                link.getAttribute(
+                  "href"
+                );
+
+
+              if (!selector) {
+
+                return;
+
+              }
+
+
+              let target =
+                null;
+
+
+              try {
+
+                target =
+                  root.querySelector(
+                    selector
+                  );
+
+              } catch (error) {
+
+                target =
+                  null;
+
+              }
+
+
+              if (!target) {
+
+                return;
+
+              }
+
+
+              event.preventDefault();
+
+
+              target.scrollIntoView(
+                {
+                  behavior:
+                    prefersReducedMotion
+                      ? "auto"
+                      : "smooth",
+
+                  block:
+                    "start"
+                }
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       FRONT-END QUOTE DEMO
+    ===================================================== */
+
+    const form =
+      root.querySelector(
+        "#nh-form"
+      );
+
+
+    const formButton =
+      root.querySelector(
+        "#nh-form-button"
+      );
+
+
+    const formStatus =
+      root.querySelector(
+        "#nh-form-status"
+      );
+
+
+    form?.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+
+        if (
+          !form.checkValidity()
+        ) {
+
+          form.reportValidity();
+
+          return;
+
+        }
+
+
+        const FormDataConstructor =
+          windowObject.FormData ||
+          FormData;
+
+
+        const data =
+          new FormDataConstructor(
+            form
+          );
+
+
+        const service =
+          data.get(
+            "service"
+          );
+
+
+        const area =
+          String(
+            data.get(
+              "area"
+            ) ||
+            ""
+          ).trim();
+
+
+        if (formButton) {
+
+          formButton.textContent =
+            "Request reviewed ✓";
+
+        }
+
+
+        if (formStatus) {
+
+          formStatus.textContent =
+            area
+              ? `Demo complete — ${service} request in ${area}. Nothing was sent.`
+              : `Demo complete — ${service} request. Nothing was sent.`;
+
+        }
+
+
+        if (
+          !prefersReducedMotion &&
+          typeof form.animate ===
+            "function"
+        ) {
+
+          form.animate(
+            [
+              {
+                transform:
+                  "translateY(0)"
+              },
+
+              {
+                transform:
+                  "translateY(-4px)"
+              },
+
+              {
+                transform:
+                  "translateY(0)"
+              }
+            ],
+            {
+              duration:
+                360,
+
+              easing:
+                "ease"
+            }
+          );
+
+        }
+
+
+        windowObject.setTimeout(
+          () => {
+
+            if (formButton) {
+
+              formButton.textContent =
+                "Review request";
+
+            }
+
+          },
+          2500
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       REVEAL MOTION
+
+       The website owns its reveal behavior.
+
+       A presentation environment may optionally provide
+       options.revealRoot when it has its own scroll root.
+    ===================================================== */
+
+    const revealItems =
+      root.querySelectorAll(
+        "[data-nh-reveal]"
+      );
+
+
+    const suppliedRevealRoot =
+      options.revealRoot &&
+      options.revealRoot.nodeType ===
+        1
+        ? options.revealRoot
+        : null;
+
+
+    if (
+      "IntersectionObserver" in
+        windowObject &&
+      !prefersReducedMotion
+    ) {
+
+      const observer =
+        new windowObject.IntersectionObserver(
+          (
+            entries,
+            instance
+          ) => {
+
+            entries.forEach(
+              (entry) => {
+
+                if (
+                  !entry.isIntersecting
+                ) {
+
+                  return;
+
+                }
+
+
+                if (
+                  typeof entry.target.animate ===
+                  "function"
+                ) {
+
+                  entry.target.animate(
+                    [
+                      {
+                        opacity:
+                          0,
+
+                        transform:
+                          "translateY(22px)"
+                      },
+
+                      {
+                        opacity:
+                          1,
+
+                        transform:
+                          "translateY(0)"
+                      }
+                    ],
+                    {
+                      duration:
+                        650,
+
+                      easing:
+                        "cubic-bezier(.18,.78,.22,1)",
+
+                      fill:
+                        "both"
+                    }
+                  );
+
+                }
+
+
+                instance.unobserve(
+                  entry.target
+                );
+
+              }
+            );
+
+          },
+          {
+            threshold:
+              .07,
+
+            root:
+              suppliedRevealRoot,
+
+            rootMargin:
+              "0px 0px -5% 0px"
+          }
+        );
+
+
+      revealItems.forEach(
+        (item) => {
+
+          observer.observe(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       HERO POINTER RESPONSE
+    ===================================================== */
+
+    const heroMedia =
+      root.querySelector(
+        ".nh-hero-media"
+      );
+
+
+    const hasFinePointer =
+      windowObject.matchMedia?.(
+        "(pointer: fine)"
+      ).matches ||
+      false;
+
+
+    if (
+      heroMedia &&
+      !prefersReducedMotion &&
+      hasFinePointer
+    ) {
+
+      heroMedia.addEventListener(
+        "pointermove",
+        (event) => {
+
+          const rect =
+            heroMedia
+              .getBoundingClientRect();
+
+
+          if (
+            !rect.width ||
+            !rect.height
+          ) {
+
+            return;
+
+          }
+
+
+          const x =
+            (
+              event.clientX -
+              rect.left
+            ) /
+            rect.width -
+            .5;
+
+
+          const y =
+            (
+              event.clientY -
+              rect.top
+            ) /
+            rect.height -
+            .5;
+
+
+          heroMedia.style.transform =
+            `
+              perspective(1100px)
+              rotateX(${y * -1.1}deg)
+              rotateY(${x * 1.3}deg)
+            `;
+
+        }
+      );
+
+
+      heroMedia.addEventListener(
+        "pointerleave",
+        () => {
+
+          heroMedia.style.transform =
+            "perspective(1100px) rotateX(0deg) rotateY(0deg)";
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       INITIALIZED EVENT
+    ===================================================== */
+
+    if (
+      typeof windowObject.CustomEvent ===
+      "function"
+    ) {
+
+      doc.dispatchEvent(
+        new windowObject.CustomEvent(
+          "north:site-initialized",
+          {
+            detail: {
+              root
+            }
+          }
+        )
+      );
+
+    }
+
+
+    return root;
+
+  }
+
+
+  /* =======================================================
+     PUBLIC FACTORY
+
+     create()
+       Returns fresh canonical DOM.
+
+     initialize()
+       Activates North Home behavior on a specific instance.
+
+     Neither function knows where that instance will appear.
+  ======================================================= */
+
+  window.NorthHomeSite =
+    Object.freeze({
+
+      key:
+        PROJECT_KEY,
+
+      create:
+        createNorthHomeSite,
+
+      initialize:
+        initializeNorthHomeSite
+
+    });
 
 
   /* =======================================================
