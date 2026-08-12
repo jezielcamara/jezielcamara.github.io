@@ -1,15 +1,16 @@
 /* =========================================================
    JEZIEL CAMARA / FEATURED HERO PROJECT
 
+   ONE PROJECT SOURCE.
+   TWO REAL VIEWPORTS.
+
    LARGE WINDOW
    = canonical project website / desktop viewport
 
    SMALL WINDOW
-   = temporary legacy mobile preview
+   = canonical project website / mobile viewport
 
-   IMPORTANT:
-   The large preview now uses PortfolioProjects.
-   The small preview will be migrated in the next step.
+   No project-specific preview HTML is created here.
 ========================================================= */
 
 (function () {
@@ -18,11 +19,19 @@
 
 
   /* =======================================================
-     SETTINGS
+     VIEWPORT SETTINGS
   ======================================================= */
 
   const DESKTOP_DESIGN_WIDTH =
     1200;
+
+
+  const MOBILE_VIEWPORT_WIDTH =
+    390;
+
+
+  const MOBILE_VIEWPORT_HEIGHT =
+    1000;
 
 
   /* =======================================================
@@ -81,11 +90,11 @@
      STATE
   ======================================================= */
 
-  let featuredProject =
+  let desktopSite =
     null;
 
 
-  let desktopSite =
+  let mobileFrame =
     null;
 
 
@@ -93,96 +102,12 @@
     null;
 
 
+  let mobileResizeObserver =
+    null;
+
+
   let started =
     false;
-
-
-  /* =======================================================
-     NORTH HOME / TEMPORARY MOBILE PREVIEW
-
-     This remains only until the next migration step.
-     It will be removed once mobile also uses the
-     canonical project website.
-  ======================================================= */
-
-  function northMobileMarkup() {
-
-    return `
-      <div
-        class="nh-mobile-thumb"
-        aria-hidden="true"
-      >
-
-        <header class="nh-mobile-nav">
-
-          <strong class="nh-mobile-logo">
-            North
-            <span>
-              Home
-            </span>
-          </strong>
-
-
-          <span
-            class="nh-mobile-menu"
-            aria-hidden="true"
-          >
-            ≡
-          </span>
-
-        </header>
-
-
-        <div class="nh-mobile-hero">
-
-
-          <span class="nh-mobile-project-tag">
-            RESIDENTIAL / METRO MANILA
-          </span>
-
-
-          <div class="nh-mobile-copy">
-
-
-            <span class="nh-mobile-kicker">
-              RESIDENTIAL SERVICES
-            </span>
-
-
-            <strong>
-              CARE FOR<br>
-              THE HOME<br>
-              YOU LIVE IN.
-            </strong>
-
-
-            <p>
-              Repairs, maintenance
-              and installation for
-              modern homes.
-            </p>
-
-
-            <span class="nh-mobile-cta">
-
-              REQUEST A QUOTE
-
-              <span aria-hidden="true">
-                ↗
-              </span>
-
-            </span>
-
-
-          </div>
-
-
-        </div>
-
-      </div>
-    `;
-
-  }
 
 
   /* =======================================================
@@ -196,11 +121,6 @@
         "#nh-site-viewer"
       );
 
-
-    /*
-     * Preferred route:
-     * open the existing North Home viewer.
-     */
 
     if (viewer) {
 
@@ -237,23 +157,108 @@
 
     /*
      * Fallback:
-     * north-home.js also wires the desktop
-     * wrapper to the website viewer.
+     * use the existing North Home viewer launcher.
      */
 
-    const desktopLauncher =
+    const existingLauncher =
       document.querySelector(
-        ".window-main .window-placeholder.nh-view-launch"
+        '.project-slide[data-project="north"] .project-image.nh-view-launch'
       );
 
 
-    desktopLauncher?.click();
+    existingLauncher?.click();
 
   }
 
 
   /* =======================================================
-     LARGE HERO / CANONICAL WEBSITE
+     PREVIEW LAUNCHER
+  ======================================================= */
+
+  function makePreviewLaunchable(
+    element,
+    label
+  ) {
+
+    if (!element) {
+      return;
+    }
+
+
+    if (
+      element.dataset.featuredViewerBound ===
+      "true"
+    ) {
+      return;
+    }
+
+
+    element.dataset.featuredViewerBound =
+      "true";
+
+
+    element.classList.add(
+      "nh-view-launch"
+    );
+
+
+    element.setAttribute(
+      "role",
+      "button"
+    );
+
+
+    element.setAttribute(
+      "tabindex",
+      "0"
+    );
+
+
+    element.setAttribute(
+      "aria-label",
+      label
+    );
+
+
+    element.addEventListener(
+      "click",
+      () => {
+
+        openNorthViewer();
+
+      }
+    );
+
+
+    element.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key !==
+            "Enter" &&
+          event.key !==
+            " "
+        ) {
+
+          return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        openNorthViewer();
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     DESKTOP PREVIEW
   ======================================================= */
 
   function fitDesktopSite() {
@@ -270,19 +275,16 @@
       desktopPreview.clientWidth;
 
 
-    if (
-      !availableWidth
-    ) {
+    if (!availableWidth) {
       return;
     }
 
 
     /*
-     * North Home is rendered at a real desktop width,
-     * then scaled down to fit inside the floating
-     * portfolio window.
+     * Render North Home at its intended desktop width.
      *
-     * The project itself is not redesigned here.
+     * Scale only the presentation.
+     * Never redesign the project for the portfolio window.
      */
 
     const scale =
@@ -364,10 +366,6 @@
     }
 
 
-    /*
-     * Older browser fallback.
-     */
-
     window.addEventListener(
       "resize",
       fitDesktopSite,
@@ -407,35 +405,17 @@
     `;
 
 
-    /*
-     * Preserve this existing class because
-     * north-home.js uses the wrapper itself
-     * as the website-viewer launcher.
-     */
-
-    desktopPreview.classList.add(
-      "has-north-preview",
-      "has-canonical-project-preview"
-    );
-
-
     desktopPreview.classList.remove(
       "has-north-mobile-preview"
     );
 
 
-    desktopPreview.setAttribute(
-      "aria-label",
-      `View ${project.name} website`
+    desktopPreview.classList.add(
+      "has-north-preview",
+      "has-canonical-project-preview",
+      "has-canonical-desktop-preview"
     );
 
-
-    /*
-     * THIS IS THE IMPORTANT CHANGE.
-     *
-     * The actual North Home project source is mounted
-     * into the hero instead of custom thumbnail markup.
-     */
 
     desktopSite =
       window.PortfolioProjects.mount(
@@ -466,6 +446,12 @@
       project.key;
 
 
+    makePreviewLaunchable(
+      desktopPreview,
+      `View ${project.name} website`
+    );
+
+
     requestAnimationFrame(
       () => {
 
@@ -482,86 +468,150 @@
 
 
   /* =======================================================
-     MOBILE / TEMPORARY LEGACY VERSION
+     MOBILE PREVIEW
   ======================================================= */
 
-  function makeNorthMobileLaunchable() {
+  function fitMobileFrame() {
 
     if (
-      mobilePreview.dataset.viewerBound ===
-      "true"
+      !mobileFrame ||
+      !mobilePreview
     ) {
       return;
     }
 
 
-    mobilePreview.dataset.viewerBound =
-      "true";
+    const availableWidth =
+      mobilePreview.clientWidth;
 
 
-    mobilePreview.classList.add(
-      "nh-view-launch"
-    );
+    if (!availableWidth) {
+      return;
+    }
 
 
-    mobilePreview.setAttribute(
-      "role",
-      "button"
-    );
+    /*
+     * The iframe itself stays 390px wide.
+     *
+     * Therefore North Home's real mobile media queries
+     * respond to a genuine 390px viewport.
+     *
+     * We scale only the finished viewport so that it fits
+     * inside the small draggable portfolio window.
+     */
+
+    const scale =
+      Math.min(
+        1,
+        availableWidth /
+        MOBILE_VIEWPORT_WIDTH
+      );
 
 
-    mobilePreview.setAttribute(
-      "tabindex",
-      "0"
-    );
+    mobileFrame.style.width =
+      `${MOBILE_VIEWPORT_WIDTH}px`;
 
 
-    mobilePreview.setAttribute(
-      "aria-label",
-      "View the North Home concept website from the mobile preview"
-    );
+    mobileFrame.style.minWidth =
+      `${MOBILE_VIEWPORT_WIDTH}px`;
 
 
-    mobilePreview.addEventListener(
-      "click",
-      () => {
-
-        openNorthViewer();
-
-      }
-    );
+    mobileFrame.style.height =
+      `${MOBILE_VIEWPORT_HEIGHT}px`;
 
 
-    mobilePreview.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (
-          event.key !==
-            "Enter" &&
-          event.key !==
-            " "
-        ) {
-
-          return;
-
-        }
+    mobileFrame.style.maxWidth =
+      "none";
 
 
-        event.preventDefault();
+    mobileFrame.style.margin =
+      "0";
 
 
-        openNorthViewer();
+    mobileFrame.style.transformOrigin =
+      "top left";
 
+
+    mobileFrame.style.transform =
+      `scale(${scale})`;
+
+
+    mobileFrame.style.pointerEvents =
+      "none";
+
+
+    mobilePreview.dataset.previewScale =
+      scale.toFixed(
+        4
+      );
+
+  }
+
+
+  function watchMobileSize() {
+
+    if (
+      mobileResizeObserver
+    ) {
+
+      mobileResizeObserver.disconnect();
+
+    }
+
+
+    if (
+      "ResizeObserver" in window
+    ) {
+
+      mobileResizeObserver =
+        new ResizeObserver(
+          () => {
+
+            fitMobileFrame();
+
+          }
+        );
+
+
+      mobileResizeObserver.observe(
+        mobilePreview
+      );
+
+
+      return;
+
+    }
+
+
+    window.addEventListener(
+      "resize",
+      fitMobileFrame,
+      {
+        passive:
+          true
       }
     );
 
   }
 
 
-  function renderLegacyNorthMobile(
+  function renderCanonicalMobile(
     project
   ) {
+
+    if (
+      !window.PortfolioProjects ||
+      !window.PortfolioProjects.has(
+        project.key
+      ) ||
+      typeof window.PortfolioProjects.mountFrame !==
+        "function"
+    ) {
+
+      return false;
+
+    }
+
 
     mobileBar.innerHTML = `
       <span>
@@ -574,34 +624,89 @@
     `;
 
 
+    /*
+     * Remove the old handmade mobile-preview state.
+     */
+
     mobilePreview.classList.remove(
-      "has-north-preview"
-    );
-
-
-    mobilePreview.classList.add(
       "has-north-mobile-preview"
     );
 
 
-    mobilePreview.innerHTML =
-      northMobileMarkup();
+    mobilePreview.classList.add(
+      "has-north-preview",
+      "has-canonical-project-preview",
+      "has-canonical-mobile-preview"
+    );
+
+
+    /*
+     * THIS IS THE IMPORTANT CHANGE.
+     *
+     * Mobile receives exactly the same registered
+     * project source as desktop.
+     *
+     * The only difference is the viewport width.
+     */
+
+    mobileFrame =
+      window.PortfolioProjects.mountFrame(
+        project.key,
+        mobilePreview,
+        {
+
+          instance:
+            "hero-mobile",
+
+          viewport:
+            "mobile",
+
+          width:
+            MOBILE_VIEWPORT_WIDTH,
+
+          height:
+            MOBILE_VIEWPORT_HEIGHT,
+
+          label:
+            `${project.name} mobile website preview`
+
+        }
+      );
+
+
+    mobileFrame.classList.add(
+      "featured-project-frame",
+      "featured-project-frame-mobile"
+    );
 
 
     mobileWindow.dataset.featuredProject =
       project.key;
 
 
-    makeNorthMobileLaunchable();
+    makePreviewLaunchable(
+      mobilePreview,
+      `View ${project.name} website`
+    );
+
+
+    requestAnimationFrame(
+      () => {
+
+        fitMobileFrame();
+        watchMobileSize();
+
+      }
+    );
+
+
+    return true;
 
   }
 
 
   /* =======================================================
      PROJECT SELECTION
-
-     Uses the shared PortfolioProjects registry.
-     No separate featured-project metadata lives here.
   ======================================================= */
 
   function chooseProject() {
@@ -683,7 +788,7 @@
 
 
   /* =======================================================
-     APPLY FEATURE
+     FEATURE RENDER
   ======================================================= */
 
   function renderFeaturedProject(
@@ -696,19 +801,10 @@
 
 
     /*
-     * For this migration step only North Home
-     * is complete and registered.
+     * Only completed projects should ever reach this list.
+     *
+     * North is currently the only completed project.
      */
-
-    if (
-      project.key !==
-      "north"
-    ) {
-
-      return false;
-
-    }
-
 
     const desktopRendered =
       renderCanonicalDesktop(
@@ -716,21 +812,20 @@
       );
 
 
+    const mobileRendered =
+      renderCanonicalMobile(
+        project
+      );
+
+
     if (
-      !desktopRendered
+      !desktopRendered ||
+      !mobileRendered
     ) {
+
       return false;
+
     }
-
-
-    /*
-     * Mobile remains on its old implementation
-     * until the next step.
-     */
-
-    renderLegacyNorthMobile(
-      project
-    );
 
 
     document.documentElement
@@ -750,14 +845,10 @@
 
       /*
        * Storage can be unavailable.
-       * Featured rendering does not depend on it.
+       * Featured rendering still works.
        */
 
     }
-
-
-    featuredProject =
-      project;
 
 
     return true;
@@ -773,9 +864,7 @@
     attempt = 0
   ) {
 
-    if (
-      started
-    ) {
+    if (started) {
       return;
     }
 
@@ -825,9 +914,6 @@
 
   /* =======================================================
      PROJECT EVENTS
-
-     project-north.js dispatches these once the real
-     North Home source has been registered.
   ======================================================= */
 
   document.addEventListener(
