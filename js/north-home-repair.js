@@ -1,12 +1,91 @@
 /* =========================================================
-   NORTH HOME / VIEWER + PORTFOLIO REPAIR
+   PORTFOLIO PROJECT VIEWER
+
+   Compatibility filename:
+   js/north-home-repair.js
+
+   This file no longer redesigns North Home.
+
+   RESPONSIBILITY:
+   - reuse the existing website-viewer dialog shell
+   - mount canonical registered projects into that shell
+   - provide one generic PortfolioProjectViewer API
+   - preserve North Home launch controls
+
+   IMPORTANT ARCHITECTURE RULE:
+
+   The viewer must never create project-specific website
+   markup or project-specific responsive styling.
+
+   It asks PortfolioProjects for the project and gives that
+   project a real isolated viewport.
 ========================================================= */
 
 (function () {
 
+  "use strict";
+
+
+  /* =======================================================
+     SETTINGS
+  ======================================================= */
+
+  const DEFAULT_PROJECT_KEY =
+    "north";
+
+
+  const MAX_START_ATTEMPTS =
+    90;
+
+
+  const DEFAULT_VIEWPORT_WIDTH =
+    1080;
+
+
+  const DEFAULT_VIEWPORT_HEIGHT =
+    820;
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let viewer =
+    null;
+
+
+  let canvas =
+    null;
+
+
+  let browserFrame =
+    null;
+
+
+  let projectFrame =
+    null;
+
+
+  let currentProjectKey =
+    null;
+
+
+  let started =
+    false;
+
+
+  /* =======================================================
+     VIEWER SHELL CSS
+
+     Only the portfolio viewer shell is styled here.
+
+     Nothing inside the actual project is redesigned.
+  ======================================================= */
+
   const viewerCSS = `
+
     /* =====================================================
-       NORTH HOME VIEWER — STABLE CONTAINED LAYOUT
+       PROJECT VIEWER
     ===================================================== */
 
     .nh-site-viewer {
@@ -85,7 +164,7 @@
 
     .nh-site-viewer[open] {
       animation:
-        nh-repair-viewer-in
+        portfolio-project-viewer-in
         260ms
         cubic-bezier(
           .18,
@@ -97,10 +176,11 @@
     }
 
 
-    @keyframes nh-repair-viewer-in {
+    @keyframes portfolio-project-viewer-in {
 
       from {
-        opacity: 0;
+        opacity:
+          0;
 
         transform:
           translateY(16px)
@@ -109,7 +189,8 @@
 
 
       to {
-        opacity: 1;
+        opacity:
+          1;
 
         transform:
           translateY(0)
@@ -120,7 +201,7 @@
 
 
     /* =====================================================
-       VIEWER SHELL
+       SHELL
     ===================================================== */
 
     .nh-site-viewer-shell {
@@ -152,17 +233,12 @@
 
 
     /* =====================================================
-       VIEWER TOP BAR
+       TOP BAR
     ===================================================== */
 
     .nh-site-viewer-topbar {
       min-height:
         58px;
-
-      flex:
-        0
-        0
-        auto;
 
       display:
         flex;
@@ -225,7 +301,8 @@
 
 
     .nh-site-viewer-topbar
-    span {
+    > div
+    > span {
       color:
         #fff;
 
@@ -322,11 +399,14 @@
 
 
     /* =====================================================
-       SCROLL AREA
+       VIEWER AREA
     ===================================================== */
 
     .nh-site-viewer-scroll {
       width:
+        100%;
+
+      height:
         100%;
 
       min-width:
@@ -335,11 +415,8 @@
       min-height:
         0;
 
-      overflow-x:
+      overflow:
         hidden;
-
-      overflow-y:
-        auto;
 
       padding:
         16px;
@@ -349,9 +426,6 @@
 
       overscroll-behavior:
         contain;
-
-      scrollbar-gutter:
-        stable;
     }
 
 
@@ -363,16 +437,31 @@
       width:
         100%;
 
+      height:
+        100%;
+
       max-width:
         1080px;
 
       min-width:
         0;
 
+      min-height:
+        0;
+
+      display:
+        grid;
+
+      grid-template-rows:
+        auto
+        minmax(
+          0,
+          1fr
+        );
+
       margin:
         0
-        auto
-        24px;
+        auto;
 
       overflow:
         hidden;
@@ -499,696 +588,89 @@
 
 
     /* =====================================================
-       CRITICAL FIX:
-       THE WEBSITE NOW RESPONDS TO THE POPUP,
-       NOT TO THE OUTER BROWSER WINDOW.
+       CANONICAL PROJECT VIEWPORT
     ===================================================== */
 
     .nh-site-viewer-canvas {
+      position:
+        relative;
+
       width:
+        100%;
+
+      height:
         100%;
 
       min-width:
         0;
 
+      min-height:
+        0;
+
       overflow:
         hidden;
 
-      container:
-        northviewer
-        / inline-size;
+      background:
+        #fff;
     }
 
 
-    .nh-site-viewer-canvas *,
-    .nh-site-viewer-canvas *::before,
-    .nh-site-viewer-canvas *::after {
-      box-sizing:
-        border-box;
-    }
-
+    /*
+     * The iframe is only the viewport.
+     *
+     * Its contents are controlled entirely by the
+     * registered project's own HTML and CSS.
+     */
 
     .nh-site-viewer-canvas
-    > .nh-site {
+    > .portfolio-project-frame {
+      position:
+        absolute !important;
+
+      inset:
+        0 !important;
+
       width:
-        100%;
+        100% !important;
+
+      height:
+        100% !important;
 
       min-width:
-        0;
+        0 !important;
+
+      min-height:
+        0 !important;
 
       max-width:
-        100%;
-
-      overflow:
-        hidden;
-    }
-
-
-    /* =====================================================
-       VIEWER-SPECIFIC TYPE + SPACING SCALE
-    ===================================================== */
-
-    .nh-site-view-only
-    .nh-header {
-      padding-inline:
-        clamp(
-          18px,
-          3.5cqw,
-          38px
-        );
-    }
-
-
-    .nh-site-view-only
-    .nh-hero {
-      padding:
-        0
-        clamp(
-          8px,
-          1.6cqw,
-          20px
-        )
-        clamp(
-          8px,
-          1.6cqw,
-          20px
-        );
-    }
-
-
-    .nh-site-view-only
-    .nh-hero-media {
-      min-height:
-        clamp(
-          500px,
-          61cqw,
-          650px
-        );
-
-      padding:
-        clamp(
-          28px,
-          5cqw,
-          52px
-        );
-    }
-
-
-    .nh-site-view-only
-    .nh-hero h1 {
-      font-size:
-        clamp(
-          3.8rem,
-          8.2cqw,
-          7.7rem
-        );
-
-      overflow-wrap:
-        normal;
-    }
-
-
-    .nh-site-view-only
-    .nh-section,
-
-    .nh-site-view-only
-    .nh-story,
-
-    .nh-site-view-only
-    .nh-process,
-
-    .nh-site-view-only
-    .nh-why,
-
-    .nh-site-view-only
-    .nh-area,
-
-    .nh-site-view-only
-    .nh-quote {
-      padding:
-        clamp(
-          58px,
-          8cqw,
-          92px
-        )
-        clamp(
-          22px,
-          4.6cqw,
-          46px
-        );
-    }
-
-
-    .nh-site-view-only
-    .nh-section-heading
-    h2,
-
-    .nh-site-view-only
-    .nh-story-copy
-    h2,
-
-    .nh-site-view-only
-    .nh-process-heading
-    h2,
-
-    .nh-site-view-only
-    .nh-why-copy
-    h2,
-
-    .nh-site-view-only
-    .nh-area-copy
-    h2,
-
-    .nh-site-view-only
-    .nh-quote-copy
-    h2 {
-      font-size:
-        clamp(
-          2.8rem,
-          5.6cqw,
-          5.3rem
-        );
-    }
-
-
-    /* Disable the old background-size hover trick
-       inside the view-only presentation. */
-
-    .nh-site-view-only
-    .nh-work-card:hover {
-      background-size:
-        cover !important;
-    }
-
-
-    /* =====================================================
-       POPUP RESPONSIVE LAYOUT
-       Uses container queries so narrowing the popup
-       actually changes the North Home layout.
-    ===================================================== */
-
-    @container northviewer
-    (max-width: 980px) {
-
-      .nh-site-view-only
-      .nh-header {
-        grid-template-columns:
-          1fr
-          auto;
-
-        min-height:
-          68px;
-      }
-
-
-      .nh-site-view-only
-      .nh-header
-      nav {
-        display:
-          none;
-      }
-
-
-      .nh-site-view-only
-      .nh-trust-strip {
-        grid-template-columns:
-          repeat(
-            2,
-            1fr
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-section-heading {
-        grid-template-columns:
-          105px
-          minmax(
-            0,
-            1fr
-          );
-
-        gap:
-          24px;
-      }
-
-
-      .nh-site-view-only
-      .nh-section-heading
-      p {
-        grid-column:
-          2;
-      }
-
-
-      .nh-site-view-only
-      .nh-services-layout {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-service-feature {
-        grid-template-columns:
-          minmax(
-            0,
-            1.05fr
-          )
-          minmax(
-            240px,
-            .8fr
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-story-grid {
-        grid-template-columns:
-          .9fr
-          1fr;
-
-        gap:
-          36px;
-      }
-
-
-      .nh-site-view-only
-      .nh-process-grid {
-        grid-template-columns:
-          repeat(
-            2,
-            1fr
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-process-step:nth-child(3) {
-        border-left:
-          0;
-
-        border-top:
-          1px
-          solid
-          rgba(
-            255,
-            255,
-            255,
-            .18
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-process-step:nth-child(4) {
-        border-top:
-          1px
-          solid
-          rgba(
-            255,
-            255,
-            255,
-            .18
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-work-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-work-card {
-        min-height:
-          500px;
-      }
-
-
-      .nh-site-view-only
-      .nh-work-side {
-        grid-template-columns:
-          1fr
-          1fr;
-
-        grid-template-rows:
-          none;
-      }
-
-
-      .nh-site-view-only
-      .nh-work-card-small {
-        min-height:
-          300px;
-      }
-
-
-      .nh-site-view-only
-      .nh-why-layout,
-
-      .nh-site-view-only
-      .nh-area,
-
-      .nh-site-view-only
-      .nh-quote {
-        gap:
-          42px;
-      }
-
-    }
-
-
-    @container northviewer
-    (max-width: 680px) {
-
-      .nh-site-view-only
-      .nh-header {
-        min-height:
-          60px;
-
-        padding:
-          0
-          14px;
-      }
-
-
-      .nh-site-view-only
-      .nh-header-cta {
-        padding:
-          8px
-          11px;
-
-        font-size:
-          .53rem;
-      }
-
-
-      .nh-site-view-only
-      .nh-hero {
-        padding:
-          0
-          7px
-          7px;
-      }
-
-
-      .nh-site-view-only
-      .nh-hero-media {
-        min-height:
-          500px;
-
-        padding:
-          28px
-          20px;
-
-        border-radius:
-          16px;
-      }
-
-
-      .nh-site-view-only
-      .nh-hero h1 {
-        font-size:
-          clamp(
-            3.2rem,
-            15cqw,
-            4.9rem
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-hero-trust {
-        top:
-          14px;
-
-        right:
-          14px;
-      }
-
-
-      .nh-site-view-only
-      .nh-trust-strip {
-        grid-template-columns:
-          1fr
-          1fr;
-
-        margin:
-          0
-          7px
-          7px;
-      }
-
-
-      .nh-site-view-only
-      .nh-section-heading {
-        grid-template-columns:
-          1fr;
-
-        gap:
-          12px;
-      }
-
-
-      .nh-site-view-only
-      .nh-section-heading
-      p {
-        grid-column:
-          1;
-      }
-
-
-      .nh-site-view-only
-      .nh-section-heading
-      h2,
-
-      .nh-site-view-only
-      .nh-story-copy
-      h2,
-
-      .nh-site-view-only
-      .nh-process-heading
-      h2,
-
-      .nh-site-view-only
-      .nh-why-copy
-      h2,
-
-      .nh-site-view-only
-      .nh-area-copy
-      h2,
-
-      .nh-site-view-only
-      .nh-quote-copy
-      h2 {
-        font-size:
-          clamp(
-            2.7rem,
-            13cqw,
-            4rem
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-service-feature {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-service-photo {
-        min-height:
-          330px;
-      }
-
-
-      .nh-site-view-only
-      .nh-service-info {
-        padding:
-          26px
-          20px;
-      }
-
-
-      .nh-site-view-only
-      .nh-story-grid {
-        grid-template-columns:
-          1fr;
-
-        gap:
-          30px;
-      }
-
-
-      .nh-site-view-only
-      .nh-story-photo {
-        min-height:
-          390px;
-
-        order:
-          -1;
-      }
-
-
-      .nh-site-view-only
-      .nh-process-heading {
-        grid-template-columns:
-          1fr;
-
-        gap:
-          14px;
-      }
-
-
-      .nh-site-view-only
-      .nh-process-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-process-step {
-        min-height:
-          165px;
-      }
-
-
-      .nh-site-view-only
-      .nh-process-step
-      + .nh-process-step,
-
-      .nh-site-view-only
-      .nh-process-step:nth-child(3),
-
-      .nh-site-view-only
-      .nh-process-step:nth-child(4) {
-        border-left:
-          0;
-
-        border-top:
-          1px
-          solid
-          rgba(
-            255,
-            255,
-            255,
-            .18
-          );
-      }
-
-
-      .nh-site-view-only
-      .nh-work-side {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-work-card {
-        min-height:
-          400px;
-      }
-
-
-      .nh-site-view-only
-      .nh-work-card-small {
-        min-height:
-          300px;
-      }
-
-
-      .nh-site-view-only
-      .nh-why-layout,
-
-      .nh-site-view-only
-      .nh-area,
-
-      .nh-site-view-only
-      .nh-quote {
-        grid-template-columns:
-          1fr;
-
-        gap:
-          38px;
-      }
-
-
-      .nh-site-view-only
-      .nh-area-list {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-area-list
-      span:nth-child(even) {
-        border-left:
-          0;
-      }
-
-
-      .nh-site-view-only
-      .nh-form-row {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .nh-site-view-only
-      .nh-footer {
-        min-height:
-          120px;
-
-        grid-template-columns:
-          1fr;
-
-        gap:
-          5px;
-
-        align-content:
-          center;
-
-        padding:
-          0
-          16px;
-      }
-
-    }
-
-
-    /* =====================================================
-       VIEW-ONLY BEHAVIOUR
-    ===================================================== */
-
-    .nh-site-view-only
-    a,
-
-    .nh-site-view-only
-    button,
-
-    .nh-site-view-only
-    input,
-
-    .nh-site-view-only
-    textarea,
-
-    .nh-site-view-only
-    select {
-      pointer-events:
         none !important;
+
+      margin:
+        0 !important;
+
+      padding:
+        0 !important;
+
+      border:
+        0 !important;
+
+      transform:
+        none !important;
+
+      transform-origin:
+        top
+        left !important;
+
+      pointer-events:
+        auto !important;
+
+      background:
+        #fff;
     }
 
 
     /* =====================================================
-       SELECTED WORK CLICK TARGET
+       SELECTED WORK LAUNCH CONTROL
     ===================================================== */
 
     .project-slide[data-project="north"]
@@ -1263,23 +745,6 @@
         0
         14px;
 
-      color:
-        #182433;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          .95
-        );
-
-      border:
-        0;
-
-      border-radius:
-        999px;
-
       cursor:
         pointer;
 
@@ -1293,17 +758,6 @@
 
       font-weight:
         600;
-
-      box-shadow:
-        0
-        8px
-        25px
-        rgba(
-          0,
-          0,
-          0,
-          .18
-        );
     }
 
 
@@ -1325,10 +779,23 @@
     }
 
 
-    /* Hide the old non-button badge. */
+    /*
+     * Old badge from north-home.js is no longer needed.
+     */
 
     .project-slide[data-project="north"]
     .nh-view-badge {
+      display:
+        none !important;
+    }
+
+
+    /*
+     * Old hero badge from north-home.js is also unnecessary
+     * because the project window itself remains clickable.
+     */
+
+    .nh-hero-view-badge {
       display:
         none !important;
     }
@@ -1354,7 +821,12 @@
 
 
     /* =====================================================
-       MOBILE POPUP
+       MOBILE VIEWER SHELL
+
+       These rules resize only the portfolio viewer.
+
+       The project itself responds naturally because the
+       iframe becomes narrower.
     ===================================================== */
 
     @media (
@@ -1449,6 +921,10 @@
     }
 
 
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
+
     @media (
       prefers-reduced-motion:
       reduce
@@ -1460,17 +936,26 @@
       }
 
     }
+
   `;
 
 
-  function addRepairStyles() {
+  /* =======================================================
+     STYLE INSTALLATION
+  ======================================================= */
 
-    if (
+  function addViewerStyles() {
+
+    const oldStyles =
       document.querySelector(
         "#north-home-repair-styles"
-      )
-    ) {
-      return;
+      );
+
+
+    if (oldStyles) {
+
+      oldStyles.remove();
+
     }
 
 
@@ -1495,10 +980,611 @@
   }
 
 
-  function repairNorthHome() {
+  /* =======================================================
+     PROJECT HELPERS
+  ======================================================= */
 
-    addRepairStyles();
+  function getProjectUrl(
+    project
+  ) {
 
+    switch (
+      project.key
+    ) {
+
+      case "north":
+        return "northhome.example";
+
+      case "sola":
+        return "solacafe.example";
+
+      case "avance":
+        return "avance.example";
+
+      default:
+        return `${project.key}.example`;
+
+    }
+
+  }
+
+
+  function getViewerElements() {
+
+    viewer =
+      document.querySelector(
+        "#nh-site-viewer"
+      );
+
+
+    canvas =
+      viewer?.querySelector(
+        ".nh-site-viewer-canvas"
+      ) || null;
+
+
+    browserFrame =
+      viewer?.querySelector(
+        ".nh-site-viewer-browser"
+      ) || null;
+
+
+    return Boolean(
+      viewer &&
+      canvas &&
+      browserFrame
+    );
+
+  }
+
+
+  /* =======================================================
+     VIEWER IDENTITY
+  ======================================================= */
+
+  function updateViewerIdentity(
+    project
+  ) {
+
+    if (!viewer) {
+      return;
+    }
+
+
+    const title =
+      viewer.querySelector(
+        ".nh-site-viewer-topbar > div > span"
+      );
+
+
+    const description =
+      viewer.querySelector(
+        ".nh-site-viewer-topbar small"
+      );
+
+
+    const url =
+      viewer.querySelector(
+        ".nh-site-viewer-browserbar > span"
+      );
+
+
+    const state =
+      viewer.querySelector(
+        ".nh-site-viewer-browserbar strong"
+      );
+
+
+    const closeButton =
+      viewer.querySelector(
+        ".nh-site-viewer-close"
+      );
+
+
+    if (title) {
+
+      title.textContent =
+        project.name.toUpperCase();
+
+    }
+
+
+    if (description) {
+
+      description.textContent =
+        "WEBSITE PREVIEW / CONCEPT PROJECT";
+
+    }
+
+
+    if (url) {
+
+      url.textContent =
+        getProjectUrl(
+          project
+        );
+
+    }
+
+
+    if (state) {
+
+      state.textContent =
+        "VIEW-ONLY CONCEPT";
+
+    }
+
+
+    if (closeButton) {
+
+      closeButton.setAttribute(
+        "aria-label",
+        `Close ${project.name} website preview`
+      );
+
+    }
+
+
+    viewer.setAttribute(
+      "aria-label",
+      `${project.name} website preview`
+    );
+
+
+    viewer.dataset.project =
+      project.key;
+
+  }
+
+
+  /* =======================================================
+     CANONICAL VIEWER MOUNT
+  ======================================================= */
+
+  function configureProjectFrame(
+    frame
+  ) {
+
+    if (!frame) {
+      return;
+    }
+
+
+    /*
+     * createFrame() defaults decorative previews to
+     * scrolling="no".
+     *
+     * The full website viewer is different: visitors need
+     * to be able to vertically scroll through the site.
+     */
+
+    frame.removeAttribute(
+      "scrolling"
+    );
+
+
+    frame.removeAttribute(
+      "aria-hidden"
+    );
+
+
+    frame.setAttribute(
+      "tabindex",
+      "0"
+    );
+
+
+    frame.style.position =
+      "absolute";
+
+
+    frame.style.inset =
+      "0";
+
+
+    frame.style.width =
+      "100%";
+
+
+    frame.style.height =
+      "100%";
+
+
+    frame.style.minWidth =
+      "0";
+
+
+    frame.style.minHeight =
+      "0";
+
+
+    frame.style.maxWidth =
+      "none";
+
+
+    frame.style.margin =
+      "0";
+
+
+    frame.style.padding =
+      "0";
+
+
+    frame.style.border =
+      "0";
+
+
+    frame.style.transform =
+      "none";
+
+
+    frame.style.pointerEvents =
+      "auto";
+
+  }
+
+
+  function mountProject(
+    key
+  ) {
+
+    if (
+      !window.PortfolioProjects ||
+      typeof window.PortfolioProjects.mountFrame !==
+        "function"
+    ) {
+
+      return false;
+
+    }
+
+
+    if (
+      !getViewerElements()
+    ) {
+
+      return false;
+
+    }
+
+
+    const project =
+      window.PortfolioProjects.get(
+        key
+      );
+
+
+    if (!project) {
+
+      return false;
+
+    }
+
+
+    /*
+     * If this exact project is already mounted correctly,
+     * do not rebuild the iframe.
+     */
+
+    const existingFrame =
+      canvas.querySelector(
+        ".portfolio-project-frame"
+      );
+
+
+    if (
+      currentProjectKey ===
+        project.key &&
+      existingFrame
+    ) {
+
+      projectFrame =
+        existingFrame;
+
+
+      configureProjectFrame(
+        projectFrame
+      );
+
+
+      updateViewerIdentity(
+        project
+      );
+
+
+      return true;
+
+    }
+
+
+    updateViewerIdentity(
+      project
+    );
+
+
+    /*
+     * THIS IS THE IMPORTANT CHANGE.
+     *
+     * The old .nh-site-view-only clone is removed by
+     * mountFrame() because mountFrame replaces all canvas
+     * children.
+     *
+     * The viewer now receives the same registered project
+     * source used by Hero, Work and Responsive Lab.
+     */
+
+    projectFrame =
+      window.PortfolioProjects.mountFrame(
+        project.key,
+        canvas,
+        {
+
+          instance:
+            "website-viewer",
+
+          viewport:
+            "responsive",
+
+          width:
+            DEFAULT_VIEWPORT_WIDTH,
+
+          height:
+            DEFAULT_VIEWPORT_HEIGHT,
+
+          label:
+            `${project.name} website viewer`
+
+        }
+      );
+
+
+    configureProjectFrame(
+      projectFrame
+    );
+
+
+    currentProjectKey =
+      project.key;
+
+
+    canvas.dataset.canonicalViewer =
+      "true";
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     OPEN / CLOSE
+  ======================================================= */
+
+  function openProject(
+    key = DEFAULT_PROJECT_KEY
+  ) {
+
+    const mounted =
+      mountProject(
+        key
+      );
+
+
+    if (
+      !mounted ||
+      !viewer
+    ) {
+
+      return false;
+
+    }
+
+
+    if (
+      !viewer.open
+    ) {
+
+      viewer.showModal();
+
+    }
+
+
+    document.body.classList.add(
+      "portfolio-viewer-open",
+      "nh-viewer-open"
+    );
+
+
+    /*
+     * Reset the embedded project's own scroll position.
+     *
+     * The iframe may not yet have completed loading on the
+     * first open, so attempt this again after load.
+     */
+
+    function resetFrameScroll() {
+
+      try {
+
+        projectFrame
+          ?.contentWindow
+          ?.scrollTo(
+            0,
+            0
+          );
+
+      } catch (error) {
+
+        /*
+         * Sandboxed iframe access may be restricted.
+         * Scrolling still works; only the reset is skipped.
+         */
+
+      }
+
+    }
+
+
+    resetFrameScroll();
+
+
+    projectFrame?.addEventListener(
+      "load",
+      resetFrameScroll,
+      {
+        once:
+          true
+      }
+    );
+
+
+    return true;
+
+  }
+
+
+  function closeViewer() {
+
+    if (
+      viewer?.open
+    ) {
+
+      viewer.close();
+
+    }
+
+
+    document.body.classList.remove(
+      "portfolio-viewer-open",
+      "nh-viewer-open"
+    );
+
+  }
+
+
+  /* =======================================================
+     GENERIC PUBLIC API
+
+     Future projects should open the viewer with:
+
+     PortfolioProjectViewer.open("sola")
+
+     or:
+
+     PortfolioProjectViewer.open("avance")
+  ======================================================= */
+
+  window.PortfolioProjectViewer = {
+
+    open:
+      openProject,
+
+    close:
+      closeViewer,
+
+    mount:
+      mountProject,
+
+    getCurrentProject() {
+
+      return currentProjectKey;
+
+    }
+
+  };
+
+
+  /* =======================================================
+     VIEWER CHROME EVENTS
+  ======================================================= */
+
+  function bindViewerChrome() {
+
+    if (
+      !viewer ||
+      viewer.dataset.genericViewerBound ===
+        "true"
+    ) {
+
+      return;
+
+    }
+
+
+    viewer.dataset.genericViewerBound =
+      "true";
+
+
+    const closeButton =
+      viewer.querySelector(
+        ".nh-site-viewer-close"
+      );
+
+
+    closeButton?.addEventListener(
+      "click",
+      () => {
+
+        closeViewer();
+
+      }
+    );
+
+
+    viewer.addEventListener(
+      "cancel",
+      (event) => {
+
+        event.preventDefault();
+
+        closeViewer();
+
+      }
+    );
+
+
+    viewer.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target ===
+          viewer
+        ) {
+
+          closeViewer();
+
+        }
+
+      }
+    );
+
+
+    viewer.addEventListener(
+      "close",
+      () => {
+
+        document.body.classList.remove(
+          "portfolio-viewer-open",
+          "nh-viewer-open"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     NORTH HOME / EXISTING WORK LAUNCHERS
+
+     These remain temporarily for compatibility.
+
+     Later the Work renderer itself will create generic
+     project viewer controls for every registered project.
+  ======================================================= */
+
+  function repairNorthLaunchers() {
 
     const northSlide =
       document.querySelector(
@@ -1524,17 +1610,13 @@
 
 
     /*
-     * IMPORTANT:
-     *
-     * main.js treats pointerdown inside the reel
-     * as a horizontal drag.
-     *
-     * Stop the event at the North image so the
-     * reel cannot steal the click.
+     * Prevent the horizontal project reel from treating a
+     * click on the project image as the beginning of a drag.
      */
 
     if (
-      !northImage.dataset.clickRepair
+      northImage.dataset.clickRepair !==
+      "true"
     ) {
 
       northImage.dataset.clickRepair =
@@ -1554,38 +1636,18 @@
 
 
     /*
-     * north-home.js already added the actual
-     * viewer-opening click listener to this image.
-     *
-     * Remove the fake button semantics from the div
-     * because we are adding a real button below.
+     * A real button is the clearest explicit launch target.
      */
 
-    northImage.removeAttribute(
-      "role"
-    );
-
-
-    northImage.removeAttribute(
-      "tabindex"
-    );
-
-
-    /*
-     * Add an actual button.
-     *
-     * main.js explicitly ignores pointer drag events
-     * that begin on a button, so this also provides
-     * a guaranteed launch target.
-     */
-
-    if (
-      !northImage.querySelector(
+    let button =
+      northImage.querySelector(
         ".nh-project-view-button"
-      )
-    ) {
+      );
 
-      const button =
+
+    if (!button) {
+
+      button =
         document.createElement(
           "button"
         );
@@ -1599,18 +1661,35 @@
         "nh-project-view-button";
 
 
-      button.setAttribute(
-        "aria-label",
-        "View North Home website preview"
-      );
-
-
       button.innerHTML = `
         VIEW WEBSITE
+
         <span aria-hidden="true">
           ↗
         </span>
       `;
+
+
+      northImage.append(
+        button
+      );
+
+    }
+
+
+    button.setAttribute(
+      "aria-label",
+      "View North Home website preview"
+    );
+
+
+    if (
+      button.dataset.genericViewerBound !==
+      "true"
+    ) {
+
+      button.dataset.genericViewerBound =
+        "true";
 
 
       button.addEventListener(
@@ -1623,32 +1702,34 @@
       );
 
 
-      /*
-       * Let the click bubble to northImage.
-       *
-       * The existing North Home viewer listener
-       * will then open the popup.
-       */
+      button.addEventListener(
+        "click",
+        (event) => {
 
-      northImage.append(
-        button
+          /*
+           * Do not bubble into north-home.js's older
+           * project-image listener.
+           */
+
+          event.preventDefault();
+          event.stopPropagation();
+
+
+          openProject(
+            "north"
+          );
+
+        }
       );
 
     }
 
 
     /*
-     * Make the project title launch the same preview.
+     * Keep the project title as a secondary launch target.
      */
 
-    if (
-      northTitle &&
-      !northTitle.dataset.clickRepair
-    ) {
-
-      northTitle.dataset.clickRepair =
-        "true";
-
+    if (northTitle) {
 
       northTitle.classList.add(
         "nh-project-title-launch"
@@ -1673,56 +1754,198 @@
       );
 
 
-      northTitle.addEventListener(
-        "click",
-        () => {
+      if (
+        northTitle.dataset.genericViewerBound !==
+        "true"
+      ) {
 
-          northImage.click();
-
-        }
-      );
+        northTitle.dataset.genericViewerBound =
+          "true";
 
 
-      northTitle.addEventListener(
-        "keydown",
-        (event) => {
+        northTitle.addEventListener(
+          "click",
+          () => {
 
-          if (
-            event.key !== "Enter" &&
-            event.key !== " "
-          ) {
-            return;
+            openProject(
+              "north"
+            );
+
           }
+        );
 
 
-          event.preventDefault();
+        northTitle.addEventListener(
+          "keydown",
+          (event) => {
 
-          northImage.click();
+            if (
+              event.key !==
+                "Enter" &&
+              event.key !==
+                " "
+            ) {
 
-        }
-      );
+              return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            openProject(
+              "north"
+            );
+
+          }
+        );
+
+      }
 
     }
 
   }
 
 
-  function startRepair() {
+  /* =======================================================
+     START
+  ======================================================= */
+
+  function start(
+    attempt = 0
+  ) {
+
+    if (started) {
+      return;
+    }
+
 
     /*
-     * north-home.js builds the website and viewer
-     * during DOMContentLoaded.
+     * north-home.js currently creates the dialog shell.
      *
-     * One animation frame ensures those elements
-     * exist before this repair runs.
+     * project-north.js registers the canonical North source.
+     *
+     * Wait until both exist before replacing the old viewer
+     * clone.
      */
 
-    requestAnimationFrame(
-      repairNorthHome
+    const viewerReady =
+      getViewerElements();
+
+
+    const projectReady =
+      window.PortfolioProjects?.has(
+        DEFAULT_PROJECT_KEY
+      );
+
+
+    if (
+      !viewerReady ||
+      !projectReady
+    ) {
+
+      if (
+        attempt <
+        MAX_START_ATTEMPTS
+      ) {
+
+        requestAnimationFrame(
+          () => {
+
+            start(
+              attempt + 1
+            );
+
+          }
+        );
+
+      }
+
+
+      return;
+
+    }
+
+
+    addViewerStyles();
+
+
+    bindViewerChrome();
+
+
+    /*
+     * Immediately replace north-home.js's old
+     * .nh-site-view-only clone with the canonical source.
+     */
+
+    mountProject(
+      DEFAULT_PROJECT_KEY
+    );
+
+
+    repairNorthLaunchers();
+
+
+    started =
+      true;
+
+
+    document.documentElement
+      .setAttribute(
+        "data-project-viewer",
+        "ready"
+      );
+
+
+    document.dispatchEvent(
+      new CustomEvent(
+        "portfolio:viewer-ready"
+      )
     );
 
   }
 
+
+  /* =======================================================
+     REGISTRY EVENTS
+  ======================================================= */
+
+  document.addEventListener(
+    "portfolio:project-registered",
+    () => {
+
+      requestAnimationFrame(
+        () => {
+
+          start();
+
+        }
+      );
+
+    }
+  );
+
+
+  document.addEventListener(
+    "north:project-ready",
+    () => {
+
+      requestAnimationFrame(
+        () => {
+
+          start();
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     LOAD
+  ======================================================= */
 
   if (
     document.readyState ===
@@ -1731,15 +1954,32 @@
 
     document.addEventListener(
       "DOMContentLoaded",
-      startRepair,
+      () => {
+
+        requestAnimationFrame(
+          () => {
+
+            start();
+
+          }
+        );
+
+      },
       {
-        once: true
+        once:
+          true
       }
     );
 
   } else {
 
-    startRepair();
+    requestAnimationFrame(
+      () => {
+
+        start();
+
+      }
+    );
 
   }
 
