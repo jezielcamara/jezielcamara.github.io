@@ -1,0 +1,507 @@
+/* =========================================================
+   NORTH HOME / PHILIPPINES PHOTOGRAPHY
+
+   Replaces the earlier international stock imagery with
+   Pexels photography shot in the Philippines.
+
+   This file is intentionally an override layer.
+========================================================= */
+
+
+/* =========================================================
+   HERO / FEATURED PROJECT
+
+   Pexels 952323
+   Philippines
+   Modern residential architecture with tropical greenery
+========================================================= */
+
+.nh-thumb-hero,
+.nh-hero-media,
+.window-small
+.nh-mobile-hero {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        8,
+        14,
+        20,
+        .03
+      )
+      8%,
+      rgba(
+        8,
+        14,
+        20,
+        .12
+      )
+      42%,
+      rgba(
+        8,
+        14,
+        20,
+        .72
+      )
+      100%
+    ),
+    url(
+      "https://images.pexels.com/photos/952323/pexels-photo-952323.jpeg?auto=compress&cs=tinysrgb&w=2200"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center
+    48% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/*
+ * Desktop hero needs stronger contrast
+ * behind the large white copy.
+ */
+
+.nh-hero-media::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(
+        7,
+        12,
+        17,
+        .62
+      ),
+      rgba(
+        7,
+        12,
+        17,
+        .2
+      )
+      58%,
+      rgba(
+        7,
+        12,
+        17,
+        .04
+      )
+    ) !important;
+}
+
+
+/*
+ * Portfolio thumbnail contrast.
+ */
+
+.nh-thumb-hero::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(
+        7,
+        12,
+        17,
+        .58
+      ),
+      rgba(
+        7,
+        12,
+        17,
+        .16
+      )
+      64%,
+      rgba(
+        7,
+        12,
+        17,
+        .04
+      )
+    ) !important;
+}
+
+
+/* =========================================================
+   REPAIRS
+
+   Pexels 32907184
+   Makati City, NCR, Philippines
+   Contemporary residential living room
+========================================================= */
+
+.nh-service-photo {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        18,
+        26,
+        .01
+      ),
+      rgba(
+        10,
+        18,
+        26,
+        .08
+      )
+    ),
+    url(
+      "https://images.pexels.com/photos/32907184/pexels-photo-32907184.jpeg?auto=compress&cs=tinysrgb&w=1800"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center
+    50% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   MAINTENANCE
+
+   Pexels 37833409
+   Talisay, Calabarzon, Philippines
+   Residential bedroom with local tropical-climate details
+========================================================= */
+
+.nh-service-photo[
+  data-service="maintenance"
+] {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        18,
+        26,
+        .01
+      ),
+      rgba(
+        10,
+        18,
+        26,
+        .07
+      )
+    ),
+    url(
+      "https://images.pexels.com/photos/37833409/pexels-photo-37833409.jpeg?auto=compress&cs=tinysrgb&w=1800"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center
+    48% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   INSTALLATION
+
+   Pexels 26793170
+   Manila, NCR, Philippines
+   Residential terrace / outdoor living
+========================================================= */
+
+.nh-service-photo[
+  data-service="installation"
+] {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        18,
+        26,
+        .01
+      ),
+      rgba(
+        10,
+        18,
+        26,
+        .08
+      )
+    ),
+    url(
+      "https://images.pexels.com/photos/26793170/pexels-photo-26793170.jpeg?auto=compress&cs=tinysrgb&w=1800"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center
+    50% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   HOME-CARE STORY
+
+   Pexels 12787275
+   Davao City, Philippines
+   Contemporary Filipino apartment interior
+========================================================= */
+
+.nh-story-photo {
+  background-image:
+    url(
+      "https://images.pexels.com/photos/12787275/pexels-photo-12787275.jpeg?auto=compress&cs=tinysrgb&w=1900"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center
+    50% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK / PROJECT 01
+
+   Pexels 36817987
+   Taguig, Metro Manila, Philippines
+   Condominium / urban residential living
+========================================================= */
+
+.nh-work-card {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        15,
+        20,
+        .02
+      )
+      30%,
+      rgba(
+        10,
+        15,
+        20,
+        .74
+      )
+      100%
+    ),
+    url(
+      "https://images.pexels.com/photos/36817987/pexels-photo-36817987.jpeg?auto=compress&cs=tinysrgb&w=1900"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK / PROJECT 02
+
+   Pexels 12219060
+   Pasig, NCR, Philippines
+   High-rise residential building
+========================================================= */
+
+.nh-work-card-two {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        15,
+        20,
+        .02
+      )
+      28%,
+      rgba(
+        10,
+        15,
+        20,
+        .72
+      )
+      100%
+    ),
+    url(
+      "https://images.pexels.com/photos/12219060/pexels-photo-12219060.jpeg?auto=compress&cs=tinysrgb&w=1700"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK / PROJECT 03
+
+   Pexels 20102605
+   Manila, NCR, Philippines
+   Contemporary apartment architecture
+========================================================= */
+
+.nh-work-card-three {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        10,
+        15,
+        20,
+        .02
+      )
+      28%,
+      rgba(
+        10,
+        15,
+        20,
+        .72
+      )
+      100%
+    ),
+    url(
+      "https://images.pexels.com/photos/20102605/pexels-photo-20102605.jpeg?auto=compress&cs=tinysrgb&w=1700"
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* =========================================================
+   MOBILE HERO CROP
+========================================================= */
+
+@media (
+  max-width: 700px
+) {
+
+  .nh-hero-media,
+  .nh-thumb-hero {
+    background-position:
+      53%
+      center !important;
+  }
+
+
+  .window-small
+  .nh-mobile-hero {
+    background-position:
+      54%
+      center !important;
+  }
+
+
+  .nh-service-photo {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-service-photo[
+    data-service="maintenance"
+  ] {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-service-photo[
+    data-service="installation"
+  ] {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-story-photo {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-work-card,
+  .nh-work-card-two,
+  .nh-work-card-three {
+    background-position:
+      center !important;
+  }
+
+}
+
+
+/* =========================================================
+   LARGE-SCREEN CROPS
+========================================================= */
+
+@media (
+  min-width: 1200px
+) {
+
+  .nh-hero-media,
+  .nh-thumb-hero {
+    background-position:
+      center
+      46% !important;
+  }
+
+
+  .nh-story-photo {
+    background-position:
+      center
+      48% !important;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .nh-work-card {
+    transition:
+      none !important;
+  }
+
+}
