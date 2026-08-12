@@ -1,7 +1,7 @@
 /* =========================================================
    JEZIEL CAMARA / PORTFOLIO RESPONSIVE LAB
-   Keeps the existing main.js width animation,
-   but updates the Lab for the portfolio preview.
+   Extends the existing Lab width animation in main.js
+   with portfolio-specific responsive descriptions.
 ========================================================= */
 
 (function () {
@@ -45,7 +45,7 @@
 
 
   /* =======================================================
-     PORTFOLIO VIEWPORT COPY
+     RESPONSIVE STATES
   ======================================================= */
 
   function getPortfolioViewportState(
@@ -72,7 +72,7 @@
           "Tablet",
 
         text:
-          "Tablet: the floating composition tightens while the hierarchy and project preview remain easy to scan."
+          "Tablet: the composition tightens while the hierarchy, project preview, and supporting content remain easy to scan."
       };
 
     }
@@ -90,10 +90,10 @@
 
 
   /* =======================================================
-     SYNC THE NEW PORTFOLIO LAB
+     APPLY PORTFOLIO COPY
   ======================================================= */
 
-  function syncPortfolioLab() {
+  function applyPortfolioState() {
 
     const width =
       Number(
@@ -107,21 +107,21 @@
       );
 
 
-    /*
-     * Make the purpose explicit.
-     */
-
     responsivePreview.dataset.business =
       "portfolio";
 
 
     /*
-     * main.js already controls the width.
-     * We simply keep the labels accurate
-     * for this new portfolio demo.
+     * main.js owns the numeric width display.
+     * This file only owns the portfolio-specific
+     * mode label and explanation.
      */
 
-    if (viewportMode) {
+    if (
+      viewportMode &&
+      viewportMode.textContent !==
+        state.label
+    ) {
 
       viewportMode.textContent =
         state.label;
@@ -129,15 +129,11 @@
     }
 
 
-    if (viewportOutput) {
-
-      viewportOutput.textContent =
-        `${Math.round(width)}px`;
-
-    }
-
-
-    if (labExplainer) {
+    if (
+      labExplainer &&
+      labExplainer.textContent.trim() !==
+        state.text
+    ) {
 
       labExplainer.textContent =
         state.text;
@@ -148,7 +144,7 @@
 
 
   /* =======================================================
-     USER SLIDER
+     USER-DRIVEN SLIDER
   ======================================================= */
 
   viewportRange.addEventListener(
@@ -156,14 +152,12 @@
     () => {
 
       /*
-       * main.js handles the actual preview width.
-       *
-       * This listener runs alongside it and updates
-       * only the portfolio-specific text.
+       * main.js updates the preview width first.
+       * Apply our portfolio wording immediately after.
        */
 
       requestAnimationFrame(
-        syncPortfolioLab
+        applyPortfolioState
       );
 
     }
@@ -171,15 +165,19 @@
 
 
   /* =======================================================
-     WATCH THE AUTOMATIC REPLAY
+     AUTOMATIC REPLAY
   ======================================================= */
 
   /*
-   * The original Lab animation in main.js changes
-   * the slider value programmatically during Replay.
+   * main.js changes the range value during its
+   * animated Replay sequence without firing input.
    *
-   * Programmatic range changes do not fire an input
-   * event, so observe the visible output instead.
+   * The numeric output changes on every animation
+   * frame, so we can use it only as a signal.
+   *
+   * IMPORTANT:
+   * We do not write back to viewportOutput here,
+   * avoiding a MutationObserver feedback loop.
    */
 
   if (
@@ -187,13 +185,23 @@
     "MutationObserver" in window
   ) {
 
+    let observerFrame =
+      0;
+
+
     const observer =
       new MutationObserver(
         () => {
 
-          requestAnimationFrame(
-            syncPortfolioLab
+          cancelAnimationFrame(
+            observerFrame
           );
+
+
+          observerFrame =
+            requestAnimationFrame(
+              applyPortfolioState
+            );
 
         }
       );
@@ -212,16 +220,26 @@
 
 
   /* =======================================================
-     RESIZE SAFETY
+     WINDOW RESIZE
   ======================================================= */
+
+  let resizeFrame =
+    0;
+
 
   window.addEventListener(
     "resize",
     () => {
 
-      requestAnimationFrame(
-        syncPortfolioLab
+      cancelAnimationFrame(
+        resizeFrame
       );
+
+
+      resizeFrame =
+        requestAnimationFrame(
+          applyPortfolioState
+        );
 
     },
     {
@@ -235,7 +253,7 @@
   ======================================================= */
 
   requestAnimationFrame(
-    syncPortfolioLab
+    applyPortfolioState
   );
 
 })();
