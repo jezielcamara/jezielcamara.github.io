@@ -3,59 +3,78 @@
 
    SELF-INITIATED HOSPITALITY CONCEPT
 
-   PRIMARY REFERENCE DIRECTION:
-   - antique illustrated websites
-   - old restaurant menus
+   DESIGN LANGUAGE
+   - antique illustrated website
+   - restaurant ephemera
    - recipe books
-   - collected ephemera
-   - parchment
-   - stamps
-   - desk objects
-   - imperfect found photography
+   - parchment and aged ink
+   - collected photographs
+   - stamps / notes / archival objects
+   - deliberately unlike North Home
 
-   IMPORTANT:
+   RESPONSIVE RULE
 
-   Sola must NOT share North Home's composition.
-
-   NORTH:
-   conventional header
-   photographic Hero
-   horizontal business hierarchy
-
-   SOLA:
-   centered masthead
-   antique tableau
-   floating ephemera
-   paper-ledger sections
-   scrapbook composition
-
-   ONE DOM.
-   ONE DESIGN SYSTEM.
-   CONTAINER RESPONSIVE.
+   ONE CANONICAL DOM
+          ↓
+   CONTAINER RESPONSIVE
+          ↓
+   HERO / WORK / VIEWER / CASE / MOBILE
 ========================================================= */
 
 
 /* =========================================================
-   ROOT TOKENS
+   ROOT
 ========================================================= */
 
 .sola-site {
-  --sola-paper: #e4cca2;
-  --sola-paper-light: #f3e7cc;
-  --sola-paper-pale: #f8efd9;
-  --sola-paper-deep: #c9a878;
+  --sola-paper:
+    #e4cca2;
 
-  --sola-brown: #38251a;
-  --sola-brown-soft: #65503c;
-  --sola-brown-fade: #90765a;
+  --sola-paper-light:
+    #f3e7cc;
 
-  --sola-red: #79463b;
-  --sola-green: #334531;
-  --sola-green-dark: #253427;
-  --sola-gold: #9b7a46;
+  --sola-paper-pale:
+    #f8efd9;
 
-  --sola-line: rgba(56, 37, 26, .23);
-  --sola-line-dark: rgba(56, 37, 26, .56);
+  --sola-paper-deep:
+    #c9a878;
+
+  --sola-brown:
+    #38251a;
+
+  --sola-brown-soft:
+    #65503c;
+
+  --sola-brown-fade:
+    #90765a;
+
+  --sola-red:
+    #79463b;
+
+  --sola-green:
+    #334531;
+
+  --sola-green-dark:
+    #253427;
+
+  --sola-gold:
+    #9b7a46;
+
+  --sola-line:
+    rgba(
+      56,
+      37,
+      26,
+      .23
+    );
+
+  --sola-line-dark:
+    rgba(
+      56,
+      37,
+      26,
+      .56
+    );
 
   --sola-serif:
     "Palatino Linotype",
@@ -74,45 +93,74 @@
     Arial,
     sans-serif;
 
-  position: relative;
+  position:
+    relative;
 
-  width: 100%;
-  min-width: 0;
+  width:
+    100%;
 
-  overflow-x: hidden;
+  min-width:
+    0;
 
-  color: var(--sola-brown);
-  background-color: var(--sola-paper-light);
+  overflow-x:
+    hidden;
+
+  color:
+    var(--sola-brown);
+
+  background-color:
+    var(--sola-paper-light);
 
   background-image:
     url(
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%239b7a46' stroke-opacity='.065' stroke-width='1'%3E%3Cpath d='M75 18c5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30 17-5 25-13 30-30Z'/%3E%3Cpath d='M18 75c17-5 25-13 30-30 5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30Z'/%3E%3Ccircle cx='75' cy='75' r='4'/%3E%3C/g%3E%3C/svg%3E"
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%239b7a46' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M75 18c5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30 17-5 25-13 30-30Z'/%3E%3Cpath d='M18 75c17-5 25-13 30-30 5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30Z'/%3E%3Ccircle cx='75' cy='75' r='4'/%3E%3C/g%3E%3C/svg%3E"
     );
 
-  background-size: 150px 150px;
-  background-repeat: repeat;
+  background-repeat:
+    repeat;
+
+  background-size:
+    150px
+    150px;
 
   box-shadow:
     inset
     0
     0
     110px
-    rgba(56, 37, 26, .09);
+    rgba(
+      56,
+      37,
+      26,
+      .08
+    );
 
-  font-family: var(--sola-serif);
-  line-height: 1.5;
+  font-family:
+    var(--sola-serif);
 
-  container-type: inline-size;
-  container-name: sola;
+  line-height:
+    1.5;
 
-  text-rendering: optimizeLegibility;
+  text-rendering:
+    optimizeLegibility;
+
+  container-type:
+    inline-size;
+
+  container-name:
+    sola;
 }
 
+
+/* =========================================================
+   RESET
+========================================================= */
 
 .sola-site *,
 .sola-site *::before,
 .sola-site *::after {
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 }
 
 
@@ -122,21 +170,29 @@
 .sola-site p,
 .sola-site figure,
 .sola-site blockquote {
-  margin: 0;
+  margin:
+    0;
 }
 
 
 .sola-site img {
-  display: block;
+  display:
+    block;
 
-  width: 100%;
-  max-width: 100%;
+  width:
+    100%;
+
+  max-width:
+    100%;
 }
 
 
 .sola-site a {
-  color: inherit;
-  text-decoration: none;
+  color:
+    inherit;
+
+  text-decoration:
+    none;
 }
 
 
@@ -144,7 +200,8 @@
 .sola-site input,
 .sola-site select,
 .sola-site textarea {
-  font: inherit;
+  font:
+    inherit;
 }
 
 
@@ -155,17 +212,29 @@
 .sola-overline,
 .sola-section-number,
 .sola-section-index,
-.sola-menu-heading > div,
-.sola-notebook-heading > span,
-.sola-gallery-heading span {
-  font-family: var(--sola-sans);
+.sola-menu-heading
+> div,
+.sola-notebook-heading
+> span,
+.sola-gallery-heading
+span {
+  color:
+    var(--sola-red);
 
-  font-size: .53rem;
-  font-weight: 600;
+  font-family:
+    var(--sola-sans);
 
-  letter-spacing: .12em;
+  font-size:
+    .52rem;
 
-  text-transform: uppercase;
+  font-weight:
+    600;
+
+  letter-spacing:
+    .12em;
+
+  text-transform:
+    uppercase;
 }
 
 
@@ -174,69 +243,97 @@
 ========================================================= */
 
 .sola-notice {
-  min-height: 27px;
+  min-height:
+    27px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
     auto
     1fr;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 20px;
+  gap:
+    18px;
 
   padding:
     0
-    clamp(18px, 4cqi, 46px);
+    clamp(
+      18px,
+      4cqi,
+      46px
+    );
 
-  color: var(--sola-paper-light);
-  background: var(--sola-brown);
+  color:
+    var(--sola-paper-light);
+
+  background:
+    var(--sola-brown);
 
   border-bottom:
     1px
     solid
-    rgba(243, 231, 204, .2);
+    rgba(
+      243,
+      231,
+      204,
+      .2
+    );
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .39rem;
-  font-weight: 500;
+  font-size:
+    .38rem;
 
-  letter-spacing: .11em;
+  font-weight:
+    500;
 
-  text-transform: uppercase;
+  letter-spacing:
+    .11em;
+
+  text-transform:
+    uppercase;
 }
 
 
-.sola-notice span:nth-child(2) {
-  text-align: center;
+.sola-notice
+span:nth-child(2) {
+  text-align:
+    center;
 }
 
 
-.sola-notice span:last-child {
-  text-align: right;
+.sola-notice
+span:last-child {
+  text-align:
+    right;
 }
 
 
 /* =========================================================
    MASTHEAD
 
-   Intentionally unlike North Home.
-
-   Sola's identity is centered vertically like an old
-   restaurant / catalogue masthead.
+   Sola uses a centered restaurant/catalogue masthead,
+   deliberately unlike North Home.
 ========================================================= */
 
 .sola-header {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 30;
+  z-index:
+    30;
 
-  min-height: 116px;
+  min-height:
+    108px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
@@ -244,17 +341,27 @@
     1fr;
 
   grid-template-rows:
-    76px
-    40px;
+    69px
+    39px;
 
-  align-items: center;
+  align-items:
+    center;
 
   padding:
     0
-    clamp(20px, 5cqi, 60px);
+    clamp(
+      20px,
+      5cqi,
+      60px
+    );
 
   background:
-    rgba(243, 231, 204, .94);
+    rgba(
+      243,
+      231,
+      204,
+      .95
+    );
 
   border-bottom:
     1px
@@ -264,16 +371,21 @@
 
 
 /* =========================================================
-   CENTERED CREST
+   BRAND
 ========================================================= */
 
 .sola-brand {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column:
+    2;
 
-  justify-self: center;
+  grid-row:
+    1;
 
-  display: grid;
+  justify-self:
+    center;
+
+  display:
+    grid;
 
   grid-template-columns:
     37px
@@ -283,9 +395,11 @@
     auto
     auto;
 
-  column-gap: 9px;
+  column-gap:
+    9px;
 
-  align-items: center;
+  align-items:
+    center;
 }
 
 
@@ -296,91 +410,138 @@
     span
     2;
 
-  width: 37px;
-  height: 37px;
+  width:
+    37px;
 
-  display: grid;
+  height:
+    37px;
 
-  place-items: center;
+  display:
+    grid;
 
-  color: var(--sola-paper-pale);
-  background: var(--sola-brown);
+  place-items:
+    center;
 
-  border-radius: 50%;
+  color:
+    var(--sola-paper-pale);
 
-  font-family: var(--sola-display);
+  background:
+    var(--sola-brown);
 
-  font-size: 1.2rem;
-  line-height: 1;
+  border-radius:
+    50%;
+
+  font-family:
+    var(--sola-display);
+
+  font-size:
+    1.2rem;
+
+  line-height:
+    1;
 }
 
 
 .sola-brand-name {
-  align-self: end;
+  align-self:
+    end;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
-  font-size: 1.55rem;
+  font-size:
+    1.48rem;
 
-  letter-spacing: .05em;
-  line-height: .87;
+  letter-spacing:
+    .05em;
+
+  line-height:
+    .88;
 }
 
 
-.sola-brand small {
-  align-self: start;
+.sola-brand
+small {
+  align-self:
+    start;
 
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-serif);
+  font-size:
+    .48rem;
 
-  font-size: .5rem;
-  font-style: italic;
+  font-style:
+    italic;
 
-  letter-spacing: .04em;
+  letter-spacing:
+    .04em;
 }
 
 
 /* =========================================================
-   MASTHEAD HOURS
+   HOURS
 ========================================================= */
 
 .sola-header-note {
-  position: absolute;
+  position:
+    absolute;
 
-  top: 25px;
-  right: clamp(20px, 5cqi, 60px);
+  top:
+    23px;
 
-  display: flex;
+  right:
+    clamp(
+      20px,
+      5cqi,
+      60px
+    );
 
-  align-items: baseline;
+  display:
+    flex;
 
-  gap: 7px;
+  align-items:
+    baseline;
 
-  color: var(--sola-brown-fade);
+  gap:
+    7px;
+
+  color:
+    var(--sola-brown-fade);
 }
 
 
-.sola-header-note span {
-  font-family: var(--sola-sans);
+.sola-header-note
+span {
+  font-family:
+    var(--sola-sans);
 
-  font-size: .37rem;
-  font-weight: 600;
+  font-size:
+    .35rem;
 
-  letter-spacing: .1em;
+  font-weight:
+    600;
+
+  letter-spacing:
+    .1em;
 }
 
 
-.sola-header-note strong {
-  color: var(--sola-brown);
+.sola-header-note
+strong {
+  color:
+    var(--sola-brown);
 
-  font-size: .72rem;
-  font-weight: 400;
+  font-size:
+    .7rem;
+
+  font-weight:
+    400;
 }
 
 
 /* =========================================================
-   ORNAMENTAL NAV STRIP
+   ORNAMENTAL NAVIGATION
 ========================================================= */
 
 .sola-nav {
@@ -389,16 +550,27 @@
     /
     -1;
 
-  grid-row: 2;
+  grid-row:
+    2;
 
-  display: flex;
+  min-height:
+    39px;
 
-  align-items: center;
-  justify-content: center;
+  display:
+    flex;
 
-  gap: clamp(26px, 5cqi, 62px);
+  align-items:
+    center;
 
-  min-height: 40px;
+  justify-content:
+    center;
+
+  gap:
+    clamp(
+      24px,
+      5cqi,
+      58px
+    );
 
   border-top:
     1px
@@ -414,35 +586,53 @@
 
 .sola-nav::before,
 .sola-nav::after {
-  content: "❦";
+  content:
+    "❦";
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
-  font-size: .9rem;
+  font-size:
+    .82rem;
 }
 
 
-.sola-nav a {
-  position: relative;
+.sola-nav
+a {
+  position:
+    relative;
 
-  padding: 5px 0;
+  padding:
+    5px
+    0;
 
-  font-size: .66rem;
+  font-size:
+    .64rem;
 }
 
 
-.sola-nav a::after {
-  content: "";
+.sola-nav
+a::after {
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  right: 50%;
-  bottom: 1px;
-  left: 50%;
+  right:
+    50%;
 
-  height: 1px;
+  bottom:
+    1px;
 
-  background: var(--sola-red);
+  left:
+    50%;
+
+  height:
+    1px;
+
+  background:
+    var(--sola-red);
 
   transition:
     right
@@ -454,34 +644,76 @@
 }
 
 
-.sola-nav a:hover::after,
-.sola-nav a:focus-visible::after {
-  right: 0;
-  left: 0;
+.sola-nav
+a:hover::after,
+.sola-nav
+a:focus-visible::after {
+  right:
+    0;
+
+  left:
+    0;
 }
 
 
 /* =========================================================
    HERO / ANTIQUE TABLEAU
 
-   No two-column business-site Hero.
+   Critical architecture:
 
-   Copy occupies the center.
-   Photography becomes floating ephemera around it.
+   Hero COPY is now NORMAL GRID CONTENT.
+
+   Only ephemera is absolutely positioned.
+
+   This prevents the title, paragraph and buttons from
+   colliding at scaled portfolio viewport sizes.
 ========================================================= */
 
 .sola-hero {
-  position: relative;
+  position:
+    relative;
 
-  min-height: 630px;
+  min-height:
+    630px;
 
-  display: block;
+  display:
+    grid;
 
-  overflow: hidden;
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    minmax(
+      380px,
+      540px
+    )
+    minmax(
+      0,
+      1fr
+    );
+
+  grid-template-rows:
+    minmax(
+      0,
+      1fr
+    )
+    auto;
+
+  align-items:
+    center;
+
+  overflow:
+    hidden;
 
   padding:
-    0
-    clamp(18px, 4cqi, 48px);
+    46px
+    clamp(
+      18px,
+      4cqi,
+      48px
+    )
+    20px;
 
   border-bottom:
     1px
@@ -490,21 +722,31 @@
 }
 
 
-/* LEFT FOUND PAPER */
+/* =========================================================
+   LEFT PAPER
+========================================================= */
 
 .sola-hero::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 1;
+  z-index:
+    1;
 
-  top: 22%;
-  left: -3%;
+  top:
+    24%;
 
-  width: 22%;
+  left:
+    -4%;
 
-  min-width: 150px;
+  width:
+    21%;
+
+  min-width:
+    145px;
 
   aspect-ratio:
     1
@@ -512,12 +754,22 @@
     1.3;
 
   background:
-    rgba(228, 204, 162, .54);
+    rgba(
+      228,
+      204,
+      162,
+      .5
+    );
 
   border:
     1px
     solid
-    rgba(56, 37, 26, .2);
+    rgba(
+      56,
+      37,
+      26,
+      .18
+    );
 
   clip-path:
     polygon(
@@ -530,153 +782,246 @@
     );
 
   transform:
-    rotate(-7deg);
-}
+    rotate(
+      -7deg
+    );
 
-
-/* LARGE ORNAMENTAL OVAL */
-
-.sola-hero::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: 2;
-
-  top: 12%;
-  left: 50%;
-
-  width: min(49%, 590px);
-  height: 68%;
-
-  border:
-    1px
-    solid
-    rgba(155, 122, 70, .48);
-
-  border-radius: 50%;
-
-  transform:
-    translateX(-50%)
-    rotate(-1deg);
-
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 
 /* =========================================================
-   CENTRAL HERO COPY
+   ORNAMENTAL OVAL
 ========================================================= */
 
-.sola-hero-copy {
-  position: absolute;
+.sola-hero::after {
+  content:
+    "";
 
-  z-index: 10;
+  position:
+    absolute;
 
-  top: 48%;
-  left: 50%;
+  z-index:
+    2;
+
+  top:
+    48%;
+
+  left:
+    50%;
 
   width:
     min(
-      46%,
-      500px
+      53%,
+      620px
     );
 
-  text-align: center;
+  height:
+    min(
+      68%,
+      430px
+    );
+
+  border:
+    1px
+    solid
+    rgba(
+      155,
+      122,
+      70,
+      .43
+    );
+
+  border-radius:
+    50%;
 
   transform:
-    translate(-50%, -50%);
+    translate(
+      -50%,
+      -50%
+    )
+    rotate(
+      -.8deg
+    );
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================================
+   HERO COPY
+
+   NO ABSOLUTE POSITIONING.
+========================================================= */
+
+.sola-hero-copy {
+  position:
+    relative;
+
+  z-index:
+    10;
+
+  grid-column:
+    2;
+
+  grid-row:
+    1;
+
+  width:
+    100%;
+
+  max-width:
+    540px;
+
+  justify-self:
+    center;
+
+  align-self:
+    center;
+
+  text-align:
+    center;
+
+  transform:
+    none;
 }
 
 
 .sola-hero-copy::before {
-  content: "✦";
+  content:
+    "✦";
 
-  display: block;
+  display:
+    block;
 
-  margin-bottom: 10px;
+  margin-bottom:
+    10px;
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
-  font-size: .9rem;
+  font-size:
+    .78rem;
 }
 
 
 .sola-overline {
-  margin-bottom: 13px;
-
-  color: var(--sola-red);
+  margin-bottom:
+    12px;
 }
 
 
-.sola-hero h1 {
-  color: var(--sola-brown);
+/* =========================================================
+   HERO TITLE
 
-  font-family: var(--sola-display);
+   More breathing room than the previous .76 line-height.
+========================================================= */
+
+.sola-hero
+h1 {
+  color:
+    var(--sola-brown);
+
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
-      4rem,
-      7cqi,
-      6.4rem
+      3.55rem,
+      6cqi,
+      5.7rem
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 
-  letter-spacing: -.065em;
-  line-height: .76;
+  letter-spacing:
+    -.055em;
+
+  line-height:
+    .88;
 }
 
 
-.sola-hero h1 span,
-.sola-hero h1 em {
-  display: block;
+.sola-hero
+h1
+span,
+
+.sola-hero
+h1
+em {
+  display:
+    block;
 }
 
 
-/*
- * Important:
- * no generated initial letter.
- *
- * Previous CSS inserted another "S" here and produced
- * "SSome".
- */
-
-.sola-hero h1 span:first-child::before {
-  content: none;
+.sola-hero
+h1
+span:first-child::before {
+  content:
+    none;
 }
 
 
-.sola-hero h1 em {
+.sola-hero
+h1
+em {
   margin:
-    .03em
+    .06em
     0
     .04em;
 
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-serif);
+  font-family:
+    var(--sola-serif);
 
-  font-size: .92em;
-  font-style: italic;
-  font-weight: 400;
+  font-size:
+    .92em;
 
-  letter-spacing: -.055em;
+  font-style:
+    italic;
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.045em;
+
+  line-height:
+    .92;
 }
 
 
+/* =========================================================
+   HERO INTRO
+
+   Explicit vertical separation from title.
+========================================================= */
+
 .sola-hero-intro {
-  max-width: 355px;
+  position:
+    relative;
+
+  max-width:
+    360px;
 
   margin:
-    19px
+    28px
     auto
     0;
 
-  color: var(--sola-brown-soft);
+  color:
+    var(--sola-brown-soft);
 
-  font-size: .77rem;
-  line-height: 1.58;
+  font-size:
+    .78rem;
+
+  line-height:
+    1.62;
 }
 
 
@@ -685,30 +1030,42 @@
 ========================================================= */
 
 .sola-hero-actions {
-  display: flex;
+  display:
+    flex;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
-  align-items: center;
-  justify-content: center;
+  align-items:
+    center;
+
+  justify-content:
+    center;
 
   gap:
     10px
     21px;
 
-  margin-top: 21px;
+  margin-top:
+    22px;
 }
 
 
 .sola-primary-link {
-  min-height: 37px;
+  min-height:
+    37px;
 
-  display: inline-flex;
+  display:
+    inline-flex;
 
-  align-items: center;
-  justify-content: space-between;
+  align-items:
+    center;
 
-  gap: 18px;
+  justify-content:
+    space-between;
+
+  gap:
+    18px;
 
   padding:
     0
@@ -717,7 +1074,8 @@
   color:
     var(--sola-paper-pale) !important;
 
-  background: var(--sola-green);
+  background:
+    var(--sola-green);
 
   border:
     1px
@@ -728,80 +1086,110 @@
     3px
     4px
     0
-    rgba(56, 37, 26, .12);
+    rgba(
+      56,
+      37,
+      26,
+      .11
+    );
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .45rem;
-  font-weight: 600;
+  font-size:
+    .45rem;
 
-  letter-spacing: .08em;
+  font-weight:
+    600;
 
-  text-transform: uppercase;
+  letter-spacing:
+    .08em;
+
+  text-transform:
+    uppercase;
 }
 
 
-.sola-primary-link span {
-  font-size: .8rem;
+.sola-primary-link
+span {
+  font-size:
+    .8rem;
 }
 
 
 .sola-text-link {
-  padding: 7px 0;
+  padding:
+    7px
+    0;
 
   border-bottom:
     1px
     solid
     var(--sola-brown);
 
-  font-size: .68rem;
+  font-size:
+    .68rem;
 }
 
 
 /* =========================================================
-   HERO ART IS A FLOATING EPHEMERA FIELD
+   HERO ART FIELD
+
+   Decorative objects may overlap one another.
+   They never control text geometry.
 ========================================================= */
 
 .sola-hero-art {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 5;
+  z-index:
+    5;
 
-  inset: 0;
+  inset:
+    0;
 
-  width: auto;
-  min-height: 0;
+  width:
+    auto;
 
-  pointer-events: none;
+  min-height:
+    0;
+
+  pointer-events:
+    none;
 }
 
 
 /* =========================================================
    FOUND PHOTO
-
-   Deliberately secondary to typography.
 ========================================================= */
 
 .sola-hero-frame {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 5;
+  z-index:
+    5;
 
-  top: 20%;
-  right: 4%;
+  top:
+    23%;
+
+  right:
+    3%;
 
   width:
     min(
-      24%,
-      265px
+      21%,
+      235px
     );
 
   padding:
-    9px
-    9px
-    31px;
+    8px
+    8px
+    29px;
 
-  background: #ead5b0;
+  background:
+    #ead5b0;
 
   border:
     1px
@@ -809,43 +1197,69 @@
     var(--sola-line-dark);
 
   box-shadow:
-    9px
-    11px
+    8px
+    10px
     0
-    rgba(56, 37, 26, .08);
+    rgba(
+      56,
+      37,
+      26,
+      .08
+    );
 
   transform:
-    rotate(4deg);
+    rotate(
+      4deg
+    );
 }
 
 
 .sola-hero-frame::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: -10px;
-  left: 30%;
+  top:
+    -9px;
 
-  width: 63px;
-  height: 18px;
+  left:
+    30%;
+
+  width:
+    61px;
+
+  height:
+    17px;
 
   background:
-    rgba(155, 122, 70, .24);
+    rgba(
+      155,
+      122,
+      70,
+      .24
+    );
 
   transform:
-    rotate(-5deg);
+    rotate(
+      -5deg
+    );
 }
 
 
-.sola-hero-frame img {
+.sola-hero-frame
+img {
   aspect-ratio:
     4
     /
     5;
 
-  object-fit: cover;
-  object-position: center;
+  object-fit:
+    cover;
+
+  object-position:
+    center;
 
   border:
     1px
@@ -853,45 +1267,77 @@
     var(--sola-line);
 
   filter:
-    sepia(.42)
-    saturate(.56)
-    contrast(.92);
+    sepia(
+      .42
+    )
+    saturate(
+      .56
+    )
+    contrast(
+      .92
+    );
 }
 
 
-.sola-hero-frame figcaption {
-  position: absolute;
+.sola-hero-frame
+figcaption {
+  position:
+    absolute;
 
-  right: 9px;
-  bottom: 7px;
-  left: 9px;
+  right:
+    8px;
 
-  display: flex;
+  bottom:
+    6px;
 
-  align-items: center;
-  justify-content: space-between;
+  left:
+    8px;
 
-  gap: 8px;
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    8px;
 }
 
 
-.sola-hero-frame figcaption span {
-  color: var(--sola-brown-fade);
+.sola-hero-frame
+figcaption
+span {
+  color:
+    var(--sola-brown-fade);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .31rem;
+  font-size:
+    .3rem;
 
-  letter-spacing: .07em;
+  letter-spacing:
+    .07em;
 }
 
 
-.sola-hero-frame figcaption strong {
-  color: var(--sola-red);
+.sola-hero-frame
+figcaption
+strong {
+  color:
+    var(--sola-red);
 
-  font-size: .52rem;
-  font-style: italic;
-  font-weight: 400;
+  font-size:
+    .5rem;
+
+  font-style:
+    italic;
+
+  font-weight:
+    400;
 }
 
 
@@ -900,125 +1346,193 @@
 ========================================================= */
 
 .sola-frame-corner {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 7;
+  z-index:
+    7;
 
-  width: 18px;
-  height: 18px;
+  width:
+    18px;
 
-  pointer-events: none;
+  height:
+    18px;
+
+  pointer-events:
+    none;
 }
 
 
 .sola-frame-corner::before,
 .sola-frame-corner::after {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  background: var(--sola-gold);
+  background:
+    var(--sola-gold);
 }
 
 
 .sola-frame-corner::before {
-  width: 100%;
-  height: 1px;
+  width:
+    100%;
+
+  height:
+    1px;
 }
 
 
 .sola-frame-corner::after {
-  width: 1px;
-  height: 100%;
+  width:
+    1px;
+
+  height:
+    100%;
 }
 
 
 .sola-frame-corner-tl {
-  top: 4px;
-  left: 4px;
+  top:
+    4px;
+
+  left:
+    4px;
 }
 
 
 .sola-frame-corner-tr {
-  top: 4px;
-  right: 4px;
+  top:
+    4px;
 
-  transform: rotate(90deg);
+  right:
+    4px;
+
+  transform:
+    rotate(
+      90deg
+    );
 }
 
 
 .sola-frame-corner-bl {
-  bottom: 4px;
-  left: 4px;
+  bottom:
+    4px;
 
-  transform: rotate(-90deg);
+  left:
+    4px;
+
+  transform:
+    rotate(
+      -90deg
+    );
 }
 
 
 .sola-frame-corner-br {
-  right: 4px;
-  bottom: 4px;
+  right:
+    4px;
 
-  transform: rotate(180deg);
+  bottom:
+    4px;
+
+  transform:
+    rotate(
+      180deg
+    );
 }
 
 
 /* =========================================================
-   STAMP / LEFT SIDE
+   STAMP
 ========================================================= */
 
 .sola-hero-stamp {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 9;
+  z-index:
+    9;
 
-  top: 19%;
-  left: 8%;
+  top:
+    25%;
 
-  width: 76px;
-  height: 76px;
+  left:
+    7%;
 
-  display: grid;
+  width:
+    74px;
 
-  place-content: center;
+  height:
+    74px;
 
-  text-align: center;
+  display:
+    grid;
 
-  color: var(--sola-red);
+  place-content:
+    center;
+
+  text-align:
+    center;
+
+  color:
+    var(--sola-red);
+
+  background:
+    rgba(
+      243,
+      231,
+      204,
+      .5
+    );
 
   border:
     2px
     dashed
     var(--sola-red);
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
-  background:
-    rgba(243, 231, 204, .55);
+  opacity:
+    .7;
 
-  opacity: .72;
-
-  transform: rotate(-12deg);
+  transform:
+    rotate(
+      -12deg
+    );
 }
 
 
-.sola-hero-stamp span {
-  font-size: .82rem;
+.sola-hero-stamp
+span {
+  font-size:
+    .8rem;
 }
 
 
-.sola-hero-stamp small {
-  font-family: var(--sola-sans);
+.sola-hero-stamp
+small {
+  font-family:
+    var(--sola-sans);
 
-  font-size: .29rem;
+  font-size:
+    .28rem;
 
-  letter-spacing: .12em;
+  letter-spacing:
+    .12em;
 }
 
 
-.sola-hero-stamp strong {
-  font-size: .56rem;
-  font-weight: 400;
+.sola-hero-stamp
+strong {
+  font-size:
+    .55rem;
+
+  font-weight:
+    400;
 }
 
 
@@ -1027,127 +1541,201 @@
 ========================================================= */
 
 .sola-hand-note {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 8;
+  z-index:
+    8;
 
-  top: 11%;
-  right: 17%;
+  top:
+    13%;
 
-  max-width: 150px;
+  right:
+    16%;
 
-  color: var(--sola-red);
+  max-width:
+    145px;
 
-  font-size: .73rem;
-  font-style: italic;
+  color:
+    var(--sola-red);
 
-  line-height: 1.06;
+  font-size:
+    .7rem;
 
-  transform: rotate(-6deg);
+  font-style:
+    italic;
+
+  line-height:
+    1.08;
+
+  transform:
+    rotate(
+      -6deg
+    );
 }
 
 
 /* =========================================================
-   FLOATING ORNAMENT
+   ORNAMENT
 ========================================================= */
 
 .sola-ornament-top {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 7;
+  z-index:
+    7;
 
-  left: 10%;
-  bottom: 22%;
+  left:
+    9%;
+
+  bottom:
+    21%;
 
   color:
-    rgba(56, 37, 26, .45);
+    rgba(
+      56,
+      37,
+      26,
+      .42
+    );
 
-  font-size: 3.3rem;
+  font-size:
+    3rem;
 
-  transform: rotate(16deg);
+  transform:
+    rotate(
+      16deg
+    );
 }
 
 
 /* =========================================================
    HERO FOOT
+
+   Normal second grid row.
 ========================================================= */
 
 .sola-hero-foot {
-  position: absolute;
+  position:
+    relative;
 
-  z-index: 11;
+  z-index:
+    11;
 
-  right: 7%;
-  bottom: 20px;
-  left: 7%;
+  grid-column:
+    1
+    /
+    -1;
 
-  display: grid;
+  grid-row:
+    2;
+
+  width:
+    86%;
+
+  justify-self:
+    center;
+
+  display:
+    grid;
 
   grid-template-columns:
     1fr
     auto
     1fr;
 
-  align-items: center;
+  align-items:
+    center;
 
-  gap: 15px;
+  gap:
+    15px;
 
-  padding-top: 12px;
+  padding-top:
+    12px;
 
-  color: var(--sola-brown-fade);
+  color:
+    var(--sola-brown-fade);
 
   border-top:
     1px
     solid
     var(--sola-line);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .34rem;
+  font-size:
+    .33rem;
 
-  letter-spacing: .1em;
+  letter-spacing:
+    .1em;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 }
 
 
-.sola-hero-foot span:nth-child(2) {
-  color: var(--sola-gold);
+.sola-hero-foot
+span:nth-child(2) {
+  color:
+    var(--sola-gold);
 }
 
 
-.sola-hero-foot span:last-child {
-  text-align: right;
+.sola-hero-foot
+span:last-child {
+  text-align:
+    right;
 }
 
 
 /* =========================================================
    FROM THE TABLE
-
-   Paper placed on a desk rather than a conventional
-   business section.
 ========================================================= */
 
 .sola-table {
-  position: relative;
+  position:
+    relative;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     120px
-    minmax(230px, .72fr)
-    minmax(420px, 1.28fr);
+    minmax(
+      230px,
+      .72fr
+    )
+    minmax(
+      420px,
+      1.28fr
+    );
 
   gap:
-    clamp(28px, 5cqi, 65px);
+    clamp(
+      28px,
+      5cqi,
+      64px
+    );
 
-  align-items: start;
+  align-items:
+    start;
 
   padding:
-    clamp(70px, 8cqi, 108px)
-    clamp(28px, 7cqi, 90px);
+    clamp(
+      70px,
+      8cqi,
+      108px
+    )
+    clamp(
+      28px,
+      7cqi,
+      90px
+    );
 
-  background: var(--sola-paper);
+  background:
+    var(--sola-paper);
 
   border-bottom:
     1px
@@ -1157,23 +1745,36 @@
 
 
 .sola-table::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
   inset:
     28px
     4%;
 
-  z-index: 0;
+  z-index:
+    0;
 
   background:
-    rgba(248, 239, 217, .28);
+    rgba(
+      248,
+      239,
+      217,
+      .26
+    );
 
   border:
     1px
     solid
-    rgba(56, 37, 26, .13);
+    rgba(
+      56,
+      37,
+      26,
+      .12
+    );
 
   clip-path:
     polygon(
@@ -1185,56 +1786,80 @@
       0 7%
     );
 
-  transform: rotate(-.4deg);
+  transform:
+    rotate(
+      -.4deg
+    );
 }
 
 
-.sola-table > * {
-  position: relative;
+.sola-table
+> * {
+  position:
+    relative;
 
-  z-index: 2;
+  z-index:
+    2;
 }
 
 
 /* =========================================================
-   SECTION INDEX
+   TABLE INDEX
 ========================================================= */
 
 .sola-section-index {
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 }
 
 
-.sola-section-index span,
-.sola-section-index strong {
-  display: block;
+.sola-section-index
+span,
+
+.sola-section-index
+strong {
+  display:
+    block;
 }
 
 
-.sola-section-index span {
-  margin-bottom: 5px;
+.sola-section-index
+span {
+  margin-bottom:
+    5px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
-  font-size: 2.55rem;
-  font-weight: 400;
+  font-size:
+    2.5rem;
 
-  line-height: 1;
+  font-weight:
+    400;
+
+  line-height:
+    1;
 }
 
 
 .sola-section-index::after {
-  content: "✦";
+  content:
+    "✦";
 
-  width: 70px;
+  width:
+    70px;
 
-  display: grid;
+  display:
+    grid;
 
-  place-items: center;
+  place-items:
+    center;
 
-  margin-top: 18px;
+  margin-top:
+    18px;
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
   border-top:
     1px
@@ -1246,37 +1871,44 @@
     solid
     var(--sola-line-dark);
 
-  line-height: 18px;
+  line-height:
+    18px;
 }
 
 
 /* =========================================================
-   DROP COPY
+   TABLE COPY
 ========================================================= */
 
 .sola-table-copy {
-  padding-top: 4px;
+  padding-top:
+    4px;
 }
 
 
 .sola-drop-copy {
-  max-width: 420px;
+  max-width:
+    420px;
 
-  color: var(--sola-brown-soft);
+  color:
+    var(--sola-brown-soft);
 
   font-size:
     clamp(
-      1.25rem,
+      1.23rem,
       2.3cqi,
       1.9rem
     );
 
-  line-height: 1.43;
+  line-height:
+    1.43;
 }
 
 
-.sola-drop-copy > span {
-  float: left;
+.sola-drop-copy
+> span {
+  float:
+    left;
 
   margin:
     -.03em
@@ -1284,13 +1916,17 @@
     0
     0;
 
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
-  font-size: 4em;
+  font-size:
+    4em;
 
-  line-height: .72;
+  line-height:
+    .72;
 }
 
 
@@ -1299,14 +1935,17 @@
 ========================================================= */
 
 .sola-table-circles {
-  position: relative;
+  position:
+    relative;
 
-  min-height: 340px;
+  min-height:
+    340px;
 }
 
 
 .sola-circle-card {
-  position: absolute;
+  position:
+    absolute;
 
   width:
     min(
@@ -1319,7 +1958,8 @@
     7px
     24px;
 
-  background: var(--sola-paper-pale);
+  background:
+    var(--sola-paper-pale);
 
   border:
     1px
@@ -1330,17 +1970,24 @@
     6px
     8px
     0
-    rgba(56, 37, 26, .07);
+    rgba(
+      56,
+      37,
+      26,
+      .07
+    );
 }
 
 
-.sola-circle-card img {
+.sola-circle-card
+img {
   aspect-ratio:
     1
     /
     1;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
   border:
     1px
@@ -1348,54 +1995,84 @@
     var(--sola-line);
 
   filter:
-    sepia(.4)
-    saturate(.55)
-    contrast(.94);
+    sepia(
+      .4
+    )
+    saturate(
+      .55
+    )
+    contrast(
+      .94
+    );
 }
 
 
-.sola-circle-card figcaption {
-  margin-top: 8px;
+.sola-circle-card
+figcaption {
+  margin-top:
+    8px;
 
-  color: var(--sola-brown-fade);
+  color:
+    var(--sola-brown-fade);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .35rem;
+  font-size:
+    .35rem;
 
-  letter-spacing: .08em;
+  letter-spacing:
+    .08em;
 
-  text-align: center;
+  text-align:
+    center;
 }
 
 
 .sola-circle-one {
-  top: 0;
-  left: 0;
+  top:
+    0;
 
-  transform: rotate(-5deg);
+  left:
+    0;
+
+  transform:
+    rotate(
+      -5deg
+    );
 }
 
 
 .sola-circle-two {
-  right: 0;
-  bottom: 0;
+  right:
+    0;
 
-  transform: rotate(5deg);
+  bottom:
+    0;
+
+  transform:
+    rotate(
+      5deg
+    );
 }
 
 
 /* =========================================================
-   TABLE PAPER NOTE
+   TABLE NOTE
 ========================================================= */
 
 .sola-table-note {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 5;
+  z-index:
+    5;
 
-  top: 49%;
-  left: 52%;
+  top:
+    49%;
+
+  left:
+    52%;
 
   width:
     min(
@@ -1407,9 +2084,11 @@
     23px
     20px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  background: var(--sola-paper-pale);
+  background:
+    var(--sola-paper-pale);
 
   border:
     1px
@@ -1420,46 +2099,81 @@
     5px
     7px
     0
-    rgba(56, 37, 26, .07);
+    rgba(
+      56,
+      37,
+      26,
+      .07
+    );
 
   transform:
-    translate(-50%, -50%)
-    rotate(-2deg);
+    translate(
+      -50%,
+      -50%
+    )
+    rotate(
+      -2deg
+    );
 }
 
 
 .sola-table-note::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: -10px;
-  left: 36%;
+  top:
+    -10px;
 
-  width: 62px;
-  height: 18px;
+  left:
+    36%;
+
+  width:
+    62px;
+
+  height:
+    18px;
 
   background:
-    rgba(155, 122, 70, .22);
+    rgba(
+      155,
+      122,
+      70,
+      .22
+    );
 
-  transform: rotate(4deg);
+  transform:
+    rotate(
+      4deg
+    );
 }
 
 
-.sola-table-note span {
-  color: var(--sola-red);
+.sola-table-note
+span {
+  color:
+    var(--sola-red);
 
-  font-size: .72rem;
-  font-style: italic;
+  font-size:
+    .72rem;
+
+  font-style:
+    italic;
 }
 
 
-.sola-table-note strong {
-  display: block;
+.sola-table-note
+strong {
+  display:
+    block;
 
-  margin-top: 9px;
+  margin-top:
+    9px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -1468,59 +2182,86 @@
       1.9rem
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 
-  line-height: .98;
+  line-height:
+    1;
 }
 
 
-.sola-table-note i {
-  display: block;
+.sola-table-note
+i {
+  display:
+    block;
 
-  margin-top: 13px;
+  margin-top:
+    13px;
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
-  font-style: normal;
+  font-style:
+    normal;
 }
 
 
 /* =========================================================
    MENU / OPEN LEDGER
-
-   Unlike North's service grids, Sola's menu sits inside
-   one large physical ledger page.
 ========================================================= */
 
 .sola-menu {
-  position: relative;
+  position:
+    relative;
 
   padding:
-    clamp(75px, 8cqi, 110px)
-    clamp(28px, 7cqi, 90px)
-    clamp(90px, 9cqi, 125px);
+    clamp(
+      75px,
+      8cqi,
+      110px
+    )
+    clamp(
+      28px,
+      7cqi,
+      90px
+    )
+    clamp(
+      90px,
+      9cqi,
+      125px
+    );
 
-  color: var(--sola-paper-pale);
+  color:
+    var(--sola-paper-pale);
 
-  background: var(--sola-green-dark);
+  background:
+    var(--sola-green-dark);
 
   border-bottom:
     1px
     solid
-    rgba(243, 231, 204, .2);
+    rgba(
+      243,
+      231,
+      204,
+      .2
+    );
 }
 
 
 .sola-menu::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
   inset:
     48px
     4%;
 
-  background: var(--sola-paper-pale);
+  background:
+    var(--sola-paper-pale);
 
   border:
     1px
@@ -1531,7 +2272,12 @@
     10px
     13px
     0
-    rgba(0, 0, 0, .16);
+    rgba(
+      0,
+      0,
+      0,
+      .16
+    );
 
   clip-path:
     polygon(
@@ -1545,12 +2291,16 @@
 }
 
 
-.sola-menu > * {
-  position: relative;
+.sola-menu
+> * {
+  position:
+    relative;
 
-  z-index: 3;
+  z-index:
+    3;
 
-  color: var(--sola-brown);
+  color:
+    var(--sola-brown);
 }
 
 
@@ -1565,16 +2315,25 @@
       1050px
     );
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     100px
-    minmax(0, 1fr)
-    minmax(220px, 300px);
+    minmax(
+      0,
+      1fr
+    )
+    minmax(
+      220px,
+      300px
+    );
 
-  gap: 32px;
+  gap:
+    32px;
 
-  align-items: end;
+  align-items:
+    end;
 
   margin:
     0
@@ -1582,15 +2341,20 @@
 }
 
 
-.sola-menu-heading > div {
-  color: var(--sola-red);
+.sola-menu-heading
+> div {
+  color:
+    var(--sola-red);
 }
 
 
-.sola-menu-heading h2 {
-  max-width: 600px;
+.sola-menu-heading
+h2 {
+  max-width:
+    600px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -1599,36 +2363,50 @@
       5.1rem
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 
-  letter-spacing: -.055em;
-  line-height: .88;
+  letter-spacing:
+    -.055em;
+
+  line-height:
+    .9;
 }
 
 
-.sola-menu-heading > p {
-  color: var(--sola-brown-soft);
+.sola-menu-heading
+> p {
+  color:
+    var(--sola-brown-soft);
 
-  font-size: .72rem;
-  line-height: 1.62;
+  font-size:
+    .72rem;
+
+  line-height:
+    1.62;
 }
 
 
 .sola-menu-heading::after {
-  content: "←   ❦   →";
+  content:
+    "←   ❦   →";
 
   grid-column:
     1
     /
     -1;
 
-  display: block;
+  display:
+    block;
 
-  margin-top: 16px;
+  margin-top:
+    16px;
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
-  text-align: center;
+  text-align:
+    center;
 
   border-top:
     1px
@@ -1640,16 +2418,19 @@
     solid
     var(--sola-line-dark);
 
-  font-size: .66rem;
+  font-size:
+    .66rem;
 
-  line-height: 19px;
+  line-height:
+    19px;
 
-  letter-spacing: .2em;
+  letter-spacing:
+    .2em;
 }
 
 
 /* =========================================================
-   MENU CATEGORY TABS
+   MENU TABS
 ========================================================= */
 
 .sola-menu-tabs {
@@ -1659,11 +2440,14 @@
       780px
     );
 
-  display: flex;
+  display:
+    flex;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 6px;
+  gap:
+    6px;
 
   margin:
     36px
@@ -1673,15 +2457,21 @@
 
 
 .sola-menu-tab {
-  min-width: 125px;
-  min-height: 35px;
+  min-width:
+    125px;
+
+  min-height:
+    35px;
 
   padding:
     0
     14px;
 
-  color: var(--sola-brown);
-  background: var(--sola-paper);
+  color:
+    var(--sola-brown);
+
+  background:
+    var(--sola-paper);
 
   border:
     1px
@@ -1692,37 +2482,56 @@
     2px
     3px
     0
-    rgba(56, 37, 26, .07);
+    rgba(
+      56,
+      37,
+      26,
+      .07
+    );
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  font-family: var(--sola-serif);
+  font-family:
+    var(--sola-serif);
 
-  font-size: .7rem;
+  font-size:
+    .7rem;
 }
 
 
 .sola-menu-tab:nth-child(1) {
-  transform: rotate(-1deg);
+  transform:
+    rotate(
+      -1deg
+    );
 }
 
 
 .sola-menu-tab:nth-child(2) {
-  transform: rotate(.8deg);
+  transform:
+    rotate(
+      .8deg
+    );
 }
 
 
 .sola-menu-tab:nth-child(3) {
-  transform: rotate(-.5deg);
+  transform:
+    rotate(
+      -.5deg
+    );
 }
 
 
 .sola-menu-tab:hover,
 .sola-menu-tab:focus-visible,
 .sola-menu-tab.active {
-  color: var(--sola-paper-pale);
+  color:
+    var(--sola-paper-pale);
 
-  background: var(--sola-red);
+  background:
+    var(--sola-red);
 }
 
 
@@ -1737,14 +2546,22 @@
       960px
     );
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
+    minmax(
+      0,
+      1fr
+    )
     220px;
 
   gap:
-    clamp(30px, 5cqi, 64px);
+    clamp(
+      30px,
+      5cqi,
+      64px
+    );
 
   margin:
     34px
@@ -1756,7 +2573,12 @@
     32px;
 
   background:
-    rgba(228, 204, 162, .35);
+    rgba(
+      228,
+      204,
+      162,
+      .35
+    );
 
   border:
     1px
@@ -1766,7 +2588,8 @@
 
 
 .sola-menu-panel[hidden] {
-  display: none !important;
+  display:
+    none !important;
 }
 
 
@@ -1782,19 +2605,27 @@
 }
 
 
-.sola-menu-list article {
-  min-height: 76px;
+.sola-menu-list
+article {
+  min-height:
+    76px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     29px
-    minmax(0, 1fr)
+    minmax(
+      0,
+      1fr
+    )
     auto;
 
-  gap: 14px;
+  gap:
+    14px;
 
-  align-items: center;
+  align-items:
+    center;
 
   border-bottom:
     1px
@@ -1803,17 +2634,24 @@
 }
 
 
-.sola-menu-list article > span {
-  color: var(--sola-gold);
+.sola-menu-list
+article
+> span {
+  color:
+    var(--sola-gold);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .4rem;
+  font-size:
+    .4rem;
 }
 
 
-.sola-menu-list h3 {
-  font-family: var(--sola-display);
+.sola-menu-list
+h3 {
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -1822,74 +2660,113 @@
       1.55rem
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 
-  line-height: 1;
+  line-height:
+    1.05;
 }
 
 
-.sola-menu-list p {
-  margin-top: 4px;
+.sola-menu-list
+p {
+  margin-top:
+    4px;
 
-  color: var(--sola-brown-fade);
+  color:
+    var(--sola-brown-fade);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .45rem;
+  font-size:
+    .45rem;
 }
 
 
-.sola-menu-list article > strong {
-  font-size: .77rem;
-  font-weight: 400;
+.sola-menu-list
+article
+> strong {
+  font-size:
+    .77rem;
+
+  font-weight:
+    400;
 }
 
 
 /* =========================================================
-   MENU MARGIN NOTE
+   MENU NOTE
 ========================================================= */
 
 .sola-menu-aside {
-  align-self: center;
+  align-self:
+    center;
 
   padding:
     25px
     19px;
 
-  color: var(--sola-paper-pale);
+  color:
+    var(--sola-paper-pale) !important;
 
-  background: var(--sola-green);
+  background:
+    var(--sola-green);
 
   border:
     4px
     double
-    rgba(243, 231, 204, .5);
+    rgba(
+      243,
+      231,
+      204,
+      .5
+    );
 
   box-shadow:
     5px
     7px
     0
-    rgba(56, 37, 26, .1);
+    rgba(
+      56,
+      37,
+      26,
+      .1
+    );
 
-  transform: rotate(2deg);
+  transform:
+    rotate(
+      2deg
+    );
 }
 
 
-.sola-menu-aside > span {
-  color: var(--sola-paper);
+.sola-menu-aside
+> span {
+  color:
+    var(--sola-paper);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .36rem;
+  font-size:
+    .36rem;
 
-  letter-spacing: .11em;
+  letter-spacing:
+    .11em;
 }
 
 
-.sola-menu-aside p {
-  margin-top: 15px;
+.sola-menu-aside
+p {
+  margin-top:
+    15px;
 
-  font-family: var(--sola-display);
+  color:
+    var(--sola-paper-pale);
+
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -1898,20 +2775,32 @@
       1.9rem
     );
 
-  line-height: .98;
+  line-height:
+    1;
 }
 
 
-.sola-menu-aside small {
-  display: block;
+.sola-menu-aside
+small {
+  display:
+    block;
 
-  margin-top: 20px;
+  margin-top:
+    20px;
 
   color:
-    rgba(243, 231, 204, .75);
+    rgba(
+      243,
+      231,
+      204,
+      .75
+    );
 
-  font-size: .62rem;
-  font-style: italic;
+  font-size:
+    .62rem;
+
+  font-style:
+    italic;
 }
 
 
@@ -1920,14 +2809,28 @@
 ========================================================= */
 
 .sola-notebook {
-  position: relative;
+  position:
+    relative;
 
   padding:
-    clamp(72px, 8cqi, 110px)
-    clamp(28px, 7cqi, 90px)
-    clamp(110px, 11cqi, 160px);
+    clamp(
+      72px,
+      8cqi,
+      110px
+    )
+    clamp(
+      28px,
+      7cqi,
+      90px
+    )
+    clamp(
+      110px,
+      11cqi,
+      160px
+    );
 
-  background-color: #d5b785;
+  background-color:
+    #d5b785;
 
   background-image:
     url(
@@ -1939,7 +2842,12 @@
     0
     0
     100px
-    rgba(56, 37, 26, .12);
+    rgba(
+      56,
+      37,
+      26,
+      .12
+    );
 
   border-bottom:
     1px
@@ -1949,54 +2857,90 @@
 
 
 .sola-notebook::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: 7%;
-  right: 3%;
+  top:
+    7%;
 
-  width: 110px;
-  height: 110px;
+  right:
+    3%;
+
+  width:
+    105px;
+
+  height:
+    105px;
 
   border:
     2px
     double
-    rgba(56, 37, 26, .34);
+    rgba(
+      56,
+      37,
+      26,
+      .32
+    );
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
-  opacity: .6;
+  opacity:
+    .6;
 }
 
 
 .sola-notebook::after {
-  content: "SOLA";
+  content:
+    "SOLA";
 
-  position: absolute;
+  position:
+    absolute;
 
-  right: 4%;
-  bottom: 7%;
+  right:
+    4%;
+
+  bottom:
+    7%;
+
+  padding:
+    22px
+    12px;
 
   color:
-    rgba(121, 70, 59, .29);
+    rgba(
+      121,
+      70,
+      59,
+      .29
+    );
 
   border:
     2px
     dashed
-    rgba(121, 70, 59, .32);
+    rgba(
+      121,
+      70,
+      59,
+      .32
+    );
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
-  padding:
-    24px
-    13px;
+  font-family:
+    var(--sola-display);
 
-  font-family: var(--sola-display);
+  font-size:
+    .78rem;
 
-  font-size: .82rem;
-
-  transform: rotate(13deg);
+  transform:
+    rotate(
+      13deg
+    );
 }
 
 
@@ -2005,29 +2949,31 @@
 ========================================================= */
 
 .sola-notebook-heading {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 3;
+  z-index:
+    3;
 
-  max-width: 700px;
+  max-width:
+    700px;
 
   margin:
     0
     auto;
 
-  text-align: center;
+  text-align:
+    center;
 }
 
 
-.sola-notebook-heading > span {
-  color: var(--sola-red);
-}
+.sola-notebook-heading
+h2 {
+  margin-top:
+    11px;
 
-
-.sola-notebook-heading h2 {
-  margin-top: 11px;
-
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -2036,39 +2982,54 @@
       5.8rem
     );
 
-  font-style: italic;
-  font-weight: 400;
+  font-style:
+    italic;
 
-  letter-spacing: -.05em;
-  line-height: .84;
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.05em;
+
+  line-height:
+    .88;
 }
 
 
 .sola-notebook-heading::after {
-  content: "←  ❦  →";
+  content:
+    "←  ❦  →";
 
-  display: block;
+  display:
+    block;
 
-  margin-top: 17px;
+  margin-top:
+    17px;
 
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 
-  font-size: .7rem;
+  font-size:
+    .7rem;
 
-  letter-spacing: .22em;
+  letter-spacing:
+    .22em;
 }
 
 
 /* =========================================================
-   SCRAPBOOK FIELD
+   SCRAPBOOK
 ========================================================= */
 
 .sola-scrapbook {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 4;
+  z-index:
+    4;
 
-  min-height: 710px;
+  min-height:
+    710px;
 
   width:
     min(
@@ -2084,18 +3045,20 @@
 
 
 /* =========================================================
-   FOUND PAPER PHOTOS
+   PAPER PHOTOS
 ========================================================= */
 
 .sola-paper-photo {
-  position: absolute;
+  position:
+    absolute;
 
   padding:
     9px
     9px
     30px;
 
-  background: var(--sola-paper-pale);
+  background:
+    var(--sola-paper-pale);
 
   border:
     1px
@@ -2106,14 +3069,22 @@
     7px
     9px
     0
-    rgba(56, 37, 26, .08);
+    rgba(
+      56,
+      37,
+      26,
+      .08
+    );
 }
 
 
-.sola-paper-photo img {
-  height: 100%;
+.sola-paper-photo
+img {
+  height:
+    100%;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
   border:
     1px
@@ -2121,45 +3092,80 @@
     var(--sola-line);
 
   filter:
-    sepia(.45)
-    saturate(.5)
-    contrast(.94);
+    sepia(
+      .45
+    )
+    saturate(
+      .5
+    )
+    contrast(
+      .94
+    );
 }
 
 
-.sola-paper-photo figcaption {
-  position: absolute;
+.sola-paper-photo
+figcaption {
+  position:
+    absolute;
 
-  right: 9px;
-  bottom: 7px;
-  left: 9px;
+  right:
+    9px;
 
-  color: var(--sola-brown-soft);
+  bottom:
+    7px;
 
-  font-size: .57rem;
-  font-style: italic;
+  left:
+    9px;
+
+  color:
+    var(--sola-brown-soft);
+
+  font-size:
+    .57rem;
+
+  font-style:
+    italic;
 }
 
 
 .sola-paper-photo-recipe {
-  top: 0;
-  left: 1%;
+  top:
+    0;
 
-  width: 45%;
-  height: 385px;
+  left:
+    1%;
 
-  transform: rotate(-4deg);
+  width:
+    45%;
+
+  height:
+    385px;
+
+  transform:
+    rotate(
+      -4deg
+    );
 }
 
 
 .sola-paper-photo-interior {
-  right: 1%;
-  bottom: 0;
+  right:
+    1%;
 
-  width: 36%;
-  height: 310px;
+  bottom:
+    0;
 
-  transform: rotate(5deg);
+  width:
+    36%;
+
+  height:
+    310px;
+
+  transform:
+    rotate(
+      5deg
+    );
 }
 
 
@@ -2168,22 +3174,30 @@
 ========================================================= */
 
 .sola-recipe-card {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 7;
+  z-index:
+    7;
 
-  top: 90px;
-  right: 6%;
+  top:
+    90px;
 
-  width: 44%;
+  right:
+    6%;
 
-  max-width: 450px;
+  width:
+    44%;
+
+  max-width:
+    450px;
 
   padding:
     31px
     32px;
 
-  background: #eddbb9;
+  background:
+    #eddbb9;
 
   border:
     1px
@@ -2194,46 +3208,79 @@
     -7px
     9px
     0
-    rgba(56, 37, 26, .08);
+    rgba(
+      56,
+      37,
+      26,
+      .08
+    );
 
-  transform: rotate(1.6deg);
+  transform:
+    rotate(
+      1.6deg
+    );
 }
 
 
 .sola-recipe-card::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: -11px;
-  left: 36%;
+  top:
+    -11px;
 
-  width: 73px;
-  height: 20px;
+  left:
+    36%;
+
+  width:
+    73px;
+
+  height:
+    20px;
 
   background:
-    rgba(155, 122, 70, .23);
+    rgba(
+      155,
+      122,
+      70,
+      .23
+    );
 
-  transform: rotate(-4deg);
+  transform:
+    rotate(
+      -4deg
+    );
 }
 
 
 .sola-card-label {
-  color: var(--sola-red);
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .4rem;
-  font-weight: 600;
+  font-size:
+    .4rem;
 
-  letter-spacing: .11em;
+  font-weight:
+    600;
+
+  letter-spacing:
+    .11em;
 }
 
 
-.sola-recipe-card h3 {
-  margin-top: 9px;
+.sola-recipe-card
+h3 {
+  margin-top:
+    9px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -2242,100 +3289,136 @@
       2.8rem
     );
 
-  font-style: italic;
-  font-weight: 400;
+  font-style:
+    italic;
 
-  line-height: .94;
+  font-weight:
+    400;
+
+  line-height:
+    .96;
 }
 
 
-.sola-recipe-card ol {
+.sola-recipe-card
+ol {
   margin:
     22px
     0
     0;
 
-  padding: 0;
+  padding:
+    0;
 
-  list-style: none;
+  list-style:
+    none;
 
-  counter-reset: sola-recipe;
+  counter-reset:
+    sola-recipe;
 }
 
 
-.sola-recipe-card li {
-  min-height: 36px;
+.sola-recipe-card
+li {
+  min-height:
+    36px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     26px
     1fr;
 
-  gap: 9px;
+  gap:
+    9px;
 
-  align-items: center;
+  align-items:
+    center;
 
-  color: var(--sola-brown-soft);
+  color:
+    var(--sola-brown-soft);
 
   border-bottom:
     1px
     solid
     var(--sola-line);
 
-  font-size: .68rem;
+  font-size:
+    .68rem;
 
-  counter-increment: sola-recipe;
+  counter-increment:
+    sola-recipe;
 }
 
 
-.sola-recipe-card li::before {
+.sola-recipe-card
+li::before {
   content:
     counter(
       sola-recipe,
       decimal-leading-zero
     );
 
-  color: var(--sola-gold);
+  color:
+    var(--sola-gold);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .37rem;
+  font-size:
+    .37rem;
 }
 
 
-.sola-recipe-card > p {
-  margin-top: 19px;
+.sola-recipe-card
+> p {
+  margin-top:
+    19px;
 
-  color: var(--sola-brown-fade);
+  color:
+    var(--sola-brown-fade);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .46rem;
-  line-height: 1.55;
+  font-size:
+    .46rem;
+
+  line-height:
+    1.55;
 }
 
 
 /* =========================================================
-   WRITTEN CARD
+   WRITTEN NOTE
 ========================================================= */
 
 .sola-written-note {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 8;
+  z-index:
+    8;
 
-  bottom: 45px;
-  left: 6%;
+  bottom:
+    45px;
 
-  width: 35%;
+  left:
+    6%;
+
+  width:
+    35%;
 
   padding:
     27px
     23px;
 
-  color: var(--sola-paper-pale);
-  background: var(--sola-red);
+  color:
+    var(--sola-paper-pale);
+
+  background:
+    var(--sola-red);
 
   border:
     1px
@@ -2346,9 +3429,15 @@
     6px
     8px
     0
-    rgba(56, 37, 26, .1);
+    rgba(
+      56,
+      37,
+      26,
+      .1
+    );
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -2357,32 +3446,48 @@
       2.8rem
     );
 
-  font-style: italic;
+  font-style:
+    italic;
 
-  line-height: .9;
+  line-height:
+    .94;
 
-  transform: rotate(-3deg);
+  transform:
+    rotate(
+      -3deg
+    );
 }
 
 
-.sola-written-note > span {
-  position: absolute;
+.sola-written-note
+> span {
+  position:
+    absolute;
 
-  top: -8px;
-  left: 7px;
+  top:
+    -8px;
 
-  opacity: .23;
+  left:
+    7px;
 
-  font-size: 4rem;
+  opacity:
+    .23;
+
+  font-size:
+    4rem;
 }
 
 
-.sola-written-note small {
-  display: block;
+.sola-written-note
+small {
+  display:
+    block;
 
-  margin-top: 17px;
+  margin-top:
+    17px;
 
-  font-size: .5rem;
+  font-size:
+    .5rem;
 }
 
 
@@ -2391,105 +3496,161 @@
 ========================================================= */
 
 .sola-postmark {
-  position: absolute;
+  position:
+    absolute;
 
-  z-index: 10;
+  z-index:
+    10;
 
-  right: 34%;
-  bottom: 8px;
+  right:
+    34%;
 
-  width: 95px;
-  height: 95px;
+  bottom:
+    8px;
 
-  display: grid;
+  width:
+    95px;
 
-  place-content: center;
+  height:
+    95px;
 
-  text-align: center;
+  display:
+    grid;
 
-  color: var(--sola-red);
+  place-content:
+    center;
+
+  text-align:
+    center;
+
+  color:
+    var(--sola-red);
 
   border:
     2px
     dashed
     var(--sola-red);
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
-  opacity: .65;
+  opacity:
+    .65;
 
-  transform: rotate(11deg);
+  transform:
+    rotate(
+      11deg
+    );
 }
 
 
 .sola-postmark::before,
 .sola-postmark::after {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  right: -20px;
-  left: -20px;
+  right:
+    -20px;
 
-  height: 1px;
+  left:
+    -20px;
 
-  background: var(--sola-red);
+  height:
+    1px;
+
+  background:
+    var(--sola-red);
 }
 
 
 .sola-postmark::before {
-  top: 34px;
+  top:
+    34px;
 }
 
 
 .sola-postmark::after {
-  bottom: 34px;
+  bottom:
+    34px;
 }
 
 
-.sola-postmark span {
-  font-family: var(--sola-sans);
+.sola-postmark
+span {
+  font-family:
+    var(--sola-sans);
 
-  font-size: .31rem;
+  font-size:
+    .31rem;
 
-  letter-spacing: .11em;
+  letter-spacing:
+    .11em;
 }
 
 
-.sola-postmark strong {
-  font-family: var(--sola-display);
+.sola-postmark
+strong {
+  font-family:
+    var(--sola-display);
 
-  font-size: 1rem;
-  font-weight: 400;
+  font-size:
+    1rem;
+
+  font-weight:
+    400;
 }
 
 
 /* =========================================================
-   GALLERY / ANTIQUE CONTACT SHEET
+   GALLERY
 ========================================================= */
 
 .sola-gallery {
-  position: relative;
+  position:
+    relative;
 
   padding:
-    clamp(72px, 8cqi, 108px)
-    clamp(28px, 7cqi, 90px);
+    clamp(
+      72px,
+      8cqi,
+      108px
+    )
+    clamp(
+      28px,
+      7cqi,
+      90px
+    );
 
-  color: var(--sola-paper-pale);
+  color:
+    var(--sola-paper-pale);
 
-  background: var(--sola-brown);
+  background:
+    var(--sola-brown);
 
   border-bottom:
     1px
     solid
-    rgba(243, 231, 204, .18);
+    rgba(
+      243,
+      231,
+      204,
+      .18
+    );
 
   box-shadow:
     inset
     0
     0
     90px
-    rgba(0, 0, 0, .22);
+    rgba(
+      0,
+      0,
+      0,
+      .22
+    );
 }
 
 
@@ -2498,29 +3659,44 @@
 ========================================================= */
 
 .sola-gallery-heading {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
-    minmax(230px, 330px);
+    minmax(
+      0,
+      1fr
+    )
+    minmax(
+      230px,
+      330px
+    );
 
-  gap: 48px;
+  gap:
+    48px;
 
-  align-items: end;
+  align-items:
+    end;
 }
 
 
-.sola-gallery-heading span {
-  color: var(--sola-paper);
+.sola-gallery-heading
+span {
+  color:
+    var(--sola-paper);
 }
 
 
-.sola-gallery-heading h2 {
-  max-width: 650px;
+.sola-gallery-heading
+h2 {
+  max-width:
+    650px;
 
-  margin-top: 9px;
+  margin-top:
+    9px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -2529,54 +3705,87 @@
       5.4rem
     );
 
-  font-style: italic;
-  font-weight: 400;
+  font-style:
+    italic;
 
-  letter-spacing: -.05em;
-  line-height: .85;
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.05em;
+
+  line-height:
+    .88;
 }
 
 
-.sola-gallery-heading > p {
+.sola-gallery-heading
+> p {
   color:
-    rgba(243, 231, 204, .67);
+    rgba(
+      243,
+      231,
+      204,
+      .67
+    );
 
-  font-size: .72rem;
-  line-height: 1.62;
+  font-size:
+    .72rem;
+
+  line-height:
+    1.62;
 }
 
 
 .sola-gallery-heading::after {
-  content: "←   ✦   →";
+  content:
+    "←   ✦   →";
 
   grid-column:
     1
     /
     -1;
 
-  display: block;
+  display:
+    block;
 
-  margin-top: 15px;
+  margin-top:
+    15px;
 
-  text-align: center;
+  color:
+    var(--sola-paper);
 
-  color: var(--sola-paper);
+  text-align:
+    center;
 
   border-top:
     1px
     solid
-    rgba(243, 231, 204, .27);
+    rgba(
+      243,
+      231,
+      204,
+      .27
+    );
 
   border-bottom:
     1px
     solid
-    rgba(243, 231, 204, .27);
+    rgba(
+      243,
+      231,
+      204,
+      .27
+    );
 
-  font-size: .55rem;
+  font-size:
+    .55rem;
 
-  line-height: 18px;
+  line-height:
+    18px;
 
-  letter-spacing: .2em;
+  letter-spacing:
+    .2em;
 }
 
 
@@ -2585,7 +3794,8 @@
 ========================================================= */
 
 .sola-contact-sheet {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1.18fr
@@ -2596,61 +3806,92 @@
     255px
     230px;
 
-  gap: 18px;
+  gap:
+    18px;
 
-  margin-top: 42px;
+  margin-top:
+    42px;
 }
 
 
 .sola-gallery-card {
-  position: relative;
+  position:
+    relative;
 
-  min-height: 210px;
+  min-height:
+    210px;
 
   padding:
     7px
     7px
     28px;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  color: var(--sola-brown);
-  background: var(--sola-paper-pale);
+  color:
+    var(--sola-brown);
+
+  background:
+    var(--sola-paper-pale);
 
   border:
     1px
     solid
-    rgba(243, 231, 204, .3);
+    rgba(
+      243,
+      231,
+      204,
+      .3
+    );
 
   box-shadow:
     7px
     9px
     0
-    rgba(0, 0, 0, .16);
+    rgba(
+      0,
+      0,
+      0,
+      .16
+    );
 }
 
 
 .sola-gallery-card:nth-child(1) {
-  transform: rotate(-1.2deg);
+  transform:
+    rotate(
+      -1.2deg
+    );
 }
 
 
 .sola-gallery-card:nth-child(2) {
-  transform: rotate(1.7deg);
+  transform:
+    rotate(
+      1.7deg
+    );
 }
 
 
 .sola-gallery-card:nth-child(3) {
-  transform: rotate(-2deg);
+  transform:
+    rotate(
+      -2deg
+    );
 }
 
 
 .sola-gallery-card:nth-child(4) {
-  transform: rotate(.7deg);
+  transform:
+    rotate(
+      .7deg
+    );
 }
 
 
-.sola-gallery-card img {
+.sola-gallery-card
+img {
   width:
     calc(
       100%
@@ -2665,55 +3906,96 @@
       17px
     );
 
-  max-width: none;
+  max-width:
+    none;
 
-  margin: -5px;
+  margin:
+    -5px;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
   filter:
-    sepia(.45)
-    saturate(.48)
-    contrast(.95);
+    sepia(
+      .45
+    )
+    saturate(
+      .48
+    )
+    contrast(
+      .95
+    );
 
   transform:
     translate(
-      var(--sola-photo-x, 0),
-      var(--sola-photo-y, 0)
+      var(
+        --sola-photo-x,
+        0
+      ),
+      var(
+        --sola-photo-y,
+        0
+      )
     )
-    scale(1.02);
+    scale(
+      1.02
+    );
 }
 
 
-.sola-gallery-card figcaption {
-  position: absolute;
+.sola-gallery-card
+figcaption {
+  position:
+    absolute;
 
-  right: 7px;
-  bottom: 5px;
-  left: 7px;
+  right:
+    7px;
 
-  display: flex;
+  bottom:
+    5px;
 
-  align-items: center;
-  justify-content: space-between;
+  left:
+    7px;
 
-  gap: 10px;
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    10px;
 }
 
 
-.sola-gallery-card figcaption span {
-  color: var(--sola-red);
+.sola-gallery-card
+figcaption
+span {
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .32rem;
+  font-size:
+    .32rem;
 }
 
 
-.sola-gallery-card figcaption strong {
-  font-size: .53rem;
-  font-style: italic;
-  font-weight: 400;
+.sola-gallery-card
+figcaption
+strong {
+  font-size:
+    .53rem;
+
+  font-style:
+    italic;
+
+  font-weight:
+    400;
 }
 
 
@@ -2736,28 +4018,50 @@
 
 
 /* =========================================================
-   VISIT / LETTER
+   VISIT
 ========================================================= */
 
 .sola-visit {
-  position: relative;
+  position:
+    relative;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
-    minmax(320px, .9fr)
-    minmax(350px, 1.1fr);
+    minmax(
+      320px,
+      .9fr
+    )
+    minmax(
+      350px,
+      1.1fr
+    );
 
   gap:
-    clamp(42px, 7cqi, 88px);
+    clamp(
+      42px,
+      7cqi,
+      88px
+    );
 
-  align-items: center;
+  align-items:
+    center;
 
   padding:
-    clamp(72px, 8cqi, 108px)
-    clamp(28px, 7cqi, 90px);
+    clamp(
+      72px,
+      8cqi,
+      108px
+    )
+    clamp(
+      28px,
+      7cqi,
+      90px
+    );
 
-  background: var(--sola-paper-light);
+  background:
+    var(--sola-paper-light);
 
   border-bottom:
     1px
@@ -2767,9 +4071,11 @@
 
 
 .sola-visit::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
   inset:
     38px
@@ -2778,29 +4084,41 @@
   border:
     1px
     solid
-    rgba(56, 37, 26, .12);
+    rgba(
+      56,
+      37,
+      26,
+      .12
+    );
 
-  transform: rotate(.3deg);
+  transform:
+    rotate(
+      .3deg
+    );
 }
 
 
 /* =========================================================
-   VISIT PHOTO
+   VISIT ART
 ========================================================= */
 
 .sola-visit-art {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 3;
+  z-index:
+    3;
 
-  max-width: 500px;
+  max-width:
+    500px;
 
   padding:
     10px
     10px
     34px;
 
-  background: var(--sola-paper);
+  background:
+    var(--sola-paper);
 
   border:
     1px
@@ -2811,37 +4129,57 @@
     7px
     9px
     0
-    rgba(56, 37, 26, .08);
+    rgba(
+      56,
+      37,
+      26,
+      .08
+    );
 
-  transform: rotate(-2deg);
+  transform:
+    rotate(
+      -2deg
+    );
 }
 
 
 .sola-visit-art::before {
-  content: "POSTCARD / 05";
+  content:
+    "POSTCARD / 05";
 
-  position: absolute;
+  position:
+    absolute;
 
-  top: -16px;
-  left: 22px;
+  top:
+    -16px;
+
+  left:
+    22px;
 
   padding:
     4px
     7px;
 
-  color: var(--sola-paper-pale);
-  background: var(--sola-red);
+  color:
+    var(--sola-paper-pale);
 
-  font-family: var(--sola-sans);
+  background:
+    var(--sola-red);
 
-  font-size: .34rem;
+  font-family:
+    var(--sola-sans);
 
-  letter-spacing: .1em;
+  font-size:
+    .34rem;
+
+  letter-spacing:
+    .1em;
 }
 
 
 .sola-visit-frame {
-  overflow: hidden;
+  overflow:
+    hidden;
 
   border:
     1px
@@ -2850,35 +4188,53 @@
 }
 
 
-.sola-visit-frame img {
+.sola-visit-frame
+img {
   aspect-ratio:
     4
     /
     3;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
   filter:
-    sepia(.42)
-    saturate(.5)
-    contrast(.94);
+    sepia(
+      .42
+    )
+    saturate(
+      .5
+    )
+    contrast(
+      .94
+    );
 }
 
 
 .sola-visit-caption {
-  position: absolute;
+  position:
+    absolute;
 
-  right: 10px;
-  bottom: 7px;
-  left: 10px;
+  right:
+    10px;
 
-  color: var(--sola-brown-fade);
+  bottom:
+    7px;
 
-  font-family: var(--sola-sans);
+  left:
+    10px;
 
-  font-size: .34rem;
+  color:
+    var(--sola-brown-fade);
 
-  letter-spacing: .08em;
+  font-family:
+    var(--sola-sans);
+
+  font-size:
+    .34rem;
+
+  letter-spacing:
+    .08em;
 }
 
 
@@ -2887,18 +4243,24 @@
 ========================================================= */
 
 .sola-visit-copy {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 3;
+  z-index:
+    3;
 
-  max-width: 570px;
+  max-width:
+    570px;
 }
 
 
-.sola-visit-copy h2 {
-  margin-top: 9px;
+.sola-visit-copy
+h2 {
+  margin-top:
+    9px;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -2907,11 +4269,17 @@
       5.5rem
     );
 
-  font-style: italic;
-  font-weight: 400;
+  font-style:
+    italic;
 
-  letter-spacing: -.05em;
-  line-height: .84;
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.05em;
+
+  line-height:
+    .88;
 }
 
 
@@ -2928,19 +4296,24 @@
 }
 
 
-.sola-visit-details > div {
-  min-height: 62px;
+.sola-visit-details
+> div {
+  min-height:
+    62px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     88px
     1fr
     auto;
 
-  gap: 14px;
+  gap:
+    14px;
 
-  align-items: center;
+  align-items:
+    center;
 
   border-bottom:
     1px
@@ -2949,31 +4322,48 @@
 }
 
 
-.sola-visit-details span {
-  color: var(--sola-red);
+.sola-visit-details
+span {
+  color:
+    var(--sola-red);
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .37rem;
-  font-weight: 600;
+  font-size:
+    .37rem;
 
-  letter-spacing: .09em;
+  font-weight:
+    600;
+
+  letter-spacing:
+    .09em;
 }
 
 
-.sola-visit-details strong {
-  font-size: .78rem;
-  font-weight: 400;
+.sola-visit-details
+strong {
+  font-size:
+    .78rem;
 
-  line-height: 1.2;
+  font-weight:
+    400;
+
+  line-height:
+    1.2;
 }
 
 
-.sola-visit-details small {
-  color: var(--sola-brown-fade);
+.sola-visit-details
+small {
+  color:
+    var(--sola-brown-fade);
 
-  font-size: .57rem;
-  font-style: italic;
+  font-size:
+    .57rem;
+
+  font-style:
+    italic;
 }
 
 
@@ -2984,20 +4374,30 @@
 .sola-footer {
   padding:
     52px
-    clamp(28px, 7cqi, 90px)
+    clamp(
+      28px,
+      7cqi,
+      90px
+    )
     26px;
 
-  color: var(--sola-paper-pale);
-  background: var(--sola-green-dark);
+  color:
+    var(--sola-paper-pale);
+
+  background:
+    var(--sola-green-dark);
 }
 
 
 .sola-footer-name {
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-family: var(--sola-display);
+  font-family:
+    var(--sola-display);
 
   font-size:
     clamp(
@@ -3006,68 +4406,96 @@
       17rem
     );
 
-  font-style: italic;
-  font-weight: 400;
+  font-style:
+    italic;
 
-  letter-spacing: -.08em;
-  line-height: .62;
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.08em;
+
+  line-height:
+    .65;
 }
 
 
 .sola-footer-meta {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
     1fr
     1fr;
 
-  gap: 20px;
+  gap:
+    20px;
 
-  margin-top: 38px;
+  margin-top:
+    38px;
 
-  padding-top: 13px;
+  padding-top:
+    13px;
 
   color:
-    rgba(243, 231, 204, .65);
+    rgba(
+      243,
+      231,
+      204,
+      .65
+    );
 
   border-top:
     1px
     solid
-    rgba(243, 231, 204, .22);
+    rgba(
+      243,
+      231,
+      204,
+      .22
+    );
 
-  font-family: var(--sola-sans);
+  font-family:
+    var(--sola-sans);
 
-  font-size: .35rem;
+  font-size:
+    .35rem;
 
-  letter-spacing: .09em;
+  letter-spacing:
+    .09em;
 }
 
 
-.sola-footer-meta span:nth-child(2) {
-  text-align: center;
+.sola-footer-meta
+span:nth-child(2) {
+  text-align:
+    center;
 }
 
 
-.sola-footer-meta span:last-child {
-  text-align: right;
+.sola-footer-meta
+span:last-child {
+  text-align:
+    right;
 }
 
 
 /* =========================================================
    INTERACTIVE REVEALS
-
-   Decorative portfolio frames remain visible immediately.
 ========================================================= */
 
 .sola-site[
   data-project-interactive="true"
 ]
 [data-sola-reveal] {
-  opacity: 0;
+  opacity:
+    0;
 
   transform:
-    translateY(14px);
+    translateY(
+      14px
+    );
 
   transition:
     opacity
@@ -3075,7 +4503,12 @@
     ease,
     transform
     720ms
-    cubic-bezier(.18, .78, .22, 1);
+    cubic-bezier(
+      .18,
+      .78,
+      .22,
+      1
+    );
 }
 
 
@@ -3083,10 +4516,13 @@
   data-project-interactive="true"
 ]
 [data-sola-reveal].sola-visible {
-  opacity: 1;
+  opacity:
+    1;
 
   transform:
-    translateY(0);
+    translateY(
+      0
+    );
 }
 
 
@@ -3094,75 +4530,111 @@
    FOCUS
 ========================================================= */
 
-.sola-site a:focus-visible,
-.sola-site button:focus-visible {
+.sola-site
+a:focus-visible,
+
+.sola-site
+button:focus-visible {
   outline:
     2px
     solid
     var(--sola-red);
 
-  outline-offset: 3px;
+  outline-offset:
+    3px;
 }
 
 
 /* =========================================================
-   TABLET / ACTUAL CONTAINER
+   TABLET
 ========================================================= */
 
-@container sola (max-width: 900px) {
+@container sola (
+  max-width: 900px
+) {
 
-  .sola-header {
-    min-height: 108px;
-
-    grid-template-rows:
-      69px
-      39px;
-  }
-
-
-  .sola-header-note {
-    top: 22px;
-  }
-
+  /* -------------------------------------------------------
+     HERO
+  ------------------------------------------------------- */
 
   .sola-hero {
-    min-height: 605px;
-  }
-
-
-  .sola-hero-copy {
-    width: 52%;
-  }
-
-
-  .sola-hero h1 {
-    font-size:
-      clamp(
-        3.7rem,
-        8cqi,
-        5.4rem
+    grid-template-columns:
+      minmax(
+        0,
+        1fr
+      )
+      minmax(
+        340px,
+        470px
+      )
+      minmax(
+        0,
+        1fr
       );
   }
 
 
-  .sola-hero-frame {
-    right: 3%;
+  .sola-hero
+  h1 {
+    font-size:
+      clamp(
+        3.45rem,
+        7cqi,
+        4.8rem
+      );
+  }
 
-    width: 25%;
+
+  .sola-hero-intro {
+    margin-top:
+      26px;
+  }
+
+
+  .sola-hero-frame {
+    right:
+      2%;
+
+    width:
+      min(
+        20%,
+        185px
+      );
   }
 
 
   .sola-hand-note {
-    right: 12%;
+    right:
+      10%;
+
+    font-size:
+      .6rem;
   }
 
+
+  .sola-hero-stamp {
+    left:
+      4%;
+
+    width:
+      64px;
+
+    height:
+      64px;
+  }
+
+
+  /* -------------------------------------------------------
+     TABLE
+  ------------------------------------------------------- */
 
   .sola-table {
     grid-template-columns:
       95px
       1fr;
 
-    gap: 28px;
+    gap:
+      28px;
 
     padding:
       65px
@@ -3182,13 +4654,20 @@
         620px
       );
 
-    min-height: 320px;
+    min-height:
+      320px;
 
-    justify-self: center;
+    justify-self:
+      center;
 
-    margin-top: 10px;
+    margin-top:
+      10px;
   }
 
+
+  /* -------------------------------------------------------
+     MENU
+  ------------------------------------------------------- */
 
   .sola-menu {
     padding:
@@ -3205,12 +4684,19 @@
   }
 
 
-  .sola-menu-heading > p {
-    grid-column: 2;
+  .sola-menu-heading
+  > p {
+    grid-column:
+      2;
 
-    max-width: 470px;
+    max-width:
+      470px;
   }
 
+
+  /* -------------------------------------------------------
+     NOTEBOOK
+  ------------------------------------------------------- */
 
   .sola-notebook {
     padding:
@@ -3221,19 +4707,26 @@
 
 
   .sola-scrapbook {
-    min-height: 790px;
+    min-height:
+      790px;
   }
 
 
   .sola-paper-photo-recipe {
-    width: 50%;
+    width:
+      50%;
   }
 
 
   .sola-recipe-card {
-    width: 50%;
+    width:
+      50%;
   }
 
+
+  /* -------------------------------------------------------
+     GALLERY
+  ------------------------------------------------------- */
 
   .sola-gallery {
     padding:
@@ -3260,7 +4753,8 @@
       /
       -1;
 
-    grid-row: auto;
+    grid-row:
+      auto;
   }
 
 
@@ -3272,12 +4766,17 @@
   }
 
 
+  /* -------------------------------------------------------
+     VISIT
+  ------------------------------------------------------- */
+
   .sola-visit {
     grid-template-columns:
       .9fr
       1.1fr;
 
-    gap: 40px;
+    gap:
+      40px;
 
     padding:
       68px
@@ -3285,15 +4784,18 @@
   }
 
 
-  .sola-visit-details > div {
+  .sola-visit-details
+  > div {
     grid-template-columns:
       76px
       1fr;
   }
 
 
-  .sola-visit-details small {
-    grid-column: 2;
+  .sola-visit-details
+  small {
+    grid-column:
+      2;
   }
 
 }
@@ -3303,7 +4805,9 @@
    SMALL TABLET
 ========================================================= */
 
-@container sola (max-width: 700px) {
+@container sola (
+  max-width: 700px
+) {
 
   /* -------------------------------------------------------
      NOTICE
@@ -3320,17 +4824,20 @@
   }
 
 
-  .sola-notice span:nth-child(2) {
-    display: none;
+  .sola-notice
+  span:nth-child(2) {
+    display:
+      none;
   }
 
 
   /* -------------------------------------------------------
-     MASTHEAD
+     HEADER
   ------------------------------------------------------- */
 
   .sola-header {
-    min-height: 103px;
+    min-height:
+      103px;
 
     grid-template-columns:
       1fr;
@@ -3346,12 +4853,14 @@
 
 
   .sola-brand {
-    grid-column: 1;
+    grid-column:
+      1;
   }
 
 
   .sola-header-note {
-    display: none;
+    display:
+      none;
   }
 
 
@@ -3367,90 +4876,150 @@
 
   /* -------------------------------------------------------
      HERO
+
+     Copy remains in normal document flow.
   ------------------------------------------------------- */
 
   .sola-hero {
-    min-height: 620px;
+    min-height:
+      670px;
+
+    grid-template-columns:
+      1fr;
+
+    grid-template-rows:
+      1fr
+      auto;
+
+    align-items:
+      start;
+
+    padding:
+      52px
+      18px
+      18px;
   }
 
 
   .sola-hero::before {
-    top: 56%;
+    top:
+      57%;
 
-    width: 32%;
+    width:
+      32%;
   }
 
 
   .sola-hero::after {
-    top: 12%;
+    top:
+      32%;
 
-    width: 72%;
-    height: 53%;
+    width:
+      min(
+        82%,
+        500px
+      );
+
+    height:
+      355px;
   }
 
 
   .sola-hero-copy {
-    top: 37%;
+    grid-column:
+      1;
 
     width:
       min(
         84%,
-        470px
+        450px
       );
+
+    justify-self:
+      center;
+
+    align-self:
+      start;
   }
 
 
-  .sola-hero h1 {
+  .sola-hero
+  h1 {
     font-size:
       clamp(
-        3.8rem,
-        12cqi,
-        5.3rem
+        3.4rem,
+        11cqi,
+        4.8rem
       );
+
+    line-height:
+      .89;
   }
 
 
   .sola-hero-intro {
-    max-width: 330px;
+    max-width:
+      330px;
+
+    margin-top:
+      25px;
   }
 
 
   .sola-hero-frame {
-    top: auto;
-    right: 8%;
-    bottom: 57px;
+    top:
+      auto;
+
+    right:
+      7%;
+
+    bottom:
+      57px;
 
     width:
       min(
-        34%,
-        195px
+        30%,
+        175px
       );
   }
 
 
   .sola-hand-note {
-    top: auto;
-    right: 34%;
-    bottom: 145px;
-
-    font-size: .59rem;
+    display:
+      none;
   }
 
 
   .sola-hero-stamp {
-    top: 15%;
-    left: 4%;
+    top:
+      13%;
 
-    width: 63px;
-    height: 63px;
+    left:
+      3%;
+
+    width:
+      59px;
+
+    height:
+      59px;
   }
 
 
   .sola-ornament-top {
-    left: 9%;
-    bottom: 16%;
+    left:
+      8%;
 
-    font-size: 2.4rem;
+    bottom:
+      15%;
+
+    font-size:
+      2.2rem;
+  }
+
+
+  .sola-hero-foot {
+    width:
+      100%;
   }
 
 
@@ -3469,26 +5038,33 @@
 
 
   .sola-section-index {
-    display: flex;
+    display:
+      flex;
 
-    align-items: center;
+    align-items:
+      center;
 
-    gap: 12px;
+    gap:
+      12px;
   }
 
 
-  .sola-section-index span {
-    margin: 0;
+  .sola-section-index
+  span {
+    margin:
+      0;
   }
 
 
   .sola-section-index::after {
-    display: none;
+    display:
+      none;
   }
 
 
   .sola-table-circles {
-    grid-column: auto;
+    grid-column:
+      auto;
   }
 
 
@@ -3517,8 +5093,10 @@
   }
 
 
-  .sola-menu-heading > p {
-    grid-column: auto;
+  .sola-menu-heading
+  > p {
+    grid-column:
+      auto;
   }
 
 
@@ -3538,12 +5116,13 @@
         380px
       );
 
-    justify-self: center;
+    justify-self:
+      center;
   }
 
 
   /* -------------------------------------------------------
-     SCRAPBOOK
+     NOTEBOOK
   ------------------------------------------------------- */
 
   .sola-notebook {
@@ -3555,37 +5134,47 @@
 
 
   .sola-scrapbook {
-    min-height: 880px;
+    min-height:
+      880px;
   }
 
 
   .sola-paper-photo-recipe {
-    width: 56%;
+    width:
+      56%;
   }
 
 
   .sola-recipe-card {
-    top: 275px;
-    right: 0;
+    top:
+      275px;
 
-    width: 57%;
+    right:
+      0;
+
+    width:
+      57%;
   }
 
 
   .sola-written-note {
-    left: 0;
+    left:
+      0;
 
-    width: 42%;
+    width:
+      42%;
   }
 
 
   .sola-paper-photo-interior {
-    width: 46%;
+    width:
+      46%;
   }
 
 
   .sola-postmark {
-    right: 39%;
+    right:
+      39%;
   }
 
 
@@ -3606,8 +5195,10 @@
   }
 
 
-  .sola-gallery-heading > p {
-    max-width: 470px;
+  .sola-gallery-heading
+  > p {
+    max-width:
+      470px;
   }
 
 
@@ -3632,7 +5223,8 @@
         510px
       );
 
-    justify-self: center;
+    justify-self:
+      center;
   }
 
 
@@ -3643,26 +5235,28 @@
         570px
       );
 
-    justify-self: center;
+    justify-self:
+      center;
   }
 
 }
 
 
 /* =========================================================
-   PHONE / NARROW CANONICAL PROJECT
-
-   This also controls the Hero mobile portfolio preview.
+   PHONE
 ========================================================= */
 
-@container sola (max-width: 500px) {
+@container sola (
+  max-width: 500px
+) {
 
   /* -------------------------------------------------------
      NOTICE
   ------------------------------------------------------- */
 
   .sola-notice {
-    min-height: 23px;
+    min-height:
+      23px;
 
     grid-template-columns:
       1fr;
@@ -3671,27 +5265,35 @@
       0
       10px;
 
-    font-size: .32rem;
+    font-size:
+      .32rem;
   }
 
 
-  .sola-notice span:first-child,
-  .sola-notice span:nth-child(2) {
-    display: none;
+  .sola-notice
+  span:first-child,
+
+  .sola-notice
+  span:nth-child(2) {
+    display:
+      none;
   }
 
 
-  .sola-notice span:last-child {
-    text-align: center;
+  .sola-notice
+  span:last-child {
+    text-align:
+      center;
   }
 
 
   /* -------------------------------------------------------
-     MASTHEAD
+     HEADER
   ------------------------------------------------------- */
 
   .sola-header {
-    min-height: 91px;
+    min-height:
+      91px;
 
     grid-template-rows:
       56px
@@ -3708,115 +5310,160 @@
       31px
       auto;
 
-    column-gap: 7px;
+    column-gap:
+      7px;
   }
 
 
   .sola-brand-mark {
-    width: 31px;
-    height: 31px;
+    width:
+      31px;
 
-    font-size: .96rem;
+    height:
+      31px;
+
+    font-size:
+      .96rem;
   }
 
 
   .sola-brand-name {
-    font-size: 1.08rem;
+    font-size:
+      1.08rem;
   }
 
 
-  .sola-brand small {
-    font-size: .41rem;
+  .sola-brand
+  small {
+    font-size:
+      .41rem;
   }
 
 
   .sola-nav {
+    min-height:
+      35px;
+
     gap:
       clamp(
         13px,
         5cqi,
         22px
       );
-
-    min-height: 35px;
   }
 
 
   .sola-nav::before,
   .sola-nav::after {
-    display: none;
+    display:
+      none;
   }
 
 
-  .sola-nav a {
-    font-size: .51rem;
+  .sola-nav
+  a {
+    font-size:
+      .51rem;
   }
 
 
   /* -------------------------------------------------------
      HERO
+
+     Mobile remains a tableau but with a clean vertical
+     separation between typography and photograph.
   ------------------------------------------------------- */
 
   .sola-hero {
-    min-height: 605px;
+    min-height:
+      650px;
 
     padding:
-      0
-      12px;
+      39px
+      12px
+      13px;
   }
 
 
   .sola-hero::before {
-    display: none;
+    display:
+      none;
   }
 
 
   .sola-hero::after {
-    top: 8%;
+    top:
+      31%;
 
-    width: 86%;
-    height: 48%;
+    width:
+      90%;
+
+    height:
+      330px;
   }
 
 
   .sola-hero-copy {
-    top: 33%;
-
     width:
       calc(
         100%
         -
-        28px
+        24px
       );
+
+    max-width:
+      370px;
   }
 
 
   .sola-overline {
-    margin-bottom: 8px;
+    margin-bottom:
+      8px;
 
-    font-size: .39rem;
+    font-size:
+      .38rem;
   }
 
 
-  .sola-hero h1 {
+  .sola-hero
+  h1 {
     font-size:
       clamp(
-        3.25rem,
-        16cqi,
-        4.45rem
+        3rem,
+        14cqi,
+        4rem
       );
 
-    line-height: .78;
+    line-height:
+      .9;
+  }
+
+
+  .sola-hero
+  h1
+  em {
+    margin:
+      .07em
+      0
+      .05em;
+
+    line-height:
+      .94;
   }
 
 
   .sola-hero-intro {
-    max-width: 295px;
+    max-width:
+      290px;
 
-    margin-top: 13px;
+    margin-top:
+      23px;
 
-    font-size: .65rem;
-    line-height: 1.46;
+    font-size:
+      .65rem;
+
+    line-height:
+      1.52;
   }
 
 
@@ -3825,40 +5472,52 @@
       8px
       17px;
 
-    margin-top: 16px;
+    margin-top:
+      17px;
   }
 
 
   .sola-primary-link {
-    min-height: 33px;
+    min-height:
+      33px;
 
     padding:
       0
       10px;
 
-    font-size: .37rem;
+    font-size:
+      .37rem;
   }
 
 
   .sola-text-link {
-    font-size: .57rem;
+    font-size:
+      .57rem;
   }
 
 
   .sola-hero-frame {
-    right: 8%;
-    bottom: 50px;
+    right:
+      7%;
 
-    width: 46%;
+    bottom:
+      48px;
+
+    width:
+      42%;
+
+    max-width:
+      160px;
 
     padding:
       6px
       6px
-      24px;
+      23px;
   }
 
 
-  .sola-hero-frame img {
+  .sola-hero-frame
+  img {
     aspect-ratio:
       1.2
       /
@@ -3866,72 +5525,98 @@
   }
 
 
-  .sola-hero-frame figcaption {
-    right: 6px;
-    bottom: 5px;
-    left: 6px;
+  .sola-hero-frame
+  figcaption {
+    right:
+      6px;
+
+    bottom:
+      5px;
+
+    left:
+      6px;
   }
 
 
-  .sola-hero-frame figcaption strong {
-    display: none;
+  .sola-hero-frame
+  figcaption
+  strong {
+    display:
+      none;
   }
 
 
   .sola-hand-note {
-    display: none;
+    display:
+      none;
   }
 
 
   .sola-hero-stamp {
-    top: 8%;
-    left: 3%;
+    top:
+      8%;
 
-    width: 52px;
-    height: 52px;
+    left:
+      2%;
+
+    width:
+      50px;
+
+    height:
+      50px;
   }
 
 
-  .sola-hero-stamp span {
-    font-size: .62rem;
+  .sola-hero-stamp
+  span {
+    font-size:
+      .6rem;
   }
 
 
-  .sola-hero-stamp strong {
-    font-size: .43rem;
+  .sola-hero-stamp
+  strong {
+    font-size:
+      .42rem;
   }
 
 
   .sola-ornament-top {
-    left: 8%;
-    bottom: 12%;
+    left:
+      7%;
 
-    font-size: 1.9rem;
+    bottom:
+      12%;
+
+    font-size:
+      1.8rem;
   }
 
 
   .sola-hero-foot {
-    right: 12px;
-    bottom: 10px;
-    left: 12px;
-
     grid-template-columns:
       1fr
       auto;
 
-    gap: 7px;
+    gap:
+      7px;
 
-    font-size: .28rem;
+    font-size:
+      .28rem;
   }
 
 
-  .sola-hero-foot span:first-child {
-    display: none;
+  .sola-hero-foot
+  span:first-child {
+    display:
+      none;
   }
 
 
-  .sola-hero-foot span:last-child {
-    text-align: left;
+  .sola-hero-foot
+  span:last-child {
+    text-align:
+      left;
   }
 
 
@@ -3953,42 +5638,55 @@
   }
 
 
-  .sola-section-index span {
-    font-size: 1.9rem;
+  .sola-section-index
+  span {
+    font-size:
+      1.9rem;
   }
 
 
   .sola-drop-copy {
-    font-size: 1.13rem;
+    font-size:
+      1.13rem;
   }
 
 
   .sola-table-circles {
-    min-height: 455px;
+    min-height:
+      455px;
   }
 
 
   .sola-circle-card {
-    width: 48%;
+    width:
+      48%;
   }
 
 
   .sola-circle-one {
-    top: 0;
-    left: 0;
+    top:
+      0;
+
+    left:
+      0;
   }
 
 
   .sola-circle-two {
-    right: 0;
-    bottom: 0;
+    right:
+      0;
+
+    bottom:
+      0;
   }
 
 
   .sola-table-note {
-    top: 50%;
+    top:
+      50%;
 
-    width: 70%;
+    width:
+      70%;
 
     padding:
       19px
@@ -3996,8 +5694,10 @@
   }
 
 
-  .sola-table-note strong {
-    font-size: 1.32rem;
+  .sola-table-note
+  strong {
+    font-size:
+      1.32rem;
   }
 
 
@@ -4020,7 +5720,8 @@
   }
 
 
-  .sola-menu-heading h2 {
+  .sola-menu-heading
+  h2 {
     font-size:
       clamp(
         2.6rem,
@@ -4030,68 +5731,90 @@
   }
 
 
-  .sola-menu-heading > p {
-    font-size: .64rem;
+  .sola-menu-heading
+  > p {
+    font-size:
+      .64rem;
   }
 
 
   .sola-menu-tabs {
-    gap: 3px;
+    gap:
+      3px;
 
-    margin-top: 27px;
+    margin-top:
+      27px;
   }
 
 
   .sola-menu-tab {
-    min-width: 0;
+    min-width:
+      0;
 
-    flex: 1;
+    flex:
+      1;
 
-    min-height: 32px;
+    min-height:
+      32px;
 
     padding:
       0
       5px;
 
-    font-size: .56rem;
+    font-size:
+      .56rem;
   }
 
 
   .sola-menu-panel {
-    margin-top: 25px;
+    margin-top:
+      25px;
 
-    padding: 16px;
+    padding:
+      16px;
   }
 
 
-  .sola-menu-list article {
-    min-height: 68px;
+  .sola-menu-list
+  article {
+    min-height:
+      68px;
 
     grid-template-columns:
       20px
       1fr
       auto;
 
-    gap: 8px;
+    gap:
+      8px;
   }
 
 
-  .sola-menu-list h3 {
-    font-size: .98rem;
+  .sola-menu-list
+  h3 {
+    font-size:
+      .98rem;
   }
 
 
-  .sola-menu-list p {
-    max-width: 165px;
+  .sola-menu-list
+  p {
+    max-width:
+      165px;
 
-    font-size: .4rem;
+    font-size:
+      .4rem;
 
-    line-height: 1.35;
+    line-height:
+      1.35;
   }
 
 
-  .sola-menu-list article > strong {
-    font-size: .65rem;
+  .sola-menu-list
+  article
+  > strong {
+    font-size:
+      .65rem;
   }
 
 
@@ -4104,6 +5827,8 @@
 
   /* -------------------------------------------------------
      NOTEBOOK
+
+     Absolute scrapbook becomes sequential on phones.
   ------------------------------------------------------- */
 
   .sola-notebook {
@@ -4116,11 +5841,13 @@
 
   .sola-notebook::before,
   .sola-notebook::after {
-    display: none;
+    display:
+      none;
   }
 
 
-  .sola-notebook-heading h2 {
+  .sola-notebook-heading
+  h2 {
     font-size:
       clamp(
         2.9rem,
@@ -4131,36 +5858,52 @@
 
 
   .sola-scrapbook {
-    min-height: auto;
+    min-height:
+      auto;
 
-    display: flex;
+    display:
+      flex;
 
-    flex-direction: column;
+    flex-direction:
+      column;
 
-    gap: 22px;
+    gap:
+      22px;
 
-    margin-top: 34px;
+    margin-top:
+      34px;
   }
 
 
   .sola-paper-photo,
+
   .sola-recipe-card,
+
   .sola-written-note,
+
   .sola-postmark {
-    position: relative;
+    position:
+      relative;
 
-    inset: auto;
+    inset:
+      auto;
 
-    width: 100%;
+    width:
+      100%;
 
-    max-width: none;
+    max-width:
+      none;
   }
 
 
   .sola-paper-photo-recipe {
-    height: 310px;
+    height:
+      310px;
 
-    transform: rotate(-1.5deg);
+    transform:
+      rotate(
+        -1.5deg
+      );
   }
 
 
@@ -4169,19 +5912,28 @@
       25px
       18px;
 
-    transform: rotate(1deg);
+    transform:
+      rotate(
+        1deg
+      );
   }
 
 
-  .sola-recipe-card h3 {
-    font-size: 2rem;
+  .sola-recipe-card
+  h3 {
+    font-size:
+      2rem;
   }
 
 
   .sola-paper-photo-interior {
-    height: 260px;
+    height:
+      260px;
 
-    transform: rotate(1.5deg);
+    transform:
+      rotate(
+        1.5deg
+      );
   }
 
 
@@ -4190,15 +5942,20 @@
       27px
       20px;
 
-    font-size: 2rem;
+    font-size:
+      2rem;
   }
 
 
   .sola-postmark {
-    align-self: center;
+    align-self:
+      center;
 
-    width: 84px;
-    height: 84px;
+    width:
+      84px;
+
+    height:
+      84px;
 
     flex:
       0
@@ -4218,7 +5975,8 @@
   }
 
 
-  .sola-gallery-heading h2 {
+  .sola-gallery-heading
+  h2 {
     font-size:
       clamp(
         2.8rem,
@@ -4228,8 +5986,10 @@
   }
 
 
-  .sola-gallery-heading > p {
-    font-size: .64rem;
+  .sola-gallery-heading
+  > p {
+    font-size:
+      .64rem;
   }
 
 
@@ -4237,26 +5997,36 @@
     grid-template-columns:
       1fr;
 
-    grid-template-rows: none;
+    grid-template-rows:
+      none;
 
-    gap: 16px;
+    gap:
+      16px;
 
-    margin-top: 30px;
+    margin-top:
+      30px;
   }
 
 
   .sola-gallery-card,
-  .sola-gallery-card-large,
-  .sola-gallery-card-wide {
-    grid-column: auto;
-    grid-row: auto;
 
-    min-height: 250px;
+  .sola-gallery-card-large,
+
+  .sola-gallery-card-wide {
+    grid-column:
+      auto;
+
+    grid-row:
+      auto;
+
+    min-height:
+      250px;
   }
 
 
   .sola-gallery-card-large {
-    min-height: 335px;
+    min-height:
+      335px;
   }
 
 
@@ -4265,7 +6035,8 @@
   ------------------------------------------------------- */
 
   .sola-visit {
-    gap: 34px;
+    gap:
+      34px;
 
     padding:
       53px
@@ -4288,7 +6059,8 @@
   }
 
 
-  .sola-visit-copy h2 {
+  .sola-visit-copy
+  h2 {
     font-size:
       clamp(
         3rem,
@@ -4306,8 +6078,10 @@
   }
 
 
-  .sola-visit-details > div {
-    min-height: 74px;
+  .sola-visit-details
+  > div {
+    min-height:
+      74px;
 
     grid-template-columns:
       70px
@@ -4328,7 +6102,8 @@
 
 
   .sola-footer-name {
-    font-size: 31cqi;
+    font-size:
+      31cqi;
   }
 
 
@@ -4336,15 +6111,21 @@
     grid-template-columns:
       1fr;
 
-    gap: 4px;
+    gap:
+      4px;
 
-    margin-top: 26px;
+    margin-top:
+      26px;
   }
 
 
-  .sola-footer-meta span:nth-child(2),
-  .sola-footer-meta span:last-child {
-    text-align: left;
+  .sola-footer-meta
+  span:nth-child(2),
+
+  .sola-footer-meta
+  span:last-child {
+    text-align:
+      left;
   }
 
 }
@@ -4354,43 +6135,63 @@
    VERY NARROW
 ========================================================= */
 
-@container sola (max-width: 350px) {
+@container sola (
+  max-width: 350px
+) {
 
   .sola-nav {
-    gap: 11px;
+    gap:
+      10px;
   }
 
 
-  .sola-nav a {
-    font-size: .46rem;
+  .sola-nav
+  a {
+    font-size:
+      .45rem;
   }
 
 
-  .sola-hero h1 {
-    font-size: 15cqi;
+  .sola-hero {
+    min-height:
+      630px;
+  }
+
+
+  .sola-hero
+  h1 {
+    font-size:
+      14cqi;
   }
 
 
   .sola-hero-frame {
-    width: 49%;
+    width:
+      46%;
   }
 
 
-  .sola-menu-list p {
-    max-width: 140px;
+  .sola-menu-list
+  p {
+    max-width:
+      140px;
   }
 
 }
 
 
 /* =========================================================
-   POINTER DETAILS
+   POINTER
 ========================================================= */
 
-@media (pointer: fine) {
+@media (
+  pointer: fine
+) {
 
   .sola-circle-card,
+
   .sola-paper-photo,
+
   .sola-gallery-card {
     transition:
       box-shadow
@@ -4404,7 +6205,12 @@
       9px
       11px
       0
-      rgba(56, 37, 26, .1);
+      rgba(
+        56,
+        37,
+        26,
+        .1
+      );
   }
 
 
@@ -4413,7 +6219,12 @@
       11px
       13px
       0
-      rgba(56, 37, 26, .11);
+      rgba(
+        56,
+        37,
+        26,
+        .11
+      );
   }
 
 }
@@ -4423,23 +6234,32 @@
    REDUCED MOTION
 ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
 
   .sola-site *,
   .sola-site *::before,
   .sola-site *::after {
-    animation: none !important;
+    animation:
+      none !important;
 
-    transition: none !important;
+    transition:
+      none !important;
 
-    scroll-behavior: auto !important;
+    scroll-behavior:
+      auto !important;
   }
 
 
-  .sola-site [data-sola-reveal] {
-    opacity: 1 !important;
+  .sola-site
+  [data-sola-reveal] {
+    opacity:
+      1 !important;
 
-    transform: none !important;
+    transform:
+      none !important;
   }
 
 }
