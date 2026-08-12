@@ -2,6 +2,22 @@
    NORTH HOME
    Premium residential services concept
    Embedded inside Jeziel Camara portfolio
+
+   RESPONSIBILITY:
+   - North Home case-study presentation
+   - North Home website design system
+   - North Home responsive website layout
+
+   NOT RESPONSIBLE FOR:
+   - handmade portfolio thumbnails
+   - handmade mobile previews
+   - project viewer chrome
+   - Responsive Lab chrome
+========================================================= */
+
+
+/* =========================================================
+   DESIGN TOKENS
 ========================================================= */
 
 :root {
@@ -27,7 +43,12 @@
 
 
 /* =========================================================
-   PORTFOLIO PROJECT PREVIEW
+   PORTFOLIO PREVIEW COMPATIBILITY
+
+   These rules style only the outer portfolio surfaces.
+
+   The project inside those surfaces is always generated
+   through PortfolioProjects.
 ========================================================= */
 
 .project-image.has-north-preview,
@@ -38,6 +59,7 @@
   background-image:
     none !important;
 }
+
 
 .project-image.has-north-preview
 > .placeholder-cross,
@@ -50,396 +72,23 @@
 
 .window-placeholder.has-north-preview
 > small {
-  display: none !important;
+  display:
+    none !important;
 }
+
 
 .project-image.has-north-preview {
-  align-items: stretch;
-  justify-content: stretch;
+  align-items:
+    stretch;
 
-  padding:
-    clamp(
-      16px,
-      2.5vw,
-      34px
-    );
+  justify-content:
+    stretch;
 }
+
 
 .window-placeholder.has-north-preview {
-  padding: 0 !important;
-}
-
-
-/* =========================================================
-   THUMBNAIL
-========================================================= */
-
-.nh-thumb {
-  width: 100%;
-  min-height: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-
-  color: var(--nh-ink);
-  background: var(--nh-white);
-
-  border-radius:
-    var(--nh-radius-md);
-
-  font-family:
-    "TASA Orbiter",
-    Arial,
-    sans-serif;
-
-  box-shadow:
-    var(--nh-shadow);
-}
-
-.project-image
-.nh-thumb {
-  min-height:
-    480px;
-}
-
-.window-main
-.nh-thumb {
-  min-height:
-    310px;
-
-  border-radius: 0;
-  box-shadow: none;
-}
-
-
-/* THUMB NAV */
-
-.nh-thumb-nav {
-  min-height: 52px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 20px;
-
   padding:
-    0
-    22px;
-
-  background:
-    rgba(251, 250, 247, .96);
-}
-
-.nh-thumb-logo {
-  color:
-    var(--nh-navy);
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    1rem;
-
-  font-weight: 700;
-}
-
-.nh-thumb-nav
-> span {
-  color:
-    var(--nh-muted);
-
-  background:
-    transparent !important;
-
-  font-size:
-    clamp(
-      .35rem,
-      .55vw,
-      .5rem
-    );
-
-  letter-spacing:
-    .05em;
-}
-
-
-/* THUMB HERO */
-
-.nh-thumb-hero {
-  position: relative;
-
-  flex: 1;
-
-  min-height: 330px;
-
-  margin:
-    0
-    12px
-    12px;
-
-  overflow: hidden;
-
-  border-radius:
-    var(--nh-radius-md);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(8, 14, 20, .05),
-      rgba(8, 14, 20, .6)
-    ),
-    linear-gradient(
-      145deg,
-      #aab5be 0%,
-      #71818c 40%,
-      #354552 72%,
-      #1e2c36 100%
-    );
-
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(8, 14, 20, .02),
-      rgba(8, 14, 20, .7)
-    ),
-    url("../images/north-home-hero.jpg"),
-    linear-gradient(
-      145deg,
-      #aab5be,
-      #354552
-    );
-
-  background-size:
-    cover;
-
-  background-position:
-    center;
-}
-
-.nh-thumb-hero::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, .28),
-      transparent 60%
-    );
-}
-
-.nh-thumb-copy {
-  position: absolute;
-
-  z-index: 3;
-
-  left:
-    clamp(
-      18px,
-      3vw,
-      38px
-    );
-
-  bottom:
-    clamp(
-      18px,
-      3vw,
-      38px
-    );
-
-  max-width:
-    72%;
-}
-
-.nh-thumb-copy
-small {
-  display: block;
-
-  margin-bottom: 12px;
-
-  color:
-    rgba(255, 255, 255, .72);
-
-  background:
-    transparent !important;
-
-  font-size:
-    clamp(
-      .34rem,
-      .55vw,
-      .5rem
-    );
-
-  letter-spacing:
-    .08em;
-}
-
-.nh-thumb-copy
-strong {
-  display: block;
-
-  color:
-    #fff;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(
-      1.6rem,
-      4.1vw,
-      4.8rem
-    );
-
-  font-weight: 400;
-
-  letter-spacing:
-    -.05em;
-
-  line-height:
-    .88;
-}
-
-.nh-thumb-copy
-span {
-  display: block;
-
-  margin-top:
-    16px;
-
-  color:
-    rgba(255, 255, 255, .8);
-
-  background:
-    transparent !important;
-
-  font-size:
-    clamp(
-      .4rem,
-      .7vw,
-      .65rem
-    );
-}
-
-
-/* THUMB STAT */
-
-.nh-thumb-stat {
-  position: absolute;
-
-  z-index: 4;
-
-  top: 18px;
-  right: 18px;
-
-  padding:
-    11px
-    13px;
-
-  color:
-    var(--nh-ink);
-
-  background:
-    rgba(255, 255, 255, .9);
-
-  border-radius:
-    999px;
-
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
-
-  font-size:
-    clamp(
-      .35rem,
-      .55vw,
-      .5rem
-    );
-}
-
-
-/* =========================================================
-   SMALL HERO WINDOW VERSION
-========================================================= */
-
-.window-main
-.nh-thumb-nav {
-  min-height: 32px;
-
-  padding:
-    0
-    10px;
-}
-
-.window-main
-.nh-thumb-logo {
-  font-size: .7rem;
-}
-
-.window-main
-.nh-thumb-nav
-> span {
-  display: none;
-}
-
-.window-main
-.nh-thumb-hero {
-  min-height: 250px;
-
-  margin:
-    0
-    7px
-    7px;
-
-  border-radius: 7px;
-}
-
-.window-main
-.nh-thumb-copy {
-  left: 14px;
-  bottom: 14px;
-}
-
-.window-main
-.nh-thumb-copy
-strong {
-  font-size:
-    clamp(
-      1.2rem,
-      2.6vw,
-      2.3rem
-    );
-}
-
-.window-main
-.nh-thumb-copy
-span {
-  display: none;
-}
-
-.window-main
-.nh-thumb-stat {
-  top: 10px;
-  right: 10px;
-
-  padding:
-    6px
-    8px;
-
-  font-size: .38rem;
+    0 !important;
 }
 
 
@@ -452,15 +101,18 @@ span {
 
 .case-dialog
 .north-case-study {
-  display: none;
+  display:
+    none;
 }
+
 
 .case-dialog.north-active
 .north-case-preview,
 
 .case-dialog.north-active
 .north-case-study {
-  display: block;
+  display:
+    block;
 }
 
 
@@ -472,7 +124,8 @@ span {
 
 .case-dialog.north-active
 #case-image-label {
-  display: none;
+  display:
+    none;
 }
 
 
@@ -480,20 +133,25 @@ span {
 
 .case-dialog.north-active
 .case-section {
-  display: none;
+  display:
+    none;
 }
 
 
-/* HERO MEDIA */
+/* =========================================================
+   CASE HERO MEDIA
+========================================================= */
 
 .case-dialog.north-active
 .case-hero-media {
   min-height:
     620px;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
   padding:
     clamp(
@@ -508,21 +166,29 @@ span {
   background-image:
     none;
 
-  border: 0;
+  border:
+    0;
 }
+
 
 .north-case-preview {
-  width: 100%;
+  position:
+    relative;
 
-  position: relative;
+  z-index:
+    2;
 
-  z-index: 2;
+  width:
+    100%;
 }
 
-.north-case-preview-browser {
-  width: 100%;
 
-  overflow: hidden;
+.north-case-preview-browser {
+  width:
+    100%;
+
+  overflow:
+    hidden;
 
   background:
     var(--nh-white);
@@ -534,16 +200,27 @@ span {
     0
     28px
     70px
-    rgba(19, 28, 37, .17);
+    rgba(
+      19,
+      28,
+      37,
+      .17
+    );
 }
 
+
 .north-case-preview-top {
-  min-height: 38px;
+  min-height:
+    38px;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
-  justify-content: space-between;
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
 
   padding:
     0
@@ -555,20 +232,24 @@ span {
   background:
     #ece8df;
 
-  font-size: .52rem;
+  font-size:
+    .52rem;
 
   letter-spacing:
     .06em;
 }
 
 
-/* CASE HERO COPY */
+/* =========================================================
+   CASE HERO COPY
+========================================================= */
 
 .case-dialog.north-active
 .case-kicker {
   color:
     var(--nh-blue);
 }
+
 
 .case-dialog.north-active
 .case-hero-copy h2 {
@@ -586,6 +267,7 @@ span {
   letter-spacing:
     -.05em;
 }
+
 
 .case-dialog.north-active
 .case-summary {
@@ -611,6 +293,7 @@ span {
     sans-serif;
 }
 
+
 .nh-case-label {
   color:
     var(--nh-blue);
@@ -634,7 +317,8 @@ span {
 ========================================================= */
 
 .nh-case-brief {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     170px
@@ -656,14 +340,17 @@ span {
     var(--nh-line);
 }
 
+
 .nh-case-brief-main {
   max-width:
     980px;
 }
 
+
 .nh-case-brief-main
 > span {
-  display: block;
+  display:
+    block;
 
   margin-bottom:
     18px;
@@ -678,6 +365,7 @@ span {
     .07em;
 }
 
+
 .nh-case-brief-main
 h3,
 
@@ -686,7 +374,8 @@ h3,
 
 .nh-case-outcome
 h3 {
-  margin: 0;
+  margin:
+    0;
 
   color:
     var(--nh-navy);
@@ -713,6 +402,7 @@ h3 {
     .92;
 }
 
+
 .nh-case-brief-main
 p {
   max-width:
@@ -731,12 +421,16 @@ p {
 }
 
 
-/* CASE FACTS */
+/* =========================================================
+   CASE FACTS
+========================================================= */
 
 .nh-case-facts {
-  grid-column: 2;
+  grid-column:
+    2;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     repeat(
@@ -756,12 +450,14 @@ p {
     var(--nh-line);
 }
 
+
 .nh-case-facts
 div {
   min-height:
     105px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     110px
@@ -783,11 +479,13 @@ div {
     var(--nh-line);
 }
 
+
 .nh-case-facts
 div:nth-child(odd) {
   padding-right:
     28px;
 }
+
 
 .nh-case-facts
 div:nth-child(even) {
@@ -799,6 +497,7 @@ div:nth-child(even) {
     solid
     var(--nh-line);
 }
+
 
 .nh-case-facts
 span {
@@ -812,6 +511,7 @@ span {
     .07em;
 }
 
+
 .nh-case-facts
 strong {
   font-size:
@@ -823,7 +523,7 @@ strong {
 
 
 /* =========================================================
-   DESIGN LOGIC
+   DESIGN DIRECTION
 ========================================================= */
 
 .nh-case-decisions {
@@ -840,6 +540,7 @@ strong {
     var(--nh-line);
 }
 
+
 .nh-case-decisions-list {
   margin-top:
     55px;
@@ -850,11 +551,13 @@ strong {
     var(--nh-line);
 }
 
+
 .nh-case-decision {
   min-height:
     145px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     65px
@@ -876,6 +579,7 @@ strong {
     var(--nh-line);
 }
 
+
 .nh-case-decision
 > span {
   color:
@@ -888,9 +592,11 @@ strong {
     600;
 }
 
+
 .nh-case-decision
 h4 {
-  margin: 0;
+  margin:
+    0;
 
   color:
     var(--nh-navy);
@@ -917,12 +623,14 @@ h4 {
     1;
 }
 
+
 .nh-case-decision
 p {
   max-width:
     560px;
 
-  margin: 0;
+  margin:
+    0;
 
   color:
     var(--nh-muted);
@@ -951,11 +659,13 @@ p {
     #20242a;
 }
 
+
 .nh-live-heading {
   max-width:
     1380px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
@@ -973,9 +683,11 @@ p {
     55px;
 }
 
+
 .nh-live-heading
 .nh-case-label {
-  display: block;
+  display:
+    block;
 
   margin-bottom:
     16px;
@@ -984,15 +696,18 @@ p {
     #cfc3b3;
 }
 
+
 .nh-live-heading
 h3 {
   color:
     #fff;
 }
 
+
 .nh-live-heading
 p {
-  margin: 0;
+  margin:
+    0;
 
   color:
     rgba(
@@ -1007,7 +722,9 @@ p {
 }
 
 
-/* BROWSER */
+/* =========================================================
+   CASE BROWSER
+========================================================= */
 
 .nh-browser {
   max-width:
@@ -1017,7 +734,8 @@ p {
     0
     auto;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
   background:
     var(--nh-white);
@@ -1037,11 +755,13 @@ p {
     );
 }
 
+
 .nh-browserbar {
   min-height:
     44px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
@@ -1071,12 +791,15 @@ p {
     .06em;
 }
 
+
 .nh-browser-dots {
-  display: flex;
+  display:
+    flex;
 
   gap:
     6px;
 }
+
 
 .nh-browser-dots
 i {
@@ -1095,11 +818,13 @@ i {
     50%;
 }
 
+
 .nh-browserbar
 > span {
   justify-self:
     center;
 }
+
 
 .nh-browserbar
 strong {
@@ -1115,7 +840,7 @@ strong {
 
 
 /* =========================================================
-   EMBEDDED WEBSITE
+   CANONICAL NORTH HOME WEBSITE
 ========================================================= */
 
 .nh-site {
@@ -1131,21 +856,24 @@ strong {
     sans-serif;
 }
 
+
 .nh-site
 a {
-  color: inherit;
+  color:
+    inherit;
 }
 
 
 /* =========================================================
-   SITE HEADER
+   WEBSITE HEADER
 ========================================================= */
 
 .nh-header {
   min-height:
     80px;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr
@@ -1165,6 +893,7 @@ a {
   background:
     var(--nh-white);
 }
+
 
 .nh-logo {
   width:
@@ -1188,11 +917,13 @@ a {
     none;
 }
 
+
 .nh-logo
 span {
   color:
     #a88461;
 }
+
 
 .nh-header
 nav {
@@ -1202,6 +933,7 @@ nav {
   gap:
     28px;
 }
+
 
 .nh-header
 nav a {
@@ -1220,11 +952,13 @@ nav a {
     ease;
 }
 
+
 .nh-header
 nav a:hover {
   color:
     var(--nh-navy);
 }
+
 
 .nh-header-cta {
   justify-self:
@@ -1255,7 +989,7 @@ nav a:hover {
 
 
 /* =========================================================
-   HERO
+   WEBSITE HERO
 ========================================================= */
 
 .nh-hero {
@@ -1265,6 +999,7 @@ nav a:hover {
     24px;
 }
 
+
 .nh-hero-media {
   position:
     relative;
@@ -1272,7 +1007,8 @@ nav a:hover {
   min-height:
     680px;
 
-  display: flex;
+  display:
+    flex;
 
   align-items:
     flex-end;
@@ -1319,12 +1055,16 @@ nav a:hover {
     center;
 }
 
+
 .nh-hero-media::before {
-  content: "";
+  content:
+    "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
     linear-gradient(
@@ -1333,6 +1073,7 @@ nav a:hover {
       transparent 60%
     );
 }
+
 
 .nh-hero-copy {
   position:
@@ -1344,6 +1085,7 @@ nav a:hover {
   max-width:
     790px;
 }
+
 
 .nh-eyebrow {
   display:
@@ -1373,6 +1115,7 @@ nav a:hover {
   letter-spacing:
     .08em;
 }
+
 
 .nh-hero
 h1 {
@@ -1404,6 +1147,7 @@ h1 {
     .76;
 }
 
+
 .nh-hero-copy
 > p {
   max-width:
@@ -1429,6 +1173,7 @@ h1 {
     1.6;
 }
 
+
 .nh-hero-actions {
   display:
     flex;
@@ -1439,6 +1184,7 @@ h1 {
   gap:
     10px;
 }
+
 
 .nh-hero-actions
 a {
@@ -1471,6 +1217,7 @@ a {
     none;
 }
 
+
 .nh-hero-actions
 a:first-child {
   color:
@@ -1479,6 +1226,7 @@ a:first-child {
   background:
     #fff;
 }
+
 
 .nh-hero-actions
 a:last-child {
@@ -1497,7 +1245,9 @@ a:last-child {
 }
 
 
-/* HERO FLOATING TRUST */
+/* =========================================================
+   HERO TRUST LABEL
+========================================================= */
 
 .nh-hero-trust {
   position:
@@ -1508,6 +1258,7 @@ a:last-child {
 
   top:
     28px;
+
   right:
     28px;
 
@@ -1548,6 +1299,7 @@ a:last-child {
     .55rem;
 }
 
+
 .nh-hero-trust
 strong {
   font-size:
@@ -1587,6 +1339,7 @@ strong {
     var(--nh-radius-md);
 }
 
+
 .nh-trust-item {
   min-height:
     112px;
@@ -1597,6 +1350,7 @@ strong {
   background:
     var(--nh-paper);
 }
+
 
 .nh-trust-item
 strong {
@@ -1621,6 +1375,7 @@ strong {
     400;
 }
 
+
 .nh-trust-item
 span {
   color:
@@ -1635,7 +1390,7 @@ span {
 
 
 /* =========================================================
-   COMMON SECTIONS
+   COMMON WEBSITE SECTIONS
 ========================================================= */
 
 .nh-section {
@@ -1643,6 +1398,7 @@ span {
     105px
     50px;
 }
+
 
 .nh-section-heading {
   display:
@@ -1669,6 +1425,7 @@ span {
     58px;
 }
 
+
 .nh-section-heading
 > span {
   color:
@@ -1683,6 +1440,7 @@ span {
   letter-spacing:
     .08em;
 }
+
 
 .nh-section-heading
 h2 {
@@ -1714,6 +1472,7 @@ h2 {
     .9;
 }
 
+
 .nh-section-heading
 p {
   margin:
@@ -1736,6 +1495,7 @@ p {
     var(--nh-white);
 }
 
+
 .nh-services-layout {
   display:
     grid;
@@ -1757,6 +1517,7 @@ p {
     stretch;
 }
 
+
 .nh-service-list {
   display:
     flex;
@@ -1769,6 +1530,7 @@ p {
     solid
     var(--nh-line);
 }
+
 
 .nh-service-tab {
   min-height:
@@ -1821,6 +1583,7 @@ p {
     ease;
 }
 
+
 .nh-service-tab:hover,
 .nh-service-tab.active {
   padding-left:
@@ -1830,6 +1593,7 @@ p {
     #9b7655;
 }
 
+
 .nh-service-tab
 span {
   color:
@@ -1838,6 +1602,7 @@ span {
   font-size:
     .56rem;
 }
+
 
 .nh-service-tab
 strong {
@@ -1853,6 +1618,7 @@ strong {
     400;
 }
 
+
 .nh-service-tab
 i {
   font-style:
@@ -1860,7 +1626,9 @@ i {
 }
 
 
-/* SERVICE VISUAL */
+/* =========================================================
+   SERVICE FEATURE
+========================================================= */
 
 .nh-service-feature {
   display:
@@ -1885,6 +1653,7 @@ i {
   border-radius:
     var(--nh-radius-lg);
 }
+
 
 .nh-service-photo {
   min-height:
@@ -1917,6 +1686,7 @@ i {
     ease;
 }
 
+
 .nh-service-photo[
   data-service="maintenance"
 ] {
@@ -1929,6 +1699,7 @@ i {
     );
 }
 
+
 .nh-service-photo[
   data-service="installation"
 ] {
@@ -1940,6 +1711,7 @@ i {
       #8d7e6e
     );
 }
+
 
 .nh-service-info {
   display:
@@ -1955,6 +1727,7 @@ i {
     40px;
 }
 
+
 .nh-service-info
 > span {
   color:
@@ -1966,6 +1739,7 @@ i {
   letter-spacing:
     .08em;
 }
+
 
 .nh-service-info
 h3 {
@@ -1999,6 +1773,7 @@ h3 {
     .95;
 }
 
+
 .nh-service-info
 p {
   margin:
@@ -2012,6 +1787,7 @@ p {
   line-height:
     1.6;
 }
+
 
 .nh-service-info
 ul {
@@ -2029,6 +1805,7 @@ ul {
     solid
     var(--nh-line);
 }
+
 
 .nh-service-info
 li {
@@ -2050,7 +1827,7 @@ li {
 
 
 /* =========================================================
-   INTRO STORY
+   STORY
 ========================================================= */
 
 .nh-story {
@@ -2061,6 +1838,7 @@ li {
   background:
     var(--nh-paper);
 }
+
 
 .nh-story-grid {
   display:
@@ -2083,6 +1861,7 @@ li {
     center;
 }
 
+
 .nh-story-copy
 span {
   color:
@@ -2097,6 +1876,7 @@ span {
   letter-spacing:
     .08em;
 }
+
 
 .nh-story-copy
 h2 {
@@ -2130,6 +1910,7 @@ h2 {
     .9;
 }
 
+
 .nh-story-copy
 p {
   max-width:
@@ -2145,8 +1926,6 @@ p {
     1.7;
 }
 
-
-/* STORY IMAGE */
 
 .nh-story-photo {
   min-height:
@@ -2194,6 +1973,7 @@ p {
     var(--nh-navy);
 }
 
+
 .nh-process-heading {
   display:
     grid;
@@ -2209,6 +1989,7 @@ p {
     55px;
 }
 
+
 .nh-process-heading
 span {
   color:
@@ -2221,12 +2002,14 @@ span {
     .08em;
 }
 
+
 .nh-process-heading
 h2 {
   max-width:
     850px;
 
-  margin: 0;
+  margin:
+    0;
 
   color:
     #fff;
@@ -2252,6 +2035,7 @@ h2 {
   line-height:
     .9;
 }
+
 
 .nh-process-grid {
   display:
@@ -2284,6 +2068,7 @@ h2 {
     );
 }
 
+
 .nh-process-step {
   min-height:
     250px;
@@ -2299,6 +2084,7 @@ h2 {
     22px;
 }
 
+
 .nh-process-step
 + .nh-process-step {
   border-left:
@@ -2312,6 +2098,7 @@ h2 {
     );
 }
 
+
 .nh-process-step
 > span {
   color:
@@ -2320,6 +2107,7 @@ h2 {
   font-size:
     .56rem;
 }
+
 
 .nh-process-step
 h3 {
@@ -2340,9 +2128,11 @@ h3 {
     400;
 }
 
+
 .nh-process-step
 p {
-  margin: 0;
+  margin:
+    0;
 
   color:
     rgba(
@@ -2361,13 +2151,14 @@ p {
 
 
 /* =========================================================
-   SELECTED PROJECTS
+   SELECTED WORK
 ========================================================= */
 
 .nh-work {
   background:
     var(--nh-white);
 }
+
 
 .nh-work-grid {
   display:
@@ -2380,6 +2171,7 @@ p {
   gap:
     22px;
 }
+
 
 .nh-work-card {
   position:
@@ -2426,6 +2218,7 @@ p {
     center;
 }
 
+
 .nh-work-side {
   display:
     grid;
@@ -2438,10 +2231,12 @@ p {
     22px;
 }
 
+
 .nh-work-card-small {
   min-height:
     299px;
 }
+
 
 .nh-work-card-two {
   background-image:
@@ -2463,6 +2258,7 @@ p {
     );
 }
 
+
 .nh-work-card-three {
   background-image:
     linear-gradient(
@@ -2483,6 +2279,7 @@ p {
     );
 }
 
+
 .nh-work-overlay {
   position:
     absolute;
@@ -2498,6 +2295,7 @@ p {
   color:
     #fff;
 }
+
 
 .nh-work-overlay
 span {
@@ -2515,6 +2313,7 @@ span {
   letter-spacing:
     .07em;
 }
+
 
 .nh-work-overlay
 h3 {
@@ -2556,6 +2355,7 @@ h3 {
     var(--nh-paper);
 }
 
+
 .nh-why-layout {
   display:
     grid;
@@ -2571,6 +2371,7 @@ h3 {
     70px;
 }
 
+
 .nh-why-copy
 span {
   color:
@@ -2585,6 +2386,7 @@ span {
   letter-spacing:
     .08em;
 }
+
 
 .nh-why-copy
 h2 {
@@ -2618,12 +2420,14 @@ h2 {
     .9;
 }
 
+
 .nh-why-list {
   border-top:
     1px
     solid
     var(--nh-line);
 }
+
 
 .nh-why-item {
   min-height:
@@ -2648,6 +2452,7 @@ h2 {
     var(--nh-line);
 }
 
+
 .nh-why-item
 span {
   color:
@@ -2656,6 +2461,7 @@ span {
   font-size:
     .56rem;
 }
+
 
 .nh-why-item
 strong {
@@ -2698,6 +2504,7 @@ strong {
     var(--nh-sand-light);
 }
 
+
 .nh-area-copy
 span {
   color:
@@ -2712,6 +2519,7 @@ span {
   letter-spacing:
     .08em;
 }
+
 
 .nh-area-copy
 h2 {
@@ -2745,6 +2553,7 @@ h2 {
     .9;
 }
 
+
 .nh-area-list {
   display:
     grid;
@@ -2768,6 +2577,7 @@ h2 {
       .22
     );
 }
+
 
 .nh-area-list
 span {
@@ -2797,6 +2607,7 @@ span {
   font-size:
     .64rem;
 }
+
 
 .nh-area-list
 span:nth-child(even) {
@@ -2838,6 +2649,7 @@ span:nth-child(even) {
     #fff;
 }
 
+
 .nh-quote-copy
 > span {
   color:
@@ -2852,6 +2664,7 @@ span:nth-child(even) {
   letter-spacing:
     .08em;
 }
+
 
 .nh-quote-copy
 h2 {
@@ -2885,12 +2698,14 @@ h2 {
     .88;
 }
 
+
 .nh-quote-copy
 p {
   max-width:
     500px;
 
-  margin: 0;
+  margin:
+    0;
 
   color:
     var(--nh-muted);
@@ -2898,6 +2713,7 @@ p {
   line-height:
     1.65;
 }
+
 
 .nh-form {
   align-self:
@@ -2912,6 +2728,7 @@ p {
   border-radius:
     var(--nh-radius-lg);
 }
+
 
 .nh-form
 label {
@@ -2934,6 +2751,7 @@ label {
     .05em;
 }
 
+
 .nh-form
 textarea,
 
@@ -2955,22 +2773,27 @@ select {
   background:
     transparent;
 
-  border: 0;
+  border:
+    0;
 
   border-bottom:
     1px
     solid
     var(--nh-line);
 
-  border-radius: 0;
+  border-radius:
+    0;
 
-  outline: 0;
+  outline:
+    0;
 
-  font: inherit;
+  font:
+    inherit;
 
   font-size:
     .82rem;
 }
+
 
 .nh-form
 textarea:focus,
@@ -2983,6 +2806,7 @@ select:focus {
   border-bottom-color:
     var(--nh-navy);
 }
+
 
 .nh-form-row {
   display:
@@ -2999,6 +2823,7 @@ select:focus {
     24px;
 }
 
+
 .nh-form
 button {
   width:
@@ -3012,6 +2837,7 @@ button {
 
   align-items:
     center;
+
   justify-content:
     space-between;
 
@@ -3028,7 +2854,8 @@ button {
   background:
     var(--nh-navy);
 
-  border: 0;
+  border:
+    0;
 
   border-radius:
     999px;
@@ -3036,7 +2863,8 @@ button {
   cursor:
     pointer;
 
-  font: inherit;
+  font:
+    inherit;
 
   font-size:
     .65rem;
@@ -3044,6 +2872,7 @@ button {
   font-weight:
     600;
 }
+
 
 .nh-form-status {
   min-height:
@@ -3106,6 +2935,7 @@ button {
     .06em;
 }
 
+
 .nh-footer
 strong {
   color:
@@ -3140,11 +2970,13 @@ strong {
     var(--nh-navy);
 }
 
+
 .nh-case-outcome
 .nh-case-label {
   color:
     var(--nh-sand);
 }
+
 
 .nh-case-outcome
 h3 {
@@ -3159,6 +2991,7 @@ h3 {
   color:
     #fff;
 }
+
 
 .nh-case-outcome-grid {
   display:
@@ -3181,6 +3014,7 @@ h3 {
     );
 }
 
+
 .nh-case-outcome-item {
   min-height:
     155px;
@@ -3189,6 +3023,7 @@ h3 {
     26px
     24px;
 }
+
 
 .nh-case-outcome-item
 + .nh-case-outcome-item {
@@ -3202,6 +3037,7 @@ h3 {
       .18
     );
 }
+
 
 .nh-case-outcome-item
 strong {
@@ -3221,6 +3057,7 @@ strong {
     .08em;
 }
 
+
 .nh-case-outcome-item
 span {
   color:
@@ -3237,7 +3074,7 @@ span {
 
 
 /* =========================================================
-   TABLET
+   TABLET / NORTH WEBSITE
 ========================================================= */
 
 @media (
@@ -3249,10 +3086,12 @@ span {
       1fr;
   }
 
+
   .nh-case-facts {
     grid-column:
       1;
   }
+
 
   .nh-case-decision {
     grid-template-columns:
@@ -3260,6 +3099,7 @@ span {
       .8fr
       1fr;
   }
+
 
   .nh-live-heading {
     grid-template-columns:
@@ -3269,11 +3109,13 @@ span {
       28px;
   }
 
+
   .nh-header {
     grid-template-columns:
       1fr
       auto;
   }
+
 
   .nh-header
   nav {
@@ -3281,11 +3123,13 @@ span {
       none;
   }
 
+
   .nh-section-heading {
     grid-template-columns:
       120px
       1fr;
   }
+
 
   .nh-section-heading
   p {
@@ -3293,10 +3137,12 @@ span {
       2;
   }
 
+
   .nh-services-layout {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-service-feature {
     grid-template-columns:
@@ -3304,11 +3150,13 @@ span {
       .8fr;
   }
 
+
   .nh-story-grid {
     grid-template-columns:
       1fr
       1fr;
   }
+
 
   .nh-process-grid {
     grid-template-columns:
@@ -3316,8 +3164,10 @@ span {
       1fr;
   }
 
+
   .nh-process-step:nth-child(3) {
-    border-left: 0;
+    border-left:
+      0;
 
     border-top:
       1px
@@ -3329,6 +3179,7 @@ span {
         .18
       );
   }
+
 
   .nh-process-step:nth-child(4) {
     border-top:
@@ -3346,39 +3197,12 @@ span {
 
 
 /* =========================================================
-   MOBILE
+   MOBILE / NORTH WEBSITE
 ========================================================= */
 
 @media (
   max-width: 700px
 ) {
-
-  .project-image.has-north-preview {
-    padding:
-      12px;
-  }
-
-  .project-image
-  .nh-thumb {
-    min-height:
-      330px;
-  }
-
-  .nh-thumb-nav
-  > span {
-    display:
-      none;
-  }
-
-  .nh-thumb-hero {
-    min-height:
-      280px;
-  }
-
-  .nh-thumb-copy {
-    max-width:
-      88%;
-  }
 
   .case-dialog.north-active
   .case-hero-media {
@@ -3389,10 +3213,12 @@ span {
       14px;
   }
 
+
   .north-case-preview-browser {
     border-radius:
       14px;
   }
+
 
   .nh-case-brief,
   .nh-case-decisions,
@@ -3401,6 +3227,7 @@ span {
       70px
       16px;
   }
+
 
   .nh-case-brief-main
   h3,
@@ -3418,6 +3245,7 @@ span {
       );
   }
 
+
   .nh-case-facts {
     grid-template-columns:
       1fr;
@@ -3425,6 +3253,7 @@ span {
     margin-top:
       40px;
   }
+
 
   .nh-case-facts
   div,
@@ -3442,8 +3271,10 @@ span {
       16px
       0;
 
-    border-left: 0;
+    border-left:
+      0;
   }
+
 
   .nh-case-decision {
     grid-template-columns:
@@ -3459,11 +3290,13 @@ span {
       0;
   }
 
+
   .nh-case-decision
   p {
     grid-column:
       2;
   }
+
 
   .nh-live {
     padding:
@@ -3472,16 +3305,19 @@ span {
       90px;
   }
 
+
   .nh-live-heading {
     padding:
       0
       8px;
   }
 
+
   .nh-browser {
     border-radius:
       14px;
   }
+
 
   .nh-browserbar {
     grid-template-columns:
@@ -3489,17 +3325,20 @@ span {
       auto;
   }
 
+
   .nh-browserbar
   > span {
     justify-self:
       end;
   }
 
+
   .nh-browserbar
   strong {
     display:
       none;
   }
+
 
   .nh-header {
     min-height:
@@ -3514,6 +3353,7 @@ span {
       16px;
   }
 
+
   .nh-header-cta {
     padding:
       9px
@@ -3523,12 +3363,14 @@ span {
       .55rem;
   }
 
+
   .nh-hero {
     padding:
       0
       8px
       8px;
   }
+
 
   .nh-hero-media {
     min-height:
@@ -3545,6 +3387,7 @@ span {
       center;
   }
 
+
   .nh-hero
   h1 {
     font-size:
@@ -3555,6 +3398,7 @@ span {
       );
   }
 
+
   .nh-hero-trust {
     top:
       16px;
@@ -3562,6 +3406,7 @@ span {
     right:
       16px;
   }
+
 
   .nh-trust-strip {
     grid-template-columns:
@@ -3577,6 +3422,7 @@ span {
       14px;
   }
 
+
   .nh-section,
   .nh-story,
   .nh-process,
@@ -3587,6 +3433,7 @@ span {
       70px
       16px;
   }
+
 
   .nh-section-heading {
     grid-template-columns:
@@ -3599,11 +3446,13 @@ span {
       40px;
   }
 
+
   .nh-section-heading
   p {
     grid-column:
       1;
   }
+
 
   .nh-section-heading
   h2,
@@ -3630,21 +3479,25 @@ span {
       );
   }
 
+
   .nh-service-feature {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-service-photo {
     min-height:
       350px;
   }
 
+
   .nh-service-info {
     padding:
       28px
       22px;
   }
+
 
   .nh-story-grid {
     grid-template-columns:
@@ -3654,6 +3507,7 @@ span {
       35px;
   }
 
+
   .nh-story-photo {
     min-height:
       430px;
@@ -3661,6 +3515,7 @@ span {
     order:
       -1;
   }
+
 
   .nh-process-heading {
     grid-template-columns:
@@ -3670,15 +3525,18 @@ span {
       16px;
   }
 
+
   .nh-process-grid {
     grid-template-columns:
       1fr;
   }
 
+
   .nh-process-step {
     min-height:
       175px;
   }
+
 
   .nh-process-step
   + .nh-process-step,
@@ -3686,7 +3544,8 @@ span {
   .nh-process-step:nth-child(3),
 
   .nh-process-step:nth-child(4) {
-    border-left: 0;
+    border-left:
+      0;
 
     border-top:
       1px
@@ -3699,25 +3558,30 @@ span {
       );
   }
 
+
   .nh-work-grid {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-work-card {
     min-height:
       470px;
   }
 
+
   .nh-work-side {
     grid-template-rows:
       auto;
   }
 
+
   .nh-work-card-small {
     min-height:
       340px;
   }
+
 
   .nh-why-layout,
   .nh-area,
@@ -3729,10 +3593,12 @@ span {
       45px;
   }
 
+
   .nh-area-list {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-area-list
   span:nth-child(even) {
@@ -3740,16 +3606,19 @@ span {
       0;
   }
 
+
   .nh-form {
     padding:
       26px
       20px;
   }
 
+
   .nh-form-row {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-footer {
     min-height:
@@ -3769,10 +3638,12 @@ span {
       16px;
   }
 
+
   .nh-case-outcome-grid {
     grid-template-columns:
       1fr;
   }
+
 
   .nh-case-outcome-item
   + .nh-case-outcome-item {
@@ -3818,20 +3689,19 @@ span {
 
 
 /* =========================================================
-   NORTH HOME / REAL STOCK PHOTOGRAPHY
-   Source: Pexels
-   These overrides intentionally replace all generated /
-   placeholder imagery with real stock photography.
+   NORTH HOME / STOCK PHOTOGRAPHY
+
+   This remains as the base photography layer.
+
+   css/north-home-ph.css loads afterward and supplies the
+   final Philippine photography selection.
 ========================================================= */
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    HERO
-   Pexels photo 4626268
-   Modern residential exterior at twilight
---------------------------------------------------------- */
+========================================================= */
 
-.nh-thumb-hero,
 .nh-hero-media {
   background-image:
     linear-gradient(
@@ -3839,7 +3709,9 @@ span {
       rgba(10, 18, 26, .02),
       rgba(10, 18, 26, .68)
     ),
-    url("https://images.pexels.com/photos/4626268/pexels-photo-4626268.jpeg?auto=compress&cs=tinysrgb&w=2200"),
+    url(
+      "https://images.pexels.com/photos/4626268/pexels-photo-4626268.jpeg?auto=compress&cs=tinysrgb&w=2200"
+    ),
     linear-gradient(
       145deg,
       #aab4bd,
@@ -3850,32 +3722,13 @@ span {
     cover !important;
 
   background-position:
-    center 52% !important;
+    center
+    52% !important;
 
   background-repeat:
     no-repeat !important;
 }
 
-
-/*
- * Portfolio thumbnail needs slightly
- * darker contrast behind its text.
- */
-
-.nh-thumb-hero::after {
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 12, 17, .52),
-      rgba(7, 12, 17, .12) 64%,
-      rgba(7, 12, 17, .04)
-    ) !important;
-}
-
-
-/*
- * Embedded website hero.
- */
 
 .nh-hero-media::before {
   background:
@@ -3888,11 +3741,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    REPAIRS
-   Pexels photo 5691668
-   Handyman working inside a residential room
---------------------------------------------------------- */
+========================================================= */
 
 .nh-service-photo {
   background-image:
@@ -3901,7 +3752,9 @@ span {
       rgba(10, 18, 26, .02),
       rgba(10, 18, 26, .08)
     ),
-    url("https://images.pexels.com/photos/5691668/pexels-photo-5691668.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    url(
+      "https://images.pexels.com/photos/5691668/pexels-photo-5691668.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    ),
     linear-gradient(
       145deg,
       #c9c1b6,
@@ -3919,11 +3772,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    MAINTENANCE
-   Pexels photo 10161225
-   Modern residential living room
---------------------------------------------------------- */
+========================================================= */
 
 .nh-service-photo[
   data-service="maintenance"
@@ -3934,7 +3785,9 @@ span {
       rgba(10, 18, 26, .01),
       rgba(10, 18, 26, .07)
     ),
-    url("https://images.pexels.com/photos/10161225/pexels-photo-10161225.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    url(
+      "https://images.pexels.com/photos/10161225/pexels-photo-10161225.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    ),
     linear-gradient(
       145deg,
       #b5b8ad,
@@ -3946,11 +3799,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    INSTALLATION
-   Pexels photo 4792522
-   Professional installing a ceiling light
---------------------------------------------------------- */
+========================================================= */
 
 .nh-service-photo[
   data-service="installation"
@@ -3961,7 +3812,9 @@ span {
       rgba(10, 18, 26, .01),
       rgba(10, 18, 26, .08)
     ),
-    url("https://images.pexels.com/photos/4792522/pexels-photo-4792522.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    url(
+      "https://images.pexels.com/photos/4792522/pexels-photo-4792522.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    ),
     linear-gradient(
       145deg,
       #d2c8ba,
@@ -3969,19 +3822,20 @@ span {
     ) !important;
 
   background-position:
-    center 42% !important;
+    center
+    42% !important;
 }
 
 
-/* ---------------------------------------------------------
-   HOME-CARE STORY
-   Pexels photo 9976128
-   High-end contemporary living room
---------------------------------------------------------- */
+/* =========================================================
+   STORY
+========================================================= */
 
 .nh-story-photo {
   background-image:
-    url("https://images.pexels.com/photos/9976128/pexels-photo-9976128.jpeg?auto=compress&cs=tinysrgb&w=1800"),
+    url(
+      "https://images.pexels.com/photos/9976128/pexels-photo-9976128.jpeg?auto=compress&cs=tinysrgb&w=1800"
+    ),
     linear-gradient(
       145deg,
       #d6d0c7,
@@ -3999,11 +3853,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    SELECTED WORK / PROJECT 01
-   Pexels photo 8082300
-   Premium residential kitchen
---------------------------------------------------------- */
+========================================================= */
 
 .nh-work-card {
   background-image:
@@ -4012,7 +3864,9 @@ span {
       rgba(10, 15, 20, .02) 32%,
       rgba(10, 15, 20, .74)
     ),
-    url("https://images.pexels.com/photos/8082300/pexels-photo-8082300.jpeg?auto=compress&cs=tinysrgb&w=1800"),
+    url(
+      "https://images.pexels.com/photos/8082300/pexels-photo-8082300.jpeg?auto=compress&cs=tinysrgb&w=1800"
+    ),
     linear-gradient(
       145deg,
       #aab3b9,
@@ -4030,11 +3884,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    SELECTED WORK / PROJECT 02
-   Pexels photo 9976124
-   Modern finished living room
---------------------------------------------------------- */
+========================================================= */
 
 .nh-work-card-two {
   background-image:
@@ -4043,7 +3895,9 @@ span {
       rgba(10, 15, 20, .02) 28%,
       rgba(10, 15, 20, .72)
     ),
-    url("https://images.pexels.com/photos/9976124/pexels-photo-9976124.jpeg?auto=compress&cs=tinysrgb&w=1500"),
+    url(
+      "https://images.pexels.com/photos/9976124/pexels-photo-9976124.jpeg?auto=compress&cs=tinysrgb&w=1500"
+    ),
     linear-gradient(
       145deg,
       #b5b4ad,
@@ -4055,11 +3909,9 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    SELECTED WORK / PROJECT 03
-   Pexels photo 5353892
-   Bright modern residential interior
---------------------------------------------------------- */
+========================================================= */
 
 .nh-work-card-three {
   background-image:
@@ -4068,7 +3920,9 @@ span {
       rgba(10, 15, 20, .02) 28%,
       rgba(10, 15, 20, .72)
     ),
-    url("https://images.pexels.com/photos/5353892/pexels-photo-5353892.jpeg?auto=compress&cs=tinysrgb&w=1500"),
+    url(
+      "https://images.pexels.com/photos/5353892/pexels-photo-5353892.jpeg?auto=compress&cs=tinysrgb&w=1500"
+    ),
     linear-gradient(
       145deg,
       #c5b8aa,
@@ -4080,25 +3934,18 @@ span {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    IMAGE PRESENTATION
---------------------------------------------------------- */
+========================================================= */
 
 .nh-service-photo,
 .nh-story-photo,
 .nh-work-card,
-.nh-thumb-hero,
 .nh-hero-media {
   image-rendering:
     auto;
 }
 
-
-/*
- * Very subtle zoom response on project imagery.
- * Keeps the photography feeling alive without
- * making the site resemble the portfolio motion.
- */
 
 .nh-work-card {
   transition:
@@ -4114,24 +3961,25 @@ span {
 
   .nh-work-card:hover {
     background-size:
-      auto 104% !important;
+      auto
+      104% !important;
   }
 
 }
 
 
-/* ---------------------------------------------------------
-   MOBILE CROPS
---------------------------------------------------------- */
+/* =========================================================
+   MOBILE IMAGE CROPS
+========================================================= */
 
 @media (
   max-width: 700px
 ) {
 
-  .nh-hero-media,
-  .nh-thumb-hero {
+  .nh-hero-media {
     background-position:
-      57% center !important;
+      57%
+      center !important;
   }
 
 
@@ -4145,7 +3993,8 @@ span {
     data-service="installation"
   ] {
     background-position:
-      52% center !important;
+      52%
+      center !important;
   }
 
 
@@ -4166,247 +4015,15 @@ span {
 
 
 /* =========================================================
-   NORTH HOME VIEWER / STRONGER POPUP PRESENTATION
-========================================================= */
+   FEATURED MOBILE WINDOW / PORTFOLIO GEOMETRY
 
-/*
- * Narrower desktop popup.
- * Leaves enough of the portfolio visible around it
- * so the viewer clearly reads as an overlay.
- */
+   Temporary compatibility.
 
-.nh-site-viewer {
-  width:
-    min(
-      76vw,
-      1180px
-    ) !important;
+   The handmade North mobile interface is gone.
 
-  height:
-    88vh !important;
-
-  max-width:
-    none !important;
-
-  max-height:
-    none !important;
-
-  border:
-    1px
-    solid
-    rgba(
-      255,
-      255,
-      255,
-      .18
-    ) !important;
-
-  border-radius:
-    18px !important;
-
-  box-shadow:
-    0
-    45px
-    140px
-    rgba(
-      0,
-      0,
-      0,
-      .75
-    ) !important;
-}
-
-
-/*
- * Much darker background.
- * The portfolio remains barely visible underneath,
- * making it immediately obvious that this is a popup.
- */
-
-.nh-site-viewer::backdrop {
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      .88
-    ) !important;
-
-  backdrop-filter:
-    blur(4px) !important;
-
-  -webkit-backdrop-filter:
-    blur(4px) !important;
-
-  animation:
-    nh-backdrop-in
-    220ms
-    ease-out
-    both;
-}
-
-
-@keyframes nh-backdrop-in {
-
-  from {
-    background:
-      rgba(
-        0,
-        0,
-        0,
-        0
-      );
-
-    backdrop-filter:
-      blur(0);
-
-    -webkit-backdrop-filter:
-      blur(0);
-  }
-
-
-  to {
-    background:
-      rgba(
-        0,
-        0,
-        0,
-        .88
-      );
-
-    backdrop-filter:
-      blur(4px);
-
-    -webkit-backdrop-filter:
-      blur(4px);
-  }
-
-}
-
-
-/*
- * Small entrance movement makes the separation
- * between portfolio and website preview clearer.
- */
-
-.nh-site-viewer[open] {
-  animation:
-    nh-viewer-in
-    260ms
-    cubic-bezier(
-      .18,
-      .78,
-      .22,
-      1
-    )
-    both;
-}
-
-
-@keyframes nh-viewer-in {
-
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(18px)
-      scale(.985);
-  }
-
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-  }
-
-}
-
-
-/* ---------------------------------------------------------
-   LAPTOP / TABLET
---------------------------------------------------------- */
-
-@media (
-  max-width: 1100px
-) {
-
-  .nh-site-viewer {
-    width:
-      86vw !important;
-
-    height:
-      88vh !important;
-  }
-
-}
-
-
-/* ---------------------------------------------------------
-   MOBILE
---------------------------------------------------------- */
-
-@media (
-  max-width: 700px
-) {
-
-  .nh-site-viewer {
-    width:
-      calc(
-        100vw - 20px
-      ) !important;
-
-    height:
-      calc(
-        100dvh - 20px
-      ) !important;
-
-    border-radius:
-      14px !important;
-  }
-
-
-  .nh-site-viewer::backdrop {
-    background:
-      rgba(
-        0,
-        0,
-        0,
-        .92
-      ) !important;
-  }
-
-}
-
-
-/* ---------------------------------------------------------
-   REDUCED MOTION
---------------------------------------------------------- */
-
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-
-  .nh-site-viewer[open],
-  .nh-site-viewer::backdrop {
-    animation:
-      none !important;
-  }
-
-}
-
-
-/* =========================================================
-   HERO / FEATURED PROJECT MOBILE WINDOW
-   Paired mobile view of the featured desktop project.
-========================================================= */
-
-
-/* =========================================================
-   WINDOW
+   These rules remain only to preserve the current floating
+   window size and position while the generic portfolio
+   window geometry is migrated separately.
 ========================================================= */
 
 .window-small {
@@ -4424,660 +4041,8 @@ span {
 }
 
 
-.window-small
-.window-placeholder.has-north-mobile-preview {
-  width:
-    100%;
-
-  min-height:
-    0 !important;
-
-  aspect-ratio:
-    9 / 16;
-
-  display:
-    block !important;
-
-  padding:
-    0 !important;
-
-  overflow:
-    hidden;
-
-  color:
-    var(--nh-ink);
-
-  background:
-    var(--nh-white) !important;
-}
-
-
-.window-small
-.window-placeholder.has-north-mobile-preview::before,
-
-.window-small
-.window-placeholder.has-north-mobile-preview::after {
-  display:
-    none !important;
-}
-
-
-/*
- * Remove the original placeholder text only.
- * Do not hide the new mobile interface.
- */
-
-.window-small
-.window-placeholder.has-north-mobile-preview
-> span,
-
-.window-small
-.window-placeholder.has-north-mobile-preview
-> small {
-  display:
-    none !important;
-}
-
-
 /* =========================================================
-   MOBILE SITE SHELL
-========================================================= */
-
-.window-small
-.nh-mobile-thumb {
-  width:
-    100%;
-
-  height:
-    100%;
-
-  min-height:
-    100%;
-
-  display:
-    grid;
-
-  grid-template-rows:
-    38px
-    minmax(
-      0,
-      1fr
-    );
-
-  overflow:
-    hidden;
-
-  color:
-    var(--nh-ink);
-
-  background:
-    var(--nh-white);
-
-  font-family:
-    "TASA Orbiter",
-    Arial,
-    sans-serif;
-}
-
-
-/* =========================================================
-   RESET PORTFOLIO PLACEHOLDER SPAN STYLES
-========================================================= */
-
-.window-small
-.nh-mobile-thumb
-span {
-  position:
-    static;
-
-  z-index:
-    auto;
-
-  padding:
-    0;
-
-  background:
-    transparent;
-
-  text-align:
-    inherit;
-}
-
-
-/* =========================================================
-   MOBILE HEADER
-========================================================= */
-
-.window-small
-.nh-mobile-nav {
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  width:
-    100%;
-
-  min-height:
-    38px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    8px;
-
-  padding:
-    0
-    10px;
-
-  color:
-    var(--nh-navy);
-
-  background:
-    rgba(
-      251,
-      250,
-      247,
-      .98
-    );
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      23,
-      27,
-      33,
-      .1
-    );
-}
-
-
-.window-small
-.nh-mobile-logo {
-  display:
-    inline-flex;
-
-  gap:
-    3px;
-
-  align-items:
-    baseline;
-
-  color:
-    var(--nh-navy);
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    .64rem;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    -.025em;
-}
-
-
-.window-small
-.nh-mobile-logo
-span {
-  position:
-    static !important;
-
-  padding:
-    0 !important;
-
-  color:
-    #a88461;
-
-  background:
-    transparent !important;
-
-  font-size:
-    inherit !important;
-
-  text-align:
-    inherit !important;
-}
-
-
-.window-small
-.nh-mobile-menu {
-  width:
-    19px;
-
-  height:
-    19px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  padding:
-    0 !important;
-
-  color:
-    var(--nh-navy);
-
-  background:
-    transparent !important;
-
-  border:
-    1px
-    solid
-    rgba(
-      23,
-      27,
-      33,
-      .22
-    );
-
-  border-radius:
-    50%;
-
-  font-size:
-    .45rem !important;
-
-  line-height:
-    1;
-}
-
-
-/* =========================================================
-   MOBILE HERO
-========================================================= */
-
-.window-small
-.nh-mobile-hero {
-  position:
-    relative;
-
-  width:
-    100%;
-
-  min-width:
-    0;
-
-  min-height:
-    0;
-
-  display:
-    flex;
-
-  align-items:
-    flex-end;
-
-  overflow:
-    hidden;
-
-  padding:
-    15px
-    12px;
-
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(
-        8,
-        14,
-        20,
-        .03
-      )
-      10%,
-      rgba(
-        8,
-        14,
-        20,
-        .1
-      )
-      38%,
-      rgba(
-        8,
-        14,
-        20,
-        .78
-      )
-      100%
-    ),
-    url(
-      "https://images.pexels.com/photos/4626268/pexels-photo-4626268.jpeg?auto=compress&cs=tinysrgb&w=1200"
-    );
-
-  background-size:
-    cover;
-
-  background-position:
-    56%
-    center;
-
-  background-repeat:
-    no-repeat;
-}
-
-
-.window-small
-.nh-mobile-hero::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(
-        5,
-        10,
-        15,
-        .22
-      ),
-      rgba(
-        5,
-        10,
-        15,
-        0
-      )
-      72%
-    );
-
-  pointer-events:
-    none;
-}
-
-
-/* =========================================================
-   PROJECT LABEL
-========================================================= */
-
-.window-small
-.nh-mobile-project-tag {
-  position:
-    absolute !important;
-
-  z-index:
-    5 !important;
-
-  top:
-    11px;
-
-  left:
-    10px;
-
-  width:
-    auto;
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  padding:
-    5px
-    7px !important;
-
-  color:
-    var(--nh-navy);
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .9
-    ) !important;
-
-  border-radius:
-    999px;
-
-  font-size:
-    .26rem !important;
-
-  font-weight:
-    600;
-
-  line-height:
-    1;
-
-  letter-spacing:
-    .05em;
-
-  text-align:
-    left !important;
-
-  backdrop-filter:
-    blur(7px);
-
-  -webkit-backdrop-filter:
-    blur(7px);
-}
-
-
-/* =========================================================
-   HERO COPY
-========================================================= */
-
-.window-small
-.nh-mobile-copy {
-  position:
-    relative;
-
-  z-index:
-    4;
-
-  width:
-    100%;
-
-  min-width:
-    0;
-}
-
-
-.window-small
-.nh-mobile-kicker {
-  position:
-    static !important;
-
-  display:
-    block;
-
-  margin:
-    0
-    0
-    7px;
-
-  padding:
-    0 !important;
-
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .72
-    );
-
-  background:
-    transparent !important;
-
-  font-size:
-    .28rem !important;
-
-  font-weight:
-    600;
-
-  line-height:
-    1.3;
-
-  letter-spacing:
-    .09em;
-
-  text-align:
-    left !important;
-}
-
-
-.window-small
-.nh-mobile-copy
-strong {
-  display:
-    block;
-
-  max-width:
-    94%;
-
-  margin:
-    0;
-
-  color:
-    #fff;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    1.35rem;
-
-  font-weight:
-    400;
-
-  line-height:
-    .82;
-
-  letter-spacing:
-    -.055em;
-}
-
-
-.window-small
-.nh-mobile-copy
-p {
-  max-width:
-    92%;
-
-  margin:
-    9px
-    0
-    0;
-
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      .68
-    );
-
-  font-size:
-    .31rem;
-
-  line-height:
-    1.45;
-}
-
-
-/* =========================================================
-   CTA
-========================================================= */
-
-.window-small
-.nh-mobile-cta {
-  position:
-    static !important;
-
-  width:
-    fit-content;
-
-  min-height:
-    24px;
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  gap:
-    6px;
-
-  margin-top:
-    10px;
-
-  padding:
-    0
-    9px !important;
-
-  color:
-    var(--nh-navy);
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .96
-    ) !important;
-
-  border-radius:
-    999px;
-
-  font-size:
-    .28rem !important;
-
-  font-weight:
-    600;
-
-  line-height:
-    1;
-
-  text-align:
-    left !important;
-}
-
-
-.window-small
-.nh-mobile-cta
-span {
-  position:
-    static !important;
-
-  padding:
-    0 !important;
-
-  color:
-    var(--nh-blue);
-
-  background:
-    transparent !important;
-
-  font-size:
-    .36rem !important;
-}
-
-
-/* =========================================================
-   TABLET PORTFOLIO
+   TABLET PORTFOLIO WINDOW
 ========================================================= */
 
 @media (
@@ -5098,19 +4063,11 @@ span {
       38%;
   }
 
-
-  .window-small
-  .nh-mobile-copy
-  strong {
-    font-size:
-      1.2rem;
-  }
-
 }
 
 
 /* =========================================================
-   MOBILE PORTFOLIO
+   MOBILE PORTFOLIO WINDOW
 ========================================================= */
 
 @media (
@@ -5126,124 +4083,6 @@ span {
 
     left:
       8%;
-  }
-
-
-  .window-small
-  .nh-mobile-thumb {
-    grid-template-rows:
-      30px
-      minmax(
-        0,
-        1fr
-      );
-  }
-
-
-  .window-small
-  .nh-mobile-nav {
-    min-height:
-      30px;
-
-    padding:
-      0
-      7px;
-  }
-
-
-  .window-small
-  .nh-mobile-logo {
-    font-size:
-      .48rem;
-  }
-
-
-  .window-small
-  .nh-mobile-menu {
-    width:
-      15px;
-
-    height:
-      15px;
-
-    font-size:
-      .34rem !important;
-  }
-
-
-  .window-small
-  .nh-mobile-hero {
-    padding:
-      10px
-      8px;
-
-    background-position:
-      55%
-      center;
-  }
-
-
-  .window-small
-  .nh-mobile-project-tag {
-    top:
-      7px;
-
-    left:
-      7px;
-
-    padding:
-      4px
-      5px !important;
-
-    font-size:
-      .2rem !important;
-  }
-
-
-  .window-small
-  .nh-mobile-kicker {
-    margin-bottom:
-      5px;
-
-    font-size:
-      .21rem !important;
-  }
-
-
-  .window-small
-  .nh-mobile-copy
-  strong {
-    font-size:
-      clamp(
-        .82rem,
-        5vw,
-        1.15rem
-      );
-  }
-
-
-  .window-small
-  .nh-mobile-copy
-  p {
-    display:
-      none;
-  }
-
-
-  .window-small
-  .nh-mobile-cta {
-    min-height:
-      20px;
-
-    margin-top:
-      7px;
-
-    padding:
-      0
-      6px !important;
-
-    font-size:
-      .21rem !important;
   }
 
 }
