@@ -1,28 +1,55 @@
 /* =========================================================
    JEZIEL CAMARA / PORTFOLIO PROJECT SYSTEM
 
-   One project definition.
-   One website source.
-   Multiple presentation environments.
+   ONE PROJECT DEFINITION.
+   ONE WEBSITE SOURCE.
+   MULTIPLE PRESENTATION ENVIRONMENTS.
 
    Used by:
-   - hero desktop preview
-   - hero mobile preview
-   - selected work
-   - responsive lab
+   - Hero desktop preview
+   - Hero mobile preview
+   - Selected Work
+   - Responsive Lab
    - website viewer
-   - case study
+   - case-study preview
+   - case-study live website
 
-   Project-specific files register themselves here.
+   PROJECT CONTRACT
 
-   IMPORTANT ARCHITECTURE RULE:
+   Every project registers:
 
-   Project HTML must come from one registered createSite()
-   function.
+   {
+     key,
+     name,
+     index,
+     category,
+     type,
+     url,
+     featured,
+     viewerDescription,
+     viewerState,
+     createSite,
+     initialize
+   }
 
-   Portfolio previews may present that source directly or
-   through an isolated viewport, but they must never recreate
-   project-specific HTML separately.
+   createSite()
+     Returns a fresh canonical website DOM instance.
+
+   initialize(root, options)
+     Optionally activates behavior for an interactive
+     instance of that website.
+
+   IMPORTANT ARCHITECTURE RULE
+
+   Portfolio presentation code may choose:
+   - direct DOM
+   - isolated iframe
+   - desktop width
+   - tablet width
+   - mobile width
+   - interactive or view-only mode
+
+   It must NEVER recreate project-specific website HTML.
 ========================================================= */
 
 (function () {
@@ -47,7 +74,8 @@
   ) {
 
     return String(
-      value || ""
+      value ||
+      ""
     )
       .trim()
       .toLowerCase();
@@ -86,7 +114,55 @@
 
 
   /* =======================================================
+     TARGET RESOLUTION
+  ======================================================= */
+
+  function resolveTarget(
+    target
+  ) {
+
+    if (
+      typeof target ===
+      "string"
+    ) {
+
+      return document.querySelector(
+        target
+      );
+
+    }
+
+
+    return target;
+
+  }
+
+
+  /* =======================================================
+     PROJECT ELEMENT VALIDATION
+  ======================================================= */
+
+  function isElement(
+    value
+  ) {
+
+    return Boolean(
+      value &&
+      value.nodeType ===
+        1
+    );
+
+  }
+
+
+  /* =======================================================
      ID CLEANUP
+
+     Direct decorative copies can exist in the same
+     document.
+
+     Their IDs must therefore be removed unless the caller
+     explicitly requests preserveIds: true.
   ======================================================= */
 
   function removeDuplicateIds(
@@ -94,16 +170,11 @@
   ) {
 
     if (!root) {
+
       return;
+
     }
 
-
-    /*
-     * Direct preview copies live in the same DOM
-     * as the canonical source.
-     *
-     * They therefore must not keep duplicate IDs.
-     */
 
     if (
       root.hasAttribute?.(
@@ -137,6 +208,12 @@
 
   /* =======================================================
      VIEW-ONLY DIRECT INSTANCE
+
+     A decorative project preview remains visually complete
+     but does not behave like a live website.
+
+     Clicks are still allowed to bubble to the surrounding
+     portfolio launcher.
   ======================================================= */
 
   function makeViewOnly(
@@ -144,7 +221,9 @@
   ) {
 
     if (!root) {
+
       return;
+
     }
 
 
@@ -200,11 +279,10 @@
 
 
     /*
-     * Prevent links from navigating while allowing
-     * the click event to continue upward.
+     * Prevent project navigation while preserving bubbling.
      *
-     * The portfolio wrapper may use that click to
-     * open the project viewer.
+     * The surrounding Hero or Work surface may use that
+     * click to open PortfolioProjectViewer.
      */
 
     root.addEventListener(
@@ -245,15 +323,16 @@
 
 
     /*
-     * Project factories may return:
+     * Supported factory output:
      *
-     * 1. HTMLElement
+     * 1. Element
      * 2. HTML string
      */
 
     if (
-      result instanceof
-      HTMLElement
+      isElement(
+        result
+      )
     ) {
 
       return result;
@@ -296,14 +375,14 @@
 
 
     throw new Error(
-      `Project "${project.key}" createSite() must return an HTMLElement or HTML string.`
+      `Project "${project.key}" createSite() must return an Element or HTML string.`
     );
 
   }
 
 
   /* =======================================================
-     REGISTER
+     REGISTER PROJECT
   ======================================================= */
 
   function register(
@@ -313,7 +392,7 @@
     if (
       !definition ||
       typeof definition !==
-      "object"
+        "object"
     ) {
 
       throw new Error(
@@ -350,40 +429,74 @@
     }
 
 
-    const project = {
+    /*
+     * Metadata lives with the project definition.
+     *
+     * Presentation infrastructure should not contain
+     * project-specific switch statements.
+     */
 
-      key,
+    const project =
+      Object.freeze({
 
-      name:
-        definition.name ||
         key,
 
-      index:
-        definition.index ||
-        "",
+        name:
+          String(
+            definition.name ||
+            key
+          ),
 
-      category:
-        definition.category ||
-        "",
+        index:
+          String(
+            definition.index ||
+            ""
+          ),
 
-      type:
-        definition.type ||
-        "WEBSITE",
+        category:
+          String(
+            definition.category ||
+            ""
+          ),
 
-      featured:
-        definition.featured !==
-        false,
+        type:
+          String(
+            definition.type ||
+            "WEBSITE"
+          ),
 
-      createSite:
-        definition.createSite,
+        url:
+          String(
+            definition.url ||
+            `${key}.example`
+          ),
 
-      initialize:
-        typeof definition.initialize ===
-        "function"
-          ? definition.initialize
-          : null
+        featured:
+          definition.featured !==
+          false,
 
-    };
+        viewerDescription:
+          String(
+            definition.viewerDescription ||
+            "WEBSITE PREVIEW / CONCEPT PROJECT"
+          ),
+
+        viewerState:
+          String(
+            definition.viewerState ||
+            "VIEW-ONLY CONCEPT"
+          ),
+
+        createSite:
+          definition.createSite,
+
+        initialize:
+          typeof definition.initialize ===
+          "function"
+            ? definition.initialize
+            : null
+
+      });
 
 
     projects.set(
@@ -396,13 +509,10 @@
       new CustomEvent(
         "portfolio:project-registered",
         {
-
           detail: {
-
-            key
-
+            key,
+            project
           }
-
         }
       )
     );
@@ -414,7 +524,7 @@
 
 
   /* =======================================================
-     GET PROJECT
+     PROJECT LOOKUP
   ======================================================= */
 
   function get(
@@ -425,7 +535,8 @@
       normalizeKey(
         key
       )
-    ) || null;
+    ) ||
+    null;
 
   }
 
@@ -459,6 +570,37 @@
         (project) =>
           project.featured
       );
+
+  }
+
+
+  /* =======================================================
+     DIRECT INSTANCE INITIALIZATION
+  ======================================================= */
+
+  function initializeProjectElement(
+    project,
+    element,
+    options = {}
+  ) {
+
+    if (
+      !project.initialize ||
+      !element
+    ) {
+
+      return element;
+
+    }
+
+
+    project.initialize(
+      element,
+      options
+    );
+
+
+    return element;
 
   }
 
@@ -498,11 +640,33 @@
     }
 
 
+    if (
+      options.viewport
+    ) {
+
+      element.dataset.projectViewport =
+        options.viewport;
+
+    }
+
+
+    const viewOnly =
+      options.viewOnly ===
+      true;
+
+
+    const interactive =
+      options.interactive ===
+        true &&
+      !viewOnly;
+
+
     /*
-     * Direct preview copies intentionally lose IDs.
+     * Decorative direct previews lose IDs because another
+     * copy of the same project may exist in this document.
      *
-     * The canonical interactive project can preserve
-     * IDs when required.
+     * Interactive live instances can explicitly preserve
+     * them.
      */
 
     if (
@@ -518,8 +682,7 @@
 
 
     if (
-      options.viewOnly ===
-      true
+      viewOnly
     ) {
 
       makeViewOnly(
@@ -530,12 +693,15 @@
 
 
     if (
-      options.interactive ===
-        true &&
-      project.initialize
+      interactive
     ) {
 
-      project.initialize(
+      element.dataset.projectInteractive =
+        "true";
+
+
+      initializeProjectElement(
+        project,
         element,
         options
       );
@@ -558,25 +724,16 @@
     options = {}
   ) {
 
-    let mountTarget =
-      target;
+    const mountTarget =
+      resolveTarget(
+        target
+      );
 
 
     if (
-      typeof target ===
-      "string"
-    ) {
-
-      mountTarget =
-        document.querySelector(
-          target
-        );
-
-    }
-
-
-    if (
-      !(mountTarget instanceof HTMLElement)
+      !isElement(
+        mountTarget
+      )
     ) {
 
       throw new Error(
@@ -604,6 +761,10 @@
       );
 
 
+    mountTarget.dataset.projectRenderMode =
+      "direct";
+
+
     if (
       options.viewport
     ) {
@@ -618,7 +779,6 @@
       new CustomEvent(
         "portfolio:project-mounted",
         {
-
           detail: {
 
             key:
@@ -635,7 +795,6 @@
             options
 
           }
-
         }
       )
     );
@@ -647,35 +806,23 @@
 
 
   /* =======================================================
-     ISOLATED VIEWPORT
+     ISOLATED PROJECT VIEWPORTS
+
+     Standard CSS media queries respond to the browser
+     viewport.
+
+     Therefore a project embedded in a 390px iframe receives
+     its genuine mobile layout, while the same exact source
+     embedded in a 1200px iframe receives its desktop layout.
+
+     The project does not change.
+
+     Only the viewport changes.
   ======================================================= */
 
 
-  /*
-   * Some project layouts use normal CSS media queries.
-   *
-   * When those projects are embedded inside a small
-   * portfolio preview, the media queries would otherwise
-   * respond to the outer portfolio browser instead of the
-   * preview itself.
-   *
-   * An isolated iframe gives the same canonical project
-   * its own real viewport.
-   *
-   * Example:
-   *
-   * 1200px frame = desktop project
-   * 700px frame  = tablet project
-   * 390px frame  = mobile project
-   *
-   * Same HTML source.
-   * Same CSS source.
-   * Different viewport only.
-   */
-
-
   /* =======================================================
-     PAGE STYLE REFERENCES
+     SHARED STYLE REFERENCES
   ======================================================= */
 
   function getSharedStyleMarkup() {
@@ -685,11 +832,12 @@
 
 
     /*
-     * Copy every stylesheet currently loaded by the
+     * Copy every external stylesheet loaded by the current
      * portfolio page.
      *
-     * This keeps isolated previews visually synchronized
-     * with the exact CSS files used by the real project.
+     * Project selectors are namespaced, so every isolated
+     * viewport receives the same active design system as the
+     * source document.
      */
 
     document
@@ -704,7 +852,9 @@
 
 
           if (!href) {
+
             return;
+
           }
 
 
@@ -718,10 +868,6 @@
 
     /*
      * Copy inline head styles as well.
-     *
-     * Most project styles are external, but this ensures
-     * the isolated viewport uses the same current styling
-     * environment as the parent document.
      */
 
     document.head
@@ -756,10 +902,8 @@
   ) {
 
     /*
-     * Important:
-     *
-     * This project element comes from the same registered
-     * createSite() source used everywhere else.
+     * The iframe receives the same canonical element
+     * generated by the registered project factory.
      */
 
     const projectElement =
@@ -777,11 +921,35 @@
       "preview";
 
 
+    if (
+      options.viewport
+    ) {
+
+      projectElement.dataset.projectViewport =
+        options.viewport;
+
+    }
+
+
+    const interactive =
+      options.interactive ===
+      true;
+
+
+    if (
+      interactive
+    ) {
+
+      projectElement.dataset.projectInteractive =
+        "true";
+
+    }
+
+
     /*
-     * IDs are safe inside the iframe because this is an
-     * isolated document.
+     * IDs are safe in the isolated document.
      *
-     * We deliberately preserve the project's real markup.
+     * The iframe contains only one project instance.
      */
 
     const projectHTML =
@@ -798,6 +966,30 @@
 
     const title =
       `${project.name} preview`;
+
+
+    const interactionStyles =
+      interactive
+        ? `
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      pointer-events:
+        auto;
+    }
+        `
+        : `
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      pointer-events:
+        none !important;
+    }
+        `;
 
 
     return `
@@ -825,13 +1017,20 @@
 
     html,
     body {
-      width: 100%;
-      min-width: 0;
+      width:
+        100%;
 
-      margin: 0;
-      padding: 0;
+      min-width:
+        0;
 
-      overflow-x: hidden;
+      margin:
+        0;
+
+      padding:
+        0;
+
+      overflow-x:
+        hidden;
 
       background:
         transparent;
@@ -839,28 +1038,28 @@
 
 
     body {
-      min-height: 100vh;
+      min-height:
+        100vh;
     }
 
 
     body
     > [data-portfolio-project] {
-      width: 100%;
-      min-width: 0;
-      max-width: none;
+      width:
+        100%;
 
-      margin: 0;
+      min-width:
+        0;
+
+      max-width:
+        none;
+
+      margin:
+        0;
     }
 
 
-    a,
-    button,
-    input,
-    select,
-    textarea {
-      pointer-events:
-        none !important;
-    }
+    ${interactionStyles}
 
 
     * {
@@ -897,7 +1096,13 @@
 </head>
 
 
-<body>
+<body
+  data-project-frame-mode="${
+    interactive
+      ? "interactive"
+      : "view-only"
+  }"
+>
 
   ${projectHTML}
 
@@ -905,6 +1110,102 @@
 
 </html>
     `.trim();
+
+  }
+
+
+  /* =======================================================
+     FRAME PROJECT INITIALIZATION
+
+     Interactive frames remain script-free internally.
+
+     Because the frame is same-origin, the parent project
+     system attaches the registered initialize() behavior
+     after the srcdoc document loads.
+
+     The project therefore still has one behavior source.
+  ======================================================= */
+
+  function initializeFrameProject(
+    frame,
+    project,
+    options = {}
+  ) {
+
+    if (
+      options.interactive !==
+        true ||
+      !project.initialize
+    ) {
+
+      return null;
+
+    }
+
+
+    let frameDocument =
+      null;
+
+
+    try {
+
+      frameDocument =
+        frame.contentDocument;
+
+    } catch (error) {
+
+      frameDocument =
+        null;
+
+    }
+
+
+    if (!frameDocument) {
+
+      return null;
+
+    }
+
+
+    const projectRoot =
+      frameDocument.querySelector(
+        "[data-portfolio-project]"
+      );
+
+
+    if (!projectRoot) {
+
+      return null;
+
+    }
+
+
+    project.initialize(
+      projectRoot,
+      {
+        ...options,
+
+        frame,
+
+        frameDocument,
+
+        frameWindow:
+          frameDocument.defaultView,
+
+        preserveIds:
+          true,
+
+        interactive:
+          true
+      }
+    );
+
+
+    frame.dataset.projectInteractive =
+      "true";
+
+
+    return projectRoot;
 
   }
 
@@ -933,13 +1234,20 @@
     const width =
       Number(
         options.width
-      ) || 1200;
+      ) ||
+      1200;
 
 
     const height =
       Number(
         options.height
-      ) || 800;
+      ) ||
+      800;
+
+
+    const interactive =
+      options.interactive ===
+      true;
 
 
     frame.className =
@@ -970,44 +1278,87 @@
     }
 
 
+    frame.dataset.projectFrameMode =
+      interactive
+        ? "interactive"
+        : "view-only";
+
+
     frame.title =
       options.label ||
       `${project.name} website preview`;
 
 
     /*
-     * The project preview does not need scripts,
-     * forms, navigation, storage, or parent access.
+     * DECORATIVE FRAME
      *
-     * An empty sandbox provides the strongest isolation.
+     * Empty sandbox:
+     * - no scripts
+     * - opaque origin
+     * - no forms
+     * - no navigation privileges
+     *
+     * Used by Hero / Work / Lab / case preview.
+     *
+     *
+     * INTERACTIVE FRAME
+     *
+     * allow-same-origin only:
+     * - still no scripts running inside srcdoc
+     * - still no top-level navigation privilege
+     * - parent project system may access the frame DOM
+     *   and attach the project's registered initialize()
+     *
+     * Used by the full website viewer.
      */
 
     frame.setAttribute(
       "sandbox",
-      ""
-    );
-
-
-    frame.setAttribute(
-      "tabindex",
-      "-1"
-    );
-
-
-    frame.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-
-    frame.setAttribute(
-      "scrolling",
-      "no"
+      interactive
+        ? "allow-same-origin"
+        : ""
     );
 
 
     frame.loading =
       "eager";
+
+
+    if (
+      interactive
+    ) {
+
+      frame.setAttribute(
+        "tabindex",
+        "0"
+      );
+
+
+      frame.setAttribute(
+        "scrolling",
+        "yes"
+      );
+
+    } else {
+
+      frame.setAttribute(
+        "tabindex",
+        "-1"
+      );
+
+
+      frame.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      frame.setAttribute(
+        "scrolling",
+        "no"
+      );
+
+    }
 
 
     frame.style.display =
@@ -1047,7 +1398,56 @@
 
 
     frame.style.pointerEvents =
-      "none";
+      interactive
+        ? "auto"
+        : "none";
+
+
+    /*
+     * Register load handling before assigning srcdoc.
+     */
+
+    frame.addEventListener(
+      "load",
+      () => {
+
+        const projectRoot =
+          initializeFrameProject(
+            frame,
+            project,
+            options
+          );
+
+
+        document.dispatchEvent(
+          new CustomEvent(
+            "portfolio:project-frame-ready",
+            {
+              detail: {
+
+                key:
+                  project.key,
+
+                frame,
+
+                root:
+                  projectRoot,
+
+                interactive,
+
+                options
+
+              }
+            }
+          )
+        );
+
+      },
+      {
+        once:
+          true
+      }
+    );
 
 
     frame.srcdoc =
@@ -1072,25 +1472,16 @@
     options = {}
   ) {
 
-    let mountTarget =
-      target;
+    const mountTarget =
+      resolveTarget(
+        target
+      );
 
 
     if (
-      typeof target ===
-      "string"
-    ) {
-
-      mountTarget =
-        document.querySelector(
-          target
-        );
-
-    }
-
-
-    if (
-      !(mountTarget instanceof HTMLElement)
+      !isElement(
+        mountTarget
+      )
     ) {
 
       throw new Error(
@@ -1132,11 +1523,17 @@
     }
 
 
+    mountTarget.dataset.projectFrameMode =
+      options.interactive ===
+        true
+        ? "interactive"
+        : "view-only";
+
+
     document.dispatchEvent(
       new CustomEvent(
         "portfolio:project-frame-mounted",
         {
-
           detail: {
 
             key:
@@ -1152,7 +1549,6 @@
             options
 
           }
-
         }
       )
     );
@@ -1167,27 +1563,28 @@
      PUBLIC API
   ======================================================= */
 
-  window.PortfolioProjects = {
+  window.PortfolioProjects =
+    Object.freeze({
 
-    register,
+      register,
 
-    get,
+      get,
 
-    has,
+      has,
 
-    list,
+      list,
 
-    listFeatured,
+      listFeatured,
 
-    create,
+      create,
 
-    mount,
+      mount,
 
-    createFrame,
+      createFrame,
 
-    mountFrame
+      mountFrame
 
-  };
+    });
 
 
   /* =======================================================
