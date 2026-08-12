@@ -1,17 +1,17 @@
 /* =========================================================
    JEZIEL CAMARA / UI SYSTEM
 
-   A shared visual system for:
-   - controls
+   Shared design system for:
    - buttons
-   - links
+   - controls
+   - typography
+   - labels
    - containers
    - borders
    - spacing
    - focus states
 
-   Loaded LAST so it normalizes the existing portfolio
-   without rebuilding each component.
+   This file loads LAST.
 ========================================================= */
 
 
@@ -25,7 +25,7 @@
 
   --ui-gutter:
     clamp(
-      16px,
+      18px,
       6vw,
       96px
     );
@@ -35,6 +35,55 @@
       82px,
       8vw,
       120px
+    );
+
+  --ui-section-space-small:
+    clamp(
+      55px,
+      5vw,
+      78px
+    );
+
+  --ui-content:
+    1180px;
+
+  --ui-copy:
+    620px;
+
+
+  /* TYPOGRAPHY */
+
+  --ui-label-size:
+    .58rem;
+
+  --ui-label-tracking:
+    .075em;
+
+  --ui-small-size:
+    .68rem;
+
+  --ui-body-size:
+    .88rem;
+
+  --ui-heading-large:
+    clamp(
+      4.2rem,
+      8vw,
+      8rem
+    );
+
+  --ui-heading-medium:
+    clamp(
+      3.2rem,
+      6vw,
+      6.2rem
+    );
+
+  --ui-heading-small:
+    clamp(
+      2.2rem,
+      4vw,
+      4.2rem
     );
 
 
@@ -51,9 +100,6 @@
 
   --ui-control-gap:
     18px;
-
-
-  /* TYPOGRAPHY */
 
   --ui-control-font:
     .62rem;
@@ -73,11 +119,6 @@
     1px
     solid
     var(--line);
-
-  /*
-   * Portfolio stays sharp.
-   * North Home keeps its own rounded system.
-   */
 
   --ui-radius:
     0;
@@ -115,7 +156,7 @@
 
 
 /* =========================================================
-   GLOBAL CONTROL RESET
+   GLOBAL RESET / INTERACTION
 ========================================================= */
 
 button,
@@ -142,10 +183,139 @@ textarea:focus-visible {
 
 
 /* =========================================================
-   PORTFOLIO / PRIMARY ACTION
+   SHARED LABEL SYSTEM
+========================================================= */
 
-   Used for important actions that need to read
-   unmistakably as buttons.
+.section-marker,
+.reel-instructions,
+.lab-portfolio-label,
+.lab-canvas-label,
+.project-caption
+> div
+> span,
+.story-step
+> span,
+.case-section-label,
+.case-kicker {
+  font-size:
+    var(--ui-label-size);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-label-tracking);
+
+  line-height:
+    1.25;
+}
+
+
+.section-marker,
+.project-caption
+> div
+> span,
+.story-step
+> span,
+.case-section-label,
+.case-kicker {
+  color:
+    var(--blue);
+}
+
+
+/* =========================================================
+   BODY COPY SYSTEM
+========================================================= */
+
+.hero-description,
+.thinking-intro
+p,
+.lab-heading-copy
+p,
+.about-copy
+> p,
+.story-step
+p,
+.note-body
+p,
+.contact-main
+> p {
+  line-height:
+    1.6;
+}
+
+
+.lab-heading-copy
+p,
+.about-copy
+> p,
+.contact-main
+> p {
+  max-width:
+    var(--ui-copy);
+}
+
+
+/* =========================================================
+   PORTFOLIO HEADING SYSTEM
+========================================================= */
+
+.lab-heading
+h2,
+.contact-main
+h2 {
+  letter-spacing:
+    -.06em;
+}
+
+
+.work-heading
+h2,
+.about-copy
+h2,
+.notes-heading
+h2 {
+  font-size:
+    var(--ui-heading-medium);
+
+  letter-spacing:
+    -.055em;
+
+  line-height:
+    .88;
+}
+
+
+.thinking-lines
+h2 {
+  letter-spacing:
+    -.05em;
+
+  line-height:
+    .9;
+}
+
+
+.project-caption
+h3 {
+  font-size:
+    clamp(
+      1.7rem,
+      2.4vw,
+      2.3rem
+    );
+
+  line-height:
+    .95;
+
+  letter-spacing:
+    -.045em;
+}
+
+
+/* =========================================================
+   PRIMARY ACTION
 ========================================================= */
 
 .hero-contact,
@@ -267,8 +437,6 @@ textarea:focus-visible {
 }
 
 
-/* PRIMARY ARROWS */
-
 .hero-contact
 span,
 .nh-project-view-button
@@ -306,12 +474,7 @@ span {
 
 
 /* =========================================================
-   PORTFOLIO / SECONDARY ACTION
-
-   Consistent treatment for:
-   - project actions
-   - replay
-   - case controls
+   SECONDARY ACTION
 ========================================================= */
 
 .case-open,
@@ -404,8 +567,6 @@ span {
 }
 
 
-/* SECONDARY ARROW / ICON */
-
 .case-open
 span,
 .case-close
@@ -441,8 +602,6 @@ span {
 }
 
 
-/* CASE CLOSE SHOULD NOT MOVE DIAGONALLY */
-
 .case-close:hover
 span,
 .case-close:focus-visible
@@ -455,7 +614,7 @@ span {
 
 
 /* =========================================================
-   LAB SECONDARY ACTION
+   LAB ACTION
 ========================================================= */
 
 .lab-replay {
@@ -515,7 +674,7 @@ span {
 
 
 /* =========================================================
-   VIEWER CLOSE CONTROL
+   VIEWER CLOSE
 ========================================================= */
 
 .nh-site-viewer-close {
@@ -553,10 +712,7 @@ span {
 
 
 /* =========================================================
-   LARGE CONTACT ACTION
-
-   This remains larger because it is the final CTA,
-   but uses the same interaction logic.
+   CONTACT ACTION
 ========================================================= */
 
 .contact-email {
@@ -617,23 +773,107 @@ span {
 
 
 /* =========================================================
-   PORTFOLIO CONTAINER SYSTEM
+   SECTION RHYTHM
+========================================================= */
+
+.thinking,
+.lab-section,
+.about-section,
+.notes-section,
+.contact-section {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+.thinking,
+.about-section,
+.notes-section {
+  padding-top:
+    var(--ui-section-space);
+
+  padding-bottom:
+    var(--ui-section-space);
+}
+
+
+.work-section {
+  padding-top:
+    var(--ui-section-space);
+
+  padding-bottom:
+    var(--ui-section-space-small);
+}
+
+
+.lab-section {
+  padding-top:
+    var(--ui-section-space);
+
+  padding-bottom:
+    var(--ui-section-space);
+}
+
+
+.contact-section {
+  padding-top:
+    var(--ui-section-space);
+
+  padding-bottom:
+    var(--ui-section-space);
+}
+
+
+/* =========================================================
+   SECTION HEADERS
+========================================================= */
+
+.work-heading,
+.notes-heading,
+.lab-heading {
+  margin-bottom:
+    clamp(
+      38px,
+      4vw,
+      58px
+    );
+}
+
+
+.work-heading {
+  margin-left:
+    var(--ui-gutter);
+
+  margin-right:
+    var(--ui-gutter);
+}
+
+
+.work-heading
+h2,
+.notes-heading
+h2 {
+  margin-top:
+    14px;
+
+  margin-bottom:
+    0;
+}
+
+
+/* =========================================================
+   CONTAINER SYSTEM
 ========================================================= */
 
 
-/*
- * Primary media surfaces.
- *
- * All use the same:
- * - border weight
- * - edge language
- * - overflow behavior
- */
+/* PORTFOLIO MEDIA */
 
 .project-image,
-.lab-canvas,
-.case-hero-media,
-.about-photo {
+.about-photo,
+.case-hero-media {
   border:
     var(--ui-border);
 
@@ -645,9 +885,28 @@ span {
 }
 
 
-/*
- * Browser/demo surfaces.
- */
+/* BLUE LAB CONTAINER */
+
+.lab-canvas {
+  border:
+    1px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      .28
+    );
+
+  border-radius:
+    var(--ui-radius);
+
+  overflow:
+    hidden;
+}
+
+
+/* RESPONSIVE BROWSER */
 
 .responsive-preview {
   border:
@@ -661,54 +920,83 @@ span {
 }
 
 
-/*
- * Horizontal information bars.
- */
+/* FLOATING WINDOWS */
 
-.lab-toolbar,
-.project-caption,
-.case-topbar,
-.thinking-lines,
-.notes-list {
+.floating-window {
+  border-width:
+    1px;
+
+  border-style:
+    solid;
+
   border-color:
-    var(--line);
+    var(--ink);
 }
 
 
 /* =========================================================
-   SECTION GUTTERS
-
-   Establish one horizontal rhythm across
-   the main portfolio.
+   INFORMATION BARS
 ========================================================= */
 
-.thinking,
-.lab-section,
-.about-section,
-.contact-section {
-  padding-left:
-    var(--ui-gutter);
-
-  padding-right:
-    var(--ui-gutter);
+.window-bar,
+.preview-browser-bar,
+.case-topbar {
+  letter-spacing:
+    var(--ui-control-tracking);
 }
 
 
-.work-heading {
-  margin-left:
-    var(--ui-gutter);
-
-  margin-right:
-    var(--ui-gutter);
+.window-bar,
+.preview-browser-bar {
+  min-height:
+    36px;
 }
 
+
+/* =========================================================
+   PROJECT REEL
+========================================================= */
 
 .reel-track {
+  gap:
+    24px;
+
   padding-left:
     var(--ui-gutter);
 
   padding-right:
     var(--ui-gutter);
+}
+
+
+.project-caption {
+  min-height:
+    118px;
+
+  padding-top:
+    20px;
+
+  padding-bottom:
+    20px;
+
+  border-bottom:
+    var(--ui-border);
+}
+
+
+.project-caption-actions {
+  gap:
+    12px;
+}
+
+
+.project-caption-actions
+p {
+  font-size:
+    var(--ui-small-size);
+
+  line-height:
+    1.4;
 }
 
 
@@ -726,7 +1014,314 @@ span {
 }
 
 
-.site-footer {
+/* =========================================================
+   THINKING ROWS
+========================================================= */
+
+.thinking-intro {
+  margin-top:
+    26px;
+
+  margin-bottom:
+    clamp(
+      52px,
+      6vw,
+      76px
+    );
+}
+
+
+.thinking-lines {
+  border-top:
+    var(--ui-border);
+}
+
+
+.thinking-lines
+article {
+  border-bottom:
+    var(--ui-line);
+}
+
+
+.thinking-lines
+article
+> span {
+  color:
+    var(--blue);
+
+  font-size:
+    var(--ui-label-size);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-label-tracking);
+}
+
+
+.thinking-lines
+p {
+  font-size:
+    var(--ui-small-size);
+
+  line-height:
+    1.5;
+}
+
+
+/* =========================================================
+   ABOUT / PROCESS
+========================================================= */
+
+.about-section {
+  gap:
+    clamp(
+      40px,
+      7vw,
+      100px
+    );
+}
+
+
+.about-copy {
+  padding-top:
+    60px;
+}
+
+
+.about-copy
+h2 {
+  margin-top:
+    16px;
+
+  margin-bottom:
+    34px;
+}
+
+
+.about-lead {
+  max-width:
+    540px;
+
+  font-size:
+    clamp(
+      1rem,
+      1.5vw,
+      1.2rem
+    ) !important;
+
+  line-height:
+    1.5;
+}
+
+
+.story-flow {
+  margin-top:
+    clamp(
+      38px,
+      5vw,
+      58px
+    );
+
+  border-top:
+    var(--ui-border);
+}
+
+
+.story-step {
+  padding-top:
+    24px;
+
+  padding-bottom:
+    24px;
+
+  border-bottom:
+    var(--ui-line);
+}
+
+
+.story-step
+h3 {
+  line-height:
+    1.05;
+}
+
+
+.story-step
+p {
+  color:
+    var(--muted);
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.notes-heading {
+  max-width:
+    900px;
+}
+
+
+.notes-list {
+  border-top:
+    var(--ui-border);
+}
+
+
+.note-item {
+  border-bottom:
+    var(--ui-line);
+}
+
+
+.note-item
+summary {
+  min-height:
+    112px;
+}
+
+
+.note-item
+summary
+> span {
+  color:
+    var(--blue);
+
+  font-size:
+    var(--ui-label-size);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-label-tracking);
+}
+
+
+.note-item
+summary
+strong {
+  font-weight:
+    400;
+
+  line-height:
+    1.15;
+}
+
+
+.note-item
+summary
+i {
+  color:
+    var(--blue);
+
+  font-style:
+    normal;
+}
+
+
+.note-body
+p {
+  max-width:
+    var(--ui-copy);
+
+  color:
+    var(--muted);
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section {
+  grid-template-columns:
+    minmax(
+      80px,
+      120px
+    )
+    minmax(
+      0,
+      1fr
+    );
+}
+
+
+.contact-main
+h2 {
+  margin-top:
+    20px;
+
+  margin-bottom:
+    38px;
+}
+
+
+.contact-main
+> p {
+  margin-bottom:
+    clamp(
+      45px,
+      6vw,
+      65px
+    );
+}
+
+
+.contact-email {
+  min-height:
+    84px;
+
+  padding-top:
+    18px;
+
+  padding-bottom:
+    18px;
+
+  border-top:
+    var(--ui-border);
+
+  border-bottom:
+    var(--ui-border);
+}
+
+
+/* =========================================================
+   CASE STUDY
+========================================================= */
+
+.case-topbar {
+  min-height:
+    72px;
+
+  border-bottom:
+    var(--ui-line);
+}
+
+
+.case-hero {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+.case-section {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+.case-footer {
   padding-left:
     var(--ui-gutter);
 
@@ -736,35 +1331,47 @@ span {
 
 
 /* =========================================================
-   CONTROL BARS
+   FOOTER
 ========================================================= */
 
-.window-bar,
-.preview-browser-bar,
-.case-topbar {
-  letter-spacing:
-    var(--ui-control-tracking);
-}
+.site-footer {
+  padding-left:
+    var(--ui-gutter);
 
+  padding-right:
+    var(--ui-gutter);
 
-/* =========================================================
-   PROJECT CAPTIONS
-========================================================= */
-
-.project-caption {
-  border-bottom:
+  border-top:
     var(--ui-border);
+
+  font-size:
+    var(--ui-label-size);
+
+  letter-spacing:
+    var(--ui-label-tracking);
 }
 
 
-.project-caption-actions {
-  gap:
-    12px;
+.site-footer
+a {
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.site-footer
+a:hover,
+.site-footer
+a:focus-visible {
+  color:
+    var(--blue);
 }
 
 
 /* =========================================================
-   FORM CONTROLS / PORTFOLIO
+   FORM CONTROLS
 ========================================================= */
 
 input,
@@ -776,11 +1383,7 @@ textarea {
 
 
 /* =========================================================
-   NORTH HOME / INTERNAL DESIGN SYSTEM
-
-   North Home remains visually distinct from the
-   portfolio, but controls now follow one internal
-   size / spacing system.
+   NORTH HOME / INTERNAL UI SYSTEM
 ========================================================= */
 
 .nh-site {
@@ -798,7 +1401,9 @@ textarea {
 }
 
 
-/* NORTH HOME PRIMARY CONTROLS */
+/* =========================================================
+   NORTH HOME PRIMARY CONTROLS
+========================================================= */
 
 .nh-header-cta,
 .nh-hero-actions
@@ -857,8 +1462,6 @@ button {
 }
 
 
-/* HEADER + FORM DARK PRIMARY */
-
 .nh-header-cta,
 .nh-form
 button {
@@ -892,7 +1495,9 @@ button:focus-visible {
 }
 
 
-/* HERO LIGHT PRIMARY */
+/* =========================================================
+   NORTH HOME LIGHT PRIMARY
+========================================================= */
 
 .nh-hero-actions
 a:first-child {
@@ -924,7 +1529,9 @@ a:first-child:focus-visible {
 }
 
 
-/* NORTH HOME SECONDARY */
+/* =========================================================
+   NORTH HOME SECONDARY
+========================================================= */
 
 .nh-hero-actions
 a:last-child {
@@ -995,7 +1602,7 @@ a:last-child:focus-visible {
 
 
 /* =========================================================
-   NORTH HOME / FORM FIELDS
+   NORTH HOME FORM
 ========================================================= */
 
 .nh-form
@@ -1031,14 +1638,8 @@ textarea:focus {
 
 
 /* =========================================================
-   NORTH HOME / CONTAINER RHYTHM
+   NORTH HOME CONTAINERS
 ========================================================= */
-
-
-/*
- * Major rounded media containers now share
- * the same radius instead of varying arbitrarily.
- */
 
 .nh-hero-media,
 .nh-service-feature,
@@ -1050,10 +1651,6 @@ textarea:focus {
 }
 
 
-/*
- * Smaller UI surfaces.
- */
-
 .nh-trust-strip,
 .nh-thumb,
 .nh-site-viewer-browser {
@@ -1063,7 +1660,7 @@ textarea:focus {
 
 
 /* =========================================================
-   DISABLED / INERT STATES
+   DISABLED STATES
 ========================================================= */
 
 button:disabled,
@@ -1074,7 +1671,7 @@ button:disabled,
 
 
 /* =========================================================
-   TOUCH DEVICES
+   TOUCH
 ========================================================= */
 
 @media (
@@ -1101,6 +1698,32 @@ button:disabled,
 
 
 /* =========================================================
+   TABLET
+========================================================= */
+
+@media (
+  max-width: 950px
+) {
+
+  :root {
+    --ui-gutter:
+      clamp(
+        20px,
+        5vw,
+        52px
+      );
+  }
+
+
+  .about-copy {
+    padding-top:
+      30px;
+  }
+
+}
+
+
+/* =========================================================
    MOBILE
 ========================================================= */
 
@@ -1109,23 +1732,87 @@ button:disabled,
 ) {
 
   :root {
+
     --ui-gutter:
       16px;
 
     --ui-section-space:
       74px;
 
+    --ui-section-space-small:
+      58px;
+
     --ui-control-height:
       44px;
 
     --ui-control-height-large:
       46px;
+
+    --ui-heading-medium:
+      clamp(
+        3rem,
+        15vw,
+        4.5rem
+      );
+
+  }
+
+
+  .thinking,
+  .lab-section,
+  .about-section,
+  .notes-section,
+  .contact-section {
+    padding-left:
+      var(--ui-gutter);
+
+    padding-right:
+      var(--ui-gutter);
   }
 
 
   .hero-contact {
     min-width:
       160px;
+  }
+
+
+  .work-heading {
+    margin-left:
+      var(--ui-gutter);
+
+    margin-right:
+      var(--ui-gutter);
+  }
+
+
+  .reel-track {
+    gap:
+      14px;
+
+    padding-left:
+      var(--ui-gutter);
+
+    padding-right:
+      var(--ui-gutter);
+  }
+
+
+  .project-caption {
+    min-height:
+      0;
+
+    align-items:
+      flex-start;
+
+    gap:
+      18px;
+
+    padding-top:
+      18px;
+
+    padding-bottom:
+      18px;
   }
 
 
@@ -1144,9 +1831,56 @@ button:disabled,
   }
 
 
+  .thinking-lines
+  article {
+    min-height:
+      110px;
+  }
+
+
+  .about-copy {
+    padding-top:
+      0;
+  }
+
+
+  .story-step {
+    padding-top:
+      22px;
+
+    padding-bottom:
+      22px;
+  }
+
+
+  .note-item
+  summary {
+    min-height:
+      96px;
+  }
+
+
+  .contact-section {
+    grid-template-columns:
+      1fr;
+  }
+
+
   .contact-email {
+    min-height:
+      72px;
+
     gap:
       18px;
+  }
+
+
+  .site-footer {
+    padding-left:
+      var(--ui-gutter);
+
+    padding-right:
+      var(--ui-gutter);
   }
 
 }
