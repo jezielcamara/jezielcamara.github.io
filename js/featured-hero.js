@@ -135,6 +135,11 @@
 
   /* =======================================================
      GENERIC PROJECT VIEWER
+
+     All project surfaces now depend exclusively on the
+     shared PortfolioProjectViewer API.
+
+     No North-specific viewer fallback remains here.
   ======================================================= */
 
   function openProjectViewer(
@@ -148,64 +153,20 @@
     }
 
 
-    /*
-     * Preferred route.
-     *
-     * Every completed project uses the same viewer API.
-     */
-
     if (
-      window.PortfolioProjectViewer &&
-      typeof window.PortfolioProjectViewer.open ===
+      !window.PortfolioProjectViewer ||
+      typeof window.PortfolioProjectViewer.open !==
         "function"
     ) {
 
-      return window.PortfolioProjectViewer.open(
-        projectKey
-      );
+      return false;
 
     }
 
 
-    /*
-     * Temporary compatibility fallback while the old
-     * North Home viewer shell still exists.
-     *
-     * This will disappear once north-home.js is cleaned.
-     */
-
-    if (
-      projectKey ===
-      "north"
-    ) {
-
-      const legacyViewer =
-        document.querySelector(
-          "#nh-site-viewer"
-        );
-
-
-      if (
-        legacyViewer &&
-        !legacyViewer.open
-      ) {
-
-        legacyViewer.showModal();
-
-
-        document.body.classList.add(
-          "nh-viewer-open"
-        );
-
-
-        return true;
-
-      }
-
-    }
-
-
-    return false;
+    return window.PortfolioProjectViewer.open(
+      projectKey
+    );
 
   }
 
@@ -256,25 +217,6 @@
     element.classList.add(
       "project-view-launch"
     );
-
-
-    /*
-     * Keep the old North class temporarily because
-     * existing North CSS still references it.
-     *
-     * It no longer controls viewer behavior.
-     */
-
-    if (
-      projectKey ===
-      "north"
-    ) {
-
-      element.classList.add(
-        "nh-view-launch"
-      );
-
-    }
 
 
     element.setAttribute(
@@ -488,11 +430,6 @@
     `;
 
 
-    desktopPreview.classList.remove(
-      "has-north-mobile-preview"
-    );
-
-
     desktopPreview.classList.add(
       "has-canonical-project-preview",
       "has-canonical-desktop-preview"
@@ -500,7 +437,11 @@
 
 
     /*
-     * Temporary North presentation compatibility.
+     * Temporary North outer-surface compatibility.
+     *
+     * This does NOT alter the embedded project design.
+     * It will disappear when north-home.css stops owning
+     * portfolio-surface presentation.
      */
 
     if (
@@ -736,11 +677,6 @@
     `;
 
 
-    mobilePreview.classList.remove(
-      "has-north-mobile-preview"
-    );
-
-
     mobilePreview.classList.add(
       "has-canonical-project-preview",
       "has-canonical-mobile-preview"
@@ -748,7 +684,7 @@
 
 
     /*
-     * Temporary North presentation compatibility.
+     * Temporary North outer-surface compatibility.
      */
 
     if (
@@ -1045,25 +981,14 @@
         "button";
 
 
-      button.className =
-        "project-view-button";
-
-
       /*
-       * Keep North's existing class temporarily so the
-       * current UI system continues styling the button.
+       * Generic button class only.
+       *
+       * No project-specific compatibility class is needed.
        */
 
-      if (
-        project.key ===
-        "north"
-      ) {
-
-        button.classList.add(
-          "nh-project-view-button"
-        );
-
-      }
+      button.className =
+        "project-view-button";
 
 
       button.innerHTML = `
@@ -1214,7 +1139,7 @@
 
 
     /*
-     * Temporary North presentation compatibility.
+     * Temporary North outer-surface compatibility.
      */
 
     if (
@@ -1617,7 +1542,7 @@
      If viewer initialization happens after project preview
      rendering, no rerender is needed.
 
-     The launchers call the generic API at click time.
+     The launchers resolve the viewer API at click time.
   ======================================================= */
 
   document.addEventListener(
