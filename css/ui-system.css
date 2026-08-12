@@ -316,10 +316,14 @@ h3 {
 
 /* =========================================================
    PRIMARY ACTION
+
+   Generic portfolio controls.
+
+   Project-specific names must not be required here.
 ========================================================= */
 
 .hero-contact,
-.nh-project-view-button {
+.project-view-button {
   min-height:
     var(--ui-control-height-large);
 
@@ -401,8 +405,8 @@ h3 {
 
 .hero-contact:hover,
 .hero-contact:focus-visible,
-.nh-project-view-button:hover,
-.nh-project-view-button:focus-visible {
+.project-view-button:hover,
+.project-view-button:focus-visible {
   color:
     #fff;
 
@@ -427,7 +431,7 @@ h3 {
 
 
 .hero-contact:focus-visible,
-.nh-project-view-button:focus-visible {
+.project-view-button:focus-visible {
   box-shadow:
     4px
     4px
@@ -439,7 +443,7 @@ h3 {
 
 .hero-contact
 span,
-.nh-project-view-button
+.project-view-button
 span {
   color:
     var(--blue);
@@ -458,9 +462,9 @@ span {
 span,
 .hero-contact:focus-visible
 span,
-.nh-project-view-button:hover
+.project-view-button:hover
 span,
-.nh-project-view-button:focus-visible
+.project-view-button:focus-visible
 span {
   color:
     var(--lime);
@@ -481,7 +485,8 @@ span {
 .lab-replay,
 .case-close,
 .case-next,
-.nh-site-viewer-close {
+.portfolio-project-viewer
+button {
   min-height:
     var(--ui-control-height);
 
@@ -674,10 +679,16 @@ span {
 
 
 /* =========================================================
-   VIEWER CLOSE
+   PROJECT VIEWER CLOSE
+
+   The viewer is portfolio infrastructure.
+
+   Its control styling must not depend on a North-specific
+   selector.
 ========================================================= */
 
-.nh-site-viewer-close {
+.portfolio-project-viewer
+button {
   color:
     #fff;
 
@@ -691,8 +702,10 @@ span {
 }
 
 
-.nh-site-viewer-close:hover,
-.nh-site-viewer-close:focus-visible {
+.portfolio-project-viewer
+button:hover,
+.portfolio-project-viewer
+button:focus-visible {
   color:
     var(--lime);
 
@@ -701,7 +714,8 @@ span {
 }
 
 
-.nh-site-viewer-close:focus-visible {
+.portfolio-project-viewer
+button:focus-visible {
   box-shadow:
     0
     0
@@ -1384,6 +1398,9 @@ textarea {
 
 /* =========================================================
    NORTH HOME / INTERNAL UI SYSTEM
+
+   These rules belong to the actual North Home website,
+   not to portfolio presentation infrastructure.
 ========================================================= */
 
 .nh-site {
@@ -1651,9 +1668,7 @@ textarea:focus {
 }
 
 
-.nh-trust-strip,
-.nh-thumb,
-.nh-site-viewer-browser {
+.nh-trust-strip {
   border-radius:
     var(--nh-radius-md);
 }
@@ -1682,14 +1697,15 @@ button:disabled,
   .case-close,
   .case-next,
   .lab-replay,
-  .nh-site-viewer-close {
+  .portfolio-project-viewer
+  button {
     min-height:
       48px;
   }
 
 
   .hero-contact,
-  .nh-project-view-button {
+  .project-view-button {
     min-height:
       50px;
   }
@@ -1896,12 +1912,13 @@ button:disabled,
 ) {
 
   .hero-contact,
-  .nh-project-view-button,
+  .project-view-button,
   .case-open,
   .case-close,
   .case-next,
   .lab-replay,
-  .nh-site-viewer-close,
+  .portfolio-project-viewer
+  button,
   .contact-email,
   .nh-header-cta,
   .nh-hero-actions
