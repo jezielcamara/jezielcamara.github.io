@@ -2373,3 +2373,512 @@
 
 
 })();
+
+
+/* =========================================================
+   NORTH HOME / WEBSITE-ONLY VIEWER
+========================================================= */
+
+(function () {
+
+  function initNorthWebsiteViewer() {
+
+    const northSlide =
+      document.querySelector(
+        '.project-slide[data-project="north"]'
+      );
+
+
+    const northProjectImage =
+      northSlide?.querySelector(
+        ".project-image"
+      );
+
+
+    const heroPreview =
+      document.querySelector(
+        ".window-main .window-placeholder.has-north-preview"
+      );
+
+
+    const sourceWebsite =
+      document.querySelector(
+        ".north-case-study .nh-site"
+      );
+
+
+    if (
+      !northSlide ||
+      !northProjectImage ||
+      !sourceWebsite
+    ) {
+      return;
+    }
+
+
+    /* -----------------------------------------------------
+       CREATE VIEWER
+    ----------------------------------------------------- */
+
+    let viewer =
+      document.querySelector(
+        "#nh-site-viewer"
+      );
+
+
+    if (!viewer) {
+
+      viewer =
+        document.createElement(
+          "dialog"
+        );
+
+
+      viewer.className =
+        "nh-site-viewer";
+
+
+      viewer.id =
+        "nh-site-viewer";
+
+
+      viewer.setAttribute(
+        "aria-label",
+        "North Home website preview"
+      );
+
+
+      viewer.innerHTML = `
+        <div class="nh-site-viewer-shell">
+
+          <header class="nh-site-viewer-topbar">
+
+            <div>
+              <span>
+                NORTH HOME
+              </span>
+
+              <small>
+                WEBSITE PREVIEW / CONCEPT PROJECT
+              </small>
+            </div>
+
+
+            <button
+              class="nh-site-viewer-close"
+              type="button"
+              aria-label="Close North Home website preview"
+            >
+              Close
+              <span aria-hidden="true">
+                ×
+              </span>
+            </button>
+
+          </header>
+
+
+          <div class="nh-site-viewer-scroll">
+
+            <div class="nh-site-viewer-browser">
+
+              <div class="nh-site-viewer-browserbar">
+
+                <div aria-hidden="true">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+
+                <span>
+                  northhome.example
+                </span>
+
+                <strong>
+                  VIEW-ONLY CONCEPT
+                </strong>
+
+              </div>
+
+
+              <div
+                class="nh-site-viewer-canvas"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+
+      document.body.append(
+        viewer
+      );
+
+    }
+
+
+    const canvas =
+      viewer.querySelector(
+        ".nh-site-viewer-canvas"
+      );
+
+
+    const scrollArea =
+      viewer.querySelector(
+        ".nh-site-viewer-scroll"
+      );
+
+
+    const closeButton =
+      viewer.querySelector(
+        ".nh-site-viewer-close"
+      );
+
+
+    /* -----------------------------------------------------
+       COPY THE EXISTING NORTH WEBSITE
+    ----------------------------------------------------- */
+
+    canvas.replaceChildren();
+
+
+    const websiteClone =
+      sourceWebsite.cloneNode(
+        true
+      );
+
+
+    websiteClone.classList.add(
+      "nh-site-view-only"
+    );
+
+
+    /*
+     * Avoid duplicate IDs because the original
+     * North website still exists inside the case study.
+     */
+
+    websiteClone
+      .querySelectorAll(
+        "[id]"
+      )
+      .forEach(
+        (element) => {
+          element.removeAttribute(
+            "id"
+          );
+        }
+      );
+
+
+    /*
+     * Presentation only.
+     *
+     * Everything still LOOKS like a finished website,
+     * but nothing inside the website preview performs
+     * an action.
+     */
+
+    websiteClone
+      .querySelectorAll(
+        `
+          a,
+          button,
+          input,
+          select,
+          textarea
+        `
+      )
+      .forEach(
+        (element) => {
+
+          element.setAttribute(
+            "tabindex",
+            "-1"
+          );
+
+
+          element.setAttribute(
+            "aria-disabled",
+            "true"
+          );
+
+        }
+      );
+
+
+    canvas.append(
+      websiteClone
+    );
+
+
+    /* -----------------------------------------------------
+       OPEN / CLOSE
+    ----------------------------------------------------- */
+
+    function openViewer() {
+
+      if (
+        viewer.open
+      ) {
+        return;
+      }
+
+
+      viewer.showModal();
+
+
+      document.body.classList.add(
+        "nh-viewer-open"
+      );
+
+
+      if (scrollArea) {
+        scrollArea.scrollTop =
+          0;
+      }
+
+    }
+
+
+    function closeViewer() {
+
+      if (
+        !viewer.open
+      ) {
+        return;
+      }
+
+
+      viewer.close();
+
+
+      document.body.classList.remove(
+        "nh-viewer-open"
+      );
+
+    }
+
+
+    closeButton?.addEventListener(
+      "click",
+      closeViewer
+    );
+
+
+    viewer.addEventListener(
+      "cancel",
+      (event) => {
+
+        event.preventDefault();
+
+        closeViewer();
+
+      }
+    );
+
+
+    viewer.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target ===
+          viewer
+        ) {
+
+          closeViewer();
+
+        }
+
+      }
+    );
+
+
+    /* -----------------------------------------------------
+       MAKE NORTH PREVIEWS CLICKABLE
+    ----------------------------------------------------- */
+
+    function makeLaunchable(
+      element,
+      label
+    ) {
+
+      if (!element) {
+        return;
+      }
+
+
+      element.classList.add(
+        "nh-view-launch"
+      );
+
+
+      element.setAttribute(
+        "role",
+        "button"
+      );
+
+
+      element.setAttribute(
+        "tabindex",
+        "0"
+      );
+
+
+      element.setAttribute(
+        "aria-label",
+        label
+      );
+
+
+      element.addEventListener(
+        "click",
+        (event) => {
+
+          /*
+           * Keep the normal case-study button
+           * separate from this website viewer.
+           */
+
+          if (
+            event.target.closest(
+              ".case-open"
+            )
+          ) {
+            return;
+          }
+
+
+          openViewer();
+
+        }
+      );
+
+
+      element.addEventListener(
+        "keydown",
+        (event) => {
+
+          if (
+            event.key !== "Enter" &&
+            event.key !== " "
+          ) {
+            return;
+          }
+
+
+          event.preventDefault();
+
+          openViewer();
+
+        }
+      );
+
+    }
+
+
+    makeLaunchable(
+      northProjectImage,
+      "View North Home website"
+    );
+
+
+    makeLaunchable(
+      heroPreview,
+      "View North Home website"
+    );
+
+
+    /* -----------------------------------------------------
+       ADD A CLEAR VIEW CUE TO THE WORK IMAGE
+    ----------------------------------------------------- */
+
+    if (
+      !northProjectImage.querySelector(
+        ".nh-view-badge"
+      )
+    ) {
+
+      const badge =
+        document.createElement(
+          "span"
+        );
+
+
+      badge.className =
+        "nh-view-badge";
+
+
+      badge.innerHTML = `
+        VIEW WEBSITE
+        <b aria-hidden="true">
+          ↗
+        </b>
+      `;
+
+
+      northProjectImage.append(
+        badge
+      );
+
+    }
+
+
+    /* -----------------------------------------------------
+       ADD SMALL CUE TO HERO PREVIEW
+    ----------------------------------------------------- */
+
+    if (
+      heroPreview &&
+      !heroPreview.querySelector(
+        ".nh-hero-view-badge"
+      )
+    ) {
+
+      const heroBadge =
+        document.createElement(
+          "span"
+        );
+
+
+      heroBadge.className =
+        "nh-hero-view-badge";
+
+
+      heroBadge.textContent =
+        "VIEW ↗";
+
+
+      heroPreview.append(
+        heroBadge
+      );
+
+    }
+
+  }
+
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initNorthWebsiteViewer,
+      {
+        once: true
+      }
+    );
+
+  } else {
+
+    initNorthWebsiteViewer();
+
+  }
+
+})();
