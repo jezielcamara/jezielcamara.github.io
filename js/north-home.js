@@ -36,7 +36,7 @@
         <div class="nh-thumb-hero">
 
           <div class="nh-thumb-stat">
-            ★ 4.9 / LOCAL HOME CARE
+            RESIDENTIAL / METRO MANILA
           </div>
 
 
@@ -451,11 +451,11 @@
                   <div class="nh-hero-trust">
 
                     <strong>
-                      ★ 4.9
+                      HOME CARE
                     </strong>
 
                     <span>
-                      Home care / Metro Manila
+                      Metro Manila / Concept service
                     </span>
 
                   </div>
