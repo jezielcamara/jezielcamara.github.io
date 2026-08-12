@@ -4165,3 +4165,236 @@ span {
   }
 
 }
+
+/* =========================================================
+   NORTH HOME VIEWER / STRONGER POPUP PRESENTATION
+========================================================= */
+
+/*
+ * Narrower desktop popup.
+ * Leaves enough of the portfolio visible around it
+ * so the viewer clearly reads as an overlay.
+ */
+
+.nh-site-viewer {
+  width:
+    min(
+      76vw,
+      1180px
+    ) !important;
+
+  height:
+    88vh !important;
+
+  max-width:
+    none !important;
+
+  max-height:
+    none !important;
+
+  border:
+    1px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      .18
+    ) !important;
+
+  border-radius:
+    18px !important;
+
+  box-shadow:
+    0
+    45px
+    140px
+    rgba(
+      0,
+      0,
+      0,
+      .75
+    ) !important;
+}
+
+
+/*
+ * Much darker background.
+ * The portfolio remains barely visible underneath,
+ * making it immediately obvious that this is a popup.
+ */
+
+.nh-site-viewer::backdrop {
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      .88
+    ) !important;
+
+  backdrop-filter:
+    blur(4px) !important;
+
+  -webkit-backdrop-filter:
+    blur(4px) !important;
+
+  animation:
+    nh-backdrop-in
+    220ms
+    ease-out
+    both;
+}
+
+
+@keyframes nh-backdrop-in {
+
+  from {
+    background:
+      rgba(
+        0,
+        0,
+        0,
+        0
+      );
+
+    backdrop-filter:
+      blur(0);
+
+    -webkit-backdrop-filter:
+      blur(0);
+  }
+
+
+  to {
+    background:
+      rgba(
+        0,
+        0,
+        0,
+        .88
+      );
+
+    backdrop-filter:
+      blur(4px);
+
+    -webkit-backdrop-filter:
+      blur(4px);
+  }
+
+}
+
+
+/*
+ * Small entrance movement makes the separation
+ * between portfolio and website preview clearer.
+ */
+
+.nh-site-viewer[open] {
+  animation:
+    nh-viewer-in
+    260ms
+    cubic-bezier(
+      .18,
+      .78,
+      .22,
+      1
+    )
+    both;
+}
+
+
+@keyframes nh-viewer-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(.985);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   LAPTOP / TABLET
+--------------------------------------------------------- */
+
+@media (
+  max-width: 1100px
+) {
+
+  .nh-site-viewer {
+    width:
+      86vw !important;
+
+    height:
+      88vh !important;
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (
+  max-width: 700px
+) {
+
+  .nh-site-viewer {
+    width:
+      calc(
+        100vw - 20px
+      ) !important;
+
+    height:
+      calc(
+        100dvh - 20px
+      ) !important;
+
+    border-radius:
+      14px !important;
+  }
+
+
+  .nh-site-viewer::backdrop {
+    background:
+      rgba(
+        0,
+        0,
+        0,
+        .92
+      ) !important;
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   REDUCED MOTION
+--------------------------------------------------------- */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .nh-site-viewer[open],
+  .nh-site-viewer::backdrop {
+    animation:
+      none !important;
+  }
+
+}
