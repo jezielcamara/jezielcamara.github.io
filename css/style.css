@@ -1053,34 +1053,24 @@ body.ready .floating-window {
 }
 
 
-.project-slide {
+/* ALL SELECTED WORK PROJECTS USE THE SAME FRAME SIZE */
+
+.project-slide,
+.project-slide-alt,
+.project-slide-third {
   width:
     min(
       72vw,
       980px
     );
 
-  flex: 0 0 auto;
+  flex:
+    0
+    0
+    auto;
 
-  scroll-snap-align: start;
-}
-
-
-.project-slide-alt {
-  width:
-    min(
-      58vw,
-      790px
-    );
-}
-
-
-.project-slide-third {
-  width:
-    min(
-      68vw,
-      920px
-    );
+  scroll-snap-align:
+    start;
 }
 
 
