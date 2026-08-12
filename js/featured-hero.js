@@ -10,6 +10,12 @@
    - selected work preview
 
    Project-specific preview HTML must NOT be created here.
+
+   Project-specific viewer logic must NOT be created here.
+
+   Everything is driven by:
+   - PortfolioProjects
+   - PortfolioProjectViewer
 ========================================================= */
 
 (function () {
@@ -89,7 +95,9 @@
     !mobileBar ||
     !mobilePreview
   ) {
+
     return;
+
   }
 
 
@@ -126,25 +134,63 @@
 
 
   /* =======================================================
-     WEBSITE VIEWER
-
-     North still uses its existing viewer.
-     This will become generic in a later migration step.
+     GENERIC PROJECT VIEWER
   ======================================================= */
 
-  function openNorthViewer() {
+  function openProjectViewer(
+    projectKey
+  ) {
 
-    const viewer =
-      document.querySelector(
-        "#nh-site-viewer"
+    if (!projectKey) {
+
+      return false;
+
+    }
+
+
+    /*
+     * Preferred route.
+     *
+     * Every completed project uses the same viewer API.
+     */
+
+    if (
+      window.PortfolioProjectViewer &&
+      typeof window.PortfolioProjectViewer.open ===
+        "function"
+    ) {
+
+      return window.PortfolioProjectViewer.open(
+        projectKey
       );
 
+    }
 
-    if (viewer) {
 
-      if (!viewer.open) {
+    /*
+     * Temporary compatibility fallback while the old
+     * North Home viewer shell still exists.
+     *
+     * This will disappear once north-home.js is cleaned.
+     */
 
-        viewer.showModal();
+    if (
+      projectKey ===
+      "north"
+    ) {
+
+      const legacyViewer =
+        document.querySelector(
+          "#nh-site-viewer"
+        );
+
+
+      if (
+        legacyViewer &&
+        !legacyViewer.open
+      ) {
+
+        legacyViewer.showModal();
 
 
         document.body.classList.add(
@@ -152,45 +198,20 @@
         );
 
 
-        const scrollArea =
-          viewer.querySelector(
-            ".nh-site-viewer-scroll"
-          );
-
-
-        if (scrollArea) {
-
-          scrollArea.scrollTop =
-            0;
-
-        }
+        return true;
 
       }
-
-
-      return;
 
     }
 
 
-    /*
-     * Fallback to the existing North Home
-     * Work-preview launcher.
-     */
-
-    const existingLauncher =
-      document.querySelector(
-        '.project-slide[data-project="north"] .project-image.nh-view-launch'
-      );
-
-
-    existingLauncher?.click();
+    return false;
 
   }
 
 
   /* =======================================================
-     HERO PREVIEW LAUNCHER
+     GENERIC HERO PREVIEW LAUNCHER
   ======================================================= */
 
   function makePreviewLaunchable(
@@ -198,41 +219,62 @@
     project
   ) {
 
-    if (!element) {
+    if (
+      !element ||
+      !project
+    ) {
+
       return;
+
     }
+
+
+    const projectKey =
+      project.key;
 
 
     if (
-      element.dataset.featuredViewerBound ===
-      "true"
+      element.dataset.viewerProject ===
+        projectKey &&
+      element.dataset.projectViewerBound ===
+        "true"
     ) {
+
       return;
+
     }
 
 
-    element.dataset.featuredViewerBound =
+    element.dataset.viewerProject =
+      projectKey;
+
+
+    element.dataset.projectViewerBound =
       "true";
 
 
+    element.classList.add(
+      "project-view-launch"
+    );
+
+
     /*
-     * North currently owns the finished website viewer.
+     * Keep the old North class temporarily because
+     * existing North CSS still references it.
      *
-     * Once Sola exists, the viewer itself will also move
-     * into the shared project system.
+     * It no longer controls viewer behavior.
      */
 
     if (
-      project.key !==
+      projectKey ===
       "north"
     ) {
-      return;
+
+      element.classList.add(
+        "nh-view-launch"
+      );
+
     }
-
-
-    element.classList.add(
-      "nh-view-launch"
-    );
 
 
     element.setAttribute(
@@ -257,7 +299,9 @@
       "click",
       () => {
 
-        openNorthViewer();
+        openProjectViewer(
+          projectKey
+        );
 
       }
     );
@@ -282,7 +326,9 @@
         event.preventDefault();
 
 
-        openNorthViewer();
+        openProjectViewer(
+          projectKey
+        );
 
       }
     );
@@ -300,7 +346,9 @@
       !desktopSite ||
       !desktopPreview
     ) {
+
       return;
+
     }
 
 
@@ -309,14 +357,17 @@
 
 
     if (!availableWidth) {
+
       return;
+
     }
 
 
     /*
-     * Render the project at a real desktop width.
+     * The actual project remains at a real desktop width.
      *
-     * Only the presentation is scaled.
+     * Only its presentation inside the portfolio window
+     * is scaled.
      */
 
     const scale =
@@ -448,6 +499,10 @@
     );
 
 
+    /*
+     * Temporary North presentation compatibility.
+     */
+
     if (
       project.key ===
       "north"
@@ -499,6 +554,7 @@
       () => {
 
         fitDesktopSite();
+
         watchDesktopSize();
 
       }
@@ -520,7 +576,9 @@
       !mobileFrame ||
       !mobilePreview
     ) {
+
       return;
+
     }
 
 
@@ -529,15 +587,17 @@
 
 
     if (!availableWidth) {
+
       return;
+
     }
 
 
     /*
-     * The iframe stays at a genuine phone width.
+     * The iframe remains at a genuine phone width.
      *
-     * This makes the project's own mobile media queries
-     * activate naturally.
+     * Therefore the project's own CSS controls its
+     * mobile layout.
      */
 
     const scale =
@@ -687,6 +747,10 @@
     );
 
 
+    /*
+     * Temporary North presentation compatibility.
+     */
+
     if (
       project.key ===
       "north"
@@ -752,6 +816,7 @@
       () => {
 
         fitMobileFrame();
+
         watchMobileSize();
 
       }
@@ -778,7 +843,9 @@
 
 
     if (!entry) {
+
       return;
+
     }
 
 
@@ -794,16 +861,15 @@
 
 
     if (!availableWidth) {
+
       return;
+
     }
 
 
     /*
-     * Selected Work displays the same real project at
-     * a desktop viewport.
-     *
-     * It is essentially a cropped browser screenshot,
-     * but remains generated from the live canonical source.
+     * Selected Work displays the same canonical project
+     * at a desktop viewport.
      */
 
     const scale =
@@ -877,7 +943,9 @@
 
 
     if (!entry) {
+
       return;
+
     }
 
 
@@ -941,6 +1009,139 @@
 
 
   /* =======================================================
+     SELECTED WORK / VIEW BUTTON
+  ======================================================= */
+
+  function addWorkViewerButton(
+    project,
+    target
+  ) {
+
+    if (
+      !project ||
+      !target
+    ) {
+
+      return;
+
+    }
+
+
+    let button =
+      target.querySelector(
+        ".project-view-button"
+      );
+
+
+    if (!button) {
+
+      button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.type =
+        "button";
+
+
+      button.className =
+        "project-view-button";
+
+
+      /*
+       * Keep North's existing class temporarily so the
+       * current UI system continues styling the button.
+       */
+
+      if (
+        project.key ===
+        "north"
+      ) {
+
+        button.classList.add(
+          "nh-project-view-button"
+        );
+
+      }
+
+
+      button.innerHTML = `
+        VIEW WEBSITE
+
+        <span aria-hidden="true">
+          ↗
+        </span>
+      `;
+
+
+      target.append(
+        button
+      );
+
+    }
+
+
+    button.setAttribute(
+      "aria-label",
+      `View ${project.name} website`
+    );
+
+
+    button.dataset.project =
+      project.key;
+
+
+    if (
+      button.dataset.projectViewerBound ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    button.dataset.projectViewerBound =
+      "true";
+
+
+    /*
+     * main.js uses pointerdown on the reel for drag.
+     *
+     * Stop this real button from beginning a reel drag.
+     */
+
+    button.addEventListener(
+      "pointerdown",
+      (event) => {
+
+        event.stopPropagation();
+
+      }
+    );
+
+
+    button.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        openProjectViewer(
+          project.key
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
      SELECTED WORK / CANONICAL PROJECT
   ======================================================= */
 
@@ -975,19 +1176,27 @@
 
 
     if (!target) {
+
       return false;
+
     }
 
 
     /*
-     * Avoid rebuilding a Work preview repeatedly
-     * when registry events fire.
+     * If this project has already been mounted,
+     * make sure its viewer control still exists.
      */
 
     if (
       target.dataset.canonicalWorkPreview ===
       "true"
     ) {
+
+      addWorkViewerButton(
+        project,
+        target
+      );
+
 
       return true;
 
@@ -1004,15 +1213,14 @@
     );
 
 
+    /*
+     * Temporary North presentation compatibility.
+     */
+
     if (
       project.key ===
       "north"
     ) {
-
-      /*
-       * Keep North's existing presentation and viewer
-       * compatibility while removing its old thumbnail.
-       */
 
       target.classList.add(
         "has-north-preview"
@@ -1020,11 +1228,6 @@
 
     }
 
-
-    /*
-     * Presentation rules belong to the portfolio wrapper,
-     * not the project itself.
-     */
 
     target.style.position =
       "relative";
@@ -1051,10 +1254,8 @@
 
 
     /*
-     * THIS REPLACES THE OLD northThumbMarkup().
-     *
-     * The Work card now receives the exact registered
-     * project source inside a desktop viewport.
+     * The Work preview receives the exact same project
+     * source as every other portfolio surface.
      */
 
     const frame =
@@ -1098,6 +1299,18 @@
     );
 
 
+    /*
+     * Add the explicit generic website viewer control
+     * after mountFrame(), because mountFrame replaces
+     * the target's children.
+     */
+
+    addWorkViewerButton(
+      project,
+      target
+    );
+
+
     requestAnimationFrame(
       () => {
 
@@ -1128,7 +1341,9 @@
     if (
       !window.PortfolioProjects
     ) {
+
       return;
+
     }
 
 
@@ -1156,7 +1371,9 @@
     if (
       !window.PortfolioProjects
     ) {
+
       return null;
+
     }
 
 
@@ -1168,7 +1385,9 @@
     if (
       !projects.length
     ) {
+
       return null;
+
     }
 
 
@@ -1200,6 +1419,11 @@
 
     }
 
+
+    /*
+     * Avoid repeating the project from the previous
+     * page load whenever another completed project exists.
+     */
 
     const alternatives =
       projects.filter(
@@ -1238,7 +1462,9 @@
   ) {
 
     if (!project) {
+
       return false;
+
     }
 
 
@@ -1300,15 +1526,17 @@
   ) {
 
     /*
-     * Work previews are independent of which project
-     * happens to be selected for the hero.
+     * Selected Work is independent from the featured
+     * project chosen for the Hero.
      */
 
     renderRegisteredWorkPreviews();
 
 
     if (started) {
+
       return;
+
     }
 
 
@@ -1356,15 +1584,23 @@
 
 
   /* =======================================================
-     PROJECT EVENTS
+     PROJECT REGISTRATION EVENTS
   ======================================================= */
 
   document.addEventListener(
-    "north:project-ready",
+    "portfolio:project-registered",
     () => {
 
       requestAnimationFrame(
         () => {
+
+          /*
+           * Any future registered project automatically
+           * gains a Selected Work canonical preview.
+           */
+
+          renderRegisteredWorkPreviews();
+
 
           start();
 
@@ -1375,25 +1611,20 @@
   );
 
 
+  /* =======================================================
+     VIEWER READY
+
+     If viewer initialization happens after project preview
+     rendering, no rerender is needed.
+
+     The launchers call the generic API at click time.
+  ======================================================= */
+
   document.addEventListener(
-    "portfolio:project-registered",
+    "portfolio:viewer-ready",
     () => {
 
-      requestAnimationFrame(
-        () => {
-
-          /*
-           * When Sola or Avance is registered later,
-           * their Selected Work preview will automatically
-           * be created from their canonical source.
-           */
-
-          renderRegisteredWorkPreviews();
-
-          start();
-
-        }
-      );
+      renderRegisteredWorkPreviews();
 
     }
   );
