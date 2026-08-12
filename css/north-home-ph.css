@@ -1,25 +1,34 @@
 /* =========================================================
    NORTH HOME / PHILIPPINES PHOTOGRAPHY
 
-   Replaces the earlier international stock imagery with
-   Pexels photography shot in the Philippines.
+   Canonical photography layer for the North Home website.
 
-   This file is intentionally an override layer.
+   All imagery in this file styles the real .nh-site.
+
+   Portfolio surfaces such as:
+   - Hero
+   - Selected Work
+   - Responsive Lab
+   - website viewer
+   - case-study preview
+
+   receive these same images automatically because they all
+   render the same canonical North Home project source.
+
+   No separate thumbnail or mobile-preview imagery exists.
 ========================================================= */
 
 
 /* =========================================================
-   HERO / FEATURED PROJECT
+   HERO
 
    Pexels 952323
    Philippines
-   Modern residential architecture with tropical greenery
+
+   Modern residential architecture with tropical greenery.
 ========================================================= */
 
-.nh-thumb-hero,
-.nh-hero-media,
-.window-small
-.nh-mobile-hero {
+.nh-hero-media {
   background-image:
     linear-gradient(
       180deg,
@@ -62,8 +71,7 @@
 
 
 /*
- * Desktop hero needs stronger contrast
- * behind the large white copy.
+ * Stronger contrast behind the large white hero copy.
  */
 
 .nh-hero-media::before {
@@ -93,43 +101,13 @@
 }
 
 
-/*
- * Portfolio thumbnail contrast.
- */
-
-.nh-thumb-hero::after {
-  background:
-    linear-gradient(
-      90deg,
-      rgba(
-        7,
-        12,
-        17,
-        .58
-      ),
-      rgba(
-        7,
-        12,
-        17,
-        .16
-      )
-      64%,
-      rgba(
-        7,
-        12,
-        17,
-        .04
-      )
-    ) !important;
-}
-
-
 /* =========================================================
    REPAIRS
 
    Pexels 32907184
    Makati City, NCR, Philippines
-   Contemporary residential living room
+
+   Contemporary residential living room.
 ========================================================= */
 
 .nh-service-photo {
@@ -170,7 +148,8 @@
 
    Pexels 37833409
    Talisay, Calabarzon, Philippines
-   Residential bedroom with local tropical-climate details
+
+   Residential bedroom with local tropical-climate details.
 ========================================================= */
 
 .nh-service-photo[
@@ -213,7 +192,8 @@
 
    Pexels 26793170
    Manila, NCR, Philippines
-   Residential terrace / outdoor living
+
+   Residential terrace / outdoor living.
 ========================================================= */
 
 .nh-service-photo[
@@ -256,7 +236,8 @@
 
    Pexels 12787275
    Davao City, Philippines
-   Contemporary Filipino apartment interior
+
+   Contemporary Filipino apartment interior.
 ========================================================= */
 
 .nh-story-photo {
@@ -282,7 +263,8 @@
 
    Pexels 36817987
    Taguig, Metro Manila, Philippines
-   Condominium / urban residential living
+
+   Condominium / urban residential living.
 ========================================================= */
 
 .nh-work-card {
@@ -324,7 +306,8 @@
 
    Pexels 12219060
    Pasig, NCR, Philippines
-   High-rise residential building
+
+   High-rise residential building.
 ========================================================= */
 
 .nh-work-card-two {
@@ -366,7 +349,8 @@
 
    Pexels 20102605
    Manila, NCR, Philippines
-   Contemporary apartment architecture
+
+   Contemporary apartment architecture.
 ========================================================= */
 
 .nh-work-card-three {
@@ -404,25 +388,22 @@
 
 
 /* =========================================================
-   MOBILE HERO CROP
+   MOBILE WEBSITE CROPS
+
+   These breakpoints belong to the actual North Home
+   website.
+
+   Because mobile previews now use a real isolated viewport,
+   the same rules apply automatically everywhere.
 ========================================================= */
 
 @media (
   max-width: 700px
 ) {
 
-  .nh-hero-media,
-  .nh-thumb-hero {
+  .nh-hero-media {
     background-position:
       53%
-      center !important;
-  }
-
-
-  .window-small
-  .nh-mobile-hero {
-    background-position:
-      54%
       center !important;
   }
 
@@ -466,15 +447,14 @@
 
 
 /* =========================================================
-   LARGE-SCREEN CROPS
+   LARGE-SCREEN WEBSITE CROPS
 ========================================================= */
 
 @media (
   min-width: 1200px
 ) {
 
-  .nh-hero-media,
-  .nh-thumb-hero {
+  .nh-hero-media {
     background-position:
       center
       46% !important;
