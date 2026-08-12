@@ -181,9 +181,15 @@
 
 
     /*
-     * Preview instances should look real,
-     * but they should not trigger navigation,
-     * forms, or internal project interactions.
+     * Preview instances should look like the real
+     * website but must not perform their own actions.
+     *
+     * We prevent the internal link behavior while
+     * allowing the event to continue bubbling to the
+     * portfolio preview wrapper.
+     *
+     * This lets the outer preview open the website
+     * viewer when the user clicks anywhere inside it.
      */
 
     root.addEventListener(
@@ -191,7 +197,6 @@
       (event) => {
 
         event.preventDefault();
-        event.stopPropagation();
 
       },
       true
