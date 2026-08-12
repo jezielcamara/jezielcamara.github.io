@@ -1272,8 +1272,7 @@ nav a:hover {
   min-height:
     680px;
 
-  display:
-    flex;
+  display: flex;
 
   align-items:
     flex-end;
@@ -1323,8 +1322,7 @@ nav a:hover {
 .nh-hero-media::before {
   content: "";
 
-  position:
-    absolute;
+  position: absolute;
 
   inset: 0;
 
@@ -4166,6 +4164,7 @@ span {
 
 }
 
+
 /* =========================================================
    NORTH HOME VIEWER / STRONGER POPUP PRESENTATION
 ========================================================= */
@@ -4399,22 +4398,22 @@ span {
 
 }
 
+
 /* =========================================================
    HERO / FEATURED PROJECT MOBILE WINDOW
-   The smaller floating window represents the mobile
-   version of the same project shown in .window-main.
+   Paired mobile view of the featured desktop project.
 ========================================================= */
 
 
-/* ---------------------------------------------------------
-   SMALL FLOATING WINDOW PROPORTIONS
---------------------------------------------------------- */
+/* =========================================================
+   WINDOW
+========================================================= */
 
 .window-small {
   width:
     min(
-      15.5vw,
-      220px
+      14.5vw,
+      205px
     );
 
   top:
@@ -4425,10 +4424,6 @@ span {
 }
 
 
-/* ---------------------------------------------------------
-   REMOVE OLD PLACEHOLDER
---------------------------------------------------------- */
-
 .window-small
 .window-placeholder.has-north-mobile-preview {
   width:
@@ -4438,9 +4433,7 @@ span {
     0 !important;
 
   aspect-ratio:
-    9
-    /
-    16;
+    9 / 16;
 
   display:
     block !important;
@@ -4469,6 +4462,11 @@ span {
 }
 
 
+/*
+ * Remove the original placeholder text only.
+ * Do not hide the new mobile interface.
+ */
+
 .window-small
 .window-placeholder.has-north-mobile-preview
 > span,
@@ -4482,9 +4480,10 @@ span {
 
 
 /* =========================================================
-   NORTH HOME / MOBILE THUMB
+   MOBILE SITE SHELL
 ========================================================= */
 
+.window-small
 .nh-mobile-thumb {
   width:
     100%;
@@ -4499,7 +4498,7 @@ span {
     grid;
 
   grid-template-rows:
-    auto
+    38px
     minmax(
       0,
       1fr
@@ -4521,11 +4520,45 @@ span {
 }
 
 
-/* ---------------------------------------------------------
-   MOBILE HEADER
---------------------------------------------------------- */
+/* =========================================================
+   RESET PORTFOLIO PLACEHOLDER SPAN STYLES
+========================================================= */
 
+.window-small
+.nh-mobile-thumb
+span {
+  position:
+    static;
+
+  z-index:
+    auto;
+
+  padding:
+    0;
+
+  background:
+    transparent;
+
+  text-align:
+    inherit;
+}
+
+
+/* =========================================================
+   MOBILE HEADER
+========================================================= */
+
+.window-small
 .nh-mobile-nav {
+  position:
+    relative;
+
+  z-index:
+    10;
+
+  width:
+    100%;
+
   min-height:
     38px;
 
@@ -4563,12 +4596,22 @@ span {
       23,
       27,
       33,
-      .08
+      .1
     );
 }
 
 
+.window-small
 .nh-mobile-logo {
+  display:
+    inline-flex;
+
+  gap:
+    3px;
+
+  align-items:
+    baseline;
+
   color:
     var(--nh-navy);
 
@@ -4578,7 +4621,7 @@ span {
     serif;
 
   font-size:
-    .65rem;
+    .64rem;
 
   font-weight:
     700;
@@ -4588,19 +4631,36 @@ span {
 }
 
 
+.window-small
 .nh-mobile-logo
 span {
+  position:
+    static !important;
+
+  padding:
+    0 !important;
+
   color:
     #a88461;
+
+  background:
+    transparent !important;
+
+  font-size:
+    inherit !important;
+
+  text-align:
+    inherit !important;
 }
 
 
+.window-small
 .nh-mobile-menu {
   width:
-    20px;
+    19px;
 
   height:
-    20px;
+    19px;
 
   display:
     grid;
@@ -4608,35 +4668,50 @@ span {
   place-items:
     center;
 
+  padding:
+    0 !important;
+
   color:
     var(--nh-navy);
 
   background:
-    transparent;
+    transparent !important;
 
   border:
     1px
     solid
-    var(--nh-line);
+    rgba(
+      23,
+      27,
+      33,
+      .22
+    );
 
   border-radius:
     50%;
 
   font-size:
-    .48rem;
+    .45rem !important;
 
   line-height:
     1;
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    MOBILE HERO
---------------------------------------------------------- */
+========================================================= */
 
+.window-small
 .nh-mobile-hero {
   position:
     relative;
+
+  width:
+    100%;
+
+  min-width:
+    0;
 
   min-height:
     0;
@@ -4652,8 +4727,7 @@ span {
 
   padding:
     15px
-    12px
-    14px;
+    12px;
 
   background-image:
     linear-gradient(
@@ -4662,37 +4736,41 @@ span {
         8,
         14,
         20,
-        .04
+        .03
       )
-      16%,
+      10%,
       rgba(
         8,
         14,
         20,
-        .2
+        .1
       )
-      44%,
+      38%,
       rgba(
         8,
         14,
         20,
-        .82
+        .78
       )
       100%
     ),
     url(
-      "../images/north-home-hero.jpg"
+      "https://images.pexels.com/photos/4626268/pexels-photo-4626268.jpeg?auto=compress&cs=tinysrgb&w=1200"
     );
 
   background-size:
     cover;
 
   background-position:
-    59%
+    56%
     center;
+
+  background-repeat:
+    no-repeat;
 }
 
 
+.window-small
 .nh-mobile-hero::before {
   content:
     "";
@@ -4707,13 +4785,18 @@ span {
     linear-gradient(
       90deg,
       rgba(
-        0,
-        0,
-        0,
-        .12
+        5,
+        10,
+        15,
+        .22
       ),
-      transparent
-      65%
+      rgba(
+        5,
+        10,
+        15,
+        0
+      )
+      72%
     );
 
   pointer-events:
@@ -4721,55 +4804,146 @@ span {
 }
 
 
-/* ---------------------------------------------------------
-   MOBILE HERO COPY
---------------------------------------------------------- */
+/* =========================================================
+   PROJECT LABEL
+========================================================= */
 
+.window-small
+.nh-mobile-project-tag {
+  position:
+    absolute !important;
+
+  z-index:
+    5 !important;
+
+  top:
+    11px;
+
+  left:
+    10px;
+
+  width:
+    auto;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  padding:
+    5px
+    7px !important;
+
+  color:
+    var(--nh-navy);
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .9
+    ) !important;
+
+  border-radius:
+    999px;
+
+  font-size:
+    .26rem !important;
+
+  font-weight:
+    600;
+
+  line-height:
+    1;
+
+  letter-spacing:
+    .05em;
+
+  text-align:
+    left !important;
+
+  backdrop-filter:
+    blur(7px);
+
+  -webkit-backdrop-filter:
+    blur(7px);
+}
+
+
+/* =========================================================
+   HERO COPY
+========================================================= */
+
+.window-small
 .nh-mobile-copy {
   position:
     relative;
 
   z-index:
-    3;
+    4;
 
   width:
     100%;
+
+  min-width:
+    0;
 }
 
 
+.window-small
 .nh-mobile-kicker {
+  position:
+    static !important;
+
   display:
     block;
 
-  margin-bottom:
-    8px;
+  margin:
+    0
+    0
+    7px;
+
+  padding:
+    0 !important;
 
   color:
     rgba(
       255,
       255,
       255,
-      .68
+      .72
     );
 
+  background:
+    transparent !important;
+
   font-size:
-    .31rem;
+    .28rem !important;
 
   font-weight:
     600;
 
-  letter-spacing:
-    .08em;
-
   line-height:
-    1.35;
+    1.3;
+
+  letter-spacing:
+    .09em;
+
+  text-align:
+    left !important;
 }
 
 
+.window-small
 .nh-mobile-copy
 strong {
   display:
     block;
+
+  max-width:
+    94%;
 
   margin:
     0;
@@ -4783,27 +4957,27 @@ strong {
     serif;
 
   font-size:
-    clamp(
-      1.15rem,
-      2.1vw,
-      1.75rem
-    );
+    1.35rem;
 
   font-weight:
     400;
 
-  letter-spacing:
-    -.055em;
-
   line-height:
     .82;
+
+  letter-spacing:
+    -.055em;
 }
 
 
+.window-small
 .nh-mobile-copy
 p {
+  max-width:
+    92%;
+
   margin:
-    10px
+    9px
     0
     0;
 
@@ -4812,27 +4986,31 @@ p {
       255,
       255,
       255,
-      .72
+      .68
     );
 
   font-size:
-    .34rem;
+    .31rem;
 
   line-height:
     1.45;
 }
 
 
-/* ---------------------------------------------------------
-   MOBILE CTA
---------------------------------------------------------- */
+/* =========================================================
+   CTA
+========================================================= */
 
+.window-small
 .nh-mobile-cta {
+  position:
+    static !important;
+
   width:
     fit-content;
 
   min-height:
-    25px;
+    24px;
 
   display:
     inline-flex;
@@ -4841,65 +5019,14 @@ p {
     center;
 
   gap:
-    7px;
+    6px;
 
   margin-top:
-    11px;
-
-  padding:
-    0
-    9px;
-
-  color:
-    var(--nh-navy);
-
-  background:
-    #fff;
-
-  border-radius:
-    999px;
-
-  font-size:
-    .31rem;
-
-  font-weight:
-    600;
-}
-
-
-.nh-mobile-cta
-span {
-  color:
-    var(--nh-blue);
-
-  background:
-    transparent !important;
-
-  padding:
-    0 !important;
-}
-
-
-/* ---------------------------------------------------------
-   MOBILE PROJECT IDENTIFIER
---------------------------------------------------------- */
-
-.nh-mobile-project-tag {
-  position:
-    absolute;
-
-  z-index:
-    4;
-
-  top:
-    11px;
-
-  left:
     10px;
 
   padding:
-    5px
-    7px;
+    0
+    9px !important;
 
   color:
     var(--nh-navy);
@@ -4909,73 +5036,85 @@ span {
       255,
       255,
       255,
-      .88
-    );
+      .96
+    ) !important;
 
   border-radius:
     999px;
 
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
-
   font-size:
-    .26rem;
+    .28rem !important;
 
   font-weight:
     600;
 
-  letter-spacing:
-    .05em;
+  line-height:
+    1;
+
+  text-align:
+    left !important;
+}
+
+
+.window-small
+.nh-mobile-cta
+span {
+  position:
+    static !important;
+
+  padding:
+    0 !important;
+
+  color:
+    var(--nh-blue);
+
+  background:
+    transparent !important;
+
+  font-size:
+    .36rem !important;
 }
 
 
 /* =========================================================
-   TABLET HERO
+   TABLET PORTFOLIO
 ========================================================= */
 
 @media (
-  max-width:
-  950px
+  max-width: 950px
 ) {
 
   .window-small {
     width:
       min(
-        20vw,
-        190px
+        19vw,
+        180px
       );
 
     top:
-      17%;
+      16%;
 
     left:
       38%;
   }
 
 
+  .window-small
   .nh-mobile-copy
   strong {
     font-size:
-      clamp(
-        1.05rem,
-        3vw,
-        1.55rem
-      );
+      1.2rem;
   }
 
 }
 
 
 /* =========================================================
-   PHONE-SIZED PORTFOLIO VIEW
+   MOBILE PORTFOLIO
 ========================================================= */
 
 @media (
-  max-width:
-  680px
+  max-width: 680px
 ) {
 
   .window-small {
@@ -4990,6 +5129,18 @@ span {
   }
 
 
+  .window-small
+  .nh-mobile-thumb {
+    grid-template-rows:
+      30px
+      minmax(
+        0,
+        1fr
+      );
+  }
+
+
+  .window-small
   .nh-mobile-nav {
     min-height:
       30px;
@@ -5000,42 +5151,78 @@ span {
   }
 
 
+  .window-small
   .nh-mobile-logo {
     font-size:
-      .52rem;
+      .48rem;
   }
 
 
+  .window-small
   .nh-mobile-menu {
     width:
-      16px;
+      15px;
 
     height:
-      16px;
+      15px;
 
     font-size:
-      .4rem;
+      .34rem !important;
   }
 
 
+  .window-small
   .nh-mobile-hero {
     padding:
-      11px
+      10px
       8px;
+
+    background-position:
+      55%
+      center;
   }
 
 
+  .window-small
+  .nh-mobile-project-tag {
+    top:
+      7px;
+
+    left:
+      7px;
+
+    padding:
+      4px
+      5px !important;
+
+    font-size:
+      .2rem !important;
+  }
+
+
+  .window-small
+  .nh-mobile-kicker {
+    margin-bottom:
+      5px;
+
+    font-size:
+      .21rem !important;
+  }
+
+
+  .window-small
   .nh-mobile-copy
   strong {
     font-size:
       clamp(
-        .9rem,
-        6vw,
-        1.35rem
+        .82rem,
+        5vw,
+        1.15rem
       );
   }
 
 
+  .window-small
   .nh-mobile-copy
   p {
     display:
@@ -5043,22 +5230,20 @@ span {
   }
 
 
-  .nh-mobile-kicker {
-    font-size:
-      .25rem;
-  }
-
-
+  .window-small
   .nh-mobile-cta {
     min-height:
-      21px;
+      20px;
+
+    margin-top:
+      7px;
 
     padding:
       0
-      7px;
+      6px !important;
 
     font-size:
-      .25rem;
+      .21rem !important;
   }
 
 }
