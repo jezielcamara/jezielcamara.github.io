@@ -1,7 +1,6 @@
 /* =========================================================
-   JEZIEL CAMARA / PORTFOLIO RESPONSIVE LAB
-   Extends the existing Lab width animation in main.js
-   with portfolio-specific responsive descriptions.
+   JEZIEL CAMARA / RESPONSIVE WORK LAB
+   Uses the real North Home project inside the Lab.
 ========================================================= */
 
 (function () {
@@ -36,6 +35,30 @@
     );
 
 
+  const demoUrl =
+    document.querySelector(
+      "#demo-url"
+    );
+
+
+  const previewLogo =
+    document.querySelector(
+      ".preview-logo"
+    );
+
+
+  const labLabel =
+    document.querySelector(
+      ".lab-portfolio-label"
+    );
+
+
+  const labIntro =
+    document.querySelector(
+      ".lab-heading-copy p"
+    );
+
+
   if (
     !viewportRange ||
     !responsivePreview
@@ -45,10 +68,10 @@
 
 
   /* =======================================================
-     RESPONSIVE STATES
+     RESPONSIVE DESCRIPTION
   ======================================================= */
 
-  function getPortfolioViewportState(
+  function getNorthViewportState(
     width
   ) {
 
@@ -59,7 +82,7 @@
           "Phone",
 
         text:
-          "Phone: the portfolio becomes a focused vertical composition with simplified navigation and tighter project framing."
+          "Phone: North Home becomes a focused single-column experience with simpler navigation, stacked services, and touch-friendly content."
       };
 
     }
@@ -72,7 +95,7 @@
           "Tablet",
 
         text:
-          "Tablet: the composition tightens while the hierarchy, project preview, and supporting content remain easy to scan."
+          "Tablet: North Home tightens its layout, reduces navigation, and reorganizes larger sections for the narrower screen."
       };
 
     }
@@ -83,17 +106,252 @@
         "Desktop",
 
       text:
-        "Desktop: the portfolio uses the full canvas for layered typography, project imagery, and supporting content."
+        "Desktop: North Home uses the wider canvas for large residential photography, side-by-side content, and a fuller navigation."
     };
 
   }
 
 
   /* =======================================================
-     APPLY PORTFOLIO COPY
+     REMOVE DUPLICATE IDS
   ======================================================= */
 
-  function applyPortfolioState() {
+  function removeCloneIds(
+    element
+  ) {
+
+    element
+      .querySelectorAll(
+        "[id]"
+      )
+      .forEach(
+        (item) => {
+
+          item.removeAttribute(
+            "id"
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =======================================================
+     MAKE LAB VERSION VIEW-ONLY
+  ======================================================= */
+
+  function makeViewOnly(
+    element
+  ) {
+
+    element
+      .querySelectorAll(
+        `
+          a,
+          button,
+          input,
+          textarea,
+          select
+        `
+      )
+      .forEach(
+        (control) => {
+
+          control.setAttribute(
+            "tabindex",
+            "-1"
+          );
+
+
+          control.setAttribute(
+            "aria-disabled",
+            "true"
+          );
+
+
+          if (
+            control.matches(
+              "button, input, textarea, select"
+            )
+          ) {
+
+            control.disabled =
+              true;
+
+          }
+
+        }
+      );
+
+
+    element.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+      },
+      true
+    );
+
+  }
+
+
+  /* =======================================================
+     INSERT THE ACTUAL NORTH HOME WEBSITE
+  ======================================================= */
+
+  function mountNorthHomeLab(
+    attempt = 0
+  ) {
+
+    const sourceWebsite =
+      document.querySelector(
+        ".north-case-study .nh-site"
+      );
+
+
+    const oldDemo =
+      document.querySelector(
+        "#demo-site"
+      );
+
+
+    /*
+     * north-home.js creates the source website
+     * on DOMContentLoaded.
+     *
+     * If this runs a fraction too early,
+     * retry for a few animation frames.
+     */
+
+    if (
+      !sourceWebsite ||
+      !oldDemo
+    ) {
+
+      if (attempt < 30) {
+
+        requestAnimationFrame(
+          () => {
+
+            mountNorthHomeLab(
+              attempt + 1
+            );
+
+          }
+        );
+
+      }
+
+
+      return;
+
+    }
+
+
+    /*
+     * Avoid mounting twice.
+     */
+
+    if (
+      oldDemo.classList.contains(
+        "nh-lab-site"
+      )
+    ) {
+      return;
+    }
+
+
+    const labWebsite =
+      sourceWebsite.cloneNode(
+        true
+      );
+
+
+    removeCloneIds(
+      labWebsite
+    );
+
+
+    makeViewOnly(
+      labWebsite
+    );
+
+
+    /*
+     * Preserve #demo-site because existing
+     * portfolio JavaScript expects that element.
+     */
+
+    labWebsite.id =
+      "demo-site";
+
+
+    labWebsite.classList.add(
+      "demo-site",
+      "nh-site-view-only",
+      "nh-lab-site"
+    );
+
+
+    oldDemo.replaceWith(
+      labWebsite
+    );
+
+
+    /*
+     * Lab now represents the actual work.
+     */
+
+    responsivePreview.dataset.business =
+      "north";
+
+
+    if (demoUrl) {
+
+      demoUrl.textContent =
+        "northhome.example";
+
+    }
+
+
+    if (previewLogo) {
+
+      previewLogo.textContent =
+        "LIVE / NORTH HOME";
+
+    }
+
+
+    if (labLabel) {
+
+      labLabel.textContent =
+        "NORTH HOME / RESPONSIVE WEBSITE";
+
+    }
+
+
+    if (labIntro) {
+
+      labIntro.textContent =
+        "Drag the slider and watch the North Home website reorganize itself for desktop, tablet, and phone.";
+
+    }
+
+
+    applyNorthState();
+
+  }
+
+
+  /* =======================================================
+     UPDATE LAB TEXT
+  ======================================================= */
+
+  function applyNorthState() {
 
     const width =
       Number(
@@ -102,20 +360,14 @@
 
 
     const state =
-      getPortfolioViewportState(
+      getNorthViewportState(
         width
       );
 
 
     responsivePreview.dataset.business =
-      "portfolio";
+      "north";
 
-
-    /*
-     * main.js owns the numeric width display.
-     * This file only owns the portfolio-specific
-     * mode label and explanation.
-     */
 
     if (
       viewportMode &&
@@ -144,20 +396,15 @@
 
 
   /* =======================================================
-     USER-DRIVEN SLIDER
+     MANUAL SLIDER
   ======================================================= */
 
   viewportRange.addEventListener(
     "input",
     () => {
 
-      /*
-       * main.js updates the preview width first.
-       * Apply our portfolio wording immediately after.
-       */
-
       requestAnimationFrame(
-        applyPortfolioState
+        applyNorthState
       );
 
     }
@@ -167,18 +414,6 @@
   /* =======================================================
      AUTOMATIC REPLAY
   ======================================================= */
-
-  /*
-   * main.js changes the range value during its
-   * animated Replay sequence without firing input.
-   *
-   * The numeric output changes on every animation
-   * frame, so we can use it only as a signal.
-   *
-   * IMPORTANT:
-   * We do not write back to viewportOutput here,
-   * avoiding a MutationObserver feedback loop.
-   */
 
   if (
     viewportOutput &&
@@ -200,7 +435,7 @@
 
           observerFrame =
             requestAnimationFrame(
-              applyPortfolioState
+              applyNorthState
             );
 
         }
@@ -238,7 +473,7 @@
 
       resizeFrame =
         requestAnimationFrame(
-          applyPortfolioState
+          applyNorthState
         );
 
     },
@@ -249,11 +484,45 @@
 
 
   /* =======================================================
-     INITIAL STATE
+     START
   ======================================================= */
 
-  requestAnimationFrame(
-    applyPortfolioState
-  );
+  function start() {
+
+    /*
+     * North Home is also initialized on
+     * DOMContentLoaded. Waiting one animation
+     * frame lets it create the real .nh-site first.
+     */
+
+    requestAnimationFrame(
+      () => {
+
+        mountNorthHomeLab();
+
+      }
+    );
+
+  }
+
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      start,
+      {
+        once: true
+      }
+    );
+
+  } else {
+
+    start();
+
+  }
 
 })();
