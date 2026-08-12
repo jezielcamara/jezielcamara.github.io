@@ -8,11 +8,19 @@
 
    RESPONSIBILITY:
    - create one generic website viewer
+   - display registered project metadata
    - mount any registered canonical project
+   - provide an interactive full website viewport
    - provide PortfolioProjectViewer
-   - isolate project design from portfolio chrome
 
-   Project HTML always comes from:
+   NOT RESPONSIBLE FOR:
+   - project HTML
+   - project behavior
+   - project metadata definitions
+   - project-specific URL mappings
+   - project-specific viewer logic
+
+   Project definitions come from:
 
    window.PortfolioProjects
 ========================================================= */
@@ -62,6 +70,10 @@
     null;
 
 
+  let returnFocusElement =
+    null;
+
+
   let started =
     false;
 
@@ -69,9 +81,9 @@
   /* =======================================================
      VIEWER CSS
 
-     This CSS styles only portfolio presentation chrome.
+     This styles only portfolio presentation chrome.
 
-     Nothing inside the embedded project is redesigned.
+     Nothing inside the registered project is redesigned.
   ======================================================= */
 
   const viewerCSS = `
@@ -87,7 +99,7 @@
 
 
     /* =====================================================
-       VIEWER DIALOG
+       VIEWER
     ===================================================== */
 
     .portfolio-project-viewer {
@@ -635,6 +647,12 @@
 
     /* =====================================================
        SELECTED WORK LAUNCHER
+
+       These generic positioning rules remain here so this
+       final architecture pass does not require another CSS
+       migration.
+
+       They contain no project-specific behavior.
     ===================================================== */
 
     .project-image.has-canonical-work-preview {
@@ -845,23 +863,9 @@
 
   function addViewerStyles() {
 
-    const existingStyles =
-      document.querySelector(
-        `#${VIEWER_STYLE_ID}`
-      );
-
-
-    existingStyles?.remove();
-
-
-    /*
-     * Remove the old compatibility style block if a cached
-     * version exists during deployment.
-     */
-
     document
       .querySelector(
-        "#north-home-repair-styles"
+        `#${VIEWER_STYLE_ID}`
       )
       ?.remove();
 
@@ -940,11 +944,13 @@
             type="button"
             aria-label="Close project website preview"
           >
+
             Close
 
             <span aria-hidden="true">
               ×
             </span>
+
           </button>
 
         </header>
@@ -972,7 +978,7 @@
 
 
               <strong class="portfolio-project-viewer-state">
-                VIEW-ONLY CONCEPT
+                CONCEPT PROJECT
               </strong>
 
             </div>
@@ -980,6 +986,7 @@
 
             <div
               class="portfolio-project-viewer-canvas"
+              aria-live="polite"
             ></div>
 
           </div>
@@ -1009,18 +1016,6 @@
 
 
     if (!existingViewer) {
-
-      /*
-       * Remove an obsolete cached compatibility shell if it
-       * exists before creating the new generic one.
-       */
-
-      document
-        .querySelector(
-          "#nh-site-viewer"
-        )
-        ?.remove();
-
 
       existingViewer =
         createViewerShell();
@@ -1058,41 +1053,41 @@
 
 
   /* =======================================================
-     PROJECT DISPLAY URL
-
-     These values are presentation metadata only.
-
-     We will move this metadata into each project
-     registration separately.
+     PROJECT REGISTRY
   ======================================================= */
 
-  function getProjectUrl(
-    project
-  ) {
+  function getRegistry() {
 
-    switch (
-      project.key
+    const registry =
+      window.PortfolioProjects;
+
+
+    if (
+      !registry ||
+      typeof registry.get !==
+        "function" ||
+      typeof registry.mountFrame !==
+        "function"
     ) {
 
-      case "north":
-        return "northhome.example";
-
-      case "sola":
-        return "solacafe.example";
-
-      case "avance":
-        return "avance.example";
-
-      default:
-        return `${project.key}.example`;
+      return null;
 
     }
+
+
+    return registry;
 
   }
 
 
   /* =======================================================
      VIEWER IDENTITY
+
+     All displayed information now comes from the project's
+     registered metadata.
+
+     There are no project-specific URL or label mappings
+     inside the viewer.
   ======================================================= */
 
   function updateViewerIdentity(
@@ -1150,7 +1145,7 @@
     if (description) {
 
       description.textContent =
-        "WEBSITE PREVIEW / CONCEPT PROJECT";
+        project.viewerDescription;
 
     }
 
@@ -1158,17 +1153,25 @@
     if (url) {
 
       url.textContent =
-        getProjectUrl(
-          project
-        );
+        project.url;
 
     }
 
 
     if (state) {
 
+      /*
+       * A registered initializer means the full viewer can
+       * run the canonical project's interactions.
+
+       * Projects without an initializer retain their
+       * registered presentation-state label.
+       */
+
       state.textContent =
-        "VIEW-ONLY CONCEPT";
+        project.initialize
+          ? "INTERACTIVE CONCEPT"
+          : project.viewerState;
 
     }
 
@@ -1196,11 +1199,12 @@
 
 
   /* =======================================================
-     PROJECT FRAME
+     FRAME PRESENTATION
   ======================================================= */
 
   function configureProjectFrame(
-    frame
+    frame,
+    project
   ) {
 
     if (!frame) {
@@ -1211,15 +1215,11 @@
 
 
     /*
-     * Decorative previews disable scrolling.
-     *
-     * The full viewer must allow normal website scrolling.
+     * Decorative previews elsewhere are view-only.
+
+     * The full viewer is intentionally interactive and
+     * scrollable.
      */
-
-    frame.removeAttribute(
-      "scrolling"
-    );
-
 
     frame.removeAttribute(
       "aria-hidden"
@@ -1230,6 +1230,22 @@
       "tabindex",
       "0"
     );
+
+
+    frame.setAttribute(
+      "scrolling",
+      "yes"
+    );
+
+
+    if (project) {
+
+      frame.setAttribute(
+        "aria-label",
+        `${project.name} interactive website`
+      );
+
+    }
 
 
     frame.style.position =
@@ -1283,19 +1299,77 @@
 
 
   /* =======================================================
+     FRAME READY STATE
+  ======================================================= */
+
+  function markFrameLoading() {
+
+    if (!canvas) {
+
+      return;
+
+    }
+
+
+    canvas.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+
+    canvas.dataset.viewerFrameState =
+      "loading";
+
+  }
+
+
+  function markFrameReady() {
+
+    if (!canvas) {
+
+      return;
+
+    }
+
+
+    canvas.removeAttribute(
+      "aria-busy"
+    );
+
+
+    canvas.dataset.viewerFrameState =
+      "ready";
+
+  }
+
+
+  /* =======================================================
      MOUNT PROJECT
+
+     The website viewer is the interactive presentation
+     environment.
+
+     It requests the exact same project source as Hero,
+     Work, Lab and the case study, but enables the registered
+     initialize() behavior.
   ======================================================= */
 
   function mountProject(
     key
   ) {
 
-    if (
-      !key ||
-      !window.PortfolioProjects ||
-      typeof window.PortfolioProjects.mountFrame !==
-        "function"
-    ) {
+    if (!key) {
+
+      return false;
+
+    }
+
+
+    const registry =
+      getRegistry();
+
+
+    if (!registry) {
 
       return false;
 
@@ -1303,7 +1377,7 @@
 
 
     const project =
-      window.PortfolioProjects.get(
+      registry.get(
         key
       );
 
@@ -1331,8 +1405,8 @@
 
 
     /*
-     * Reuse the current iframe when reopening the same
-     * project.
+     * Reopening the same project can reuse its live iframe
+     * and preserve the initialized project instance.
      */
 
     if (
@@ -1346,13 +1420,17 @@
 
 
       configureProjectFrame(
-        projectFrame
+        projectFrame,
+        project
       );
 
 
       updateViewerIdentity(
         project
       );
+
+
+      markFrameReady();
 
 
       return true;
@@ -1365,8 +1443,11 @@
     );
 
 
+    markFrameLoading();
+
+
     projectFrame =
-      window.PortfolioProjects.mountFrame(
+      registry.mountFrame(
         project.key,
         canvas,
         {
@@ -1383,15 +1464,29 @@
           height:
             DEFAULT_VIEWPORT_HEIGHT,
 
+
+          /*
+           * This is the key difference between the full
+           * website viewer and decorative previews.
+
+           * PortfolioProjects will attach the registered
+           * project's canonical initialize() function when
+           * the isolated viewport is ready.
+           */
+
+          interactive:
+            true,
+
           label:
-            `${project.name} website viewer`
+            `${project.name} interactive website viewer`
 
         }
       );
 
 
     configureProjectFrame(
-      projectFrame
+      projectFrame,
+      project
     );
 
 
@@ -1403,7 +1498,55 @@
       "true";
 
 
+    canvas.dataset.mountedProject =
+      project.key;
+
+
+    projectFrame.addEventListener(
+      "load",
+      markFrameReady,
+      {
+        once:
+          true
+      }
+    );
+
+
     return true;
+
+  }
+
+
+  /* =======================================================
+     RESET PROJECT SCROLL
+  ======================================================= */
+
+  function resetFrameScroll() {
+
+    if (!projectFrame) {
+
+      return;
+
+    }
+
+
+    try {
+
+      projectFrame
+        .contentWindow
+        ?.scrollTo(
+          0,
+          0
+        );
+
+    } catch (error) {
+
+      /*
+       * Frame scrolling remains usable even if direct
+       * programmatic access is restricted.
+       */
+
+    }
 
   }
 
@@ -1419,6 +1562,28 @@
     if (!key) {
 
       return false;
+
+    }
+
+
+    const activeElement =
+      document.activeElement;
+
+
+    if (
+      activeElement instanceof
+        HTMLElement &&
+      activeElement !==
+        document.body
+    ) {
+
+      returnFocusElement =
+        activeElement;
+
+    } else {
+
+      returnFocusElement =
+        null;
 
     }
 
@@ -1451,36 +1616,9 @@
     );
 
 
-    /*
-     * Reset the embedded website to the top when possible.
-     *
-     * Sandboxed frame access can be restricted, which does
-     * not affect normal viewer scrolling.
-     */
-
-    function resetFrameScroll() {
-
-      try {
-
-        projectFrame
-          ?.contentWindow
-          ?.scrollTo(
-            0,
-            0
-          );
-
-      } catch (error) {
-
-        /*
-         * No action required.
-         */
-
-      }
-
-    }
-
-
-    resetFrameScroll();
+    requestAnimationFrame(
+      resetFrameScroll
+    );
 
 
     projectFrame?.addEventListener(
@@ -1499,6 +1637,46 @@
 
 
   /* =======================================================
+     RESTORE FOCUS
+  ======================================================= */
+
+  function restoreFocus() {
+
+    const target =
+      returnFocusElement;
+
+
+    returnFocusElement =
+      null;
+
+
+    if (
+      !target ||
+      !target.isConnected ||
+      typeof target.focus !==
+        "function"
+    ) {
+
+      return;
+
+    }
+
+
+    requestAnimationFrame(
+      () => {
+
+        target.focus({
+          preventScroll:
+            true
+        });
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
      CLOSE
   ======================================================= */
 
@@ -1510,12 +1688,16 @@
 
       viewer.close();
 
+    } else {
+
+      document.body.classList.remove(
+        "portfolio-viewer-open"
+      );
+
+
+      restoreFocus();
+
     }
-
-
-    document.body.classList.remove(
-      "portfolio-viewer-open"
-    );
 
   }
 
@@ -1523,31 +1705,32 @@
   /* =======================================================
      PUBLIC API
 
-     Every project uses exactly the same viewer API.
-
-     Example:
+     Every portfolio project uses the same interface:
 
      PortfolioProjectViewer.open("north")
+     PortfolioProjectViewer.open("sola")
+     PortfolioProjectViewer.open("avance")
   ======================================================= */
 
-  window.PortfolioProjectViewer = {
+  window.PortfolioProjectViewer =
+    Object.freeze({
 
-    open:
-      openProject,
+      open:
+        openProject,
 
-    close:
-      closeViewer,
+      close:
+        closeViewer,
 
-    mount:
-      mountProject,
+      mount:
+        mountProject,
 
-    getCurrentProject() {
+      getCurrentProject() {
 
-      return currentProjectKey;
+        return currentProjectKey;
 
-    }
+      }
 
-  };
+    });
 
 
   /* =======================================================
@@ -1583,6 +1766,10 @@
     );
 
 
+    /*
+     * Native Escape handling.
+     */
+
     viewer.addEventListener(
       "cancel",
       (event) => {
@@ -1595,13 +1782,15 @@
     );
 
 
+    /*
+     * Clicking the dialog backdrop closes the viewer.
+
+     * Clicks inside the browser frame do not.
+     */
+
     viewer.addEventListener(
       "click",
       (event) => {
-
-        /*
-         * Clicking the dialog backdrop closes it.
-         */
 
         if (
           event.target ===
@@ -1624,6 +1813,9 @@
           "portfolio-viewer-open"
         );
 
+
+        restoreFocus();
+
       }
     );
 
@@ -1633,11 +1825,10 @@
   /* =======================================================
      START
 
-     The viewer no longer waits for North Home or any
-     specific project.
+     The viewer is generic infrastructure and does not wait
+     for any specific project.
 
-     It becomes available immediately and mounts whichever
-     registered project is requested later.
+     Projects may register before or after viewer startup.
   ======================================================= */
 
   function start() {
