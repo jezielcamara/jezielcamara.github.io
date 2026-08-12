@@ -1,0 +1,2848 @@
+/* =========================================================
+   SOLA CAFE / CASE STUDY
+
+   Self-initiated hospitality concept.
+
+   RESPONSIBILITY:
+   - Sola case-study presentation
+   - Sola case Hero treatment
+   - Sola design rationale presentation
+   - Sola live website browser frame
+   - Sola responsive case-study layout
+
+   NOT RESPONSIBLE FOR:
+   - canonical Sola website design
+   - portfolio project surfaces
+   - generic case-dialog infrastructure
+   - project registration
+   - website viewer chrome
+
+   CANONICAL WEBSITE DESIGN:
+   css/sola.css
+========================================================= */
+
+
+/* =========================================================
+   CASE TOKENS
+========================================================= */
+
+:root {
+  --sola-case-paper:
+    #e8d3af;
+
+  --sola-case-paper-light:
+    #f4e9d3;
+
+  --sola-case-paper-deep:
+    #d4b88d;
+
+  --sola-case-espresso:
+    #352317;
+
+  --sola-case-forest:
+    #243d2b;
+
+  --sola-case-oxblood:
+    #71382d;
+
+  --sola-case-brass:
+    #a5824b;
+
+  --sola-case-ink:
+    #665545;
+
+  --sola-case-line:
+    rgba(
+      53,
+      35,
+      23,
+      .24
+    );
+
+  --sola-case-line-strong:
+    rgba(
+      53,
+      35,
+      23,
+      .56
+    );
+
+  --sola-case-serif:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  --sola-case-sans:
+    "TASA Orbiter",
+    Arial,
+    sans-serif;
+
+  --sola-case-script:
+    "Brush Script MT",
+    "Segoe Script",
+    cursive;
+}
+
+
+/* =========================================================
+   SOLA CASE MODE
+
+   The Sola presentation exists in the shared dialog DOM,
+   but remains invisible until Sola is the active project.
+========================================================= */
+
+.case-dialog
+.sola-case-preview,
+
+.case-dialog
+.sola-case-study {
+  display:
+    none;
+}
+
+
+.case-dialog.sola-active
+.sola-case-preview,
+
+.case-dialog.sola-active
+.sola-case-study {
+  display:
+    block;
+}
+
+
+/* =========================================================
+   REMOVE GENERIC CASE CONTENT
+
+   The shared dialog still owns its top bar, Hero copy,
+   close control and footer navigation.
+
+   Its generic project sections are replaced by the custom
+   Sola case-study body.
+========================================================= */
+
+.case-dialog.sola-active
+.case-section {
+  display:
+    none;
+}
+
+
+.case-dialog.sola-active
+.case-hero-media
+> .placeholder-cross,
+
+.case-dialog.sola-active
+#case-image-label {
+  display:
+    none;
+}
+
+
+/* =========================================================
+   DIALOG FOUNDATION
+========================================================= */
+
+.case-dialog.sola-active
+.case-shell {
+  background:
+    var(--sola-case-paper-light);
+}
+
+
+.case-dialog.sola-active
+.case-topbar {
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-espresso);
+
+  border-bottom-color:
+    rgba(
+      244,
+      233,
+      211,
+      .24
+    );
+}
+
+
+.case-dialog.sola-active
+.case-topbar
+span {
+  color:
+    rgba(
+      244,
+      233,
+      211,
+      .72
+    );
+}
+
+
+.case-dialog.sola-active
+.case-close {
+  color:
+    var(--sola-case-paper-light);
+}
+
+
+.case-dialog.sola-active
+.case-close:hover,
+.case-dialog.sola-active
+.case-close:focus-visible {
+  color:
+    var(--sola-case-espresso);
+
+  background:
+    var(--sola-case-paper);
+}
+
+
+/* =========================================================
+   CASE HERO
+========================================================= */
+
+.case-dialog.sola-active
+.case-hero {
+  background:
+    var(--sola-case-paper-light);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+/* =========================================================
+   HERO MEDIA
+========================================================= */
+
+.case-dialog.sola-active
+.case-hero-media {
+  position:
+    relative;
+
+  min-height:
+    650px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    clamp(
+      24px,
+      4vw,
+      58px
+    );
+
+  overflow:
+    hidden;
+
+  background-color:
+    var(--sola-case-paper);
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92' viewBox='0 0 92 92'%3E%3Cg fill='none' stroke='%2371382d' stroke-opacity='.065' stroke-width='1'%3E%3Cpath d='M46 8c3 11 9 17 19 20-10 3-16 9-19 20-3-11-9-17-19-20 10-3 16-9 19-20Z'/%3E%3Ccircle cx='46' cy='46' r='4'/%3E%3Cpath d='M8 46c11-3 17-9 20-19 3 10 9 16 20 19-11 3-17 9-20 19-3-10-9-16-20-19Z'/%3E%3C/g%3E%3C/svg%3E"
+    );
+
+  background-repeat:
+    repeat;
+
+  background-size:
+    92px
+    92px;
+
+  border:
+    0;
+}
+
+
+.case-dialog.sola-active
+.case-hero-media::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  inset:
+    clamp(
+      14px,
+      2vw,
+      28px
+    );
+
+  pointer-events:
+    none;
+
+  border:
+    1px
+    solid
+    var(--sola-case-brass);
+}
+
+
+.case-dialog.sola-active
+.case-hero-media::after {
+  content:
+    "✦";
+
+  position:
+    absolute;
+
+  top:
+    clamp(
+      18px,
+      2.3vw,
+      34px
+    );
+
+  left:
+    50%;
+
+  width:
+    44px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    var(--sola-case-brass);
+
+  background:
+    var(--sola-case-paper);
+
+  font-family:
+    var(--sola-case-serif);
+
+  transform:
+    translateX(
+      -50%
+    );
+}
+
+
+/* =========================================================
+   HERO PREVIEW
+========================================================= */
+
+.sola-case-preview {
+  position:
+    relative;
+
+  z-index:
+    3;
+
+  width:
+    min(
+      100%,
+      1220px
+    );
+
+  margin:
+    0
+    auto;
+}
+
+
+.sola-case-preview-paper {
+  position:
+    relative;
+
+  padding:
+    clamp(
+      24px,
+      3vw,
+      46px
+    )
+    clamp(
+      20px,
+      3vw,
+      42px
+    )
+    clamp(
+      40px,
+      4vw,
+      62px
+    );
+
+  background:
+    var(--sola-case-paper-light);
+
+  border:
+    1px
+    solid
+    var(--sola-case-line-strong);
+
+  box-shadow:
+    13px
+    16px
+    0
+    rgba(
+      113,
+      56,
+      45,
+      .12
+    );
+
+  transform:
+    rotate(
+      -.7deg
+    );
+}
+
+
+.sola-case-preview-paper::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    -13px;
+
+  left:
+    24%;
+
+  width:
+    110px;
+
+  height:
+    27px;
+
+  background:
+    rgba(
+      165,
+      130,
+      75,
+      .28
+    );
+
+  transform:
+    rotate(
+      -3deg
+    );
+}
+
+
+/* =========================================================
+   PREVIEW ORNAMENT
+========================================================= */
+
+.sola-case-preview-ornament {
+  position:
+    absolute;
+
+  z-index:
+    8;
+
+  top:
+    -20px;
+
+  right:
+    34px;
+
+  color:
+    var(--sola-case-oxblood);
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    2.8rem;
+
+  line-height:
+    1;
+
+  transform:
+    rotate(
+      8deg
+    );
+}
+
+
+/* =========================================================
+   PREVIEW BROWSER
+========================================================= */
+
+.sola-case-preview-browser {
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--sola-case-paper-light);
+
+  border:
+    1px
+    solid
+    var(--sola-case-espresso);
+
+  box-shadow:
+    0
+    24px
+    55px
+    rgba(
+      53,
+      35,
+      23,
+      .18
+    );
+}
+
+
+.sola-case-preview-top {
+  min-height:
+    38px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    20px;
+
+  padding:
+    0
+    14px;
+
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-espresso);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-espresso);
+
+  font-family:
+    var(--sola-case-sans);
+
+  font-size:
+    .49rem;
+
+  letter-spacing:
+    .08em;
+}
+
+
+.sola-case-preview-host {
+  width:
+    100%;
+}
+
+
+/* =========================================================
+   HANDWRITTEN PREVIEW NOTE
+========================================================= */
+
+.sola-case-preview-note {
+  position:
+    absolute;
+
+  z-index:
+    8;
+
+  right:
+    22px;
+
+  bottom:
+    8px;
+
+  color:
+    var(--sola-case-oxblood);
+
+  font-family:
+    var(--sola-case-script);
+
+  font-size:
+    clamp(
+      .85rem,
+      1.5vw,
+      1.15rem
+    );
+
+  line-height:
+    .95;
+
+  text-align:
+    right;
+
+  transform:
+    rotate(
+      -4deg
+    );
+}
+
+
+/* =========================================================
+   HERO COPY
+========================================================= */
+
+.case-dialog.sola-active
+.case-hero-copy {
+  color:
+    var(--sola-case-espresso);
+
+  background-color:
+    var(--sola-case-paper-light);
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23a5824b' stroke-opacity='.05'%3E%3Cpath d='M60 13c4 12 10 19 21 22-11 3-17 10-21 22-4-12-10-19-21-22 11-3 17-10 21-22Z'/%3E%3Ccircle cx='60' cy='60' r='4'/%3E%3C/g%3E%3C/svg%3E"
+    );
+}
+
+
+.case-dialog.sola-active
+.case-kicker {
+  color:
+    var(--sola-case-oxblood);
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .09em;
+}
+
+
+.case-dialog.sola-active
+.case-hero-copy
+h2 {
+  max-width:
+    850px;
+
+  color:
+    var(--sola-case-espresso);
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.06em;
+
+  line-height:
+    .85;
+}
+
+
+.case-dialog.sola-active
+.case-summary {
+  max-width:
+    720px;
+
+  color:
+    var(--sola-case-ink);
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    1rem;
+
+  line-height:
+    1.7;
+}
+
+
+/* =========================================================
+   GENERIC CASE FACTS / SOLA MODE
+========================================================= */
+
+.case-dialog.sola-active
+.case-facts {
+  border-color:
+    var(--sola-case-line);
+}
+
+
+.case-dialog.sola-active
+.case-facts
+div {
+  border-color:
+    var(--sola-case-line);
+}
+
+
+.case-dialog.sola-active
+.case-facts
+dt {
+  color:
+    var(--sola-case-oxblood);
+}
+
+
+.case-dialog.sola-active
+.case-facts
+dd {
+  color:
+    var(--sola-case-espresso);
+}
+
+
+/* =========================================================
+   CASE STUDY BODY
+========================================================= */
+
+.sola-case-study {
+  width:
+    100%;
+
+  min-width:
+    0;
+
+  color:
+    var(--sola-case-espresso);
+
+  background:
+    var(--sola-case-paper-light);
+
+  font-family:
+    var(--sola-case-sans);
+}
+
+
+.sola-case-study *,
+.sola-case-study *::before,
+.sola-case-study *::after {
+  box-sizing:
+    border-box;
+}
+
+
+.sola-case-study
+h3,
+
+.sola-case-study
+h4,
+
+.sola-case-study
+p {
+  margin:
+    0;
+}
+
+
+/* =========================================================
+   CASE LABEL
+========================================================= */
+
+.sola-case-label {
+  color:
+    var(--sola-case-oxblood);
+
+  font-family:
+    var(--sola-case-sans);
+
+  font-size:
+    .58rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .1em;
+
+  text-transform:
+    uppercase;
+}
+
+
+/* =========================================================
+   BRIEF
+========================================================= */
+
+.sola-case-brief {
+  display:
+    grid;
+
+  grid-template-columns:
+    170px
+    minmax(
+      0,
+      1fr
+    );
+
+  gap:
+    52px;
+
+  padding:
+    clamp(
+      90px,
+      9vw,
+      145px
+    )
+    7vw;
+
+  background-color:
+    var(--sola-case-paper-light);
+
+  background-image:
+    url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110' viewBox='0 0 110 110'%3E%3Cg fill='none' stroke='%23a5824b' stroke-opacity='.055'%3E%3Cpath d='M55 10c4 12 10 18 20 21-10 3-16 9-20 21-4-12-10-18-20-21 10-3 16-9 20-21Z'/%3E%3C/g%3E%3C/svg%3E"
+    );
+
+  border-top:
+    1px
+    solid
+    var(--sola-case-line-strong);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-brief-main {
+  max-width:
+    1000px;
+}
+
+
+.sola-case-kicker {
+  display:
+    block;
+
+  margin-bottom:
+    20px;
+
+  color:
+    var(--sola-case-ink);
+
+  font-size:
+    .58rem;
+
+  letter-spacing:
+    .08em;
+}
+
+
+.sola-case-brief-main
+h3 {
+  max-width:
+    1000px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.7rem,
+      6.4vw,
+      7rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.065em;
+
+  line-height:
+    .86;
+}
+
+
+.sola-case-brief-main
+p {
+  max-width:
+    760px;
+
+  margin-top:
+    38px;
+
+  color:
+    var(--sola-case-ink);
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    .98rem;
+
+  line-height:
+    1.75;
+}
+
+
+/* =========================================================
+   CASE FACTS
+========================================================= */
+
+.sola-case-facts {
+  grid-column:
+    2;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  margin-top:
+    62px;
+
+  border-top:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-facts
+div {
+  min-height:
+    104px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    118px
+    1fr;
+
+  gap:
+    20px;
+
+  align-items:
+    center;
+
+  padding:
+    18px
+    0;
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line);
+}
+
+
+.sola-case-facts
+div:nth-child(odd) {
+  padding-right:
+    30px;
+}
+
+
+.sola-case-facts
+div:nth-child(even) {
+  padding-left:
+    30px;
+
+  border-left:
+    1px
+    solid
+    var(--sola-case-line);
+}
+
+
+.sola-case-facts
+span {
+  color:
+    var(--sola-case-oxblood);
+
+  font-size:
+    .51rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .08em;
+}
+
+
+.sola-case-facts
+strong {
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    .95rem;
+
+  font-weight:
+    400;
+
+  line-height:
+    1.35;
+}
+
+
+/* =========================================================
+   VISUAL LANGUAGE
+========================================================= */
+
+.sola-case-references {
+  padding:
+    clamp(
+      90px,
+      9vw,
+      145px
+    )
+    7vw;
+
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-forest);
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .25
+    );
+}
+
+
+.sola-case-reference-heading {
+  display:
+    grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    minmax(
+      300px,
+      390px
+    );
+
+  gap:
+    60px;
+
+  align-items:
+    end;
+}
+
+
+.sola-case-reference-heading
+.sola-case-label {
+  grid-column:
+    1
+    /
+    -1;
+
+  color:
+    var(--sola-case-paper);
+}
+
+
+.sola-case-reference-heading
+h3 {
+  max-width:
+    850px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.8rem,
+      6.5vw,
+      7rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.065em;
+
+  line-height:
+    .85;
+}
+
+
+.sola-case-reference-heading
+p {
+  color:
+    rgba(
+      244,
+      233,
+      211,
+      .7
+    );
+
+  font-family:
+    var(--sola-case-serif);
+
+  line-height:
+    1.7;
+}
+
+
+/* =========================================================
+   REFERENCE GRID
+========================================================= */
+
+.sola-case-reference-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  margin-top:
+    70px;
+
+  border-top:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+}
+
+
+.sola-case-reference-grid
+article {
+  min-height:
+    290px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  padding:
+    26px
+    28px;
+}
+
+
+.sola-case-reference-grid
+article
++ article {
+  border-left:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+}
+
+
+.sola-case-reference-grid
+article
+> span {
+  color:
+    var(--sola-case-paper);
+
+  font-size:
+    .52rem;
+}
+
+
+.sola-case-reference-grid
+strong {
+  margin-top:
+    auto;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      1.7rem,
+      2.8vw,
+      2.7rem
+    );
+
+  font-weight:
+    400;
+}
+
+
+.sola-case-reference-grid
+p {
+  margin-top:
+    16px;
+
+  color:
+    rgba(
+      244,
+      233,
+      211,
+      .68
+    );
+
+  font-size:
+    .72rem;
+
+  line-height:
+    1.65;
+}
+
+
+/* =========================================================
+   DESIGN DECISIONS
+========================================================= */
+
+.sola-case-decisions {
+  padding:
+    clamp(
+      90px,
+      9vw,
+      145px
+    )
+    7vw;
+
+  background:
+    var(--sola-case-paper);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-decisions-list {
+  margin-top:
+    52px;
+
+  border-top:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-decision {
+  min-height:
+    150px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    60px
+    minmax(
+      280px,
+      .75fr
+    )
+    minmax(
+      0,
+      1fr
+    );
+
+  gap:
+    38px;
+
+  align-items:
+    center;
+
+  padding:
+    24px
+    0;
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line);
+}
+
+
+.sola-case-decision
+> span {
+  color:
+    var(--sola-case-brass);
+
+  font-size:
+    .58rem;
+
+  font-weight:
+    600;
+}
+
+
+.sola-case-decision
+h4 {
+  color:
+    var(--sola-case-espresso);
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      1.75rem,
+      2.7vw,
+      2.8rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.045em;
+
+  line-height:
+    1;
+}
+
+
+.sola-case-decision
+p {
+  max-width:
+    580px;
+
+  color:
+    var(--sola-case-ink);
+
+  line-height:
+    1.65;
+}
+
+
+/* =========================================================
+   BRAND SYSTEM
+========================================================= */
+
+.sola-case-system {
+  padding:
+    clamp(
+      90px,
+      9vw,
+      145px
+    )
+    7vw;
+
+  background:
+    var(--sola-case-paper-light);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-system-heading {
+  display:
+    grid;
+
+  grid-template-columns:
+    170px
+    minmax(
+      0,
+      1fr
+    );
+
+  gap:
+    52px;
+}
+
+
+.sola-case-system-heading
+h3 {
+  max-width:
+    900px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.7rem,
+      6.4vw,
+      6.8rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.06em;
+
+  line-height:
+    .87;
+}
+
+
+/* =========================================================
+   PALETTE
+========================================================= */
+
+.sola-case-palette {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      6,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  margin-top:
+    70px;
+
+  border:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-swatch {
+  position:
+    relative;
+
+  min-height:
+    220px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    flex-end;
+
+  padding:
+    18px;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--swatch);
+}
+
+
+.sola-case-swatch
++ .sola-case-swatch {
+  border-left:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.sola-case-swatch::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  pointer-events:
+    none;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .08
+    );
+
+  opacity:
+    0;
+}
+
+
+.sola-case-swatch
+span,
+
+.sola-case-swatch
+strong {
+  position:
+    relative;
+
+  z-index:
+    2;
+}
+
+
+.sola-case-swatch
+span {
+  font-size:
+    .45rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .08em;
+}
+
+
+.sola-case-swatch
+strong {
+  margin-top:
+    4px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    .73rem;
+
+  font-weight:
+    400;
+}
+
+
+/*
+ * Maintain readable labels across light and dark swatches.
+ */
+
+.sola-case-swatch:nth-child(3),
+.sola-case-swatch:nth-child(4),
+.sola-case-swatch:nth-child(5) {
+  color:
+    var(--sola-case-paper-light);
+}
+
+
+/* =========================================================
+   TYPE SAMPLE
+========================================================= */
+
+.sola-case-type-sample {
+  position:
+    relative;
+
+  max-width:
+    1020px;
+
+  margin:
+    95px
+    auto
+    0;
+
+  padding:
+    56px
+    clamp(
+      28px,
+      5vw,
+      70px
+    );
+
+  background:
+    var(--sola-case-paper);
+
+  border:
+    1px
+    solid
+    var(--sola-case-line-strong);
+
+  box-shadow:
+    10px
+    12px
+    0
+    rgba(
+      113,
+      56,
+      45,
+      .09
+    );
+
+  transform:
+    rotate(
+      -.45deg
+    );
+}
+
+
+.sola-case-type-sample::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    -13px;
+
+  left:
+    50%;
+
+  width:
+    96px;
+
+  height:
+    26px;
+
+  background:
+    rgba(
+      165,
+      130,
+      75,
+      .25
+    );
+
+  transform:
+    translateX(
+      -50%
+    )
+    rotate(
+      2deg
+    );
+}
+
+
+.sola-case-type-sample
+> span {
+  color:
+    var(--sola-case-oxblood);
+
+  font-size:
+    .51rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .1em;
+}
+
+
+.sola-case-type-sample
+strong {
+  display:
+    block;
+
+  max-width:
+    780px;
+
+  margin-top:
+    24px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.2rem,
+      6vw,
+      6rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.06em;
+
+  line-height:
+    .86;
+}
+
+
+.sola-case-type-sample
+p {
+  max-width:
+    610px;
+
+  margin-top:
+    34px;
+
+  color:
+    var(--sola-case-ink);
+
+  line-height:
+    1.7;
+}
+
+
+/* =========================================================
+   LIVE WEBSITE SECTION
+========================================================= */
+
+.sola-case-live {
+  padding:
+    clamp(
+      90px,
+      8vw,
+      130px
+    )
+    4vw
+    clamp(
+      110px,
+      10vw,
+      160px
+    );
+
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-espresso);
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .2
+    );
+}
+
+
+/* =========================================================
+   LIVE HEADING
+========================================================= */
+
+.sola-case-live-heading {
+  max-width:
+    1400px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1fr
+    )
+    minmax(
+      300px,
+      410px
+    );
+
+  gap:
+    70px;
+
+  align-items:
+    end;
+
+  margin:
+    0
+    auto
+    58px;
+}
+
+
+.sola-case-live-heading
+.sola-case-label {
+  display:
+    block;
+
+  margin-bottom:
+    17px;
+
+  color:
+    var(--sola-case-paper);
+}
+
+
+.sola-case-live-heading
+h3 {
+  max-width:
+    900px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.8rem,
+      6.5vw,
+      7rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.065em;
+
+  line-height:
+    .85;
+}
+
+
+.sola-case-live-heading
+p {
+  color:
+    rgba(
+      244,
+      233,
+      211,
+      .65
+    );
+
+  font-family:
+    var(--sola-case-serif);
+
+  line-height:
+    1.7;
+}
+
+
+/* =========================================================
+   LIVE BROWSER
+========================================================= */
+
+.sola-case-browser {
+  max-width:
+    1440px;
+
+  margin:
+    0
+    auto;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--sola-case-paper-light);
+
+  border:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .35
+    );
+
+  box-shadow:
+    0
+    42px
+    100px
+    rgba(
+      0,
+      0,
+      0,
+      .34
+    );
+}
+
+
+.sola-case-browserbar {
+  min-height:
+    42px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr
+    auto
+    1fr;
+
+  gap:
+    20px;
+
+  align-items:
+    center;
+
+  padding:
+    0
+    16px;
+
+  color:
+    var(--sola-case-ink);
+
+  background:
+    var(--sola-case-paper);
+
+  border-bottom:
+    1px
+    solid
+    var(--sola-case-line-strong);
+
+  font-size:
+    .49rem;
+
+  letter-spacing:
+    .07em;
+}
+
+
+.sola-case-browser-dots {
+  display:
+    flex;
+
+  gap:
+    6px;
+}
+
+
+.sola-case-browser-dots
+i {
+  width:
+    7px;
+
+  height:
+    7px;
+
+  display:
+    block;
+
+  border:
+    1px
+    solid
+    var(--sola-case-espresso);
+
+  border-radius:
+    50%;
+}
+
+
+.sola-case-browserbar
+> span {
+  justify-self:
+    center;
+}
+
+
+.sola-case-browserbar
+strong {
+  justify-self:
+    end;
+
+  color:
+    var(--sola-case-oxblood);
+
+  font-weight:
+    600;
+}
+
+
+/* =========================================================
+   CANONICAL LIVE PROJECT HOST
+========================================================= */
+
+.sola-case-live-project-host {
+  width:
+    100%;
+
+  min-width:
+    0;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--sola-case-paper-light);
+}
+
+
+.sola-case-live-project-host
+> .sola-site {
+  width:
+    100%;
+
+  max-width:
+    none;
+}
+
+
+/* =========================================================
+   OUTCOME
+========================================================= */
+
+.sola-case-outcome {
+  padding:
+    clamp(
+      90px,
+      9vw,
+      145px
+    )
+    7vw;
+
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-oxblood);
+}
+
+
+.sola-case-outcome
+.sola-case-label {
+  color:
+    var(--sola-case-paper);
+}
+
+
+.sola-case-outcome
+h3 {
+  max-width:
+    1050px;
+
+  margin-top:
+    20px;
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    clamp(
+      3.8rem,
+      6.8vw,
+      7.3rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.065em;
+
+  line-height:
+    .84;
+}
+
+
+/* =========================================================
+   OUTCOME GRID
+========================================================= */
+
+.sola-case-outcome-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  margin-top:
+    70px;
+
+  border-top:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+}
+
+
+.sola-case-outcome-grid
+article {
+  min-height:
+    200px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  padding:
+    26px
+    28px;
+}
+
+
+.sola-case-outcome-grid
+article
++ article {
+  border-left:
+    1px
+    solid
+    rgba(
+      244,
+      233,
+      211,
+      .34
+    );
+}
+
+
+.sola-case-outcome-grid
+strong {
+  color:
+    var(--sola-case-paper);
+
+  font-size:
+    .51rem;
+
+  letter-spacing:
+    .09em;
+}
+
+
+.sola-case-outcome-grid
+span {
+  max-width:
+    330px;
+
+  margin-top:
+    auto;
+
+  color:
+    rgba(
+      244,
+      233,
+      211,
+      .74
+    );
+
+  font-family:
+    var(--sola-case-serif);
+
+  font-size:
+    .92rem;
+
+  line-height:
+    1.6;
+}
+
+
+/* =========================================================
+   SHARED CASE FOOTER / SOLA MODE
+========================================================= */
+
+.case-dialog.sola-active
+.case-footer {
+  color:
+    var(--sola-case-espresso);
+
+  background:
+    var(--sola-case-paper-light);
+
+  border-top:
+    1px
+    solid
+    var(--sola-case-line-strong);
+}
+
+
+.case-dialog.sola-active
+.case-next {
+  color:
+    var(--sola-case-paper-light);
+
+  background:
+    var(--sola-case-forest);
+
+  border-color:
+    var(--sola-case-forest);
+}
+
+
+.case-dialog.sola-active
+.case-next:hover,
+.case-dialog.sola-active
+.case-next:focus-visible {
+  color:
+    var(--sola-case-forest);
+
+  background:
+    transparent;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (
+  max-width: 1050px
+) {
+
+  .sola-case-brief {
+    grid-template-columns:
+      130px
+      minmax(
+        0,
+        1fr
+      );
+
+    gap:
+      38px;
+  }
+
+
+  .sola-case-facts {
+    grid-column:
+      2;
+  }
+
+
+  .sola-case-reference-heading {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .sola-case-reference-heading
+  .sola-case-label {
+    grid-column:
+      auto;
+  }
+
+
+  .sola-case-decision {
+    grid-template-columns:
+      48px
+      minmax(
+        250px,
+        .8fr
+      )
+      1fr;
+
+    gap:
+      26px;
+  }
+
+
+  .sola-case-system-heading {
+    grid-template-columns:
+      130px
+      1fr;
+
+    gap:
+      38px;
+  }
+
+
+  .sola-case-palette {
+    grid-template-columns:
+      repeat(
+        3,
+        1fr
+      );
+  }
+
+
+  .sola-case-swatch:nth-child(4) {
+    border-left:
+      0;
+
+    border-top:
+      1px
+      solid
+      var(--sola-case-line-strong);
+  }
+
+
+  .sola-case-swatch:nth-child(5),
+  .sola-case-swatch:nth-child(6) {
+    border-top:
+      1px
+      solid
+      var(--sola-case-line-strong);
+  }
+
+
+  .sola-case-live-heading {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      30px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (
+  max-width: 760px
+) {
+
+  /* -------------------------------------------------------
+     HERO
+  ------------------------------------------------------- */
+
+  .case-dialog.sola-active
+  .case-hero-media {
+    min-height:
+      450px;
+
+    padding:
+      28px
+      16px;
+  }
+
+
+  .case-dialog.sola-active
+  .case-hero-media::before {
+    inset:
+      10px;
+  }
+
+
+  .sola-case-preview-paper {
+    padding:
+      18px
+      12px
+      34px;
+
+    box-shadow:
+      7px
+      9px
+      0
+      rgba(
+        113,
+        56,
+        45,
+        .12
+      );
+  }
+
+
+  .sola-case-preview-note {
+    right:
+      10px;
+
+    bottom:
+      5px;
+
+    font-size:
+      .72rem;
+  }
+
+
+  .sola-case-preview-ornament {
+    top:
+      -15px;
+
+    right:
+      18px;
+
+    font-size:
+      2rem;
+  }
+
+
+  /* -------------------------------------------------------
+     BRIEF
+  ------------------------------------------------------- */
+
+  .sola-case-brief {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      26px;
+
+    padding:
+      72px
+      18px;
+  }
+
+
+  .sola-case-brief-main
+  h3 {
+    font-size:
+      clamp(
+        3.3rem,
+        13vw,
+        5rem
+      );
+  }
+
+
+  .sola-case-brief-main
+  p {
+    margin-top:
+      28px;
+  }
+
+
+  .sola-case-facts {
+    grid-column:
+      1;
+
+    grid-template-columns:
+      1fr;
+
+    margin-top:
+      32px;
+  }
+
+
+  .sola-case-facts
+  div,
+
+  .sola-case-facts
+  div:nth-child(odd),
+
+  .sola-case-facts
+  div:nth-child(even) {
+    grid-template-columns:
+      95px
+      1fr;
+
+    padding:
+      16px
+      0;
+
+    border-left:
+      0;
+  }
+
+
+  /* -------------------------------------------------------
+     REFERENCES
+  ------------------------------------------------------- */
+
+  .sola-case-references {
+    padding:
+      72px
+      18px;
+  }
+
+
+  .sola-case-reference-heading
+  h3 {
+    font-size:
+      clamp(
+        3.4rem,
+        14vw,
+        5rem
+      );
+  }
+
+
+  .sola-case-reference-grid {
+    grid-template-columns:
+      1fr;
+
+    margin-top:
+      46px;
+  }
+
+
+  .sola-case-reference-grid
+  article {
+    min-height:
+      200px;
+  }
+
+
+  .sola-case-reference-grid
+  article
+  + article {
+    border-top:
+      1px
+      solid
+      rgba(
+        244,
+        233,
+        211,
+        .34
+      );
+
+    border-left:
+      0;
+  }
+
+
+  /* -------------------------------------------------------
+     DECISIONS
+  ------------------------------------------------------- */
+
+  .sola-case-decisions {
+    padding:
+      72px
+      18px;
+  }
+
+
+  .sola-case-decision {
+    grid-template-columns:
+      34px
+      1fr;
+
+    gap:
+      12px
+      16px;
+
+    padding:
+      28px
+      0;
+  }
+
+
+  .sola-case-decision
+  h4 {
+    font-size:
+      clamp(
+        1.7rem,
+        7vw,
+        2.35rem
+      );
+  }
+
+
+  .sola-case-decision
+  p {
+    grid-column:
+      2;
+  }
+
+
+  /* -------------------------------------------------------
+     BRAND SYSTEM
+  ------------------------------------------------------- */
+
+  .sola-case-system {
+    padding:
+      72px
+      18px;
+  }
+
+
+  .sola-case-system-heading {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      20px;
+  }
+
+
+  .sola-case-system-heading
+  h3 {
+    font-size:
+      clamp(
+        3.4rem,
+        14vw,
+        5rem
+      );
+  }
+
+
+  .sola-case-palette {
+    grid-template-columns:
+      repeat(
+        2,
+        1fr
+      );
+
+    margin-top:
+      45px;
+  }
+
+
+  .sola-case-swatch {
+    min-height:
+      170px;
+  }
+
+
+  .sola-case-swatch:nth-child(odd) {
+    border-left:
+      0;
+  }
+
+
+  .sola-case-swatch:nth-child(n + 3) {
+    border-top:
+      1px
+      solid
+      var(--sola-case-line-strong);
+  }
+
+
+  .sola-case-type-sample {
+    margin-top:
+      60px;
+
+    padding:
+      40px
+      24px;
+  }
+
+
+  .sola-case-type-sample
+  strong {
+    font-size:
+      clamp(
+        3rem,
+        13vw,
+        4.6rem
+      );
+  }
+
+
+  /* -------------------------------------------------------
+     LIVE WEBSITE
+  ------------------------------------------------------- */
+
+  .sola-case-live {
+    padding:
+      72px
+      8px
+      90px;
+  }
+
+
+  .sola-case-live-heading {
+    padding:
+      0
+      10px;
+
+    margin-bottom:
+      38px;
+  }
+
+
+  .sola-case-live-heading
+  h3 {
+    font-size:
+      clamp(
+        3.4rem,
+        14vw,
+        5rem
+      );
+  }
+
+
+  .sola-case-browserbar {
+    grid-template-columns:
+      1fr
+      auto;
+
+    padding:
+      0
+      10px;
+  }
+
+
+  .sola-case-browserbar
+  strong {
+    display:
+      none;
+  }
+
+
+  .sola-case-browserbar
+  > span {
+    justify-self:
+      end;
+  }
+
+
+  /* -------------------------------------------------------
+     OUTCOME
+  ------------------------------------------------------- */
+
+  .sola-case-outcome {
+    padding:
+      72px
+      18px;
+  }
+
+
+  .sola-case-outcome
+  h3 {
+    font-size:
+      clamp(
+        3.4rem,
+        14vw,
+        5rem
+      );
+  }
+
+
+  .sola-case-outcome-grid {
+    grid-template-columns:
+      1fr;
+
+    margin-top:
+      46px;
+  }
+
+
+  .sola-case-outcome-grid
+  article {
+    min-height:
+      170px;
+  }
+
+
+  .sola-case-outcome-grid
+  article
+  + article {
+    border-top:
+      1px
+      solid
+      rgba(
+        244,
+        233,
+        211,
+        .34
+      );
+
+    border-left:
+      0;
+  }
+
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (
+  max-width: 480px
+) {
+
+  .case-dialog.sola-active
+  .case-hero-media {
+    min-height:
+      360px;
+  }
+
+
+  .sola-case-preview-top {
+    min-height:
+      31px;
+
+    font-size:
+      .4rem;
+  }
+
+
+  .sola-case-preview-paper::before {
+    width:
+      70px;
+
+    height:
+      20px;
+  }
+
+
+  .sola-case-preview-note {
+    display:
+      none;
+  }
+
+
+  .sola-case-palette {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+
+  .sola-case-swatch {
+    min-height:
+      145px;
+
+    padding:
+      13px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .sola-case-study *,
+  .sola-case-study *::before,
+  .sola-case-study *::after,
+  .sola-case-preview *,
+  .sola-case-preview *::before,
+  .sola-case-preview *::after {
+    animation:
+      none !important;
+
+    transition:
+      none !important;
+  }
+
+}
