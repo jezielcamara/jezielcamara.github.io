@@ -9,6 +9,7 @@
    - Selected Work project preview surfaces
    - canonical iframe presentation
    - project viewer launch affordance
+   - presentation stability for canonical project surfaces
 
    NOT RESPONSIBLE FOR:
    - project typography
@@ -34,6 +35,20 @@
 
 /* =========================================================
    ALL CANONICAL PROJECT PREVIEWS
+
+   IMPORTANT:
+
+   Do not set min-height here.
+
+   Hero windows already own their geometry through their
+   aspect ratio.
+
+   Selected Work already owns its geometry through
+   .project-image.
+
+   Setting min-height: 0 globally caused the Selected Work
+   frame to collapse because its iframe is positioned
+   absolutely.
 ========================================================= */
 
 .has-canonical-project-preview {
@@ -41,9 +56,6 @@
     relative;
 
   min-width:
-    0;
-
-  min-height:
     0;
 
   overflow:
@@ -61,9 +73,6 @@
 
 /* =========================================================
    REMOVE LEGACY PLACEHOLDER CONTENT
-
-   Canonical project previews replace the old placeholder
-   presentation entirely.
 ========================================================= */
 
 .has-canonical-project-preview
@@ -80,10 +89,57 @@
 
 
 /* =========================================================
+   REMOVE LEGACY PLACEHOLDER CROSS
+
+   style.css creates the original Hero diagonal cross with
+   ::before and ::after on .window-placeholder.
+
+   A canonical project completely replaces that placeholder.
+========================================================= */
+
+.window-placeholder.has-canonical-project-preview::before,
+
+.window-placeholder.has-canonical-project-preview::after,
+
+.project-image.has-canonical-project-preview::before,
+
+.project-image.has-canonical-project-preview::after {
+  content:
+    none !important;
+
+  display:
+    none !important;
+}
+
+
+/* =========================================================
    HERO PROJECT SURFACES
+
+   The original placeholder is a centered flex layout.
+
+   That is correct for placeholder text but incorrect for a
+   complete website because it vertically centers the entire
+   tall website inside the small Hero viewport.
+
+   Canonical websites always begin at the top-left.
 ========================================================= */
 
 .window-placeholder.has-canonical-project-preview {
+  display:
+    block !important;
+
+  align-items:
+    initial !important;
+
+  justify-content:
+    initial !important;
+
+  flex-direction:
+    initial !important;
+
+  gap:
+    0 !important;
+
   padding:
     0 !important;
 
@@ -99,20 +155,28 @@
 
 /* =========================================================
    SELECTED WORK PROJECT SURFACES
+
+   The iframe inside this surface is positioned absolutely.
+
+   The parent therefore needs its own real presentation
+   height.
 ========================================================= */
 
 .project-image.has-canonical-project-preview {
+  position:
+    relative;
+
   display:
     block;
 
-  align-items:
-    stretch;
-
-  justify-content:
-    stretch;
+  min-height:
+    58vh;
 
   padding:
     0;
+
+  overflow:
+    hidden;
 
   background:
     var(
@@ -133,11 +197,21 @@
 
 .has-canonical-project-preview
 > .featured-project-site {
+  position:
+    relative;
+
   display:
     block;
 
   max-width:
     none;
+
+  margin:
+    0;
+
+  transform-origin:
+    top
+    left;
 }
 
 
@@ -159,11 +233,61 @@
   max-width:
     none;
 
+  margin:
+    0;
+
+  padding:
+    0;
+
   border:
     0;
 
   background:
     transparent;
+
+  transform-origin:
+    top
+    left;
+}
+
+
+/* =========================================================
+   HERO MOBILE FRAME
+========================================================= */
+
+.window-placeholder.has-canonical-mobile-preview
+> .portfolio-project-frame,
+
+.window-placeholder.has-canonical-mobile-preview
+> .featured-project-frame {
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    0;
+}
+
+
+/* =========================================================
+   SELECTED WORK FRAME
+========================================================= */
+
+.project-image.has-canonical-work-preview
+> .portfolio-project-frame,
+
+.project-image.has-canonical-work-preview
+> .portfolio-work-project-frame {
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    0;
 }
 
 
@@ -190,11 +314,6 @@
 
 /* =========================================================
    VIEW-ONLY PROJECT STATE
-
-   Interactive controls inside decorative direct previews
-   are already disabled by PortfolioProjects.
-
-   This provides the visual cursor state as well.
 ========================================================= */
 
 .portfolio-project-view-only
@@ -243,6 +362,48 @@ textarea {
 .has-canonical-work-preview {
   isolation:
     isolate;
+}
+
+
+/* =========================================================
+   THINKING ROW VISIBILITY SAFETY
+
+   The existing stagger system relies on IntersectionObserver.
+
+   Full-page captures and very fast scroll jumps can skip an
+   individual thinking row and leave it at opacity: 0.
+
+   Thinking copy is core content, so it must never remain
+   permanently hidden.
+========================================================= */
+
+.thinking-lines
+article.motion-item {
+  opacity:
+    1;
+
+  transform:
+    none;
+}
+
+
+/* =========================================================
+   MOBILE PROJECT SURFACES
+========================================================= */
+
+@media (
+  max-width: 700px
+) {
+
+  .project-image.has-canonical-project-preview {
+    min-height:
+      clamp(
+        340px,
+        58vh,
+        520px
+      );
+  }
+
 }
 
 
