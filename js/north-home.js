@@ -1,9 +1,26 @@
 /* =========================================================
    NORTH HOME
-   Premium residential-services portfolio concept
+
+   Self-initiated residential-services concept.
+
+   RESPONSIBILITY:
+   - build the North Home case study
+   - provide the canonical North Home website DOM
+   - run interactions inside the case-study version
+
+   NOT RESPONSIBLE FOR:
+   - Hero previews
+   - Selected Work previews
+   - Responsive Lab previews
+   - website viewer infrastructure
+
+   Those surfaces use PortfolioProjects.
 ========================================================= */
 
 (function () {
+
+  "use strict";
+
 
   const prefersReducedMotion =
     window.matchMedia(
@@ -12,63 +29,10 @@
 
 
   /* =======================================================
-     THUMBNAIL
-  ======================================================= */
+     CASE HERO SHELL
 
-  function northThumbMarkup() {
-
-    return `
-      <div class="nh-thumb">
-
-        <div class="nh-thumb-nav">
-
-          <strong class="nh-thumb-logo">
-            North Home
-          </strong>
-
-          <span>
-            SERVICES / ABOUT / CONTACT
-          </span>
-
-        </div>
-
-
-        <div class="nh-thumb-hero">
-
-          <div class="nh-thumb-stat">
-            RESIDENTIAL / METRO MANILA
-          </div>
-
-
-          <div class="nh-thumb-copy">
-
-            <small>
-              RESIDENTIAL SERVICES / METRO MANILA
-            </small>
-
-            <strong>
-              CARE FOR<br>
-              THE HOME<br>
-              YOU LIVE IN.
-            </strong>
-
-            <span>
-              Repairs, maintenance and
-              installation for modern homes.
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-    `;
-
-  }
-
-
-  /* =======================================================
-     CASE HERO PREVIEW
+     project-north.js mounts the canonical North website
+     inside this browser shell after registration.
   ======================================================= */
 
   function northCasePreviewMarkup() {
@@ -89,8 +53,6 @@
             </span>
 
           </div>
-
-          ${northThumbMarkup()}
 
         </div>
 
@@ -148,6 +110,7 @@
           <div class="nh-case-facts">
 
             <div>
+
               <span>
                 BUSINESS
               </span>
@@ -155,10 +118,12 @@
               <strong>
                 Residential home services
               </strong>
+
             </div>
 
 
             <div>
+
               <span>
                 AUDIENCE
               </span>
@@ -166,10 +131,12 @@
               <strong>
                 Homeowners + property managers
               </strong>
+
             </div>
 
 
             <div>
+
               <span>
                 PRIMARY GOAL
               </span>
@@ -177,10 +144,12 @@
               <strong>
                 Generate quote inquiries
               </strong>
+
             </div>
 
 
             <div>
+
               <span>
                 POSITIONING
               </span>
@@ -188,10 +157,12 @@
               <strong>
                 Premium but approachable
               </strong>
+
             </div>
 
 
             <div>
+
               <span>
                 SCOPE
               </span>
@@ -199,10 +170,12 @@
               <strong>
                 Home / Services / About / Contact
               </strong>
+
             </div>
 
 
             <div>
+
               <span>
                 ROLE
               </span>
@@ -210,6 +183,7 @@
               <strong>
                 Strategy / Design / Front-end
               </strong>
+
             </div>
 
           </div>
@@ -312,7 +286,6 @@
 
             </article>
 
-
           </div>
 
         </section>
@@ -325,7 +298,6 @@
         <section class="nh-live">
 
           <div class="nh-live-heading">
-
 
             <div>
 
@@ -347,7 +319,6 @@
               services and test the inquiry interaction
               without leaving the portfolio.
             </p>
-
 
           </div>
 
@@ -383,6 +354,9 @@
 
             <!-- ===========================================
                  NORTH HOME WEBSITE
+
+                 THIS .nh-site IS THE SOURCE CURRENTLY
+                 REGISTERED BY project-north.js.
             ============================================ -->
 
             <div class="nh-site">
@@ -495,21 +469,29 @@
                     <div class="nh-hero-actions">
 
                       <a href="#nh-quote">
+
                         Request a quote
-                        <span>↗</span>
+
+                        <span>
+                          ↗
+                        </span>
+
                       </a>
 
 
                       <a href="#nh-services">
+
                         Explore services
-                        <span>↓</span>
+
+                        <span>
+                          ↓
+                        </span>
+
                       </a>
 
                     </div>
 
-
                   </div>
-
 
                 </div>
 
@@ -575,7 +557,6 @@
                   </span>
 
                 </div>
-
 
               </div>
 
@@ -690,7 +671,6 @@
 
                     </button>
 
-
                   </div>
 
 
@@ -742,12 +722,9 @@
 
                     </div>
 
-
                   </div>
 
-
                 </div>
-
 
               </section>
 
@@ -794,9 +771,7 @@
                     aria-label="Modern residential interior"
                   ></div>
 
-
                 </div>
-
 
               </section>
 
@@ -907,9 +882,7 @@
 
                   </article>
 
-
                 </div>
-
 
               </section>
 
@@ -1016,12 +989,9 @@
 
                     </article>
 
-
                   </div>
 
-
                 </div>
-
 
               </section>
 
@@ -1106,12 +1076,9 @@
 
                     </div>
 
-
                   </div>
 
-
                 </div>
-
 
               </section>
 
@@ -1167,7 +1134,6 @@
                   </span>
 
                 </div>
-
 
               </section>
 
@@ -1265,7 +1231,6 @@
 
                     </label>
 
-
                   </div>
 
 
@@ -1288,9 +1253,7 @@
                     aria-live="polite"
                   ></p>
 
-
                 </form>
-
 
               </section>
 
@@ -1313,12 +1276,9 @@
 
               </footer>
 
-
             </div>
 
-
           </div>
-
 
         </section>
 
@@ -1389,12 +1349,9 @@
 
             </div>
 
-
           </div>
 
-
         </section>
-
 
       </div>
     `;
@@ -1407,19 +1364,6 @@
   ======================================================= */
 
   function initNorthHome() {
-
-
-    const northProjectImage =
-      document.querySelector(
-        '.project-slide[data-project="north"] .project-image'
-      );
-
-
-    const heroProjectWindow =
-      document.querySelector(
-        ".window-main .window-placeholder"
-      );
-
 
     const caseDialog =
       document.querySelector(
@@ -1440,40 +1384,23 @@
 
 
     if (
-      !northProjectImage ||
-      !heroProjectWindow ||
       !caseDialog ||
       !caseHeroMedia ||
       !caseFooter
     ) {
+
       return;
+
     }
 
 
     /* =====================================================
-       PORTFOLIO PREVIEWS
-    ===================================================== */
-
-    northProjectImage.classList.add(
-      "has-north-preview"
-    );
-
-
-    northProjectImage.innerHTML =
-      northThumbMarkup();
-
-
-    heroProjectWindow.classList.add(
-      "has-north-preview"
-    );
-
-
-    heroProjectWindow.innerHTML =
-      northThumbMarkup();
-
-
-    /* =====================================================
        CASE HERO
+
+       Only the generic North case-study browser shell is
+       created here.
+
+       project-north.js mounts the canonical project inside.
     ===================================================== */
 
     caseHeroMedia
@@ -1482,7 +1409,9 @@
       )
       .forEach(
         (element) => {
+
           element.remove();
+
         }
       );
 
@@ -1503,7 +1432,9 @@
       )
       .forEach(
         (element) => {
+
           element.remove();
+
         }
       );
 
@@ -1512,6 +1443,37 @@
       "beforebegin",
       northCaseStudyMarkup()
     );
+
+
+    /*
+     * Scope interactive project lookups to the actual
+     * case-study source.
+     *
+     * This prevents future canonical preview instances
+     * elsewhere on the portfolio from being treated as
+     * the interactive case-study website.
+     */
+
+    const caseStudy =
+      caseDialog.querySelector(
+        ".north-case-study"
+      );
+
+
+    const sourceWebsite =
+      caseStudy?.querySelector(
+        ".nh-site"
+      );
+
+
+    if (
+      !caseStudy ||
+      !sourceWebsite
+    ) {
+
+      return;
+
+    }
 
 
     /* =====================================================
@@ -1537,7 +1499,6 @@
 
 
     function applyNorthCaseMode() {
-
 
       const caseTitle =
         document.querySelector(
@@ -1581,31 +1542,41 @@
 
 
       if (!isNorth) {
+
         return;
+
       }
 
 
       if (caseType) {
+
         caseType.textContent =
           "SELF-INITIATED / RESIDENTIAL SERVICES";
+
       }
 
 
       if (caseSummary) {
+
         caseSummary.textContent =
           "A premium residential-services concept designed to make home maintenance feel clear, trustworthy and appropriate for a modern home.";
+
       }
 
 
       if (caseGoal) {
+
         caseGoal.textContent =
           "Explain the services quickly, create residential trust, and make requesting help feel straightforward.";
+
       }
 
 
       if (casePages) {
+
         casePages.textContent =
           "Home / Services / About / Contact";
+
       }
 
     }
@@ -1671,7 +1642,6 @@
 
     const serviceData = {
 
-
       repairs: {
 
         index:
@@ -1731,61 +1701,64 @@
 
       }
 
-
     };
 
 
     const serviceTabs =
-      document.querySelectorAll(
+      sourceWebsite.querySelectorAll(
         ".nh-service-tab"
       );
 
 
     const servicePhoto =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-service-photo"
       );
 
 
     const serviceIndex =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-service-index"
       );
 
 
     const serviceTitle =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-service-title"
       );
 
 
     const serviceDescription =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-service-description"
       );
 
 
     const serviceItems =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-service-items"
       );
 
 
-    function setNorthService(key) {
-
+    function setNorthService(
+      key
+    ) {
 
       const data =
-        serviceData[key];
+        serviceData[
+          key
+        ];
 
 
       if (!data) {
+
         return;
+
       }
 
 
       serviceTabs.forEach(
         (tab) => {
-
 
           const active =
             tab.dataset.nhService ===
@@ -1800,47 +1773,54 @@
 
           tab.setAttribute(
             "aria-selected",
-            String(active)
+            String(
+              active
+            )
           );
-
 
         }
       );
 
 
       if (servicePhoto) {
+
         servicePhoto.dataset.service =
           key;
+
       }
 
 
       if (serviceIndex) {
+
         serviceIndex.textContent =
           data.index;
+
       }
 
 
       if (serviceTitle) {
+
         serviceTitle.textContent =
           data.title;
+
       }
 
 
       if (serviceDescription) {
+
         serviceDescription.textContent =
           data.description;
+
       }
 
 
       if (serviceItems) {
-
 
         serviceItems.replaceChildren();
 
 
         data.items.forEach(
           (item) => {
-
 
             const li =
               document.createElement(
@@ -1856,10 +1836,8 @@
               li
             );
 
-
           }
         );
-
 
       }
 
@@ -1869,17 +1847,20 @@
         servicePhoto
       ) {
 
-
         servicePhoto.animate(
           [
             {
-              opacity: .4,
+              opacity:
+                .4,
+
               transform:
                 "scale(1.015)"
             },
 
             {
-              opacity: 1,
+              opacity:
+                1,
+
               transform:
                 "scale(1)"
             }
@@ -1893,7 +1874,6 @@
           }
         );
 
-
       }
 
 
@@ -1902,17 +1882,20 @@
         serviceTitle
       ) {
 
-
         serviceTitle.animate(
           [
             {
-              opacity: 0,
+              opacity:
+                0,
+
               transform:
                 "translateY(8px)"
             },
 
             {
-              opacity: 1,
+              opacity:
+                1,
+
               transform:
                 "translateY(0)"
             }
@@ -1926,9 +1909,7 @@
           }
         );
 
-
       }
-
 
     }
 
@@ -1936,20 +1917,16 @@
     serviceTabs.forEach(
       (tab) => {
 
-
         tab.addEventListener(
           "click",
           () => {
-
 
             setNorthService(
               tab.dataset.nhService
             );
 
-
           }
         );
-
 
       }
     );
@@ -1959,58 +1936,63 @@
        INTERNAL NAVIGATION
     ===================================================== */
 
-    document.querySelectorAll(
-      '.nh-site a[href^="#nh-"]'
-    ).forEach(
-      (link) => {
+    sourceWebsite
+      .querySelectorAll(
+        'a[href^="#nh-"]'
+      )
+      .forEach(
+        (link) => {
+
+          link.addEventListener(
+            "click",
+            (event) => {
+
+              const selector =
+                link.getAttribute(
+                  "href"
+                );
 
 
-        link.addEventListener(
-          "click",
-          (event) => {
+              if (!selector) {
 
-
-            const selector =
-              link.getAttribute(
-                "href"
-              );
-
-
-            const target =
-              document.querySelector(
-                selector
-              );
-
-
-            if (!target) {
-              return;
-            }
-
-
-            event.preventDefault();
-
-
-            target.scrollIntoView(
-              {
-
-                behavior:
-                  prefersReducedMotion
-                    ? "auto"
-                    : "smooth",
-
-                block:
-                  "start"
+                return;
 
               }
-            );
 
 
-          }
-        );
+              const target =
+                sourceWebsite.querySelector(
+                  selector
+                );
 
 
-      }
-    );
+              if (!target) {
+
+                return;
+
+              }
+
+
+              event.preventDefault();
+
+
+              target.scrollIntoView(
+                {
+                  behavior:
+                    prefersReducedMotion
+                      ? "auto"
+                      : "smooth",
+
+                  block:
+                    "start"
+                }
+              );
+
+            }
+          );
+
+        }
+      );
 
 
     /* =====================================================
@@ -2018,19 +2000,19 @@
     ===================================================== */
 
     const form =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-form"
       );
 
 
     const formButton =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-form-button"
       );
 
 
     const formStatus =
-      document.querySelector(
+      sourceWebsite.querySelector(
         "#nh-form-status"
       );
 
@@ -2039,7 +2021,6 @@
       "submit",
       (event) => {
 
-
         event.preventDefault();
 
 
@@ -2047,11 +2028,9 @@
           !form.checkValidity()
         ) {
 
-
           form.reportValidity();
 
           return;
-
 
         }
 
@@ -2072,28 +2051,25 @@
           String(
             data.get(
               "area"
-            ) || ""
+            ) ||
+            ""
           ).trim();
 
 
         if (formButton) {
 
-
           formButton.textContent =
             "Request reviewed ✓";
-
 
         }
 
 
         if (formStatus) {
 
-
           formStatus.textContent =
             area
               ? `Demo complete — ${service} request in ${area}. Nothing was sent.`
               : `Demo complete — ${service} request. Nothing was sent.`;
-
 
         }
 
@@ -2101,7 +2077,6 @@
         if (
           !prefersReducedMotion
         ) {
-
 
           form.animate(
             [
@@ -2129,28 +2104,22 @@
             }
           );
 
-
         }
 
 
         window.setTimeout(
           () => {
 
-
             if (formButton) {
-
 
               formButton.textContent =
                 "Review request";
 
-
             }
-
 
           },
           2500
         );
-
 
       }
     );
@@ -2161,7 +2130,7 @@
     ===================================================== */
 
     const revealItems =
-      document.querySelectorAll(
+      caseStudy.querySelectorAll(
         "[data-nh-reveal]"
       );
 
@@ -2171,7 +2140,6 @@
       !prefersReducedMotion
     ) {
 
-
       const observer =
         new IntersectionObserver(
           (
@@ -2179,28 +2147,32 @@
             instance
           ) => {
 
-
             entries.forEach(
               (entry) => {
-
 
                 if (
                   !entry.isIntersecting
                 ) {
+
                   return;
+
                 }
 
 
                 entry.target.animate(
                   [
                     {
-                      opacity: 0,
+                      opacity:
+                        0,
+
                       transform:
                         "translateY(22px)"
                     },
 
                     {
-                      opacity: 1,
+                      opacity:
+                        1,
+
                       transform:
                         "translateY(0)"
                     }
@@ -2222,14 +2194,11 @@
                   entry.target
                 );
 
-
               }
             );
 
-
           },
           {
-
             threshold:
               .07,
 
@@ -2238,7 +2207,6 @@
 
             rootMargin:
               "0px 0px -5% 0px"
-
           }
         );
 
@@ -2246,25 +2214,25 @@
       revealItems.forEach(
         (item) => {
 
-
           observer.observe(
             item
           );
 
-
         }
       );
-
 
     }
 
 
     /* =====================================================
        HERO POINTER RESPONSE
+
+       Limited to the interactive case-study source.
+       Decorative canonical previews are untouched.
     ===================================================== */
 
     const heroMedia =
-      document.querySelector(
+      sourceWebsite.querySelector(
         ".nh-hero-media"
       );
 
@@ -2277,11 +2245,9 @@
       ).matches
     ) {
 
-
       heroMedia.addEventListener(
         "pointermove",
         (event) => {
-
 
           const rect =
             heroMedia.getBoundingClientRect();
@@ -2312,7 +2278,6 @@
               rotateY(${x * 1.3}deg)
             `;
 
-
         }
       );
 
@@ -2321,14 +2286,11 @@
         "pointerleave",
         () => {
 
-
           heroMedia.style.transform =
             "perspective(1100px) rotateX(0deg) rotateY(0deg)";
 
-
         }
       );
-
 
     }
 
@@ -2339,6 +2301,19 @@
 
     setNorthService(
       "repairs"
+    );
+
+
+    document.dispatchEvent(
+      new CustomEvent(
+        "north:case-source-ready",
+        {
+          detail: {
+            source:
+              sourceWebsite
+          }
+        }
+      )
     );
 
   }
@@ -2353,531 +2328,18 @@
     "loading"
   ) {
 
-
     document.addEventListener(
       "DOMContentLoaded",
       initNorthHome,
       {
-        once: true
+        once:
+          true
       }
     );
 
-
   } else {
-
 
     initNorthHome();
-
-
-  }
-
-
-})();
-
-
-/* =========================================================
-   NORTH HOME / WEBSITE-ONLY VIEWER
-========================================================= */
-
-(function () {
-
-  function initNorthWebsiteViewer() {
-
-    const northSlide =
-      document.querySelector(
-        '.project-slide[data-project="north"]'
-      );
-
-
-    const northProjectImage =
-      northSlide?.querySelector(
-        ".project-image"
-      );
-
-
-    const heroPreview =
-      document.querySelector(
-        ".window-main .window-placeholder.has-north-preview"
-      );
-
-
-    const sourceWebsite =
-      document.querySelector(
-        ".north-case-study .nh-site"
-      );
-
-
-    if (
-      !northSlide ||
-      !northProjectImage ||
-      !sourceWebsite
-    ) {
-      return;
-    }
-
-
-    /* -----------------------------------------------------
-       CREATE VIEWER
-    ----------------------------------------------------- */
-
-    let viewer =
-      document.querySelector(
-        "#nh-site-viewer"
-      );
-
-
-    if (!viewer) {
-
-      viewer =
-        document.createElement(
-          "dialog"
-        );
-
-
-      viewer.className =
-        "nh-site-viewer";
-
-
-      viewer.id =
-        "nh-site-viewer";
-
-
-      viewer.setAttribute(
-        "aria-label",
-        "North Home website preview"
-      );
-
-
-      viewer.innerHTML = `
-        <div class="nh-site-viewer-shell">
-
-          <header class="nh-site-viewer-topbar">
-
-            <div>
-              <span>
-                NORTH HOME
-              </span>
-
-              <small>
-                WEBSITE PREVIEW / CONCEPT PROJECT
-              </small>
-            </div>
-
-
-            <button
-              class="nh-site-viewer-close"
-              type="button"
-              aria-label="Close North Home website preview"
-            >
-              Close
-              <span aria-hidden="true">
-                ×
-              </span>
-            </button>
-
-          </header>
-
-
-          <div class="nh-site-viewer-scroll">
-
-            <div class="nh-site-viewer-browser">
-
-              <div class="nh-site-viewer-browserbar">
-
-                <div aria-hidden="true">
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                </div>
-
-                <span>
-                  northhome.example
-                </span>
-
-                <strong>
-                  VIEW-ONLY CONCEPT
-                </strong>
-
-              </div>
-
-
-              <div
-                class="nh-site-viewer-canvas"
-              ></div>
-
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-
-      document.body.append(
-        viewer
-      );
-
-    }
-
-
-    const canvas =
-      viewer.querySelector(
-        ".nh-site-viewer-canvas"
-      );
-
-
-    const scrollArea =
-      viewer.querySelector(
-        ".nh-site-viewer-scroll"
-      );
-
-
-    const closeButton =
-      viewer.querySelector(
-        ".nh-site-viewer-close"
-      );
-
-
-    /* -----------------------------------------------------
-       COPY THE EXISTING NORTH WEBSITE
-    ----------------------------------------------------- */
-
-    canvas.replaceChildren();
-
-
-    const websiteClone =
-      sourceWebsite.cloneNode(
-        true
-      );
-
-
-    websiteClone.classList.add(
-      "nh-site-view-only"
-    );
-
-
-    /*
-     * Avoid duplicate IDs because the original
-     * North website still exists inside the case study.
-     */
-
-    websiteClone
-      .querySelectorAll(
-        "[id]"
-      )
-      .forEach(
-        (element) => {
-          element.removeAttribute(
-            "id"
-          );
-        }
-      );
-
-
-    /*
-     * Presentation only.
-     *
-     * Everything still LOOKS like a finished website,
-     * but nothing inside the website preview performs
-     * an action.
-     */
-
-    websiteClone
-      .querySelectorAll(
-        `
-          a,
-          button,
-          input,
-          select,
-          textarea
-        `
-      )
-      .forEach(
-        (element) => {
-
-          element.setAttribute(
-            "tabindex",
-            "-1"
-          );
-
-
-          element.setAttribute(
-            "aria-disabled",
-            "true"
-          );
-
-        }
-      );
-
-
-    canvas.append(
-      websiteClone
-    );
-
-
-    /* -----------------------------------------------------
-       OPEN / CLOSE
-    ----------------------------------------------------- */
-
-    function openViewer() {
-
-      if (
-        viewer.open
-      ) {
-        return;
-      }
-
-
-      viewer.showModal();
-
-
-      document.body.classList.add(
-        "nh-viewer-open"
-      );
-
-
-      if (scrollArea) {
-        scrollArea.scrollTop =
-          0;
-      }
-
-    }
-
-
-    function closeViewer() {
-
-      if (
-        !viewer.open
-      ) {
-        return;
-      }
-
-
-      viewer.close();
-
-
-      document.body.classList.remove(
-        "nh-viewer-open"
-      );
-
-    }
-
-
-    closeButton?.addEventListener(
-      "click",
-      closeViewer
-    );
-
-
-    viewer.addEventListener(
-      "cancel",
-      (event) => {
-
-        event.preventDefault();
-
-        closeViewer();
-
-      }
-    );
-
-
-    viewer.addEventListener(
-      "click",
-      (event) => {
-
-        if (
-          event.target ===
-          viewer
-        ) {
-
-          closeViewer();
-
-        }
-
-      }
-    );
-
-
-    /* -----------------------------------------------------
-       MAKE NORTH PREVIEWS CLICKABLE
-    ----------------------------------------------------- */
-
-    function makeLaunchable(
-      element,
-      label
-    ) {
-
-      if (!element) {
-        return;
-      }
-
-
-      element.classList.add(
-        "nh-view-launch"
-      );
-
-
-      element.setAttribute(
-        "role",
-        "button"
-      );
-
-
-      element.setAttribute(
-        "tabindex",
-        "0"
-      );
-
-
-      element.setAttribute(
-        "aria-label",
-        label
-      );
-
-
-      element.addEventListener(
-        "click",
-        (event) => {
-
-          /*
-           * Keep the normal case-study button
-           * separate from this website viewer.
-           */
-
-          if (
-            event.target.closest(
-              ".case-open"
-            )
-          ) {
-            return;
-          }
-
-
-          openViewer();
-
-        }
-      );
-
-
-      element.addEventListener(
-        "keydown",
-        (event) => {
-
-          if (
-            event.key !== "Enter" &&
-            event.key !== " "
-          ) {
-            return;
-          }
-
-
-          event.preventDefault();
-
-          openViewer();
-
-        }
-      );
-
-    }
-
-
-    makeLaunchable(
-      northProjectImage,
-      "View North Home website"
-    );
-
-
-    makeLaunchable(
-      heroPreview,
-      "View North Home website"
-    );
-
-
-    /* -----------------------------------------------------
-       ADD A CLEAR VIEW CUE TO THE WORK IMAGE
-    ----------------------------------------------------- */
-
-    if (
-      !northProjectImage.querySelector(
-        ".nh-view-badge"
-      )
-    ) {
-
-      const badge =
-        document.createElement(
-          "span"
-        );
-
-
-      badge.className =
-        "nh-view-badge";
-
-
-      badge.innerHTML = `
-        VIEW WEBSITE
-        <b aria-hidden="true">
-          ↗
-        </b>
-      `;
-
-
-      northProjectImage.append(
-        badge
-      );
-
-    }
-
-
-    /* -----------------------------------------------------
-       ADD SMALL CUE TO HERO PREVIEW
-    ----------------------------------------------------- */
-
-    if (
-      heroPreview &&
-      !heroPreview.querySelector(
-        ".nh-hero-view-badge"
-      )
-    ) {
-
-      const heroBadge =
-        document.createElement(
-          "span"
-        );
-
-
-      heroBadge.className =
-        "nh-hero-view-badge";
-
-
-      heroBadge.textContent =
-        "VIEW ↗";
-
-
-      heroPreview.append(
-        heroBadge
-      );
-
-    }
-
-  }
-
-
-  if (
-    document.readyState ===
-    "loading"
-  ) {
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      initNorthWebsiteViewer,
-      {
-        once: true
-      }
-    );
-
-  } else {
-
-    initNorthWebsiteViewer();
 
   }
 
