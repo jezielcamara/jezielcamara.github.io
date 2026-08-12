@@ -31,12 +31,56 @@
   outline-offset: 3px;
 }
 
-/* Keep the hero CTA above draggable windows */
+/* Keep the hero CTA above draggable windows and readable on any background */
 
 .hero-contact {
   position: absolute;
   z-index: 1000;
   isolation: isolate;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  min-width: 210px;
+  padding: 14px 16px;
+
+  color: var(--ink);
+  background: rgba(243, 240, 231, .97);
+
+  border: 1px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--blue);
+
+  text-decoration: none;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.hero-contact span {
+  color: var(--blue);
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+.hero-contact:hover,
+.hero-contact:focus-visible {
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 5px 5px 0 var(--lime);
+  transform: translate(-2px, -2px);
+}
+
+.hero-contact:hover span,
+.hero-contact:focus-visible span {
+  color: var(--lime);
+  transform: translate(3px, -3px);
 }
 
 :root {
@@ -386,7 +430,6 @@ body.rail-lime .rail-nav a span {
   letter-spacing: .02em;
   text-align: center;
 }
-
 
 @container (max-width: 700px) {
   .demo-cta {
