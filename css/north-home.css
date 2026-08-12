@@ -4398,3 +4398,667 @@ span {
   }
 
 }
+
+/* =========================================================
+   HERO / FEATURED PROJECT MOBILE WINDOW
+   The smaller floating window represents the mobile
+   version of the same project shown in .window-main.
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   SMALL FLOATING WINDOW PROPORTIONS
+--------------------------------------------------------- */
+
+.window-small {
+  width:
+    min(
+      15.5vw,
+      220px
+    );
+
+  top:
+    14%;
+
+  left:
+    39%;
+}
+
+
+/* ---------------------------------------------------------
+   REMOVE OLD PLACEHOLDER
+--------------------------------------------------------- */
+
+.window-small
+.window-placeholder.has-north-mobile-preview {
+  width:
+    100%;
+
+  min-height:
+    0 !important;
+
+  aspect-ratio:
+    9
+    /
+    16;
+
+  display:
+    block !important;
+
+  padding:
+    0 !important;
+
+  overflow:
+    hidden;
+
+  color:
+    var(--nh-ink);
+
+  background:
+    var(--nh-white) !important;
+}
+
+
+.window-small
+.window-placeholder.has-north-mobile-preview::before,
+
+.window-small
+.window-placeholder.has-north-mobile-preview::after {
+  display:
+    none !important;
+}
+
+
+.window-small
+.window-placeholder.has-north-mobile-preview
+> span,
+
+.window-small
+.window-placeholder.has-north-mobile-preview
+> small {
+  display:
+    none !important;
+}
+
+
+/* =========================================================
+   NORTH HOME / MOBILE THUMB
+========================================================= */
+
+.nh-mobile-thumb {
+  width:
+    100%;
+
+  height:
+    100%;
+
+  min-height:
+    100%;
+
+  display:
+    grid;
+
+  grid-template-rows:
+    auto
+    minmax(
+      0,
+      1fr
+    );
+
+  overflow:
+    hidden;
+
+  color:
+    var(--nh-ink);
+
+  background:
+    var(--nh-white);
+
+  font-family:
+    "TASA Orbiter",
+    Arial,
+    sans-serif;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE HEADER
+--------------------------------------------------------- */
+
+.nh-mobile-nav {
+  min-height:
+    38px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    8px;
+
+  padding:
+    0
+    10px;
+
+  color:
+    var(--nh-navy);
+
+  background:
+    rgba(
+      251,
+      250,
+      247,
+      .98
+    );
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      23,
+      27,
+      33,
+      .08
+    );
+}
+
+
+.nh-mobile-logo {
+  color:
+    var(--nh-navy);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    .65rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    -.025em;
+}
+
+
+.nh-mobile-logo
+span {
+  color:
+    #a88461;
+}
+
+
+.nh-mobile-menu {
+  width:
+    20px;
+
+  height:
+    20px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    var(--nh-navy);
+
+  background:
+    transparent;
+
+  border:
+    1px
+    solid
+    var(--nh-line);
+
+  border-radius:
+    50%;
+
+  font-size:
+    .48rem;
+
+  line-height:
+    1;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE HERO
+--------------------------------------------------------- */
+
+.nh-mobile-hero {
+  position:
+    relative;
+
+  min-height:
+    0;
+
+  display:
+    flex;
+
+  align-items:
+    flex-end;
+
+  overflow:
+    hidden;
+
+  padding:
+    15px
+    12px
+    14px;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(
+        8,
+        14,
+        20,
+        .04
+      )
+      16%,
+      rgba(
+        8,
+        14,
+        20,
+        .2
+      )
+      44%,
+      rgba(
+        8,
+        14,
+        20,
+        .82
+      )
+      100%
+    ),
+    url(
+      "../images/north-home-hero.jpg"
+    );
+
+  background-size:
+    cover;
+
+  background-position:
+    59%
+    center;
+}
+
+
+.nh-mobile-hero::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(
+        0,
+        0,
+        0,
+        .12
+      ),
+      transparent
+      65%
+    );
+
+  pointer-events:
+    none;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE HERO COPY
+--------------------------------------------------------- */
+
+.nh-mobile-copy {
+  position:
+    relative;
+
+  z-index:
+    3;
+
+  width:
+    100%;
+}
+
+
+.nh-mobile-kicker {
+  display:
+    block;
+
+  margin-bottom:
+    8px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .68
+    );
+
+  font-size:
+    .31rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .08em;
+
+  line-height:
+    1.35;
+}
+
+
+.nh-mobile-copy
+strong {
+  display:
+    block;
+
+  margin:
+    0;
+
+  color:
+    #fff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(
+      1.15rem,
+      2.1vw,
+      1.75rem
+    );
+
+  font-weight:
+    400;
+
+  letter-spacing:
+    -.055em;
+
+  line-height:
+    .82;
+}
+
+
+.nh-mobile-copy
+p {
+  margin:
+    10px
+    0
+    0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      .72
+    );
+
+  font-size:
+    .34rem;
+
+  line-height:
+    1.45;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE CTA
+--------------------------------------------------------- */
+
+.nh-mobile-cta {
+  width:
+    fit-content;
+
+  min-height:
+    25px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
+  margin-top:
+    11px;
+
+  padding:
+    0
+    9px;
+
+  color:
+    var(--nh-navy);
+
+  background:
+    #fff;
+
+  border-radius:
+    999px;
+
+  font-size:
+    .31rem;
+
+  font-weight:
+    600;
+}
+
+
+.nh-mobile-cta
+span {
+  color:
+    var(--nh-blue);
+
+  background:
+    transparent !important;
+
+  padding:
+    0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE PROJECT IDENTIFIER
+--------------------------------------------------------- */
+
+.nh-mobile-project-tag {
+  position:
+    absolute;
+
+  z-index:
+    4;
+
+  top:
+    11px;
+
+  left:
+    10px;
+
+  padding:
+    5px
+    7px;
+
+  color:
+    var(--nh-navy);
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .88
+    );
+
+  border-radius:
+    999px;
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+
+  font-size:
+    .26rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    .05em;
+}
+
+
+/* =========================================================
+   TABLET HERO
+========================================================= */
+
+@media (
+  max-width:
+  950px
+) {
+
+  .window-small {
+    width:
+      min(
+        20vw,
+        190px
+      );
+
+    top:
+      17%;
+
+    left:
+      38%;
+  }
+
+
+  .nh-mobile-copy
+  strong {
+    font-size:
+      clamp(
+        1.05rem,
+        3vw,
+        1.55rem
+      );
+  }
+
+}
+
+
+/* =========================================================
+   PHONE-SIZED PORTFOLIO VIEW
+========================================================= */
+
+@media (
+  max-width:
+  680px
+) {
+
+  .window-small {
+    width:
+      27vw;
+
+    top:
+      27%;
+
+    left:
+      8%;
+  }
+
+
+  .nh-mobile-nav {
+    min-height:
+      30px;
+
+    padding:
+      0
+      7px;
+  }
+
+
+  .nh-mobile-logo {
+    font-size:
+      .52rem;
+  }
+
+
+  .nh-mobile-menu {
+    width:
+      16px;
+
+    height:
+      16px;
+
+    font-size:
+      .4rem;
+  }
+
+
+  .nh-mobile-hero {
+    padding:
+      11px
+      8px;
+  }
+
+
+  .nh-mobile-copy
+  strong {
+    font-size:
+      clamp(
+        .9rem,
+        6vw,
+        1.35rem
+      );
+  }
+
+
+  .nh-mobile-copy
+  p {
+    display:
+      none;
+  }
+
+
+  .nh-mobile-kicker {
+    font-size:
+      .25rem;
+  }
+
+
+  .nh-mobile-cta {
+    min-height:
+      21px;
+
+    padding:
+      0
+      7px;
+
+    font-size:
+      .25rem;
+  }
+
+}
