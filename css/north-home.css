@@ -14,6 +14,7 @@
    - project viewer chrome
    - Responsive Lab chrome
    - portfolio Hero window geometry
+   - portfolio project preview surfaces
 ========================================================= */
 
 
@@ -40,56 +41,6 @@
 
   --nh-shadow:
     0 30px 80px rgba(18, 25, 32, .12);
-}
-
-
-/* =========================================================
-   PORTFOLIO PREVIEW COMPATIBILITY
-
-   These rules style only the outer portfolio surfaces.
-
-   The project inside those surfaces is always generated
-   through PortfolioProjects.
-========================================================= */
-
-.project-image.has-north-preview,
-.window-placeholder.has-north-preview {
-  background:
-    var(--nh-paper) !important;
-
-  background-image:
-    none !important;
-}
-
-
-.project-image.has-north-preview
-> .placeholder-cross,
-
-.project-image.has-north-preview
-> span,
-
-.window-placeholder.has-north-preview
-> span,
-
-.window-placeholder.has-north-preview
-> small {
-  display:
-    none !important;
-}
-
-
-.project-image.has-north-preview {
-  align-items:
-    stretch;
-
-  justify-content:
-    stretch;
-}
-
-
-.window-placeholder.has-north-preview {
-  padding:
-    0 !important;
 }
 
 
