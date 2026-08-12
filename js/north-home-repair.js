@@ -1,24 +1,29 @@
 /* =========================================================
-   PORTFOLIO PROJECT VIEWER
+   JEZIEL CAMARA / PORTFOLIO PROJECT VIEWER
 
    Compatibility filename:
    js/north-home-repair.js
 
-   This file no longer redesigns North Home.
+   This is now shared portfolio infrastructure.
 
    RESPONSIBILITY:
-   - reuse the existing website-viewer dialog shell
-   - mount canonical registered projects into that shell
-   - provide one generic PortfolioProjectViewer API
-   - preserve North Home launch controls
+   - create the website-viewer dialog shell
+   - mount any registered canonical project
+   - provide one generic viewer API
+   - keep project design isolated from portfolio chrome
 
-   IMPORTANT ARCHITECTURE RULE:
+   IMPORTANT:
 
-   The viewer must never create project-specific website
-   markup or project-specific responsive styling.
+   This file must NOT contain:
+   - North Home website markup
+   - North Home responsive layout rules
+   - project-specific typography
+   - project-specific spacing
+   - project-specific mobile redesigns
 
-   It asks PortfolioProjects for the project and gives that
-   project a real isolated viewport.
+   The project itself always comes from:
+
+   window.PortfolioProjects
 ========================================================= */
 
 (function () {
@@ -30,12 +35,12 @@
      SETTINGS
   ======================================================= */
 
+  const VIEWER_ID =
+    "nh-site-viewer";
+
+
   const DEFAULT_PROJECT_KEY =
     "north";
-
-
-  const MAX_START_ATTEMPTS =
-    90;
 
 
   const DEFAULT_VIEWPORT_WIDTH =
@@ -44,6 +49,10 @@
 
   const DEFAULT_VIEWPORT_HEIGHT =
     820;
+
+
+  const MAX_START_ATTEMPTS =
+    90;
 
 
   /* =======================================================
@@ -77,17 +86,18 @@
   /* =======================================================
      VIEWER SHELL CSS
 
-     Only the portfolio viewer shell is styled here.
+     Only portfolio presentation chrome belongs here.
 
-     Nothing inside the actual project is redesigned.
+     Nothing inside the embedded project is redesigned.
   ======================================================= */
 
   const viewerCSS = `
 
     /* =====================================================
-       PROJECT VIEWER
+       VIEWER DIALOG
     ===================================================== */
 
+    .portfolio-project-viewer,
     .nh-site-viewer {
       width:
         min(
@@ -145,6 +155,7 @@
     }
 
 
+    .portfolio-project-viewer::backdrop,
     .nh-site-viewer::backdrop {
       background:
         rgba(
@@ -162,6 +173,7 @@
     }
 
 
+    .portfolio-project-viewer[open],
     .nh-site-viewer[open] {
       animation:
         portfolio-project-viewer-in
@@ -399,7 +411,7 @@
 
 
     /* =====================================================
-       VIEWER AREA
+       VIEWER BODY
     ===================================================== */
 
     .nh-site-viewer-scroll {
@@ -615,13 +627,6 @@
     }
 
 
-    /*
-     * The iframe is only the viewport.
-     *
-     * Its contents are controlled entirely by the
-     * registered project's own HTML and CSS.
-     */
-
     .nh-site-viewer-canvas
     > .portfolio-project-frame {
       position:
@@ -670,18 +675,16 @@
 
 
     /* =====================================================
-       SELECTED WORK LAUNCH CONTROL
+       GENERIC SELECTED-WORK VIEW CONTROL
     ===================================================== */
 
-    .project-slide[data-project="north"]
-    .project-image {
+    .project-image.has-canonical-work-preview {
       cursor:
-        zoom-in !important;
+        zoom-in;
     }
 
 
-    .project-slide[data-project="north"]
-    .project-image::after {
+    .project-image.has-canonical-work-preview::after {
       content:
         "";
 
@@ -709,13 +712,13 @@
     }
 
 
-    .project-slide[data-project="north"]
-    .project-image:hover::after {
+    .project-image.has-canonical-work-preview:hover::after {
       border-color:
         var(--blue);
     }
 
 
+    .project-view-button,
     .nh-project-view-button {
       position:
         absolute;
@@ -745,6 +748,23 @@
         0
         14px;
 
+      color:
+        #182433;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .95
+        );
+
+      border:
+        0;
+
+      border-radius:
+        999px;
+
       cursor:
         pointer;
 
@@ -758,43 +778,26 @@
 
       font-weight:
         600;
-    }
 
-
-    .nh-project-title-launch {
-      cursor:
-        pointer;
-    }
-
-
-    .nh-project-title-launch:hover {
-      text-decoration:
-        underline;
-
-      text-decoration-thickness:
-        1px;
-
-      text-underline-offset:
-        5px;
+      box-shadow:
+        0
+        8px
+        25px
+        rgba(
+          0,
+          0,
+          0,
+          .18
+        );
     }
 
 
     /*
-     * Old badge from north-home.js is no longer needed.
+     * Legacy North badges are no longer part of the
+     * presentation system.
      */
 
-    .project-slide[data-project="north"]
-    .nh-view-badge {
-      display:
-        none !important;
-    }
-
-
-    /*
-     * Old hero badge from north-home.js is also unnecessary
-     * because the project window itself remains clickable.
-     */
-
+    .nh-view-badge,
     .nh-hero-view-badge {
       display:
         none !important;
@@ -802,13 +805,14 @@
 
 
     /* =====================================================
-       LAPTOP
+       LAPTOP PORTFOLIO VIEWER
     ===================================================== */
 
     @media (
       max-width: 1100px
     ) {
 
+      .portfolio-project-viewer,
       .nh-site-viewer {
         width:
           86vw !important;
@@ -821,18 +825,19 @@
 
 
     /* =====================================================
-       MOBILE VIEWER SHELL
+       MOBILE PORTFOLIO VIEWER
 
-       These rules resize only the portfolio viewer.
+       These rules change only the viewer shell.
 
-       The project itself responds naturally because the
-       iframe becomes narrower.
+       The embedded project sees the narrower iframe and
+       activates its own responsive CSS.
     ===================================================== */
 
     @media (
       max-width: 700px
     ) {
 
+      .portfolio-project-viewer,
       .nh-site-viewer {
         width:
           calc(
@@ -849,6 +854,7 @@
       }
 
 
+      .portfolio-project-viewer::backdrop,
       .nh-site-viewer::backdrop {
         background:
           rgba(
@@ -910,6 +916,7 @@
       }
 
 
+      .project-view-button,
       .nh-project-view-button {
         right:
           14px;
@@ -930,6 +937,7 @@
       reduce
     ) {
 
+      .portfolio-project-viewer[open],
       .nh-site-viewer[open] {
         animation:
           none !important;
@@ -946,17 +954,13 @@
 
   function addViewerStyles() {
 
-    const oldStyles =
+    const existingStyles =
       document.querySelector(
         "#north-home-repair-styles"
       );
 
 
-    if (oldStyles) {
-
-      oldStyles.remove();
-
-    }
+    existingStyles?.remove();
 
 
     const style =
@@ -981,7 +985,199 @@
 
 
   /* =======================================================
-     PROJECT HELPERS
+     CREATE VIEWER SHELL
+
+     This is the important infrastructure change.
+
+     The shared viewer now owns its dialog shell.
+
+     north-home.js is no longer required to create it.
+  ======================================================= */
+
+  function createViewerShell() {
+
+    const dialog =
+      document.createElement(
+        "dialog"
+      );
+
+
+    dialog.id =
+      VIEWER_ID;
+
+
+    dialog.className =
+      "nh-site-viewer portfolio-project-viewer";
+
+
+    dialog.setAttribute(
+      "aria-label",
+      "Project website preview"
+    );
+
+
+    dialog.dataset.viewerOwner =
+      "portfolio-project-viewer";
+
+
+    dialog.innerHTML = `
+      <div class="nh-site-viewer-shell">
+
+        <header class="nh-site-viewer-topbar">
+
+          <div>
+
+            <span>
+              PROJECT
+            </span>
+
+            <small>
+              WEBSITE PREVIEW / CONCEPT PROJECT
+            </small>
+
+          </div>
+
+
+          <button
+            class="nh-site-viewer-close"
+            type="button"
+            aria-label="Close project website preview"
+          >
+
+            Close
+
+            <span aria-hidden="true">
+              ×
+            </span>
+
+          </button>
+
+        </header>
+
+
+        <div class="nh-site-viewer-scroll">
+
+          <div class="nh-site-viewer-browser">
+
+            <div class="nh-site-viewer-browserbar">
+
+              <div aria-hidden="true">
+
+                <i></i>
+                <i></i>
+                <i></i>
+
+              </div>
+
+
+              <span>
+                project.example
+              </span>
+
+
+              <strong>
+                VIEW-ONLY CONCEPT
+              </strong>
+
+            </div>
+
+
+            <div
+              class="nh-site-viewer-canvas"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+
+    document.body.append(
+      dialog
+    );
+
+
+    return dialog;
+
+  }
+
+
+  function ensureViewerShell() {
+
+    let existingViewer =
+      document.querySelector(
+        `#${VIEWER_ID}`
+      );
+
+
+    /*
+     * During this transition the old north-home.js
+     * viewer may still create the dialog first.
+     *
+     * Reuse it now.
+     *
+     * After that old block is removed, this function
+     * creates the shell itself.
+     */
+
+    if (!existingViewer) {
+
+      existingViewer =
+        createViewerShell();
+
+    }
+
+
+    existingViewer.classList.add(
+      "nh-site-viewer",
+      "portfolio-project-viewer"
+    );
+
+
+    existingViewer.dataset.viewerOwner =
+      "portfolio-project-viewer";
+
+
+    return existingViewer;
+
+  }
+
+
+  /* =======================================================
+     GET VIEWER ELEMENTS
+  ======================================================= */
+
+  function getViewerElements() {
+
+    viewer =
+      ensureViewerShell();
+
+
+    canvas =
+      viewer?.querySelector(
+        ".nh-site-viewer-canvas"
+      ) || null;
+
+
+    browserFrame =
+      viewer?.querySelector(
+        ".nh-site-viewer-browser"
+      ) || null;
+
+
+    return Boolean(
+      viewer &&
+      canvas &&
+      browserFrame
+    );
+
+  }
+
+
+  /* =======================================================
+     PROJECT METADATA
   ======================================================= */
 
   function getProjectUrl(
@@ -1009,35 +1205,6 @@
   }
 
 
-  function getViewerElements() {
-
-    viewer =
-      document.querySelector(
-        "#nh-site-viewer"
-      );
-
-
-    canvas =
-      viewer?.querySelector(
-        ".nh-site-viewer-canvas"
-      ) || null;
-
-
-    browserFrame =
-      viewer?.querySelector(
-        ".nh-site-viewer-browser"
-      ) || null;
-
-
-    return Boolean(
-      viewer &&
-      canvas &&
-      browserFrame
-    );
-
-  }
-
-
   /* =======================================================
      VIEWER IDENTITY
   ======================================================= */
@@ -1046,8 +1213,13 @@
     project
   ) {
 
-    if (!viewer) {
+    if (
+      !viewer ||
+      !project
+    ) {
+
       return;
+
     }
 
 
@@ -1138,7 +1310,7 @@
 
 
   /* =======================================================
-     CANONICAL VIEWER MOUNT
+     CONFIGURE PROJECT FRAME
   ======================================================= */
 
   function configureProjectFrame(
@@ -1146,16 +1318,17 @@
   ) {
 
     if (!frame) {
+
       return;
+
     }
 
 
     /*
-     * createFrame() defaults decorative previews to
-     * scrolling="no".
+     * Hero and Work previews disable scrolling.
      *
-     * The full website viewer is different: visitors need
-     * to be able to vertically scroll through the site.
+     * The full website viewer must allow the visitor to
+     * scroll vertically through the project.
      */
 
     frame.removeAttribute(
@@ -1224,6 +1397,10 @@
   }
 
 
+  /* =======================================================
+     MOUNT CANONICAL PROJECT
+  ======================================================= */
+
   function mountProject(
     key
   ) {
@@ -1262,8 +1439,7 @@
 
 
     /*
-     * If this exact project is already mounted correctly,
-     * do not rebuild the iframe.
+     * Avoid rebuilding the same project unnecessarily.
      */
 
     const existingFrame =
@@ -1303,14 +1479,11 @@
 
 
     /*
-     * THIS IS THE IMPORTANT CHANGE.
+     * The viewer receives the project's registered
+     * canonical website source.
      *
-     * The old .nh-site-view-only clone is removed by
-     * mountFrame() because mountFrame replaces all canvas
-     * children.
-     *
-     * The viewer now receives the same registered project
-     * source used by Hero, Work and Responsive Lab.
+     * mountFrame() replaces anything previously inside
+     * the viewer canvas.
      */
 
     projectFrame =
@@ -1357,7 +1530,7 @@
 
 
   /* =======================================================
-     OPEN / CLOSE
+     OPEN PROJECT
   ======================================================= */
 
   function openProject(
@@ -1396,10 +1569,10 @@
 
 
     /*
-     * Reset the embedded project's own scroll position.
+     * Attempt to reset the embedded website to the top.
      *
-     * The iframe may not yet have completed loading on the
-     * first open, so attempt this again after load.
+     * The sandbox may prevent direct frame access, which
+     * is acceptable. The viewer still functions normally.
      */
 
     function resetFrameScroll() {
@@ -1416,8 +1589,7 @@
       } catch (error) {
 
         /*
-         * Sandboxed iframe access may be restricted.
-         * Scrolling still works; only the reset is skipped.
+         * No action required.
          */
 
       }
@@ -1443,6 +1615,10 @@
   }
 
 
+  /* =======================================================
+     CLOSE VIEWER
+  ======================================================= */
+
   function closeViewer() {
 
     if (
@@ -1463,14 +1639,14 @@
 
 
   /* =======================================================
-     GENERIC PUBLIC API
+     PUBLIC API
 
-     Future projects should open the viewer with:
+     Every current and future project uses this API.
 
+     Examples:
+
+     PortfolioProjectViewer.open("north")
      PortfolioProjectViewer.open("sola")
-
-     or:
-
      PortfolioProjectViewer.open("avance")
   ======================================================= */
 
@@ -1537,6 +1713,7 @@
 
         event.preventDefault();
 
+
         closeViewer();
 
       }
@@ -1576,239 +1753,6 @@
 
 
   /* =======================================================
-     NORTH HOME / EXISTING WORK LAUNCHERS
-
-     These remain temporarily for compatibility.
-
-     Later the Work renderer itself will create generic
-     project viewer controls for every registered project.
-  ======================================================= */
-
-  function repairNorthLaunchers() {
-
-    const northSlide =
-      document.querySelector(
-        '.project-slide[data-project="north"]'
-      );
-
-
-    const northImage =
-      northSlide?.querySelector(
-        ".project-image"
-      );
-
-
-    const northTitle =
-      northSlide?.querySelector(
-        ".project-caption h3"
-      );
-
-
-    if (!northImage) {
-      return;
-    }
-
-
-    /*
-     * Prevent the horizontal project reel from treating a
-     * click on the project image as the beginning of a drag.
-     */
-
-    if (
-      northImage.dataset.clickRepair !==
-      "true"
-    ) {
-
-      northImage.dataset.clickRepair =
-        "true";
-
-
-      northImage.addEventListener(
-        "pointerdown",
-        (event) => {
-
-          event.stopPropagation();
-
-        }
-      );
-
-    }
-
-
-    /*
-     * A real button is the clearest explicit launch target.
-     */
-
-    let button =
-      northImage.querySelector(
-        ".nh-project-view-button"
-      );
-
-
-    if (!button) {
-
-      button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.type =
-        "button";
-
-
-      button.className =
-        "nh-project-view-button";
-
-
-      button.innerHTML = `
-        VIEW WEBSITE
-
-        <span aria-hidden="true">
-          ↗
-        </span>
-      `;
-
-
-      northImage.append(
-        button
-      );
-
-    }
-
-
-    button.setAttribute(
-      "aria-label",
-      "View North Home website preview"
-    );
-
-
-    if (
-      button.dataset.genericViewerBound !==
-      "true"
-    ) {
-
-      button.dataset.genericViewerBound =
-        "true";
-
-
-      button.addEventListener(
-        "pointerdown",
-        (event) => {
-
-          event.stopPropagation();
-
-        }
-      );
-
-
-      button.addEventListener(
-        "click",
-        (event) => {
-
-          /*
-           * Do not bubble into north-home.js's older
-           * project-image listener.
-           */
-
-          event.preventDefault();
-          event.stopPropagation();
-
-
-          openProject(
-            "north"
-          );
-
-        }
-      );
-
-    }
-
-
-    /*
-     * Keep the project title as a secondary launch target.
-     */
-
-    if (northTitle) {
-
-      northTitle.classList.add(
-        "nh-project-title-launch"
-      );
-
-
-      northTitle.setAttribute(
-        "role",
-        "button"
-      );
-
-
-      northTitle.setAttribute(
-        "tabindex",
-        "0"
-      );
-
-
-      northTitle.setAttribute(
-        "aria-label",
-        "View North Home website preview"
-      );
-
-
-      if (
-        northTitle.dataset.genericViewerBound !==
-        "true"
-      ) {
-
-        northTitle.dataset.genericViewerBound =
-          "true";
-
-
-        northTitle.addEventListener(
-          "click",
-          () => {
-
-            openProject(
-              "north"
-            );
-
-          }
-        );
-
-
-        northTitle.addEventListener(
-          "keydown",
-          (event) => {
-
-            if (
-              event.key !==
-                "Enter" &&
-              event.key !==
-                " "
-            ) {
-
-              return;
-
-            }
-
-
-            event.preventDefault();
-
-
-            openProject(
-              "north"
-            );
-
-          }
-        );
-
-      }
-
-    }
-
-  }
-
-
-  /* =======================================================
      START
   ======================================================= */
 
@@ -1817,21 +1761,19 @@
   ) {
 
     if (started) {
+
       return;
+
     }
 
 
     /*
-     * north-home.js currently creates the dialog shell.
+     * The viewer shell no longer depends on north-home.js.
      *
-     * project-north.js registers the canonical North source.
-     *
-     * Wait until both exist before replacing the old viewer
-     * clone.
+     * We can create it immediately.
      */
 
-    const viewerReady =
-      getViewerElements();
+    getViewerElements();
 
 
     const projectReady =
@@ -1840,10 +1782,15 @@
       );
 
 
-    if (
-      !viewerReady ||
-      !projectReady
-    ) {
+    /*
+     * North is currently the first completed project.
+     *
+     * Once another project is registered first, the viewer
+     * API itself still works because openProject() mounts
+     * any requested registered project.
+     */
+
+    if (!projectReady) {
 
       if (
         attempt <
@@ -1875,16 +1822,13 @@
 
 
     /*
-     * Immediately replace north-home.js's old
-     * .nh-site-view-only clone with the canonical source.
+     * Prepare North in the viewer so the first launch
+     * is immediate.
      */
 
     mountProject(
       DEFAULT_PROJECT_KEY
     );
-
-
-    repairNorthLaunchers();
 
 
     started =
@@ -1908,27 +1852,11 @@
 
 
   /* =======================================================
-     REGISTRY EVENTS
+     PROJECT REGISTRATION EVENTS
   ======================================================= */
 
   document.addEventListener(
     "portfolio:project-registered",
-    () => {
-
-      requestAnimationFrame(
-        () => {
-
-          start();
-
-        }
-      );
-
-    }
-  );
-
-
-  document.addEventListener(
-    "north:project-ready",
     () => {
 
       requestAnimationFrame(
