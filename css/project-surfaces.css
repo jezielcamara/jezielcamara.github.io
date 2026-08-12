@@ -6,10 +6,11 @@
 
    RESPONSIBILITY:
    - Hero project preview surfaces
+   - Hero mobile presentation
    - Selected Work project preview surfaces
+   - project reel snap alignment
    - canonical iframe presentation
    - project viewer launch affordance
-   - presentation stability for canonical project surfaces
 
    NOT RESPONSIBLE FOR:
    - project typography
@@ -30,25 +31,23 @@
 :root {
   --project-preview-surface:
     #f3f0e9;
+
+  --project-mobile-preview-width:
+    390;
+
+  --project-mobile-preview-height:
+    720;
+
+  --project-work-preview-width:
+    1200;
+
+  --project-work-preview-height:
+    820;
 }
 
 
 /* =========================================================
    ALL CANONICAL PROJECT PREVIEWS
-
-   IMPORTANT:
-
-   Do not set min-height here.
-
-   Hero windows already own their geometry through their
-   aspect ratio.
-
-   Selected Work already owns its geometry through
-   .project-image.
-
-   Setting min-height: 0 globally caused the Selected Work
-   frame to collapse because its iframe is positioned
-   absolutely.
 ========================================================= */
 
 .has-canonical-project-preview {
@@ -90,11 +89,6 @@
 
 /* =========================================================
    REMOVE LEGACY PLACEHOLDER CROSS
-
-   style.css creates the original Hero diagonal cross with
-   ::before and ::after on .window-placeholder.
-
-   A canonical project completely replaces that placeholder.
 ========================================================= */
 
 .window-placeholder.has-canonical-project-preview::before,
@@ -115,13 +109,10 @@
 /* =========================================================
    HERO PROJECT SURFACES
 
-   The original placeholder is a centered flex layout.
+   Canonical websites begin at the top-left.
 
-   That is correct for placeholder text but incorrect for a
-   complete website because it vertically centers the entire
-   tall website inside the small Hero viewport.
-
-   Canonical websites always begin at the top-left.
+   The original placeholder used flex centering, which is
+   correct for placeholder text but wrong for a website.
 ========================================================= */
 
 .window-placeholder.has-canonical-project-preview {
@@ -154,12 +145,164 @@
 
 
 /* =========================================================
-   SELECTED WORK PROJECT SURFACES
+   HERO DESKTOP
+========================================================= */
 
-   The iframe inside this surface is positioned absolutely.
+.window-placeholder.has-canonical-desktop-preview {
+  aspect-ratio:
+    16
+    /
+    10;
 
-   The parent therefore needs its own real presentation
-   height.
+  min-height:
+    0 !important;
+}
+
+
+.has-canonical-desktop-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   HERO MOBILE WINDOW
+
+   The old Hero placeholder is landscape.
+
+   A genuine mobile project needs a portrait presentation
+   frame instead.
+
+   The project itself is still the same canonical website.
+========================================================= */
+
+.window-small {
+  width:
+    min(
+      12.5vw,
+      175px
+    );
+}
+
+
+.window-small
+.window-placeholder.has-canonical-mobile-preview {
+  width:
+    100%;
+
+  height:
+    auto;
+
+  min-height:
+    0 !important;
+
+  aspect-ratio:
+    var(--project-mobile-preview-width)
+    /
+    var(--project-mobile-preview-height);
+
+  overflow:
+    hidden;
+}
+
+
+.has-canonical-mobile-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   HERO MOBILE FRAME
+
+   featured-hero.js keeps the iframe at a genuine 390px
+   mobile viewport and scales it only for presentation.
+
+   The portrait host clips the preview after roughly the
+   first 720 CSS pixels of the real mobile page, which is
+   the intended thumbnail viewport.
+========================================================= */
+
+.window-placeholder.has-canonical-mobile-preview
+> .portfolio-project-frame,
+
+.window-placeholder.has-canonical-mobile-preview
+> .featured-project-frame {
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    0;
+
+  display:
+    block;
+
+  max-width:
+    none;
+
+  margin:
+    0;
+
+  padding:
+    0;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  transform-origin:
+    top
+    left;
+}
+
+
+/* =========================================================
+   SELECTED WORK / REEL SNAP
+
+   Track padding provides the visible editorial gutter.
+
+   scroll-padding makes mandatory snap positions respect
+   that same gutter instead of pulling the first project
+   flush against the side rail.
+========================================================= */
+
+.project-reel {
+  scroll-padding-inline:
+    var(
+      --ui-gutter,
+      6vw
+    );
+}
+
+
+.reel-track {
+  padding-left:
+    var(
+      --ui-gutter,
+      6vw
+    ) !important;
+
+  padding-right:
+    var(
+      --ui-gutter,
+      6vw
+    ) !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK PROJECT SURFACE
+
+   The iframe rendered by featured-hero.js is 1200 × 820.
+
+   Giving the host the exact same ratio means the scaled
+   iframe fills the project surface without arbitrary
+   cropping or collapsed height.
 ========================================================= */
 
 .project-image.has-canonical-project-preview {
@@ -169,8 +312,19 @@
   display:
     block;
 
+  width:
+    100%;
+
+  height:
+    auto;
+
   min-height:
-    58vh;
+    0 !important;
+
+  aspect-ratio:
+    var(--project-work-preview-width)
+    /
+    var(--project-work-preview-height);
 
   padding:
     0;
@@ -185,6 +339,54 @@
 
   background-image:
     none !important;
+}
+
+
+.project-image.has-canonical-work-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   SELECTED WORK FRAME
+========================================================= */
+
+.project-image.has-canonical-work-preview
+> .portfolio-project-frame,
+
+.project-image.has-canonical-work-preview
+> .portfolio-work-project-frame {
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    0;
+
+  display:
+    block;
+
+  max-width:
+    none;
+
+  margin:
+    0;
+
+  padding:
+    0;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  transform-origin:
+    top
+    left;
 }
 
 
@@ -216,7 +418,7 @@
 
 
 /* =========================================================
-   ISOLATED PROJECT FRAME
+   GENERIC ISOLATED PROJECT FRAME
 ========================================================= */
 
 .has-canonical-project-preview
@@ -227,9 +429,6 @@
 
 .has-canonical-project-preview
 > .portfolio-work-project-frame {
-  display:
-    block;
-
   max-width:
     none;
 
@@ -244,50 +443,6 @@
 
   background:
     transparent;
-
-  transform-origin:
-    top
-    left;
-}
-
-
-/* =========================================================
-   HERO MOBILE FRAME
-========================================================= */
-
-.window-placeholder.has-canonical-mobile-preview
-> .portfolio-project-frame,
-
-.window-placeholder.has-canonical-mobile-preview
-> .featured-project-frame {
-  position:
-    absolute;
-
-  top:
-    0;
-
-  left:
-    0;
-}
-
-
-/* =========================================================
-   SELECTED WORK FRAME
-========================================================= */
-
-.project-image.has-canonical-work-preview
-> .portfolio-project-frame,
-
-.project-image.has-canonical-work-preview
-> .portfolio-work-project-frame {
-  position:
-    absolute;
-
-  top:
-    0;
-
-  left:
-    0;
 }
 
 
@@ -336,45 +491,7 @@ textarea {
 
 
 /* =========================================================
-   HERO DESKTOP
-========================================================= */
-
-.has-canonical-desktop-preview {
-  isolation:
-    isolate;
-}
-
-
-/* =========================================================
-   HERO MOBILE
-========================================================= */
-
-.has-canonical-mobile-preview {
-  isolation:
-    isolate;
-}
-
-
-/* =========================================================
-   SELECTED WORK
-========================================================= */
-
-.has-canonical-work-preview {
-  isolation:
-    isolate;
-}
-
-
-/* =========================================================
    THINKING ROW VISIBILITY SAFETY
-
-   The existing stagger system relies on IntersectionObserver.
-
-   Full-page captures and very fast scroll jumps can skip an
-   individual thinking row and leave it at opacity: 0.
-
-   Thinking copy is core content, so it must never remain
-   permanently hidden.
 ========================================================= */
 
 .thinking-lines
@@ -388,20 +505,78 @@ article.motion-item {
 
 
 /* =========================================================
-   MOBILE PROJECT SURFACES
+   TABLET HERO MOBILE WINDOW
 ========================================================= */
 
 @media (
-  max-width: 700px
+  max-width: 950px
 ) {
+
+  .window-small {
+    width:
+      min(
+        17vw,
+        160px
+      );
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE PORTFOLIO
+
+   This breakpoint concerns the portfolio itself.
+
+   It does not change the responsive rules inside the
+   registered project.
+========================================================= */
+
+@media (
+  max-width: 680px
+) {
+
+  .window-small {
+    width:
+      min(
+        38vw,
+        150px
+      );
+  }
+
+
+  .window-small
+  .window-placeholder.has-canonical-mobile-preview {
+    aspect-ratio:
+      390
+      /
+      680;
+  }
+
+
+  .project-reel {
+    scroll-padding-inline:
+      16px;
+  }
+
+
+  .reel-track {
+    padding-left:
+      16px !important;
+
+    padding-right:
+      16px !important;
+  }
+
 
   .project-image.has-canonical-project-preview {
     min-height:
-      clamp(
-        340px,
-        58vh,
-        520px
-      );
+      0 !important;
+
+    aspect-ratio:
+      1200
+      /
+      820;
   }
 
 }
