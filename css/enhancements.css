@@ -1513,3 +1513,320 @@ body.case-open {
   }
 
 }
+
+/* -------------------------------------------------
+   HERO DRAG DISCOVERY
+   Makes the draggable windows self-explanatory
+-------------------------------------------------- */
+
+/*
+ * Global instruction.
+ * It disappears as soon as the visitor
+ * has dragged any hero window.
+ */
+
+.hero-stage::after {
+  content: "↔  DRAG THE WINDOWS";
+
+  position: absolute;
+  top: 18%;
+  right: 27%;
+
+  z-index: 12;
+
+  padding:
+    7px
+    9px;
+
+  color: var(--blue);
+  background: rgba(243, 240, 231, .94);
+
+  border:
+    1px
+    solid
+    var(--blue);
+
+  font-size: .56rem;
+  font-weight: 500;
+
+  letter-spacing: .08em;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transform:
+    translateY(6px);
+
+  transition:
+    opacity 350ms ease,
+    transform 350ms ease;
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+}
+
+
+body.ready .hero-stage::after {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+
+/*
+ * Once someone discovers dragging,
+ * the main instruction is no longer needed.
+ */
+
+.hero-stage:has(
+  .floating-window.has-been-dragged
+)::after {
+  opacity: 0;
+
+  transform:
+    translateY(-5px);
+}
+
+
+/* -------------------------------------------------
+   WINDOW HANDLE AFFORDANCE
+-------------------------------------------------- */
+
+.floating-window .window-bar {
+  position: relative;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+
+/*
+ * Small horizontal arrow tells the visitor
+ * that the title bar can move.
+ */
+
+.floating-window .window-bar::after {
+  content: "↔";
+
+  flex:
+    0
+    0
+    auto;
+
+  margin-left: 8px;
+
+  color: var(--blue);
+
+  font-size: .72rem;
+
+  letter-spacing: 0;
+
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+
+/*
+ * Explicit instruction when a mouse user
+ * actually approaches the object.
+ */
+
+@media (pointer: fine) {
+
+  .floating-window:hover {
+    outline:
+      1px
+      solid
+      rgba(49, 87, 232, .7);
+
+    outline-offset:
+      4px;
+  }
+
+
+  .floating-window:hover
+  .window-bar {
+    background:
+      #e6ff6a;
+  }
+
+
+  .floating-window:hover
+  .window-bar::after {
+    content:
+      "DRAG ↔";
+
+    transform:
+      translateX(2px);
+  }
+
+}
+
+
+/*
+ * While the object is being held,
+ * make the interaction unmistakable.
+ */
+
+.floating-window.is-dragging
+.window-bar::after {
+  content:
+    "MOVING ↔";
+
+  color:
+    var(--blue);
+}
+
+
+/* -------------------------------------------------
+   FIRST-LOAD DEMONSTRATION
+-------------------------------------------------- */
+
+/*
+ * PROJECT / 02 performs one small motion
+ * after the opening animation.
+ *
+ * Individual CSS translate is used here
+ * so it does not interfere with the existing
+ * transform/parallax system.
+ */
+
+body.ready
+.window-small:not(
+  .has-been-dragged
+) {
+  animation:
+    window-drag-demo
+    1050ms
+    cubic-bezier(.2, .75, .25, 1)
+    1400ms
+    1
+    both;
+}
+
+
+@keyframes window-drag-demo {
+
+  0%,
+  100% {
+    translate:
+      0
+      0;
+  }
+
+
+  30% {
+    translate:
+      13px
+      -2px;
+  }
+
+
+  55% {
+    translate:
+      -5px
+      1px;
+  }
+
+
+  76% {
+    translate:
+      5px
+      0;
+  }
+
+}
+
+
+/*
+ * Stop the demonstration immediately
+ * if the visitor interacts first.
+ */
+
+.window-small.has-been-dragged {
+  animation:
+    none !important;
+
+  translate:
+    0
+    0;
+}
+
+
+/* -------------------------------------------------
+   MOBILE DRAG DISCOVERY
+-------------------------------------------------- */
+
+@media (max-width: 680px) {
+
+  .hero-stage::after {
+    top:
+      245px;
+
+    right:
+      auto;
+
+    left:
+      16px;
+
+    padding:
+      6px
+      8px;
+
+    font-size:
+      .5rem;
+  }
+
+
+  /*
+   * Keep narrow portrait bars from
+   * becoming crowded.
+   */
+
+  .window-portrait
+  .window-bar::after {
+    content:
+      "↔";
+
+    margin-left:
+      4px;
+
+    font-size:
+      .62rem;
+  }
+
+
+  .floating-window:hover
+  .window-bar::after {
+    content:
+      "↔";
+  }
+
+}
+
+
+/* -------------------------------------------------
+   REDUCED MOTION
+-------------------------------------------------- */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  body.ready
+  .window-small:not(
+    .has-been-dragged
+  ) {
+    animation:
+      none !important;
+  }
+
+}
