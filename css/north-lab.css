@@ -1,12 +1,32 @@
 /* =========================================================
-   NORTH HOME / RESPONSIVE LAB
-   Makes the real North Home project respond to the
-   Lab slider rather than the outer browser viewport.
+   PORTFOLIO / RESPONSIVE PROJECT LAB
+
+   Compatibility filename:
+   css/north-lab.css
+
+   This file no longer contains North Home design rules.
+
+   RESPONSIBILITY:
+   - Lab preview frame
+   - browser strip
+   - canonical project viewport host
+   - iframe presentation
+
+   NOT RESPONSIBLE FOR:
+   - project typography
+   - project spacing
+   - project navigation
+   - project responsive layouts
+   - project imagery
+   - project buttons
+
+   Every project controls its own design through its own
+   canonical HTML and CSS.
 ========================================================= */
 
 
 /* =========================================================
-   LAB FRAME
+   RESPONSIVE PREVIEW FRAME
 ========================================================= */
 
 #responsive-preview {
@@ -17,7 +37,8 @@
       720px
     );
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-rows:
     auto
@@ -26,35 +47,40 @@
       1fr
     );
 
-  overflow: hidden;
+  min-width:
+    0;
 
-  container:
-    northLab
-    / inline-size;
+  min-height:
+    0;
+
+  overflow:
+    hidden;
 
   background:
-    var(--nh-white);
+    #ffffff;
 
   box-shadow:
     12px
     12px
     0
-    rgba(
-      223,
-      255,
-      82,
-      .95
-    );
+    var(--lime);
 }
 
 
-/* Keep the browser strip visible */
+/* =========================================================
+   PORTFOLIO BROWSER BAR
+========================================================= */
 
 #responsive-preview
 .preview-browser-bar {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 20;
+  z-index:
+    10;
+
+  min-width:
+    0;
 
   flex:
     0
@@ -63,772 +89,237 @@
 }
 
 
-/* =========================================================
-   ACTUAL NORTH HOME SITE
-========================================================= */
-
 #responsive-preview
-.nh-lab-site {
-  width: 100%;
-  height: 100%;
-
-  min-width: 0;
-  min-height: 0;
-
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  overscroll-behavior:
-    contain;
-
-  scrollbar-width:
-    thin;
-
-  container:
-    northSite
-    / inline-size;
+.preview-browser-bar
+span {
+  min-width:
+    0;
 }
 
 
-/* Prevent the embedded website from affecting
-   the rest of the portfolio */
+#responsive-preview
+.preview-logo {
+  overflow:
+    hidden;
 
-#responsive-preview
-.nh-lab-site,
-#responsive-preview
-.nh-lab-site *,
-#responsive-preview
-.nh-lab-site *::before,
-#responsive-preview
-.nh-lab-site *::after {
-  box-sizing:
-    border-box;
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
 }
 
 
 /* =========================================================
-   VIEW-ONLY STATE
+   CANONICAL PROJECT HOST
+
+   #demo-site remains because existing portfolio JavaScript
+   expects that ID.
+
+   It is now only a neutral viewport host.
 ========================================================= */
 
 #responsive-preview
-.nh-lab-site
-a,
+#demo-site.portfolio-lab-project-host {
+  position:
+    relative;
 
-#responsive-preview
-.nh-lab-site
-button,
+  width:
+    100%;
 
-#responsive-preview
-.nh-lab-site
-input,
+  height:
+    100%;
 
-#responsive-preview
-.nh-lab-site
-textarea,
+  min-width:
+    0;
 
-#responsive-preview
-.nh-lab-site
-select {
-  pointer-events:
-    none !important;
+  min-height:
+    0;
+
+  display:
+    block;
+
+  overflow:
+    hidden;
+
+  padding:
+    0;
+
+  margin:
+    0;
+
+  background:
+    #ffffff;
 }
 
 
-/* Remove interaction-specific hover movement */
+/* Remove any legacy demo presentation behavior */
 
 #responsive-preview
-.nh-lab-site
-.nh-service-tab:hover {
-  padding-left:
-    8px;
+#demo-site.portfolio-lab-project-host::before,
+
+#responsive-preview
+#demo-site.portfolio-lab-project-host::after {
+  display:
+    none;
+}
+
+
+/* =========================================================
+   CANONICAL PROJECT FRAME
+
+   The iframe owns the actual project viewport.
+
+   portfolio-lab.js changes:
+   - iframe width
+   - iframe height
+   - presentation scale
+
+   The project inside remains unchanged.
+========================================================= */
+
+#responsive-preview
+.portfolio-lab-project-frame {
+  position:
+    absolute;
+
+  top:
+    0;
+
+  left:
+    0;
+
+  display:
+    block;
+
+  max-width:
+    none;
+
+  margin:
+    0;
+
+  padding:
+    0;
+
+  border:
+    0;
+
+  background:
+    transparent;
+
+  transform-origin:
+    top
+    left;
+
+  will-change:
+    transform;
+}
+
+
+/* =========================================================
+   VIEWPORT STATES
+
+   These are portfolio presentation states only.
+
+   They do NOT style anything inside the project.
+========================================================= */
+
+#responsive-preview
+.portfolio-lab-project-host[
+  data-project-viewport-width
+] {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   LOADING / EMPTY STATE
+========================================================= */
+
+#responsive-preview
+.portfolio-lab-project-host:empty {
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  background:
+    #ffffff;
+}
+
+
+#responsive-preview
+.portfolio-lab-project-host:empty::before {
+  content:
+    "LOADING PROJECT";
+
+  display:
+    block;
 
   color:
-    var(--nh-ink);
+    var(--muted);
+
+  font-size:
+    .55rem;
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    .08em;
 }
 
 
 /* =========================================================
-   DESKTOP LAB
+   TABLET PORTFOLIO LAYOUT
+
+   This responds to the visitor's actual device.
+
+   It does NOT determine the embedded project's breakpoint.
+   The slider controls the project's viewport independently.
 ========================================================= */
 
-#responsive-preview
-.nh-lab-site
-.nh-header {
-  min-height:
-    clamp(
-      58px,
-      7cqw,
-      80px
-    );
-
-  padding-inline:
-    clamp(
-      20px,
-      4cqw,
-      42px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-logo {
-  font-size:
-    clamp(
-      .85rem,
-      1.5cqw,
-      1.18rem
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-header
-nav {
-  gap:
-    clamp(
-      12px,
-      2.7cqw,
-      28px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-header
-nav
-a {
-  font-size:
-    clamp(
-      .48rem,
-      .75cqw,
-      .66rem
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-header-cta {
-  padding:
-    clamp(
-      8px,
-      1.1cqw,
-      11px
-    )
-    clamp(
-      11px,
-      1.6cqw,
-      16px
-    );
-
-  font-size:
-    clamp(
-      .48rem,
-      .7cqw,
-      .62rem
-    );
-}
-
-
-/* HERO */
-
-#responsive-preview
-.nh-lab-site
-.nh-hero {
-  padding:
-    0
-    clamp(
-      10px,
-      2.3cqw,
-      24px
-    )
-    clamp(
-      10px,
-      2.3cqw,
-      24px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-hero-media {
-  min-height:
-    clamp(
-      430px,
-      61cqw,
-      680px
-    );
-
-  padding:
-    clamp(
-      28px,
-      5.2cqw,
-      58px
-    );
-
-  border-radius:
-    clamp(
-      15px,
-      2.5cqw,
-      28px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-hero
-h1 {
-  font-size:
-    clamp(
-      3.2rem,
-      8.7cqw,
-      8.8rem
-    );
-
-  line-height:
-    .78;
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-hero-copy
-> p {
-  max-width:
-    48cqw;
-
-  font-size:
-    clamp(
-      .68rem,
-      1.15cqw,
-      .95rem
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-eyebrow {
-  font-size:
-    clamp(
-      .43rem,
-      .65cqw,
-      .58rem
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-hero-trust {
-  top:
-    clamp(
-      14px,
-      2.5cqw,
-      28px
-    );
-
-  right:
-    clamp(
-      14px,
-      2.5cqw,
-      28px
-    );
-}
-
-
-/* TRUST */
-
-#responsive-preview
-.nh-lab-site
-.nh-trust-strip {
-  margin:
-    0
-    clamp(
-      10px,
-      2.3cqw,
-      24px
-    )
-    clamp(
-      10px,
-      2.3cqw,
-      24px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-trust-item {
-  min-height:
-    clamp(
-      86px,
-      10cqw,
-      112px
-    );
-
-  padding:
-    clamp(
-      15px,
-      2.3cqw,
-      24px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-trust-item
-strong {
-  font-size:
-    clamp(
-      1rem,
-      1.8cqw,
-      1.5rem
-    );
-}
-
-
-/* COMMON SECTION SPACING */
-
-#responsive-preview
-.nh-lab-site
-.nh-section,
-
-#responsive-preview
-.nh-lab-site
-.nh-story,
-
-#responsive-preview
-.nh-lab-site
-.nh-process,
-
-#responsive-preview
-.nh-lab-site
-.nh-why,
-
-#responsive-preview
-.nh-lab-site
-.nh-area,
-
-#responsive-preview
-.nh-lab-site
-.nh-quote {
-  padding:
-    clamp(
-      56px,
-      9cqw,
-      105px
-    )
-    clamp(
-      22px,
-      4.7cqw,
-      50px
-    );
-}
-
-
-/* SECTION HEADINGS */
-
-#responsive-preview
-.nh-lab-site
-.nh-section-heading
-h2,
-
-#responsive-preview
-.nh-lab-site
-.nh-story-copy
-h2,
-
-#responsive-preview
-.nh-lab-site
-.nh-process-heading
-h2,
-
-#responsive-preview
-.nh-lab-site
-.nh-why-copy
-h2,
-
-#responsive-preview
-.nh-lab-site
-.nh-area-copy
-h2,
-
-#responsive-preview
-.nh-lab-site
-.nh-quote-copy
-h2 {
-  font-size:
-    clamp(
-      2.7rem,
-      5.8cqw,
-      5.8rem
-    );
-}
-
-
-/* SERVICES */
-
-#responsive-preview
-.nh-lab-site
-.nh-services-layout {
-  gap:
-    clamp(
-      22px,
-      3.7cqw,
-      38px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-service-photo {
-  min-height:
-    clamp(
-      340px,
-      44cqw,
-      480px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-service-info {
-  padding:
-    clamp(
-      24px,
-      3.8cqw,
-      40px
-    );
-}
-
-
-#responsive-preview
-.nh-lab-site
-.nh-service-info
-h3 {
-  font-size:
-    clamp(
-      1.8rem,
-      3.3cqw,
-      3.3rem
-    );
-}
-
-
-/* STORY */
-
-#responsive-preview
-.nh-lab-site
-.nh-story-photo {
-  min-height:
-    clamp(
-      390px,
-      55cqw,
-      600px
-    );
-}
-
-
-/* SELECTED WORK */
-
-#responsive-preview
-.nh-lab-site
-.nh-work-card {
-  background-size:
-    cover !important;
-}
-
-
-/* =========================================================
-   TABLET / SLIDER <= 760
-========================================================= */
-
-@container northLab
-(max-width: 760px) {
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-header {
-    min-height:
-      66px;
-
-    grid-template-columns:
-      1fr
-      auto;
-
-    padding-inline:
-      18px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-header
-  nav {
-    display:
-      none;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero {
-    padding:
-      0
-      10px
-      10px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-media {
-    min-height:
-      540px;
-
-    padding:
-      36px
-      30px;
-
-    border-radius:
-      18px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero
-  h1 {
-    font-size:
-      clamp(
-        4rem,
-        13cqw,
-        6.5rem
-      );
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-copy
-  > p {
-    max-width:
-      70cqw;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-trust-strip {
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-
-    margin:
-      0
-      10px
-      10px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section-heading {
-    grid-template-columns:
-      100px
-      minmax(
-        0,
-        1fr
-      );
-
-    gap:
-      24px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section-heading
-  p {
-    grid-column:
-      2;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-services-layout {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-service-feature {
-    grid-template-columns:
-      minmax(
-        0,
-        1.05fr
-      )
-      minmax(
-        210px,
-        .82fr
-      );
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-story-grid {
-    grid-template-columns:
-      .9fr
-      1fr;
-
-    gap:
-      36px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-grid {
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step:nth-child(3) {
-    border-left:
-      0;
-
-    border-top:
-      1px
-      solid
-      rgba(
-        255,
-        255,
-        255,
-        .18
-      );
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step:nth-child(4) {
-    border-top:
-      1px
-      solid
-      rgba(
-        255,
-        255,
-        255,
-        .18
-      );
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-grid {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-card {
-    min-height:
-      440px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-side {
-    grid-template-columns:
-      1fr
-      1fr;
-
-    grid-template-rows:
-      none;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-card-small {
-    min-height:
-      280px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-why-layout {
-    grid-template-columns:
-      1fr
-      1fr;
-
-    gap:
-      40px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area {
-    grid-template-columns:
-      .85fr
-      1fr;
-
-    gap:
-      36px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-quote {
-    grid-template-columns:
-      .9fr
-      1fr;
-
-    gap:
-      36px;
-  }
-
-}
-
-
-/* =========================================================
-   PHONE / SLIDER <= 480
-========================================================= */
-
-@container northLab
-(max-width: 480px) {
+@media (
+  max-width: 950px
+) {
 
   #responsive-preview {
     height:
-      650px;
+      clamp(
+        540px,
+        66vh,
+        680px
+      );
+
+    box-shadow:
+      9px
+      9px
+      0
+      var(--lime);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE PORTFOLIO LAYOUT
+========================================================= */
+
+@media (
+  max-width: 680px
+) {
+
+  #responsive-preview {
+    height:
+      620px;
+
+    box-shadow:
+      7px
+      7px
+      0
+      var(--lime);
   }
 
 
@@ -841,586 +332,48 @@ h3 {
       0
       9px;
 
+    gap:
+      10px;
+
     font-size:
       .42rem;
   }
 
 
   #responsive-preview
-  .nh-lab-site
-  .nh-header {
-    min-height:
-      58px;
-
-    padding:
-      0
-      13px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-logo {
-    font-size:
-      .9rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-header-cta {
-    padding:
-      8px
-      10px;
-
-    font-size:
-      .48rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero {
-    padding:
-      0
-      7px
-      7px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-media {
-    min-height:
-      500px;
-
-    padding:
-      28px
-      18px;
-
-    border-radius:
-      15px;
-
-    background-position:
-      center;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero
-  h1 {
-    font-size:
-      clamp(
-        3.25rem,
-        16cqw,
-        4.8rem
-      );
-
-    line-height:
-      .8;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-eyebrow {
-    gap:
-      6px
-      12px;
-
-    margin-bottom:
-      16px;
-
-    font-size:
-      .44rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-copy
-  > p {
-    max-width:
-      100%;
-
-    margin:
-      20px
-      0
-      24px;
-
-    font-size:
-      .7rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-actions
-  a {
-    min-height:
-      40px;
-
-    padding:
-      0
-      13px;
-
-    font-size:
-      .53rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-hero-trust {
-    top:
-      12px;
-
-    right:
-      12px;
-
-    gap:
-      7px;
-
-    padding:
-      8px
-      10px;
-
-    font-size:
-      .44rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-trust-strip {
-    grid-template-columns:
-      1fr
-      1fr;
-
-    margin:
-      0
-      7px
-      7px;
-
-    border-radius:
-      12px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-trust-item {
-    min-height:
-      105px;
-
-    padding:
-      16px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-trust-item
-  strong {
-    font-size:
-      1.15rem;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-trust-item
-  span {
-    font-size:
-      .55rem;
-  }
-
-
-  /* COMMON PHONE SPACING */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-story,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-why,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-quote {
-    padding:
-      58px
-      18px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section-heading {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      12px;
-
-    margin-bottom:
-      34px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section-heading
-  p {
-    grid-column:
-      1;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-section-heading
-  h2,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-story-copy
-  h2,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-heading
-  h2,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-why-copy
-  h2,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area-copy
-  h2,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-quote-copy
-  h2 {
-    font-size:
-      clamp(
-        2.55rem,
-        13.5cqw,
-        4rem
-      );
-  }
-
-
-  /* SERVICES */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-services-layout {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-service-tab {
-    min-height:
-      82px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-service-feature {
-    grid-template-columns:
-      1fr;
-
-    border-radius:
-      16px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-service-photo {
-    min-height:
-      320px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-service-info {
-    padding:
-      26px
-      20px;
-  }
-
-
-  /* STORY */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-story-grid {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      30px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-story-photo {
-    min-height:
-      360px;
-
-    order:
-      -1;
-
-    border-radius:
-      16px;
-  }
-
-
-  /* PROCESS */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-heading {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      14px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-grid {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step {
-    min-height:
-      160px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step
-  + .nh-process-step,
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step:nth-child(3),
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-process-step:nth-child(4) {
-    border-left:
-      0;
-
-    border-top:
-      1px
-      solid
-      rgba(
-        255,
-        255,
-        255,
-        .18
-      );
-  }
-
-
-  /* WORK */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-grid {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-card {
-    min-height:
-      390px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-side {
-    grid-template-columns:
-      1fr;
-
-    grid-template-rows:
-      none;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-work-card-small {
-    min-height:
-      280px;
-  }
-
-
-  /* WHY */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-why-layout {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      34px;
-  }
-
-
-  /* AREA */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      34px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area-list {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-area-list
-  span:nth-child(even) {
-    border-left:
-      0;
-  }
-
-
-  /* QUOTE */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-quote {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      36px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-form {
-    padding:
-      24px
-      18px;
-
-    border-radius:
-      16px;
-  }
-
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-form-row {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      18px;
-  }
-
-
-  /* FOOTER */
-
-  #responsive-preview
-  .nh-lab-site
-  .nh-footer {
-    min-height:
-      120px;
-
-    grid-template-columns:
-      1fr;
-
-    gap:
-      5px;
-
-    align-content:
-      center;
-
-    padding:
-      0
-      18px;
+  .preview-browser-bar
+  > span:last-child {
+    overflow:
+      hidden;
+
+    text-overflow:
+      ellipsis;
+
+    white-space:
+      nowrap;
   }
 
 }
 
 
 /* =========================================================
-   LAB SECTION MOBILE SAFETY
+   VERY SMALL PORTFOLIO SCREENS
 ========================================================= */
 
 @media (
-  max-width: 680px
+  max-width: 420px
 ) {
 
   #responsive-preview {
     height:
-      600px;
+      580px;
+  }
 
-    box-shadow:
-      7px
-      7px
-      0
-      rgba(
-        223,
-        255,
-        82,
-        .95
-      );
+
+  #responsive-preview
+  .preview-browser-bar {
+    font-size:
+      .39rem;
   }
 
 }
@@ -1435,8 +388,14 @@ h3 {
   reduce
 ) {
 
-  #responsive-preview {
+  #responsive-preview,
+
+  #responsive-preview
+  .portfolio-lab-project-frame {
     transition:
+      none !important;
+
+    animation:
       none !important;
   }
 
