@@ -1,0 +1,1184 @@
+/* =========================================================
+   JEZIEL CAMARA / UI SYSTEM
+
+   A shared visual system for:
+   - controls
+   - buttons
+   - links
+   - containers
+   - borders
+   - spacing
+   - focus states
+
+   Loaded LAST so it normalizes the existing portfolio
+   without rebuilding each component.
+========================================================= */
+
+
+/* =========================================================
+   SYSTEM TOKENS
+========================================================= */
+
+:root {
+
+  /* LAYOUT */
+
+  --ui-gutter:
+    clamp(
+      16px,
+      6vw,
+      96px
+    );
+
+  --ui-section-space:
+    clamp(
+      82px,
+      8vw,
+      120px
+    );
+
+
+  /* CONTROLS */
+
+  --ui-control-height:
+    44px;
+
+  --ui-control-height-large:
+    48px;
+
+  --ui-control-padding:
+    16px;
+
+  --ui-control-gap:
+    18px;
+
+
+  /* TYPOGRAPHY */
+
+  --ui-control-font:
+    .62rem;
+
+  --ui-control-tracking:
+    .055em;
+
+
+  /* EDGES */
+
+  --ui-border:
+    1px
+    solid
+    var(--ink);
+
+  --ui-line:
+    1px
+    solid
+    var(--line);
+
+  /*
+   * Portfolio stays sharp.
+   * North Home keeps its own rounded system.
+   */
+
+  --ui-radius:
+    0;
+
+
+  /* MOTION */
+
+  --ui-speed:
+    200ms;
+
+  --ui-ease:
+    cubic-bezier(
+      .2,
+      .75,
+      .25,
+      1
+    );
+
+
+  /* FOCUS */
+
+  --ui-focus:
+    0
+    0
+    0
+    3px
+    var(--cream),
+    0
+    0
+    0
+    5px
+    var(--blue);
+
+}
+
+
+/* =========================================================
+   GLOBAL CONTROL RESET
+========================================================= */
+
+button,
+a {
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+
+button {
+  font-family:
+    inherit;
+}
+
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline:
+    none;
+}
+
+
+/* =========================================================
+   PORTFOLIO / PRIMARY ACTION
+
+   Used for important actions that need to read
+   unmistakably as buttons.
+========================================================= */
+
+.hero-contact,
+.nh-project-view-button {
+  min-height:
+    var(--ui-control-height-large);
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    var(--ui-control-gap);
+
+  padding:
+    0
+    var(--ui-control-padding);
+
+  color:
+    var(--ink);
+
+  background:
+    rgba(
+      243,
+      240,
+      231,
+      .98
+    );
+
+  border:
+    var(--ui-border);
+
+  border-radius:
+    var(--ui-radius);
+
+  cursor:
+    pointer;
+
+  font-size:
+    var(--ui-control-font);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-control-tracking);
+
+  line-height:
+    1;
+
+  text-decoration:
+    none;
+
+  box-shadow:
+    4px
+    4px
+    0
+    var(--blue);
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    background-color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease),
+    box-shadow
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.hero-contact:hover,
+.hero-contact:focus-visible,
+.nh-project-view-button:hover,
+.nh-project-view-button:focus-visible {
+  color:
+    #fff;
+
+  background:
+    var(--blue);
+
+  border-color:
+    var(--blue);
+
+  box-shadow:
+    4px
+    4px
+    0
+    var(--lime);
+
+  transform:
+    translate(
+      -2px,
+      -2px
+    );
+}
+
+
+.hero-contact:focus-visible,
+.nh-project-view-button:focus-visible {
+  box-shadow:
+    4px
+    4px
+    0
+    var(--lime),
+    var(--ui-focus);
+}
+
+
+/* PRIMARY ARROWS */
+
+.hero-contact
+span,
+.nh-project-view-button
+span {
+  color:
+    var(--blue);
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.hero-contact:hover
+span,
+.hero-contact:focus-visible
+span,
+.nh-project-view-button:hover
+span,
+.nh-project-view-button:focus-visible
+span {
+  color:
+    var(--lime);
+
+  transform:
+    translate(
+      3px,
+      -3px
+    );
+}
+
+
+/* =========================================================
+   PORTFOLIO / SECONDARY ACTION
+
+   Consistent treatment for:
+   - project actions
+   - replay
+   - case controls
+========================================================= */
+
+.case-open,
+.lab-replay,
+.case-close,
+.case-next,
+.nh-site-viewer-close {
+  min-height:
+    var(--ui-control-height);
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    var(--ui-control-gap);
+
+  padding:
+    0;
+
+  color:
+    inherit;
+
+  background:
+    transparent;
+
+  border:
+    0;
+
+  border-bottom:
+    1px
+    solid
+    currentColor;
+
+  border-radius:
+    0;
+
+  cursor:
+    pointer;
+
+  font-family:
+    inherit;
+
+  font-size:
+    var(--ui-control-font);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-control-tracking);
+
+  line-height:
+    1;
+
+  text-decoration:
+    none;
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.case-open:hover,
+.case-open:focus-visible,
+.case-close:hover,
+.case-close:focus-visible,
+.case-next:hover,
+.case-next:focus-visible {
+  color:
+    var(--blue);
+}
+
+
+.case-open:focus-visible,
+.case-close:focus-visible,
+.case-next:focus-visible {
+  box-shadow:
+    var(--ui-focus);
+}
+
+
+/* SECONDARY ARROW / ICON */
+
+.case-open
+span,
+.case-close
+span,
+.case-next
+span {
+  color:
+    var(--blue);
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.case-open:hover
+span,
+.case-open:focus-visible
+span,
+.case-next:hover
+span,
+.case-next:focus-visible
+span {
+  transform:
+    translate(
+      3px,
+      -3px
+    );
+}
+
+
+/* CASE CLOSE SHOULD NOT MOVE DIAGONALLY */
+
+.case-close:hover
+span,
+.case-close:focus-visible
+span {
+  transform:
+    rotate(
+      90deg
+    );
+}
+
+
+/* =========================================================
+   LAB SECONDARY ACTION
+========================================================= */
+
+.lab-replay {
+  width:
+    100%;
+
+  color:
+    #fff;
+
+  border-top:
+    1px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      .32
+    );
+
+  border-bottom:
+    1px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      .32
+    );
+}
+
+
+.lab-replay:hover,
+.lab-replay:focus-visible {
+  color:
+    var(--lime);
+
+  border-color:
+    var(--lime);
+}
+
+
+.lab-replay:focus-visible {
+  box-shadow:
+    0
+    0
+    0
+    2px
+    var(--lime);
+}
+
+
+.lab-replay
+span {
+  color:
+    var(--lime);
+}
+
+
+/* =========================================================
+   VIEWER CLOSE CONTROL
+========================================================= */
+
+.nh-site-viewer-close {
+  color:
+    #fff;
+
+  border-bottom-color:
+    rgba(
+      255,
+      255,
+      255,
+      .28
+    );
+}
+
+
+.nh-site-viewer-close:hover,
+.nh-site-viewer-close:focus-visible {
+  color:
+    var(--lime);
+
+  border-bottom-color:
+    var(--lime);
+}
+
+
+.nh-site-viewer-close:focus-visible {
+  box-shadow:
+    0
+    0
+    0
+    2px
+    var(--lime);
+}
+
+
+/* =========================================================
+   LARGE CONTACT ACTION
+
+   This remains larger because it is the final CTA,
+   but uses the same interaction logic.
+========================================================= */
+
+.contact-email {
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.contact-email
+span {
+  transition:
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.contact-email:hover,
+.contact-email:focus-visible {
+  color:
+    var(--blue);
+
+  border-color:
+    var(--blue);
+}
+
+
+.contact-email:hover
+span,
+.contact-email:focus-visible
+span {
+  transform:
+    translate(
+      4px,
+      -4px
+    );
+}
+
+
+.contact-email:focus-visible {
+  box-shadow:
+    0
+    0
+    0
+    3px
+    var(--lime),
+    0
+    0
+    0
+    5px
+    var(--blue);
+}
+
+
+/* =========================================================
+   PORTFOLIO CONTAINER SYSTEM
+========================================================= */
+
+
+/*
+ * Primary media surfaces.
+ *
+ * All use the same:
+ * - border weight
+ * - edge language
+ * - overflow behavior
+ */
+
+.project-image,
+.lab-canvas,
+.case-hero-media,
+.about-photo {
+  border:
+    var(--ui-border);
+
+  border-radius:
+    var(--ui-radius);
+
+  overflow:
+    hidden;
+}
+
+
+/*
+ * Browser/demo surfaces.
+ */
+
+.responsive-preview {
+  border:
+    var(--ui-border);
+
+  border-radius:
+    var(--ui-radius);
+
+  overflow:
+    hidden;
+}
+
+
+/*
+ * Horizontal information bars.
+ */
+
+.lab-toolbar,
+.project-caption,
+.case-topbar,
+.thinking-lines,
+.notes-list {
+  border-color:
+    var(--line);
+}
+
+
+/* =========================================================
+   SECTION GUTTERS
+
+   Establish one horizontal rhythm across
+   the main portfolio.
+========================================================= */
+
+.thinking,
+.lab-section,
+.about-section,
+.contact-section {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+.work-heading {
+  margin-left:
+    var(--ui-gutter);
+
+  margin-right:
+    var(--ui-gutter);
+}
+
+
+.reel-track {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+.reel-progress {
+  width:
+    calc(
+      100%
+      -
+      (
+        var(--ui-gutter)
+        *
+        2
+      )
+    );
+}
+
+
+.site-footer {
+  padding-left:
+    var(--ui-gutter);
+
+  padding-right:
+    var(--ui-gutter);
+}
+
+
+/* =========================================================
+   CONTROL BARS
+========================================================= */
+
+.window-bar,
+.preview-browser-bar,
+.case-topbar {
+  letter-spacing:
+    var(--ui-control-tracking);
+}
+
+
+/* =========================================================
+   PROJECT CAPTIONS
+========================================================= */
+
+.project-caption {
+  border-bottom:
+    var(--ui-border);
+}
+
+
+.project-caption-actions {
+  gap:
+    12px;
+}
+
+
+/* =========================================================
+   FORM CONTROLS / PORTFOLIO
+========================================================= */
+
+input,
+select,
+textarea {
+  border-radius:
+    0;
+}
+
+
+/* =========================================================
+   NORTH HOME / INTERNAL DESIGN SYSTEM
+
+   North Home remains visually distinct from the
+   portfolio, but controls now follow one internal
+   size / spacing system.
+========================================================= */
+
+.nh-site {
+  --nh-control-height:
+    46px;
+
+  --nh-control-padding:
+    17px;
+
+  --nh-control-font:
+    .62rem;
+
+  --nh-control-gap:
+    16px;
+}
+
+
+/* NORTH HOME PRIMARY CONTROLS */
+
+.nh-header-cta,
+.nh-hero-actions
+a:first-child,
+.nh-form
+button {
+  min-height:
+    var(--nh-control-height);
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    var(--nh-control-gap);
+
+  padding:
+    0
+    var(--nh-control-padding);
+
+  border:
+    1px
+    solid
+    var(--nh-navy);
+
+  border-radius:
+    999px;
+
+  font-size:
+    var(--nh-control-font);
+
+  font-weight:
+    600;
+
+  line-height:
+    1;
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    background-color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+/* HEADER + FORM DARK PRIMARY */
+
+.nh-header-cta,
+.nh-form
+button {
+  color:
+    #fff !important;
+
+  background:
+    var(--nh-navy);
+}
+
+
+.nh-header-cta:hover,
+.nh-header-cta:focus-visible,
+.nh-form
+button:hover,
+.nh-form
+button:focus-visible {
+  color:
+    var(--nh-navy) !important;
+
+  background:
+    var(--nh-sand-light);
+
+  border-color:
+    var(--nh-navy);
+
+  transform:
+    translateY(
+      -1px
+    );
+}
+
+
+/* HERO LIGHT PRIMARY */
+
+.nh-hero-actions
+a:first-child {
+  color:
+    var(--nh-navy);
+
+  background:
+    #fff;
+}
+
+
+.nh-hero-actions
+a:first-child:hover,
+.nh-hero-actions
+a:first-child:focus-visible {
+  color:
+    #fff;
+
+  background:
+    var(--nh-navy);
+
+  border-color:
+    var(--nh-navy);
+
+  transform:
+    translateY(
+      -1px
+    );
+}
+
+
+/* NORTH HOME SECONDARY */
+
+.nh-hero-actions
+a:last-child {
+  min-height:
+    var(--nh-control-height);
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap:
+    var(--nh-control-gap);
+
+  padding:
+    0
+    var(--nh-control-padding);
+
+  border:
+    1px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      .5
+    );
+
+  border-radius:
+    999px;
+
+  font-size:
+    var(--nh-control-font);
+
+  font-weight:
+    600;
+
+  line-height:
+    1;
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    background-color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.nh-hero-actions
+a:last-child:hover,
+.nh-hero-actions
+a:last-child:focus-visible {
+  color:
+    var(--nh-navy);
+
+  background:
+    #fff;
+
+  border-color:
+    #fff;
+}
+
+
+/* =========================================================
+   NORTH HOME / FORM FIELDS
+========================================================= */
+
+.nh-form
+input,
+.nh-form
+select,
+.nh-form
+textarea {
+  min-height:
+    44px;
+
+  border-bottom:
+    1px
+    solid
+    var(--nh-line);
+
+  transition:
+    border-color
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.nh-form
+input:focus,
+.nh-form
+select:focus,
+.nh-form
+textarea:focus {
+  border-bottom-color:
+    var(--nh-navy);
+}
+
+
+/* =========================================================
+   NORTH HOME / CONTAINER RHYTHM
+========================================================= */
+
+
+/*
+ * Major rounded media containers now share
+ * the same radius instead of varying arbitrarily.
+ */
+
+.nh-hero-media,
+.nh-service-feature,
+.nh-story-photo,
+.nh-work-card,
+.nh-form {
+  border-radius:
+    var(--nh-radius-lg);
+}
+
+
+/*
+ * Smaller UI surfaces.
+ */
+
+.nh-trust-strip,
+.nh-thumb,
+.nh-site-viewer-browser {
+  border-radius:
+    var(--nh-radius-md);
+}
+
+
+/* =========================================================
+   DISABLED / INERT STATES
+========================================================= */
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor:
+    default;
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (
+  pointer: coarse
+) {
+
+  .case-open,
+  .case-close,
+  .case-next,
+  .lab-replay,
+  .nh-site-viewer-close {
+    min-height:
+      48px;
+  }
+
+
+  .hero-contact,
+  .nh-project-view-button {
+    min-height:
+      50px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+  max-width: 680px
+) {
+
+  :root {
+    --ui-gutter:
+      16px;
+
+    --ui-section-space:
+      74px;
+
+    --ui-control-height:
+      44px;
+
+    --ui-control-height-large:
+      46px;
+  }
+
+
+  .hero-contact {
+    min-width:
+      160px;
+  }
+
+
+  .project-caption-actions {
+    width:
+      100%;
+
+    align-items:
+      flex-start;
+  }
+
+
+  .case-open {
+    width:
+      fit-content;
+  }
+
+
+  .contact-email {
+    gap:
+      18px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .hero-contact,
+  .nh-project-view-button,
+  .case-open,
+  .case-close,
+  .case-next,
+  .lab-replay,
+  .nh-site-viewer-close,
+  .contact-email,
+  .nh-header-cta,
+  .nh-hero-actions
+  a,
+  .nh-form
+  button {
+    transition:
+      none !important;
+
+    transform:
+      none !important;
+  }
+
+}
