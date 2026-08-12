@@ -13,6 +13,7 @@
    - handmade mobile previews
    - project viewer chrome
    - Responsive Lab chrome
+   - portfolio Hero window geometry
 ========================================================= */
 
 
@@ -4009,80 +4010,6 @@ span {
   .nh-work-card-three {
     background-position:
       center !important;
-  }
-
-}
-
-
-/* =========================================================
-   FEATURED MOBILE WINDOW / PORTFOLIO GEOMETRY
-
-   Temporary compatibility.
-
-   The handmade North mobile interface is gone.
-
-   These rules remain only to preserve the current floating
-   window size and position while the generic portfolio
-   window geometry is migrated separately.
-========================================================= */
-
-.window-small {
-  width:
-    min(
-      14.5vw,
-      205px
-    );
-
-  top:
-    14%;
-
-  left:
-    39%;
-}
-
-
-/* =========================================================
-   TABLET PORTFOLIO WINDOW
-========================================================= */
-
-@media (
-  max-width: 950px
-) {
-
-  .window-small {
-    width:
-      min(
-        19vw,
-        180px
-      );
-
-    top:
-      16%;
-
-    left:
-      38%;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE PORTFOLIO WINDOW
-========================================================= */
-
-@media (
-  max-width: 680px
-) {
-
-  .window-small {
-    width:
-      27vw;
-
-    top:
-      27%;
-
-    left:
-      8%;
   }
 
 }
