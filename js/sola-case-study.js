@@ -1,29 +1,28 @@
 /* =========================================================
    SOLA CAFE / CASE STUDY PRESENTATION
 
-   Self-initiated hospitality concept.
+   SELF-INITIATED HOSPITALITY CONCEPT
 
    RESPONSIBILITY:
-   - build the Sola case-study narrative
-   - build the Sola case-study browser shells
-   - mount the registered canonical Sola project
-     into those shells
-   - manage Sola-specific case-dialog presentation
-
-   NOT RESPONSIBLE FOR:
-   - Sola website HTML
-   - Sola website interactions
-   - project registration
-   - portfolio Hero previews
-   - Selected Work previews
-   - Responsive Lab previews
-   - website viewer infrastructure
+   - Sola case-study narrative
+   - Sola case Hero preview
+   - Sola live website presentation
+   - Sola-specific shared-dialog mode
 
    WEBSITE SOURCE:
-   PortfolioProjects -> "sola"
+   PortfolioProjects -> sola
 
-   CASE STUDY:
-   Presentation only.
+   IMPORTANT:
+   The website itself is NEVER recreated here.
+
+   Both case surfaces request the registered canonical
+   Sola website through PortfolioProjects.
+
+   HERO PREVIEW:
+   isolated / decorative iframe
+
+   LIVE WEBSITE:
+   isolated / interactive iframe
 ========================================================= */
 
 (function () {
@@ -39,11 +38,11 @@
     "sola";
 
 
-  const CASE_DESIGN_WIDTH =
+  const PREVIEW_WIDTH =
     1200;
 
 
-  const CASE_DESIGN_HEIGHT =
+  const PREVIEW_HEIGHT =
     760;
 
 
@@ -67,10 +66,6 @@
     null;
 
 
-  let caseStudy =
-    null;
-
-
   let casePreviewHost =
     null;
 
@@ -83,21 +78,20 @@
     null;
 
 
-  let caseLiveSite =
+  let caseLiveFrame =
     null;
 
 
-  let caseResizeObserver =
+  let previewResizeObserver =
+    null;
+
+
+  let titleObserver =
     null;
 
 
   /* =======================================================
-     CASE HERO PREVIEW
-
-     The real Sola website is mounted into the empty host
-     through PortfolioProjects.
-
-     This file never recreates Sola website markup.
+     CASE HERO PRESENTATION
   ======================================================= */
 
   function solaCasePreviewMarkup() {
@@ -107,7 +101,6 @@
 
         <div class="sola-case-preview-paper">
 
-
           <div
             class="sola-case-preview-ornament"
             aria-hidden="true"
@@ -115,27 +108,19 @@
             ❦
           </div>
 
-
           <div class="sola-case-preview-browser">
-
 
             <div class="sola-case-preview-top">
 
-              <span
-                data-sola-case-index
-              >
+              <span data-sola-case-index>
                 CONCEPT / 02
               </span>
 
-
-              <span
-                data-sola-project-url
-              >
+              <span data-sola-project-url>
                 solacafe.example
               </span>
 
             </div>
-
 
             <div
               class="sola-case-preview-host"
@@ -143,9 +128,7 @@
               aria-label="Sola Cafe website preview"
             ></div>
 
-
           </div>
-
 
           <div
             class="sola-case-preview-note"
@@ -154,7 +137,6 @@
             some things<br>
             are worth keeping
           </div>
-
 
         </div>
 
@@ -165,12 +147,7 @@
 
 
   /* =======================================================
-     CASE STUDY MARKUP
-
-     This contains case-study narrative only.
-
-     The canonical website itself is mounted through
-     PortfolioProjects.
+     CASE STUDY NARRATIVE
   ======================================================= */
 
   function solaCaseStudyMarkup() {
@@ -180,48 +157,40 @@
 
 
         <!-- ===============================================
-             BRIEF
+             IDEA
         ================================================ -->
 
         <section class="sola-case-brief">
-
 
           <span class="sola-case-label">
             01 / THE IDEA
           </span>
 
-
           <div class="sola-case-brief-main">
-
 
             <span class="sola-case-kicker">
               SELF-INITIATED CONCEPT / HOSPITALITY
             </span>
 
-
             <h3>
-              Make nostalgia
-              feel useful,
-              not decorative.
+              Build a café
+              website that feels
+              assembled, not laid out.
             </h3>
-
 
             <p>
               Sola is a fictional neighborhood café concept
-              inspired by the visual memory of old recipe
-              books, handwritten household notes, printed
-              menus, familiar food, and slow mornings.
-              The goal was not to reproduce an old website.
-              It was to translate that tactile material into
-              a contemporary responsive café experience.
+              inspired by old restaurant websites, recipe
+              books, printed menus, family-kitchen ephemera,
+              faded photographs and the visual clutter of a
+              desk where useful things have accumulated over
+              time.
             </p>
-
 
           </div>
 
 
           <div class="sola-case-facts">
-
 
             <div>
 
@@ -256,7 +225,7 @@
               </span>
 
               <strong>
-                Turn atmosphere into a reason to visit
+                Make the café memorable and easy to visit
               </strong>
 
             </div>
@@ -265,11 +234,11 @@
             <div>
 
               <span>
-                POSITIONING
+                ART DIRECTION
               </span>
 
               <strong>
-                Familiar, tactile and contemporary
+                Antique tableau / collected ephemera
               </strong>
 
             </div>
@@ -295,24 +264,21 @@
               </span>
 
               <strong>
-                Strategy / Art direction / Front-end
+                Strategy / Design / Front-end
               </strong>
 
             </div>
 
-
           </div>
-
 
         </section>
 
 
         <!-- ===============================================
-             VISUAL REFERENCES
+             VISUAL LANGUAGE
         ================================================ -->
 
         <section class="sola-case-references">
-
 
           <div class="sola-case-reference-heading">
 
@@ -320,26 +286,24 @@
               02 / VISUAL LANGUAGE
             </span>
 
-
             <h3>
-              Old material.
-              Modern structure.
+              A small world
+              made from old
+              material.
             </h3>
 
-
             <p>
-              The references pointed toward ornate restaurant
-              framing, warm bakery editorial layouts, and
-              scrapbook-like personal sites. Sola keeps those
-              qualities while removing the dated interaction
-              patterns that came with them.
+              The reference direction is intentionally
+              different from a contemporary hospitality
+              template. Sola treats the screen like a
+              physical surface covered with collected
+              objects and printed material.
             </p>
 
           </div>
 
 
           <div class="sola-case-reference-grid">
-
 
             <article>
 
@@ -348,13 +312,14 @@
               </span>
 
               <strong>
-                ORNAMENT
+                TABLEAU
               </strong>
 
               <p>
-                Decorative borders, small flourishes and
-                framed images bring the feeling of old menus
-                and printed hospitality material.
+                The opening composition is centered like an
+                antique illustration rather than divided into
+                the standard copy-left, image-right business
+                website pattern.
               </p>
 
             </article>
@@ -371,9 +336,10 @@
               </strong>
 
               <p>
-                Warm ivory, aged beige and faded ink replace
-                polished white surfaces and create the sense
-                of something handled rather than generated.
+                Parchment surfaces, imperfect edges,
+                ornamental rules and muted ink create the
+                feeling of printed material that has been
+                handled over time.
               </p>
 
             </article>
@@ -390,16 +356,15 @@
               </strong>
 
               <p>
-                Recipe cards, postmarks, handwritten notes
-                and imperfect photo angles make the identity
-                feel collected rather than templated.
+                Photographs behave like found prints.
+                Notes, stamps and small ornamental marks
+                occupy the screen as physical objects rather
+                than interface decoration.
               </p>
 
             </article>
 
-
           </div>
-
 
         </section>
 
@@ -410,14 +375,12 @@
 
         <section class="sola-case-decisions">
 
-
           <span class="sola-case-label">
             03 / DESIGN DECISIONS
           </span>
 
 
           <div class="sola-case-decisions-list">
-
 
             <article class="sola-case-decision">
 
@@ -426,16 +389,16 @@
               </span>
 
               <h4>
-                Atmosphere first.
-                Information close behind.
+                Center the world,
+                not a conversion funnel.
               </h4>
 
               <p>
-                The opening establishes mood immediately,
-                but practical details such as the menu,
-                opening hours and visit information never
-                sit more than a short scroll or navigation
-                jump away.
+                North Home uses the clarity of a conventional
+                service-business Hero. Sola deliberately
+                rejects that structure. Its identity,
+                typography and collected objects form one
+                central composition.
               </p>
 
             </article>
@@ -448,15 +411,15 @@
               </span>
 
               <h4>
-                Use heritage language
-                without inventing heritage.
+                Make photography
+                feel found.
               </h4>
 
               <p>
-                Sola borrows the visual language of recipe
-                books and domestic memory without claiming
-                a fake family history, founding date,
-                inherited recipe, or real-world legacy.
+                Images are smaller, faded, tilted and framed
+                like prints on a desk. They support the brand
+                world instead of becoming a full-width
+                photographic Hero.
               </p>
 
             </article>
@@ -469,16 +432,15 @@
               </span>
 
               <h4>
-                Let the menu
-                behave like print.
+                Treat the menu
+                like a ledger.
               </h4>
 
               <p>
-                The menu is structured through rules,
-                typography and aligned prices rather than
-                a grid of rounded food cards. Category
-                switching keeps it useful without losing
-                the printed-menu character.
+                The interactive menu keeps useful category
+                switching while the visual system behaves
+                like one large printed page rather than a
+                collection of modern UI cards.
               </p>
 
             </article>
@@ -492,22 +454,19 @@
 
               <h4>
                 Let mobile become
-                a pocket notebook.
+                a pocket scrapbook.
               </h4>
 
               <p>
-                The same website collapses into a simpler
-                vertical composition on phones. The scrapbook
-                becomes sequential, navigation simplifies,
-                and practical café information becomes easier
-                to scan on the move.
+                The same canonical website reorganizes its
+                overlapping desktop compositions into a
+                sequential collection of paper, photographs,
+                menu entries and practical visit information.
               </p>
 
             </article>
 
-
           </div>
-
 
         </section>
 
@@ -518,18 +477,17 @@
 
         <section class="sola-case-system">
 
-
           <div class="sola-case-system-heading">
 
             <span class="sola-case-label">
               04 / BRAND SYSTEM
             </span>
 
-
             <h3>
-              A palette that
-              feels found,
-              not manufactured.
+              Faded paper.
+              Dark ink.
+              Small traces
+              of color.
             </h3>
 
           </div>
@@ -537,10 +495,9 @@
 
           <div class="sola-case-palette">
 
-
             <div
               class="sola-case-swatch"
-              style="--swatch:#E8D3AF"
+              style="--swatch:#E4CCA2"
             >
 
               <span>
@@ -548,7 +505,7 @@
               </span>
 
               <strong>
-                #E8D3AF
+                #E4CCA2
               </strong>
 
             </div>
@@ -556,7 +513,7 @@
 
             <div
               class="sola-case-swatch"
-              style="--swatch:#F4E9D3"
+              style="--swatch:#F3E7CC"
             >
 
               <span>
@@ -564,7 +521,7 @@
               </span>
 
               <strong>
-                #F4E9D3
+                #F3E7CC
               </strong>
 
             </div>
@@ -572,15 +529,15 @@
 
             <div
               class="sola-case-swatch"
-              style="--swatch:#352317"
+              style="--swatch:#38251A"
             >
 
               <span>
-                ESPRESSO
+                DARK INK
               </span>
 
               <strong>
-                #352317
+                #38251A
               </strong>
 
             </div>
@@ -588,15 +545,15 @@
 
             <div
               class="sola-case-swatch"
-              style="--swatch:#243D2B"
+              style="--swatch:#253427"
             >
 
               <span>
-                DEEP FOREST
+                DEEP GREEN
               </span>
 
               <strong>
-                #243D2B
+                #253427
               </strong>
 
             </div>
@@ -604,15 +561,15 @@
 
             <div
               class="sola-case-swatch"
-              style="--swatch:#71382D"
+              style="--swatch:#79463B"
             >
 
               <span>
-                OXBLOOD
+                FADED RED
               </span>
 
               <strong>
-                #71382D
+                #79463B
               </strong>
 
             </div>
@@ -620,60 +577,52 @@
 
             <div
               class="sola-case-swatch"
-              style="--swatch:#A5824B"
+              style="--swatch:#9B7A46"
             >
 
               <span>
-                MUTED BRASS
+                AGED BRASS
               </span>
 
               <strong>
-                #A5824B
+                #9B7A46
               </strong>
 
             </div>
-
 
           </div>
 
 
           <div class="sola-case-type-sample">
 
-
             <span>
               TYPOGRAPHY
             </span>
-
 
             <strong>
               Some things
               are worth keeping.
             </strong>
 
-
             <p>
-              Editorial serif display type carries the
-              emotional voice. A restrained sans-serif
-              handles information, while handwriting appears
-              only as an annotation layer.
+              Traditional serif typography carries the main
+              voice. Italics and small annotations provide
+              the imperfect human layer, while a restrained
+              sans-serif is reserved for functional labels.
             </p>
 
-
           </div>
-
 
         </section>
 
 
         <!-- ===============================================
-             LIVE WEBSITE
+             LIVE CANONICAL WEBSITE
         ================================================ -->
 
         <section class="sola-case-live">
 
-
           <div class="sola-case-live-heading">
-
 
             <div>
 
@@ -681,32 +630,28 @@
                 05 / LIVE FRONT-END
               </span>
 
-
               <h3>
-                The entire café
-                website, not a mockup.
+                One café website.
+                Running inside
+                every surface.
               </h3>
 
             </div>
 
-
             <p>
-              This is the same canonical Sola website used
-              in the portfolio Hero, Selected Work preview,
-              responsive presentation and full website
-              viewer. The case study does not contain a
-              second Sola design.
+              This interactive frame uses the exact canonical
+              Sola project registered with PortfolioProjects.
+              It is isolated from the portfolio dialog so its
+              responsive layout is determined by the website
+              viewport itself.
             </p>
-
 
           </div>
 
 
           <div class="sola-case-browser">
 
-
             <div class="sola-case-browserbar">
-
 
               <div
                 class="sola-case-browser-dots"
@@ -717,30 +662,23 @@
                 <i></i>
               </div>
 
-
-              <span
-                data-sola-project-url
-              >
+              <span data-sola-project-url>
                 solacafe.example
               </span>
 
-
               <strong>
-                LIVE CONCEPT
+                INTERACTIVE CONCEPT
               </strong>
 
-
             </div>
-
 
             <div
               class="sola-case-live-project-host"
               data-sola-live-project-host
+              aria-label="Interactive Sola Cafe website"
             ></div>
 
-
           </div>
-
 
         </section>
 
@@ -751,21 +689,18 @@
 
         <section class="sola-case-outcome">
 
-
           <span class="sola-case-label">
             06 / WHAT THIS PROJECT SHOWS
           </span>
 
-
           <h3>
-            The same developer.
-            A completely different
-            design language.
+            Same developer.
+            Completely different
+            visual grammar.
           </h3>
 
 
           <div class="sola-case-outcome-grid">
-
 
             <article>
 
@@ -774,9 +709,9 @@
               </strong>
 
               <span>
-                Historical visual references are translated
-                into an original café identity rather than
-                copied as a retro theme.
+                A specific historical reference language is
+                translated into an original brand world
+                rather than reduced to generic vintage colors.
               </span>
 
             </article>
@@ -789,9 +724,9 @@
               </strong>
 
               <span>
-                Dense editorial compositions reorganize into
-                useful mobile sequences without requiring a
-                second website implementation.
+                Overlapping antique desktop compositions
+                reorganize into readable sequential mobile
+                layouts from the same canonical DOM.
               </span>
 
             </article>
@@ -804,16 +739,14 @@
               </strong>
 
               <span>
-                Menu switching, internal navigation,
-                responsive layouts and tactile interactions
-                all come from one canonical project source.
+                Menu interaction, navigation, responsive
+                behavior and presentation all originate from
+                one registered project implementation.
               </span>
 
             </article>
 
-
           </div>
-
 
         </section>
 
@@ -840,8 +773,6 @@
         "function" ||
       typeof registry.has !==
         "function" ||
-      typeof registry.mount !==
-        "function" ||
       typeof registry.mountFrame !==
         "function"
     ) {
@@ -857,7 +788,7 @@
 
 
   /* =======================================================
-     REGISTERED METADATA
+     METADATA
   ======================================================= */
 
   function syncProjectMetadata(
@@ -902,7 +833,12 @@
 
 
   /* =======================================================
-     CASE PREVIEW GEOMETRY
+     HERO PREVIEW FITTING
+
+     The case Hero is deliberately a fixed desktop snapshot.
+
+     It scales the 1200px canonical desktop frame into the
+     available case-study presentation surface.
   ======================================================= */
 
   function fitCasePreview() {
@@ -932,7 +868,7 @@
       Math.min(
         1,
         availableWidth /
-        CASE_DESIGN_WIDTH
+        PREVIEW_WIDTH
       );
 
 
@@ -949,19 +885,19 @@
 
 
     casePreviewFrame.style.width =
-      `${CASE_DESIGN_WIDTH}px`;
+      `${PREVIEW_WIDTH}px`;
 
 
     casePreviewFrame.style.minWidth =
-      `${CASE_DESIGN_WIDTH}px`;
-
-
-    casePreviewFrame.style.height =
-      `${CASE_DESIGN_HEIGHT}px`;
+      `${PREVIEW_WIDTH}px`;
 
 
     casePreviewFrame.style.maxWidth =
       "none";
+
+
+    casePreviewFrame.style.height =
+      `${PREVIEW_HEIGHT}px`;
 
 
     casePreviewFrame.style.margin =
@@ -989,12 +925,12 @@
 
 
   /* =======================================================
-     CASE PREVIEW RESIZE
+     PREVIEW RESIZE
   ======================================================= */
 
   function watchCasePreview() {
 
-    caseResizeObserver?.disconnect();
+    previewResizeObserver?.disconnect();
 
 
     if (!casePreviewHost) {
@@ -1008,7 +944,7 @@
       "ResizeObserver" in window
     ) {
 
-      caseResizeObserver =
+      previewResizeObserver =
         new ResizeObserver(
           () => {
 
@@ -1020,7 +956,7 @@
         );
 
 
-      caseResizeObserver.observe(
+      previewResizeObserver.observe(
         casePreviewHost
       );
 
@@ -1043,9 +979,9 @@
 
 
   /* =======================================================
-     MOUNT CASE HERO PREVIEW
+     MOUNT CASE HERO
 
-     Decorative, isolated, view-only viewport.
+     Decorative isolated desktop viewport.
   ======================================================= */
 
   function mountCasePreview(
@@ -1102,7 +1038,7 @@
 
 
     casePreviewHost.style.background =
-      "#f4e9d3";
+      "#f3e7cc";
 
 
     casePreviewFrame =
@@ -1118,10 +1054,10 @@
             "desktop",
 
           width:
-            CASE_DESIGN_WIDTH,
+            PREVIEW_WIDTH,
 
           height:
-            CASE_DESIGN_HEIGHT,
+            PREVIEW_HEIGHT,
 
           interactive:
             false,
@@ -1161,9 +1097,24 @@
 
 
   /* =======================================================
-     MOUNT LIVE WEBSITE
+     LIVE WEBSITE
 
-     Interactive instance of the exact registered project.
+     IMPORTANT CHANGE:
+
+     Previous implementation used registry.mount(), which
+     placed Sola directly into the portfolio dialog DOM.
+
+     The live case now uses an interactive SAME-SOURCE
+     iframe instead.
+
+     Benefits:
+     - no portfolio CSS contamination
+     - no dialog layout contamination
+     - genuine project viewport
+     - responsive container width
+     - internal scrolling
+     - same canonical website
+     - same registered interactions
   ======================================================= */
 
   function mountLiveCaseWebsite(
@@ -1194,8 +1145,28 @@
     }
 
 
-    caseLiveSite =
-      registry.mount(
+    caseLiveHost.style.position =
+      "relative";
+
+
+    caseLiveHost.style.width =
+      "100%";
+
+
+    caseLiveHost.style.minWidth =
+      "0";
+
+
+    caseLiveHost.style.overflow =
+      "hidden";
+
+
+    caseLiveHost.style.background =
+      "#f3e7cc";
+
+
+    caseLiveFrame =
+      registry.mountFrame(
         PROJECT_KEY,
         caseLiveHost,
         {
@@ -1206,22 +1177,66 @@
           viewport:
             "responsive",
 
-          preserveIds:
-            true,
+          width:
+            1200,
+
+          height:
+            820,
 
           interactive:
             true,
 
-          revealRoot:
-            caseDialog
+          label:
+            `${project.name} interactive case-study website`
 
         }
       );
 
 
-    caseLiveSite.classList.add(
-      "sola-case-live-site"
+    caseLiveFrame.classList.add(
+      "sola-case-live-frame"
     );
+
+
+    /*
+     * Override PortfolioProjects' initial fixed frame
+     * dimensions.
+     *
+     * The iframe now occupies its actual case-study host.
+     * Its internal layout viewport therefore follows the
+     * rendered width of this browser surface.
+     */
+
+    caseLiveFrame.style.width =
+      "100%";
+
+
+    caseLiveFrame.style.minWidth =
+      "0";
+
+
+    caseLiveFrame.style.maxWidth =
+      "100%";
+
+
+    caseLiveFrame.style.height =
+      "clamp(520px, 72vh, 820px)";
+
+
+    caseLiveFrame.style.margin =
+      "0";
+
+
+    caseLiveFrame.style.transform =
+      "none";
+
+
+    caseLiveFrame.style.transformOrigin =
+      "top left";
+
+
+    caseLiveFrame.style.pointerEvents =
+      "auto";
 
 
     caseLiveHost
@@ -1236,7 +1251,7 @@
 
 
   /* =======================================================
-     MOUNT ALL SOLA CASE SURFACES
+     MOUNT ALL CASE SURFACES
   ======================================================= */
 
   function mountSolaCaseSurfaces() {
@@ -1307,11 +1322,28 @@
 
 
   /* =======================================================
-     SOLA CASE MODE
+     ACTIVE PROJECT CHECK
+  ======================================================= */
 
-     main.js owns the generic dialog and project switching.
+  function isSolaCase() {
 
-     This file only controls Sola-specific presentation.
+    const caseTitle =
+      caseDialog?.querySelector(
+        "#case-title"
+      );
+
+
+    return (
+      caseTitle?.textContent
+        .trim() ===
+      "Sola Cafe"
+    );
+
+  }
+
+
+  /* =======================================================
+     CASE MODE
   ======================================================= */
 
   function applySolaCaseMode() {
@@ -1323,10 +1355,21 @@
     }
 
 
-    const caseTitle =
-      caseDialog.querySelector(
-        "#case-title"
-      );
+    const active =
+      isSolaCase();
+
+
+    caseDialog.classList.toggle(
+      "sola-active",
+      active
+    );
+
+
+    if (!active) {
+
+      return;
+
+    }
 
 
     const caseType =
@@ -1353,31 +1396,6 @@
       );
 
 
-    const isSola =
-      caseTitle?.textContent
-        .trim() ===
-      "Sola Cafe";
-
-
-    caseDialog.classList.toggle(
-      "sola-active",
-      isSola
-    );
-
-
-    if (!isSola) {
-
-      return;
-
-    }
-
-
-    /*
-     * This copy supersedes the older generic Sola
-     * placeholder copy in main.js while preserving the
-     * generic dialog system.
-     */
-
     if (caseType) {
 
       caseType.textContent =
@@ -1389,7 +1407,7 @@
     if (caseSummary) {
 
       caseSummary.textContent =
-        "A contemporary Filipino café concept built from the visual language of recipe books, printed menus, collected photographs and slow domestic rituals.";
+        "A fictional neighborhood café built as an antique tabletop composition of typography, collected photography, paper, menus and everyday ephemera.";
 
     }
 
@@ -1397,7 +1415,7 @@
     if (caseGoal) {
 
       caseGoal.textContent =
-        "Create a café identity worth remembering while keeping menu, opening hours and visit information immediately useful.";
+        "Create a memorable café identity while keeping menu, hours and visit information practical on every screen.";
 
     }
 
@@ -1440,7 +1458,8 @@
 
 
     if (
-      caseDialog.dataset.solaCaseModeBound ===
+      caseDialog.dataset
+        .solaCaseModeBound ===
       "true"
     ) {
 
@@ -1449,17 +1468,10 @@
     }
 
 
-    caseDialog.dataset.solaCaseModeBound =
-      "true";
+    caseDialog.dataset
+      .solaCaseModeBound =
+        "true";
 
-
-    /*
-     * main.js receives the click first and populates the
-     * generic dialog.
-
-     * This listener then activates Sola presentation on the
-     * following animation frame.
-     */
 
     document
       .querySelectorAll(
@@ -1533,11 +1545,62 @@
       }
     );
 
+
+    /*
+     * main.js controls project switching and updates the
+     * generic case title.
+     *
+     * Watching that title makes Sola mode independent from
+     * click timing and also catches Next Project changes.
+     */
+
+    const caseTitle =
+      caseDialog.querySelector(
+        "#case-title"
+      );
+
+
+    if (
+      caseTitle &&
+      "MutationObserver" in window
+    ) {
+
+      titleObserver?.disconnect();
+
+
+      titleObserver =
+        new MutationObserver(
+          () => {
+
+            requestAnimationFrame(
+              applySolaCaseMode
+            );
+
+          }
+        );
+
+
+      titleObserver.observe(
+        caseTitle,
+        {
+          childList:
+            true,
+
+          characterData:
+            true,
+
+          subtree:
+            true
+        }
+      );
+
+    }
+
   }
 
 
   /* =======================================================
-     BUILD CASE PRESENTATION
+     BUILD PRESENTATION
   ======================================================= */
 
   function buildSolaCaseStudy() {
@@ -1571,9 +1634,9 @@
     }
 
 
-    /* =====================================================
-       HERO PRESENTATION
-    ===================================================== */
+    /* -----------------------------------------------------
+       HERO PREVIEW
+    ----------------------------------------------------- */
 
     caseHeroMedia
       .querySelectorAll(
@@ -1594,9 +1657,9 @@
     );
 
 
-    /* =====================================================
-       CASE STUDY BODY
-    ===================================================== */
+    /* -----------------------------------------------------
+       CASE BODY
+    ----------------------------------------------------- */
 
     caseDialog
       .querySelectorAll(
@@ -1617,15 +1680,9 @@
     );
 
 
-    /* =====================================================
-       CACHE TARGETS
-    ===================================================== */
-
-    caseStudy =
-      caseDialog.querySelector(
-        ".sola-case-study"
-      );
-
+    /* -----------------------------------------------------
+       CACHE HOSTS
+    ----------------------------------------------------- */
 
     casePreviewHost =
       caseDialog.querySelector(
@@ -1640,7 +1697,6 @@
 
 
     if (
-      !caseStudy ||
       !casePreviewHost ||
       !caseLiveHost
     ) {
@@ -1656,7 +1712,7 @@
 
 
   /* =======================================================
-     INITIALIZATION
+     INITIALIZE
   ======================================================= */
 
   function initSolaCaseStudy() {
@@ -1684,12 +1740,6 @@
     bindCaseMode();
 
 
-    /*
-     * Mount immediately if Sola is already registered.
-
-     * Otherwise the registration events below complete it.
-     */
-
     mountSolaCaseSurfaces();
 
 
@@ -1709,7 +1759,7 @@
 
 
   /* =======================================================
-     PROJECT READY
+     PROJECT EVENTS
   ======================================================= */
 
   document.addEventListener(
