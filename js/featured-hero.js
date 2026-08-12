@@ -30,18 +30,14 @@
   const DESKTOP_DESIGN_WIDTH =
     1200;
 
-
   const MOBILE_VIEWPORT_WIDTH =
     390;
-
 
   const MOBILE_VIEWPORT_HEIGHT =
     1000;
 
-
   const WORK_VIEWPORT_WIDTH =
     1200;
-
 
   const WORK_VIEWPORT_HEIGHT =
     820;
@@ -56,30 +52,25 @@
       ".window-main"
     );
 
-
   const desktopBar =
     desktopWindow?.querySelector(
       ".window-bar"
     );
-
 
   const desktopPreview =
     desktopWindow?.querySelector(
       ".window-placeholder"
     );
 
-
   const mobileWindow =
     document.querySelector(
       ".window-small"
     );
 
-
   const mobileBar =
     mobileWindow?.querySelector(
       ".window-bar"
     );
-
 
   const mobilePreview =
     mobileWindow?.querySelector(
@@ -108,26 +99,20 @@
   let desktopSite =
     null;
 
-
   let mobileFrame =
     null;
-
 
   let desktopResizeObserver =
     null;
 
-
   let mobileResizeObserver =
     null;
-
 
   const workFrames =
     new Map();
 
-
   const workResizeObservers =
     new Map();
-
 
   let started =
     false;
@@ -135,11 +120,6 @@
 
   /* =======================================================
      GENERIC PROJECT VIEWER
-
-     All project surfaces now depend exclusively on the
-     shared PortfolioProjectViewer API.
-
-     No North-specific viewer fallback remains here.
   ======================================================= */
 
   function openProjectViewer(
@@ -172,7 +152,7 @@
 
 
   /* =======================================================
-     GENERIC HERO PREVIEW LAUNCHER
+     GENERIC PREVIEW LAUNCHER
   ======================================================= */
 
   function makePreviewLaunchable(
@@ -209,7 +189,6 @@
     element.dataset.viewerProject =
       projectKey;
 
-
     element.dataset.projectViewerBound =
       "true";
 
@@ -224,12 +203,10 @@
       "button"
     );
 
-
     element.setAttribute(
       "tabindex",
       "0"
     );
-
 
     element.setAttribute(
       "aria-label",
@@ -306,10 +283,10 @@
 
 
     /*
-     * The actual project remains at a real desktop width.
+     * The project remains at a genuine desktop width.
      *
-     * Only its presentation inside the portfolio window
-     * is scaled.
+     * Only its presentation inside the floating portfolio
+     * window is scaled.
      */
 
     const scale =
@@ -323,26 +300,20 @@
     desktopSite.style.width =
       `${DESKTOP_DESIGN_WIDTH}px`;
 
-
     desktopSite.style.minWidth =
       `${DESKTOP_DESIGN_WIDTH}px`;
-
 
     desktopSite.style.maxWidth =
       "none";
 
-
     desktopSite.style.margin =
       "0";
-
 
     desktopSite.style.transformOrigin =
       "top left";
 
-
     desktopSite.style.transform =
       `scale(${scale})`;
-
 
     desktopSite.style.pointerEvents =
       "none";
@@ -358,13 +329,7 @@
 
   function watchDesktopSize() {
 
-    if (
-      desktopResizeObserver
-    ) {
-
-      desktopResizeObserver.disconnect();
-
-    }
+    desktopResizeObserver?.disconnect();
 
 
     if (
@@ -430,30 +395,16 @@
     `;
 
 
+    /*
+     * Generic presentation classes only.
+     *
+     * There is no project-specific Hero preview class.
+     */
+
     desktopPreview.classList.add(
       "has-canonical-project-preview",
       "has-canonical-desktop-preview"
     );
-
-
-    /*
-     * Temporary North outer-surface compatibility.
-     *
-     * This does NOT alter the embedded project design.
-     * It will disappear when north-home.css stops owning
-     * portfolio-surface presentation.
-     */
-
-    if (
-      project.key ===
-      "north"
-    ) {
-
-      desktopPreview.classList.add(
-        "has-north-preview"
-      );
-
-    }
 
 
     desktopSite =
@@ -461,7 +412,6 @@
         project.key,
         desktopPreview,
         {
-
           instance:
             "hero-desktop",
 
@@ -470,7 +420,6 @@
 
           viewOnly:
             true
-
         }
       );
 
@@ -495,7 +444,6 @@
       () => {
 
         fitDesktopSite();
-
         watchDesktopSize();
 
       }
@@ -537,8 +485,8 @@
     /*
      * The iframe remains at a genuine phone width.
      *
-     * Therefore the project's own CSS controls its
-     * mobile layout.
+     * The project's own responsive CSS therefore controls
+     * the mobile design.
      */
 
     const scale =
@@ -552,42 +500,32 @@
     mobileFrame.style.position =
       "absolute";
 
-
     mobileFrame.style.top =
       "0";
-
 
     mobileFrame.style.left =
       "0";
 
-
     mobileFrame.style.width =
       `${MOBILE_VIEWPORT_WIDTH}px`;
-
 
     mobileFrame.style.minWidth =
       `${MOBILE_VIEWPORT_WIDTH}px`;
 
-
     mobileFrame.style.height =
       `${MOBILE_VIEWPORT_HEIGHT}px`;
-
 
     mobileFrame.style.maxWidth =
       "none";
 
-
     mobileFrame.style.margin =
       "0";
-
 
     mobileFrame.style.transformOrigin =
       "top left";
 
-
     mobileFrame.style.transform =
       `scale(${scale})`;
-
 
     mobileFrame.style.pointerEvents =
       "none";
@@ -603,13 +541,7 @@
 
   function watchMobileSize() {
 
-    if (
-      mobileResizeObserver
-    ) {
-
-      mobileResizeObserver.disconnect();
-
-    }
+    mobileResizeObserver?.disconnect();
 
 
     if (
@@ -677,31 +609,18 @@
     `;
 
 
+    /*
+     * Generic presentation classes only.
+     */
+
     mobilePreview.classList.add(
       "has-canonical-project-preview",
       "has-canonical-mobile-preview"
     );
 
 
-    /*
-     * Temporary North outer-surface compatibility.
-     */
-
-    if (
-      project.key ===
-      "north"
-    ) {
-
-      mobilePreview.classList.add(
-        "has-north-preview"
-      );
-
-    }
-
-
     mobilePreview.style.position =
       "relative";
-
 
     mobilePreview.style.overflow =
       "hidden";
@@ -712,7 +631,6 @@
         project.key,
         mobilePreview,
         {
-
           instance:
             "hero-mobile",
 
@@ -727,7 +645,6 @@
 
           label:
             `${project.name} mobile website preview`
-
         }
       );
 
@@ -752,7 +669,6 @@
       () => {
 
         fitMobileFrame();
-
         watchMobileSize();
 
       }
@@ -804,8 +720,8 @@
 
 
     /*
-     * Selected Work displays the same canonical project
-     * at a desktop viewport.
+     * Selected Work renders the same canonical project at
+     * a desktop viewport.
      */
 
     const scale =
@@ -819,42 +735,32 @@
     frame.style.position =
       "absolute";
 
-
     frame.style.top =
       "0";
-
 
     frame.style.left =
       "0";
 
-
     frame.style.width =
       `${WORK_VIEWPORT_WIDTH}px`;
-
 
     frame.style.minWidth =
       `${WORK_VIEWPORT_WIDTH}px`;
 
-
     frame.style.height =
       `${WORK_VIEWPORT_HEIGHT}px`;
-
 
     frame.style.maxWidth =
       "none";
 
-
     frame.style.margin =
       "0";
-
 
     frame.style.transformOrigin =
       "top left";
 
-
     frame.style.transform =
       `scale(${scale})`;
-
 
     frame.style.pointerEvents =
       "none";
@@ -980,13 +886,6 @@
       button.type =
         "button";
 
-
-      /*
-       * Generic button class only.
-       *
-       * No project-specific compatibility class is needed.
-       */
-
       button.className =
         "project-view-button";
 
@@ -1032,9 +931,9 @@
 
 
     /*
-     * main.js uses pointerdown on the reel for drag.
+     * main.js uses pointerdown on the reel for dragging.
      *
-     * Stop this real button from beginning a reel drag.
+     * The viewer button must not begin a reel drag.
      */
 
     button.addEventListener(
@@ -1052,7 +951,6 @@
       (event) => {
 
         event.preventDefault();
-
         event.stopPropagation();
 
 
@@ -1108,8 +1006,8 @@
 
 
     /*
-     * If this project has already been mounted,
-     * make sure its viewer control still exists.
+     * If this project was already mounted, only ensure its
+     * generic website-viewer control still exists.
      */
 
     if (
@@ -1132,63 +1030,43 @@
       "true";
 
 
+    /*
+     * Generic presentation classes only.
+     *
+     * North, Sola, Avance and future projects all receive
+     * the same portfolio surface.
+     */
+
     target.classList.add(
       "has-canonical-project-preview",
       "has-canonical-work-preview"
     );
 
 
-    /*
-     * Temporary North outer-surface compatibility.
-     */
-
-    if (
-      project.key ===
-      "north"
-    ) {
-
-      target.classList.add(
-        "has-north-preview"
-      );
-
-    }
-
-
     target.style.position =
       "relative";
-
 
     target.style.display =
       "block";
 
-
     target.style.alignItems =
       "";
-
 
     target.style.justifyContent =
       "";
 
-
     target.style.padding =
       "0";
-
 
     target.style.overflow =
       "hidden";
 
-
-    /*
-     * The Work preview receives the exact same project
-     * source as every other portfolio surface.
-     */
 
     const frame =
       window.PortfolioProjects.mountFrame(
         project.key,
         target,
         {
-
           instance:
             "selected-work",
 
@@ -1203,7 +1081,6 @@
 
           label:
             `${project.name} selected work preview`
-
         }
       );
 
@@ -1216,18 +1093,15 @@
     workFrames.set(
       project.key,
       {
-
         target,
         frame
-
       }
     );
 
 
     /*
-     * Add the explicit generic website viewer control
-     * after mountFrame(), because mountFrame replaces
-     * the target's children.
+     * mountFrame() replaces the target's children, so add
+     * the viewer control after mounting.
      */
 
     addWorkViewerButton(
@@ -1243,7 +1117,6 @@
           project.key
         );
 
-
         watchWorkFrame(
           project.key
         );
@@ -1258,7 +1131,7 @@
 
 
   /* =======================================================
-     RENDER ALL REGISTERED WORK
+     RENDER REGISTERED WORK
   ======================================================= */
 
   function renderRegisteredWorkPreviews() {
@@ -1346,8 +1219,8 @@
 
 
     /*
-     * Avoid repeating the project from the previous
-     * page load whenever another completed project exists.
+     * Avoid repeating the previously featured project when
+     * another registered featured project is available.
      */
 
     const alternatives =
@@ -1451,8 +1324,8 @@
   ) {
 
     /*
-     * Selected Work is independent from the featured
-     * project chosen for the Hero.
+     * Selected Work is independent from whichever project
+     * happens to be featured in the Hero.
      */
 
     renderRegisteredWorkPreviews();
@@ -1509,7 +1382,7 @@
 
 
   /* =======================================================
-     PROJECT REGISTRATION EVENTS
+     PROJECT REGISTRATION
   ======================================================= */
 
   document.addEventListener(
@@ -1521,11 +1394,11 @@
 
           /*
            * Any future registered project automatically
-           * gains a Selected Work canonical preview.
+           * gains a canonical Selected Work preview when a
+           * matching project slide exists.
            */
 
           renderRegisteredWorkPreviews();
-
 
           start();
 
@@ -1538,11 +1411,6 @@
 
   /* =======================================================
      VIEWER READY
-
-     If viewer initialization happens after project preview
-     rendering, no rerender is needed.
-
-     The launchers resolve the viewer API at click time.
   ======================================================= */
 
   document.addEventListener(
@@ -1556,7 +1424,7 @@
 
 
   /* =======================================================
-     LOAD FALLBACK
+     LOAD
   ======================================================= */
 
   if (
