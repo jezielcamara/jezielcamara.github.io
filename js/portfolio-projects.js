@@ -14,6 +14,15 @@
    - case study
 
    Project-specific files register themselves here.
+
+   IMPORTANT ARCHITECTURE RULE:
+
+   Project HTML must come from one registered createSite()
+   function.
+
+   Portfolio previews may present that source directly or
+   through an isolated viewport, but they must never recreate
+   project-specific HTML separately.
 ========================================================= */
 
 (function () {
@@ -30,7 +39,7 @@
 
 
   /* =======================================================
-     HELPERS
+     KEY HELPERS
   ======================================================= */
 
   function normalizeKey(
@@ -76,6 +85,10 @@
   }
 
 
+  /* =======================================================
+     ID CLEANUP
+  ======================================================= */
+
   function removeDuplicateIds(
     root
   ) {
@@ -86,8 +99,10 @@
 
 
     /*
-     * Preview copies must not duplicate IDs that
-     * may already exist in the interactive source.
+     * Direct preview copies live in the same DOM
+     * as the canonical source.
+     *
+     * They therefore must not keep duplicate IDs.
      */
 
     if (
@@ -119,6 +134,10 @@
 
   }
 
+
+  /* =======================================================
+     VIEW-ONLY DIRECT INSTANCE
+  ======================================================= */
 
   function makeViewOnly(
     root
@@ -181,15 +200,11 @@
 
 
     /*
-     * Preview instances should look like the real
-     * website but must not perform their own actions.
+     * Prevent links from navigating while allowing
+     * the click event to continue upward.
      *
-     * We prevent the internal link behavior while
-     * allowing the event to continue bubbling to the
-     * portfolio preview wrapper.
-     *
-     * This lets the outer preview open the website
-     * viewer when the user clicks anywhere inside it.
+     * The portfolio wrapper may use that click to
+     * open the project viewer.
      */
 
     root.addEventListener(
@@ -217,6 +232,10 @@
   }
 
 
+  /* =======================================================
+     PROJECT ELEMENT CREATION
+  ======================================================= */
+
   function createProjectElement(
     project
   ) {
@@ -228,8 +247,8 @@
     /*
      * Project factories may return:
      *
-     * 1. An HTMLElement
-     * 2. An HTML string
+     * 1. HTMLElement
+     * 2. HTML string
      */
 
     if (
@@ -377,9 +396,13 @@
       new CustomEvent(
         "portfolio:project-registered",
         {
+
           detail: {
+
             key
+
           }
+
         }
       )
     );
@@ -441,7 +464,7 @@
 
 
   /* =======================================================
-     CREATE INSTANCE
+     CREATE DIRECT INSTANCE
   ======================================================= */
 
   function create(
@@ -476,10 +499,10 @@
 
 
     /*
-     * Preview copies intentionally lose IDs.
+     * Direct preview copies intentionally lose IDs.
      *
-     * The main interactive project instance may
-     * preserve them when needed.
+     * The canonical interactive project can preserve
+     * IDs when required.
      */
 
     if (
@@ -506,11 +529,6 @@
     }
 
 
-    /*
-     * Project-specific interaction initialization
-     * happens only when explicitly requested.
-     */
-
     if (
       options.interactive ===
         true &&
@@ -531,7 +549,7 @@
 
 
   /* =======================================================
-     MOUNT INSTANCE
+     MOUNT DIRECT INSTANCE
   ======================================================= */
 
   function mount(
@@ -629,6 +647,523 @@
 
 
   /* =======================================================
+     ISOLATED VIEWPORT
+  ======================================================= */
+
+
+  /*
+   * Some project layouts use normal CSS media queries.
+   *
+   * When those projects are embedded inside a small
+   * portfolio preview, the media queries would otherwise
+   * respond to the outer portfolio browser instead of the
+   * preview itself.
+   *
+   * An isolated iframe gives the same canonical project
+   * its own real viewport.
+   *
+   * Example:
+   *
+   * 1200px frame = desktop project
+   * 700px frame  = tablet project
+   * 390px frame  = mobile project
+   *
+   * Same HTML source.
+   * Same CSS source.
+   * Different viewport only.
+   */
+
+
+  /* =======================================================
+     PAGE STYLE REFERENCES
+  ======================================================= */
+
+  function getSharedStyleMarkup() {
+
+    const markup =
+      [];
+
+
+    /*
+     * Copy every stylesheet currently loaded by the
+     * portfolio page.
+     *
+     * This keeps isolated previews visually synchronized
+     * with the exact CSS files used by the real project.
+     */
+
+    document
+      .querySelectorAll(
+        'link[rel="stylesheet"][href]'
+      )
+      .forEach(
+        (link) => {
+
+          const href =
+            link.href;
+
+
+          if (!href) {
+            return;
+          }
+
+
+          markup.push(
+            `<link rel="stylesheet" href="${href}">`
+          );
+
+        }
+      );
+
+
+    /*
+     * Copy inline head styles as well.
+     *
+     * Most project styles are external, but this ensures
+     * the isolated viewport uses the same current styling
+     * environment as the parent document.
+     */
+
+    document.head
+      .querySelectorAll(
+        "style"
+      )
+      .forEach(
+        (style) => {
+
+          markup.push(
+            `<style>${style.textContent || ""}</style>`
+          );
+
+        }
+      );
+
+
+    return markup.join(
+      "\n"
+    );
+
+  }
+
+
+  /* =======================================================
+     FRAME DOCUMENT
+  ======================================================= */
+
+  function createFrameDocument(
+    project,
+    options = {}
+  ) {
+
+    /*
+     * Important:
+     *
+     * This project element comes from the same registered
+     * createSite() source used everywhere else.
+     */
+
+    const projectElement =
+      createProjectElement(
+        project
+      );
+
+
+    projectElement.dataset.portfolioProject =
+      project.key;
+
+
+    projectElement.dataset.projectFrame =
+      options.instance ||
+      "preview";
+
+
+    /*
+     * IDs are safe inside the iframe because this is an
+     * isolated document.
+     *
+     * We deliberately preserve the project's real markup.
+     */
+
+    const projectHTML =
+      projectElement.outerHTML;
+
+
+    const styles =
+      getSharedStyleMarkup();
+
+
+    const baseHref =
+      document.baseURI;
+
+
+    const title =
+      `${project.name} preview`;
+
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <base href="${baseHref}">
+
+  <title>
+    ${title}
+  </title>
+
+  ${styles}
+
+  <style>
+
+    html,
+    body {
+      width: 100%;
+      min-width: 0;
+
+      margin: 0;
+      padding: 0;
+
+      overflow-x: hidden;
+
+      background:
+        transparent;
+    }
+
+
+    body {
+      min-height: 100vh;
+    }
+
+
+    body
+    > [data-portfolio-project] {
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+
+      margin: 0;
+    }
+
+
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      pointer-events:
+        none !important;
+    }
+
+
+    * {
+      box-sizing:
+        border-box;
+    }
+
+
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        animation-duration:
+          .001ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          .001ms !important;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  ${projectHTML}
+
+</body>
+
+</html>
+    `.trim();
+
+  }
+
+
+  /* =======================================================
+     CREATE FRAME
+  ======================================================= */
+
+  function createFrame(
+    key,
+    options = {}
+  ) {
+
+    const project =
+      requireProject(
+        key
+      );
+
+
+    const frame =
+      document.createElement(
+        "iframe"
+      );
+
+
+    const width =
+      Number(
+        options.width
+      ) || 1200;
+
+
+    const height =
+      Number(
+        options.height
+      ) || 800;
+
+
+    frame.className =
+      "portfolio-project-frame";
+
+
+    frame.dataset.portfolioProject =
+      project.key;
+
+
+    if (
+      options.instance
+    ) {
+
+      frame.dataset.projectInstance =
+        options.instance;
+
+    }
+
+
+    if (
+      options.viewport
+    ) {
+
+      frame.dataset.projectViewport =
+        options.viewport;
+
+    }
+
+
+    frame.title =
+      options.label ||
+      `${project.name} website preview`;
+
+
+    /*
+     * The project preview does not need scripts,
+     * forms, navigation, storage, or parent access.
+     *
+     * An empty sandbox provides the strongest isolation.
+     */
+
+    frame.setAttribute(
+      "sandbox",
+      ""
+    );
+
+
+    frame.setAttribute(
+      "tabindex",
+      "-1"
+    );
+
+
+    frame.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+    frame.setAttribute(
+      "scrolling",
+      "no"
+    );
+
+
+    frame.loading =
+      "eager";
+
+
+    frame.style.display =
+      "block";
+
+
+    frame.style.width =
+      `${width}px`;
+
+
+    frame.style.height =
+      `${height}px`;
+
+
+    frame.style.minWidth =
+      `${width}px`;
+
+
+    frame.style.maxWidth =
+      "none";
+
+
+    frame.style.margin =
+      "0";
+
+
+    frame.style.padding =
+      "0";
+
+
+    frame.style.border =
+      "0";
+
+
+    frame.style.background =
+      "transparent";
+
+
+    frame.style.pointerEvents =
+      "none";
+
+
+    frame.srcdoc =
+      createFrameDocument(
+        project,
+        options
+      );
+
+
+    return frame;
+
+  }
+
+
+  /* =======================================================
+     MOUNT FRAME
+  ======================================================= */
+
+  function mountFrame(
+    key,
+    target,
+    options = {}
+  ) {
+
+    let mountTarget =
+      target;
+
+
+    if (
+      typeof target ===
+      "string"
+    ) {
+
+      mountTarget =
+        document.querySelector(
+          target
+        );
+
+    }
+
+
+    if (
+      !(mountTarget instanceof HTMLElement)
+    ) {
+
+      throw new Error(
+        `Could not mount project frame "${key}": target not found.`
+      );
+
+    }
+
+
+    const frame =
+      createFrame(
+        key,
+        options
+      );
+
+
+    mountTarget.replaceChildren(
+      frame
+    );
+
+
+    mountTarget.dataset.mountedProject =
+      normalizeKey(
+        key
+      );
+
+
+    mountTarget.dataset.projectRenderMode =
+      "frame";
+
+
+    if (
+      options.viewport
+    ) {
+
+      mountTarget.dataset.projectViewport =
+        options.viewport;
+
+    }
+
+
+    document.dispatchEvent(
+      new CustomEvent(
+        "portfolio:project-frame-mounted",
+        {
+
+          detail: {
+
+            key:
+              normalizeKey(
+                key
+              ),
+
+            target:
+              mountTarget,
+
+            frame,
+
+            options
+
+          }
+
+        }
+      )
+    );
+
+
+    return frame;
+
+  }
+
+
+  /* =======================================================
      PUBLIC API
   ======================================================= */
 
@@ -646,7 +1181,11 @@
 
     create,
 
-    mount
+    mount,
+
+    createFrame,
+
+    mountFrame
 
   };
 
