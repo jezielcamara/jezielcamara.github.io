@@ -1,20 +1,29 @@
 /* =========================================================
-   NORTH HOME
+   NORTH HOME / CASE STUDY PRESENTATION
 
    Self-initiated residential-services concept.
 
    RESPONSIBILITY:
-   - build the North Home case study
-   - provide the canonical North Home website DOM
-   - run interactions inside the case-study version
+   - build the North Home case-study narrative
+   - build the North Home case-study browser shells
+   - mount the registered canonical North Home project
+     into those shells
+   - manage North-specific case-dialog presentation
 
    NOT RESPONSIBLE FOR:
-   - Hero previews
+   - North Home website HTML
+   - North Home website interactions
+   - project registration
+   - portfolio Hero previews
    - Selected Work previews
    - Responsive Lab previews
    - website viewer infrastructure
 
-   Those surfaces use PortfolioProjects.
+   WEBSITE SOURCE:
+   PortfolioProjects -> "north"
+
+   CASE STUDY:
+   Presentation only.
 ========================================================= */
 
 (function () {
@@ -22,17 +31,73 @@
   "use strict";
 
 
-  const prefersReducedMotion =
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+  /* =======================================================
+     SETTINGS
+  ======================================================= */
+
+  const PROJECT_KEY =
+    "north";
+
+
+  const CASE_DESIGN_WIDTH =
+    1200;
+
+
+  const CASE_DESIGN_HEIGHT =
+    760;
 
 
   /* =======================================================
-     CASE HERO SHELL
+     STATE
+  ======================================================= */
 
-     project-north.js mounts the canonical North website
-     inside this browser shell after registration.
+  let initialized =
+    false;
+
+
+  let caseDialog =
+    null;
+
+
+  let caseHeroMedia =
+    null;
+
+
+  let caseFooter =
+    null;
+
+
+  let caseStudy =
+    null;
+
+
+  let casePreviewHost =
+    null;
+
+
+  let casePreviewFrame =
+    null;
+
+
+  let caseLiveHost =
+    null;
+
+
+  let caseLiveSite =
+    null;
+
+
+  let caseResizeObserver =
+    null;
+
+
+  /* =======================================================
+     CASE HERO PREVIEW SHELL
+
+     The actual website is mounted later through
+     PortfolioProjects.
+
+     No project-specific website HTML exists here.
   ======================================================= */
 
   function northCasePreviewMarkup() {
@@ -44,15 +109,26 @@
 
           <div class="north-case-preview-top">
 
-            <span>
+            <span
+              data-north-case-index
+            >
               CONCEPT / 01
             </span>
 
-            <span>
+            <span
+              data-north-project-url
+            >
               northhome.example
             </span>
 
           </div>
+
+
+          <div
+            class="north-case-canonical-host"
+            data-north-case-preview-host
+            aria-label="North Home website preview"
+          ></div>
 
         </div>
 
@@ -63,7 +139,12 @@
 
 
   /* =======================================================
-     FULL CASE STUDY
+     CASE STUDY MARKUP
+
+     This contains only case-study presentation.
+
+     The live website area is an empty mount target.
+     PortfolioProjects supplies the actual North Home site.
   ======================================================= */
 
   function northCaseStudyMarkup() {
@@ -108,6 +189,7 @@
 
 
           <div class="nh-case-facts">
+
 
             <div>
 
@@ -340,7 +422,9 @@
               </div>
 
 
-              <span>
+              <span
+                data-north-project-url
+              >
                 northhome.example
               </span>
 
@@ -353,930 +437,16 @@
 
 
             <!-- ===========================================
-                 NORTH HOME WEBSITE
+                 CANONICAL PROJECT MOUNT TARGET
 
-                 THIS .nh-site IS THE SOURCE CURRENTLY
-                 REGISTERED BY project-north.js.
+                 PortfolioProjects.mount("north", ...)
+                 supplies the actual website here.
             ============================================ -->
 
-            <div class="nh-site">
-
-
-              <!-- HEADER -->
-
-              <header class="nh-header">
-
-                <a
-                  class="nh-logo"
-                  href="#nh-home"
-                >
-                  North Home<span>.</span>
-                </a>
-
-
-                <nav
-                  aria-label="North Home navigation"
-                >
-
-                  <a href="#nh-services">
-                    Services
-                  </a>
-
-                  <a href="#nh-process">
-                    Process
-                  </a>
-
-                  <a href="#nh-work">
-                    Work
-                  </a>
-
-                  <a href="#nh-area">
-                    Areas
-                  </a>
-
-                </nav>
-
-
-                <a
-                  class="nh-header-cta"
-                  href="#nh-quote"
-                >
-                  Request a quote
-                </a>
-
-              </header>
-
-
-              <!-- HERO -->
-
-              <section
-                class="nh-hero"
-                id="nh-home"
-                data-nh-reveal
-              >
-
-                <div
-                  class="nh-hero-media"
-                  role="img"
-                  aria-label="Contemporary residential home"
-                >
-
-
-                  <div class="nh-hero-trust">
-
-                    <strong>
-                      HOME CARE
-                    </strong>
-
-                    <span>
-                      Metro Manila / Concept service
-                    </span>
-
-                  </div>
-
-
-                  <div class="nh-hero-copy">
-
-
-                    <div class="nh-eyebrow">
-
-                      <span>
-                        RESIDENTIAL SERVICES
-                      </span>
-
-                      <span>
-                        METRO MANILA
-                      </span>
-
-                    </div>
-
-
-                    <h1>
-                      CARE FOR<br>
-                      THE HOME<br>
-                      YOU LIVE IN.
-                    </h1>
-
-
-                    <p>
-                      Residential repairs, preventive
-                      maintenance and installation for
-                      homeowners who want the work handled
-                      clearly and properly.
-                    </p>
-
-
-                    <div class="nh-hero-actions">
-
-                      <a href="#nh-quote">
-
-                        Request a quote
-
-                        <span>
-                          ↗
-                        </span>
-
-                      </a>
-
-
-                      <a href="#nh-services">
-
-                        Explore services
-
-                        <span>
-                          ↓
-                        </span>
-
-                      </a>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-
-              <!-- TRUST STRIP -->
-
-              <div class="nh-trust-strip">
-
-
-                <div class="nh-trust-item">
-
-                  <strong>
-                    Repairs
-                  </strong>
-
-                  <span>
-                    Practical fixes for the
-                    things that need attention.
-                  </span>
-
-                </div>
-
-
-                <div class="nh-trust-item">
-
-                  <strong>
-                    Maintenance
-                  </strong>
-
-                  <span>
-                    Preventive care before
-                    small issues become expensive.
-                  </span>
-
-                </div>
-
-
-                <div class="nh-trust-item">
-
-                  <strong>
-                    Installation
-                  </strong>
-
-                  <span>
-                    Fixtures, fittings and
-                    thoughtful home upgrades.
-                  </span>
-
-                </div>
-
-
-                <div class="nh-trust-item">
-
-                  <strong>
-                    Metro Manila
-                  </strong>
-
-                  <span>
-                    Selected residential areas
-                    across the metro.
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <!-- SERVICES -->
-
-              <section
-                class="nh-section nh-services"
-                id="nh-services"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-section-heading">
-
-                  <span>
-                    01 / SERVICES
-                  </span>
-
-                  <h2>
-                    START WITH
-                    WHAT NEEDS
-                    ATTENTION.
-                  </h2>
-
-                  <p>
-                    Pick the closest match.
-                    If the problem is unclear,
-                    describe what is happening
-                    and North can help identify
-                    the next step.
-                  </p>
-
-                </div>
-
-
-                <div class="nh-services-layout">
-
-
-                  <div
-                    class="nh-service-list"
-                    role="tablist"
-                    aria-label="North Home services"
-                  >
-
-
-                    <button
-                      class="nh-service-tab active"
-                      type="button"
-                      role="tab"
-                      data-nh-service="repairs"
-                      aria-selected="true"
-                    >
-
-                      <span>
-                        01
-                      </span>
-
-                      <strong>
-                        Repairs
-                      </strong>
-
-                      <i>
-                        →
-                      </i>
-
-                    </button>
-
-
-                    <button
-                      class="nh-service-tab"
-                      type="button"
-                      role="tab"
-                      data-nh-service="maintenance"
-                      aria-selected="false"
-                    >
-
-                      <span>
-                        02
-                      </span>
-
-                      <strong>
-                        Maintenance
-                      </strong>
-
-                      <i>
-                        →
-                      </i>
-
-                    </button>
-
-
-                    <button
-                      class="nh-service-tab"
-                      type="button"
-                      role="tab"
-                      data-nh-service="installation"
-                      aria-selected="false"
-                    >
-
-                      <span>
-                        03
-                      </span>
-
-                      <strong>
-                        Installation
-                      </strong>
-
-                      <i>
-                        →
-                      </i>
-
-                    </button>
-
-                  </div>
-
-
-                  <div class="nh-service-feature">
-
-
-                    <div
-                      class="nh-service-photo"
-                      id="nh-service-photo"
-                      data-service="repairs"
-                      role="img"
-                      aria-label="Residential repair service"
-                    ></div>
-
-
-                    <div class="nh-service-info">
-
-                      <span id="nh-service-index">
-                        SERVICE / 01
-                      </span>
-
-                      <h3 id="nh-service-title">
-                        Small problems
-                        should stay small.
-                      </h3>
-
-                      <p id="nh-service-description">
-                        General residential repairs for
-                        everyday issues that need attention
-                        before they become larger problems.
-                      </p>
-
-
-                      <ul id="nh-service-items">
-
-                        <li>
-                          Walls, surfaces and small repairs
-                        </li>
-
-                        <li>
-                          Doors, fittings and fixtures
-                        </li>
-
-                        <li>
-                          General residential troubleshooting
-                        </li>
-
-                      </ul>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-
-              <!-- STORY -->
-
-              <section
-                class="nh-story"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-story-grid">
-
-
-                  <div class="nh-story-copy">
-
-                    <span>
-                      HOME CARE / WITHOUT THE GUESSWORK
-                    </span>
-
-                    <h2>
-                      A BETTER WAY
-                      TO LOOK AFTER
-                      YOUR HOME.
-                    </h2>
-
-                    <p>
-                      Home maintenance often starts with
-                      uncertainty: who to call, what the
-                      problem actually is, and whether the
-                      job is large enough for someone to
-                      take seriously. North keeps the first
-                      step simple and explains what happens
-                      before the work begins.
-                    </p>
-
-                  </div>
-
-
-                  <div
-                    class="nh-story-photo"
-                    role="img"
-                    aria-label="Modern residential interior"
-                  ></div>
-
-                </div>
-
-              </section>
-
-
-              <!-- PROCESS -->
-
-              <section
-                class="nh-process"
-                id="nh-process"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-process-heading">
-
-                  <span>
-                    02 / HOW IT WORKS
-                  </span>
-
-                  <h2>
-                    CLEAR FROM
-                    FIRST MESSAGE
-                    TO FINISHED JOB.
-                  </h2>
-
-                </div>
-
-
-                <div class="nh-process-grid">
-
-
-                  <article class="nh-process-step">
-
-                    <span>
-                      01
-                    </span>
-
-                    <h3>
-                      Tell us what
-                      needs attention.
-                    </h3>
-
-                    <p>
-                      Describe the issue,
-                      location and what
-                      you are noticing.
-                    </p>
-
-                  </article>
-
-
-                  <article class="nh-process-step">
-
-                    <span>
-                      02
-                    </span>
-
-                    <h3>
-                      We review
-                      the request.
-                    </h3>
-
-                    <p>
-                      North checks the
-                      information and clarifies
-                      the likely scope.
-                    </p>
-
-                  </article>
-
-
-                  <article class="nh-process-step">
-
-                    <span>
-                      03
-                    </span>
-
-                    <h3>
-                      Confirm
-                      the work.
-                    </h3>
-
-                    <p>
-                      Agree on the job,
-                      timing and practical
-                      next steps.
-                    </p>
-
-                  </article>
-
-
-                  <article class="nh-process-step">
-
-                    <span>
-                      04
-                    </span>
-
-                    <h3>
-                      Get it
-                      sorted.
-                    </h3>
-
-                    <p>
-                      The work gets done
-                      without making the
-                      process harder.
-                    </p>
-
-                  </article>
-
-                </div>
-
-              </section>
-
-
-              <!-- SELECTED WORK -->
-
-              <section
-                class="nh-section nh-work"
-                id="nh-work"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-section-heading">
-
-                  <span>
-                    03 / SELECTED WORK
-                  </span>
-
-                  <h2>
-                    WORK THAT
-                    BELONGS IN
-                    THE HOME.
-                  </h2>
-
-                  <p>
-                    Concept project records
-                    show the range of small
-                    residential work North
-                    is positioned to handle.
-                  </p>
-
-                </div>
-
-
-                <div class="nh-work-grid">
-
-
-                  <article class="nh-work-card">
-
-                    <div class="nh-work-overlay">
-
-                      <span>
-                        INSTALLATION / MAKATI
-                      </span>
-
-                      <h3>
-                        Kitchen fixture
-                        upgrade
-                      </h3>
-
-                    </div>
-
-                  </article>
-
-
-                  <div class="nh-work-side">
-
-
-                    <article
-                      class="
-                        nh-work-card
-                        nh-work-card-small
-                        nh-work-card-two
-                      "
-                    >
-
-                      <div class="nh-work-overlay">
-
-                        <span>
-                          REPAIR / PASIG
-                        </span>
-
-                        <h3>
-                          Interior
-                          wall repair
-                        </h3>
-
-                      </div>
-
-                    </article>
-
-
-                    <article
-                      class="
-                        nh-work-card
-                        nh-work-card-small
-                        nh-work-card-three
-                      "
-                    >
-
-                      <div class="nh-work-overlay">
-
-                        <span>
-                          MAINTENANCE / BGC
-                        </span>
-
-                        <h3>
-                          Condo
-                          maintenance
-                        </h3>
-
-                      </div>
-
-                    </article>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-
-              <!-- WHY NORTH -->
-
-              <section
-                class="nh-why"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-why-layout">
-
-
-                  <div class="nh-why-copy">
-
-                    <span>
-                      04 / WHY NORTH
-                    </span>
-
-                    <h2>
-                      LESS
-                      UNCERTAINTY.
-                      BETTER CARE.
-                    </h2>
-
-                  </div>
-
-
-                  <div class="nh-why-list">
-
-
-                    <div class="nh-why-item">
-
-                      <span>
-                        01
-                      </span>
-
-                      <strong>
-                        Clear communication
-                      </strong>
-
-                    </div>
-
-
-                    <div class="nh-why-item">
-
-                      <span>
-                        02
-                      </span>
-
-                      <strong>
-                        Practical recommendations
-                      </strong>
-
-                    </div>
-
-
-                    <div class="nh-why-item">
-
-                      <span>
-                        03
-                      </span>
-
-                      <strong>
-                        Residential-first service
-                      </strong>
-
-                    </div>
-
-
-                    <div class="nh-why-item">
-
-                      <span>
-                        04
-                      </span>
-
-                      <strong>
-                        Straightforward process
-                      </strong>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-
-              <!-- SERVICE AREA -->
-
-              <section
-                class="nh-area"
-                id="nh-area"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-area-copy">
-
-                  <span>
-                    05 / SERVICE AREA
-                  </span>
-
-                  <h2>
-                    HOME CARE
-                    ACROSS
-                    THE METRO.
-                  </h2>
-
-                </div>
-
-
-                <div class="nh-area-list">
-
-                  <span>
-                    MAKATI
-                  </span>
-
-                  <span>
-                    TAGUIG
-                  </span>
-
-                  <span>
-                    PASIG
-                  </span>
-
-                  <span>
-                    MANDALUYONG
-                  </span>
-
-                  <span>
-                    QUEZON CITY
-                  </span>
-
-                  <span>
-                    SELECTED NEARBY AREAS
-                  </span>
-
-                </div>
-
-              </section>
-
-
-              <!-- QUOTE -->
-
-              <section
-                class="nh-quote"
-                id="nh-quote"
-                data-nh-reveal
-              >
-
-
-                <div class="nh-quote-copy">
-
-                  <span>
-                    06 / REQUEST A QUOTE
-                  </span>
-
-                  <h2>
-                    SOMETHING
-                    AT HOME
-                    NEEDS ATTENTION?
-                  </h2>
-
-                  <p>
-                    Tell North what is happening.
-                    This is a front-end portfolio
-                    demonstration, so no information
-                    is actually submitted.
-                  </p>
-
-                </div>
-
-
-                <form
-                  class="nh-form"
-                  id="nh-form"
-                >
-
-
-                  <label>
-
-                    WHAT NEEDS ATTENTION?
-
-                    <textarea
-                      name="job"
-                      rows="3"
-                      placeholder="Example: loose kitchen fixture..."
-                      required
-                    ></textarea>
-
-                  </label>
-
-
-                  <div class="nh-form-row">
-
-
-                    <label>
-
-                      SERVICE
-
-                      <select name="service">
-
-                        <option>
-                          Not sure
-                        </option>
-
-                        <option>
-                          Repairs
-                        </option>
-
-                        <option>
-                          Maintenance
-                        </option>
-
-                        <option>
-                          Installation
-                        </option>
-
-                      </select>
-
-                    </label>
-
-
-                    <label>
-
-                      AREA
-
-                      <input
-                        type="text"
-                        name="area"
-                        placeholder="Makati"
-                      >
-
-                    </label>
-
-                  </div>
-
-
-                  <button type="submit">
-
-                    <span id="nh-form-button">
-                      Review request
-                    </span>
-
-                    <span>
-                      ↗
-                    </span>
-
-                  </button>
-
-
-                  <p
-                    class="nh-form-status"
-                    id="nh-form-status"
-                    aria-live="polite"
-                  ></p>
-
-                </form>
-
-              </section>
-
-
-              <!-- SITE FOOTER -->
-
-              <footer class="nh-footer">
-
-                <strong>
-                  North Home.
-                </strong>
-
-                <span>
-                  RESIDENTIAL SERVICES / METRO MANILA
-                </span>
-
-                <span>
-                  CONCEPT PROJECT / JC
-                </span>
-
-              </footer>
-
-            </div>
+            <div
+              class="nh-live-project-host"
+              data-north-live-project-host
+            ></div>
 
           </div>
 
@@ -1360,24 +530,767 @@
 
 
   /* =======================================================
-     INITIALIZATION
+     REGISTRY
   ======================================================= */
 
-  function initNorthHome() {
+  function getRegistry() {
 
-    const caseDialog =
+    const registry =
+      window.PortfolioProjects;
+
+
+    if (
+      !registry ||
+      typeof registry.get !==
+        "function" ||
+      typeof registry.has !==
+        "function" ||
+      typeof registry.mount !==
+        "function" ||
+      typeof registry.mountFrame !==
+        "function"
+    ) {
+
+      return null;
+
+    }
+
+
+    return registry;
+
+  }
+
+
+  /* =======================================================
+     PROJECT METADATA
+
+     The visible browser labels follow the registered
+     project definition instead of maintaining another
+     independent URL/index definition here.
+  ======================================================= */
+
+  function syncProjectMetadata(
+    project
+  ) {
+
+    if (!project) {
+
+      return;
+
+    }
+
+
+    document
+      .querySelectorAll(
+        "[data-north-project-url]"
+      )
+      .forEach(
+        (element) => {
+
+          element.textContent =
+            project.url;
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        "[data-north-case-index]"
+      )
+      .forEach(
+        (element) => {
+
+          element.textContent =
+            `CONCEPT / ${project.index}`;
+
+        }
+      );
+
+  }
+
+
+  /* =======================================================
+     CASE PREVIEW GEOMETRY
+
+     The project remains at a real 1200px desktop viewport.
+
+     Only the portfolio presentation is scaled.
+  ======================================================= */
+
+  function fitCasePreview() {
+
+    if (
+      !casePreviewHost ||
+      !casePreviewFrame
+    ) {
+
+      return;
+
+    }
+
+
+    const availableWidth =
+      casePreviewHost.clientWidth;
+
+
+    if (!availableWidth) {
+
+      return;
+
+    }
+
+
+    const scale =
+      Math.min(
+        1,
+        availableWidth /
+        CASE_DESIGN_WIDTH
+      );
+
+
+    casePreviewFrame.style.position =
+      "absolute";
+
+
+    casePreviewFrame.style.top =
+      "0";
+
+
+    casePreviewFrame.style.left =
+      "0";
+
+
+    casePreviewFrame.style.width =
+      `${CASE_DESIGN_WIDTH}px`;
+
+
+    casePreviewFrame.style.minWidth =
+      `${CASE_DESIGN_WIDTH}px`;
+
+
+    casePreviewFrame.style.height =
+      `${CASE_DESIGN_HEIGHT}px`;
+
+
+    casePreviewFrame.style.maxWidth =
+      "none";
+
+
+    casePreviewFrame.style.margin =
+      "0";
+
+
+    casePreviewFrame.style.transformOrigin =
+      "top left";
+
+
+    casePreviewFrame.style.transform =
+      `scale(${scale})`;
+
+
+    casePreviewFrame.style.pointerEvents =
+      "none";
+
+
+    casePreviewHost.dataset.previewScale =
+      scale.toFixed(
+        4
+      );
+
+  }
+
+
+  /* =======================================================
+     CASE PREVIEW RESIZE
+  ======================================================= */
+
+  function watchCasePreview() {
+
+    caseResizeObserver?.disconnect();
+
+
+    if (
+      !casePreviewHost
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      "ResizeObserver" in window
+    ) {
+
+      caseResizeObserver =
+        new ResizeObserver(
+          () => {
+
+            requestAnimationFrame(
+              fitCasePreview
+            );
+
+          }
+        );
+
+
+      caseResizeObserver.observe(
+        casePreviewHost
+      );
+
+
+      return;
+
+    }
+
+
+    window.addEventListener(
+      "resize",
+      fitCasePreview,
+      {
+        passive:
+          true
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     MOUNT CASE HERO PREVIEW
+
+     View-only isolated viewport.
+  ======================================================= */
+
+  function mountCasePreview(
+    registry,
+    project
+  ) {
+
+    if (
+      !registry ||
+      !project ||
+      !casePreviewHost
+    ) {
+
+      return false;
+
+    }
+
+
+    if (
+      casePreviewHost
+        .dataset
+        .canonicalCasePreview ===
+      "true"
+    ) {
+
+      requestAnimationFrame(
+        fitCasePreview
+      );
+
+
+      return true;
+
+    }
+
+
+    casePreviewHost.style.position =
+      "relative";
+
+
+    casePreviewHost.style.width =
+      "100%";
+
+
+    casePreviewHost.style.aspectRatio =
+      "16 / 10";
+
+
+    casePreviewHost.style.minWidth =
+      "0";
+
+
+    casePreviewHost.style.overflow =
+      "hidden";
+
+
+    casePreviewHost.style.background =
+      "#ffffff";
+
+
+    casePreviewFrame =
+      registry.mountFrame(
+        PROJECT_KEY,
+        casePreviewHost,
+        {
+
+          instance:
+            "case-preview",
+
+          viewport:
+            "desktop",
+
+          width:
+            CASE_DESIGN_WIDTH,
+
+          height:
+            CASE_DESIGN_HEIGHT,
+
+          interactive:
+            false,
+
+          label:
+            `${project.name} case-study website preview`
+
+        }
+      );
+
+
+    casePreviewFrame.classList.add(
+      "north-case-project-frame"
+    );
+
+
+    casePreviewHost
+      .dataset
+      .canonicalCasePreview =
+        "true";
+
+
+    requestAnimationFrame(
+      () => {
+
+        fitCasePreview();
+
+        watchCasePreview();
+
+      }
+    );
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     MOUNT LIVE CASE-STUDY WEBSITE
+
+     This is a real interactive instance of the exact
+     registered project.
+
+     No website HTML is recreated by the case study.
+  ======================================================= */
+
+  function mountLiveCaseWebsite(
+    registry,
+    project
+  ) {
+
+    if (
+      !registry ||
+      !project ||
+      !caseLiveHost
+    ) {
+
+      return false;
+
+    }
+
+
+    if (
+      caseLiveHost
+        .dataset
+        .canonicalLiveProject ===
+      "true"
+    ) {
+
+      return true;
+
+    }
+
+
+    caseLiveSite =
+      registry.mount(
+        PROJECT_KEY,
+        caseLiveHost,
+        {
+
+          instance:
+            "case-study-live",
+
+          viewport:
+            "responsive",
+
+          preserveIds:
+            true,
+
+          interactive:
+            true,
+
+          revealRoot:
+            caseDialog
+
+        }
+      );
+
+
+    caseLiveSite.classList.add(
+      "north-case-live-site"
+    );
+
+
+    caseLiveHost
+      .dataset
+      .canonicalLiveProject =
+        "true";
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     MOUNT ALL NORTH CASE SURFACES
+  ======================================================= */
+
+  function mountNorthCaseSurfaces() {
+
+    if (!initialized) {
+
+      return false;
+
+    }
+
+
+    const registry =
+      getRegistry();
+
+
+    if (
+      !registry ||
+      !registry.has(
+        PROJECT_KEY
+      )
+    ) {
+
+      return false;
+
+    }
+
+
+    const project =
+      registry.get(
+        PROJECT_KEY
+      );
+
+
+    if (!project) {
+
+      return false;
+
+    }
+
+
+    syncProjectMetadata(
+      project
+    );
+
+
+    mountCasePreview(
+      registry,
+      project
+    );
+
+
+    mountLiveCaseWebsite(
+      registry,
+      project
+    );
+
+
+    document.documentElement
+      .setAttribute(
+        "data-north-case-project",
+        "mounted"
+      );
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     NORTH CASE MODE
+
+     main.js owns the generic case-study dialog.
+
+     This file only activates North's custom presentation
+     when the currently populated project is North Home.
+  ======================================================= */
+
+  function applyNorthCaseMode() {
+
+    if (!caseDialog) {
+
+      return;
+
+    }
+
+
+    const caseTitle =
+      caseDialog.querySelector(
+        "#case-title"
+      );
+
+
+    const caseType =
+      caseDialog.querySelector(
+        "#case-type"
+      );
+
+
+    const caseSummary =
+      caseDialog.querySelector(
+        "#case-summary"
+      );
+
+
+    const caseGoal =
+      caseDialog.querySelector(
+        "#case-goal"
+      );
+
+
+    const casePages =
+      caseDialog.querySelector(
+        "#case-pages"
+      );
+
+
+    const isNorth =
+      caseTitle?.textContent
+        .trim() ===
+      "North Home";
+
+
+    caseDialog.classList.toggle(
+      "north-active",
+      isNorth
+    );
+
+
+    if (!isNorth) {
+
+      return;
+
+    }
+
+
+    /*
+     * Preserve the existing North-specific case-study copy.
+     */
+
+    if (caseType) {
+
+      caseType.textContent =
+        "SELF-INITIATED / RESIDENTIAL SERVICES";
+
+    }
+
+
+    if (caseSummary) {
+
+      caseSummary.textContent =
+        "A premium residential-services concept designed to make home maintenance feel clear, trustworthy and appropriate for a modern home.";
+
+    }
+
+
+    if (caseGoal) {
+
+      caseGoal.textContent =
+        "Explain the services quickly, create residential trust, and make requesting help feel straightforward.";
+
+    }
+
+
+    if (casePages) {
+
+      casePages.textContent =
+        "Home / Services / About / Contact";
+
+    }
+
+
+    /*
+     * Ensure the canonical project is mounted before the
+     * custom case presentation becomes visible.
+     */
+
+    mountNorthCaseSurfaces();
+
+
+    /*
+     * The dialog may have been display:none while the
+     * preview frame was created.
+
+     * Recalculate presentation scale after opening.
+     */
+
+    requestAnimationFrame(
+      () => {
+
+        requestAnimationFrame(
+          fitCasePreview
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     CASE MODE EVENTS
+  ======================================================= */
+
+  function bindCaseMode() {
+
+    if (!caseDialog) {
+
+      return;
+
+    }
+
+
+    if (
+      caseDialog.dataset.northCaseModeBound ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    caseDialog.dataset.northCaseModeBound =
+      "true";
+
+
+    /*
+     * main.js handles the actual generic case opening first.
+
+     * This listener runs afterward and reads the project
+     * that main.js populated into the dialog.
+     */
+
+    document
+      .querySelectorAll(
+        ".case-open"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              requestAnimationFrame(
+                applyNorthCaseMode
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    const nextButton =
+      caseDialog.querySelector(
+        "#case-next"
+      );
+
+
+    nextButton?.addEventListener(
+      "click",
+      () => {
+
+        requestAnimationFrame(
+          applyNorthCaseMode
+        );
+
+      }
+    );
+
+
+    /*
+     * Modern dialog implementations emit toggle when modal
+     * visibility changes.
+
+     * The click handlers above remain the compatibility
+     * path for browsers where dialog toggle timing differs.
+     */
+
+    caseDialog.addEventListener(
+      "toggle",
+      () => {
+
+        if (
+          !caseDialog.open
+        ) {
+
+          return;
+
+        }
+
+
+        requestAnimationFrame(
+          applyNorthCaseMode
+        );
+
+      }
+    );
+
+
+    caseDialog.addEventListener(
+      "close",
+      () => {
+
+        caseDialog.classList.remove(
+          "north-active"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     BUILD CASE PRESENTATION
+  ======================================================= */
+
+  function buildNorthCaseStudy() {
+
+    caseDialog =
       document.querySelector(
         "#case-dialog"
       );
 
 
-    const caseHeroMedia =
+    caseHeroMedia =
       document.querySelector(
         "#case-hero-media"
       );
 
 
-    const caseFooter =
+    caseFooter =
       document.querySelector(
         ".case-footer"
       );
@@ -1389,18 +1302,13 @@
       !caseFooter
     ) {
 
-      return;
+      return false;
 
     }
 
 
     /* =====================================================
        CASE HERO
-
-       Only the generic North case-study browser shell is
-       created here.
-
-       project-north.js mounts the canonical project inside.
     ===================================================== */
 
     caseHeroMedia
@@ -1445,30 +1353,59 @@
     );
 
 
-    /*
-     * Scope interactive project lookups to the actual
-     * case-study source.
-     *
-     * This prevents future canonical preview instances
-     * elsewhere on the portfolio from being treated as
-     * the interactive case-study website.
-     */
+    /* =====================================================
+       CACHE PRESENTATION TARGETS
+    ===================================================== */
 
-    const caseStudy =
+    caseStudy =
       caseDialog.querySelector(
         ".north-case-study"
       );
 
 
-    const sourceWebsite =
-      caseStudy?.querySelector(
-        ".nh-site"
+    casePreviewHost =
+      caseDialog.querySelector(
+        "[data-north-case-preview-host]"
+      );
+
+
+    caseLiveHost =
+      caseDialog.querySelector(
+        "[data-north-live-project-host]"
       );
 
 
     if (
       !caseStudy ||
-      !sourceWebsite
+      !casePreviewHost ||
+      !caseLiveHost
+    ) {
+
+      return false;
+
+    }
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     INITIALIZATION
+  ======================================================= */
+
+  function initNorthHomeCaseStudy() {
+
+    if (initialized) {
+
+      return;
+
+    }
+
+
+    if (
+      !buildNorthCaseStudy()
     ) {
 
       return;
@@ -1476,847 +1413,84 @@
     }
 
 
-    /* =====================================================
-       CASE MODE
-    ===================================================== */
+    initialized =
+      true;
 
-    const allCaseButtons =
-      document.querySelectorAll(
-        ".case-open"
-      );
 
-
-    const nextButton =
-      document.querySelector(
-        "#case-next"
-      );
-
-
-    const closeButton =
-      document.querySelector(
-        "#case-close"
-      );
-
-
-    function applyNorthCaseMode() {
-
-      const caseTitle =
-        document.querySelector(
-          "#case-title"
-        );
-
-
-      const caseType =
-        document.querySelector(
-          "#case-type"
-        );
-
-
-      const caseSummary =
-        document.querySelector(
-          "#case-summary"
-        );
-
-
-      const caseGoal =
-        document.querySelector(
-          "#case-goal"
-        );
-
-
-      const casePages =
-        document.querySelector(
-          "#case-pages"
-        );
-
-
-      const isNorth =
-        caseTitle?.textContent.trim() ===
-        "North Home";
-
-
-      caseDialog.classList.toggle(
-        "north-active",
-        isNorth
-      );
-
-
-      if (!isNorth) {
-
-        return;
-
-      }
-
-
-      if (caseType) {
-
-        caseType.textContent =
-          "SELF-INITIATED / RESIDENTIAL SERVICES";
-
-      }
-
-
-      if (caseSummary) {
-
-        caseSummary.textContent =
-          "A premium residential-services concept designed to make home maintenance feel clear, trustworthy and appropriate for a modern home.";
-
-      }
-
-
-      if (caseGoal) {
-
-        caseGoal.textContent =
-          "Explain the services quickly, create residential trust, and make requesting help feel straightforward.";
-
-      }
-
-
-      if (casePages) {
-
-        casePages.textContent =
-          "Home / Services / About / Contact";
-
-      }
-
-    }
-
-
-    allCaseButtons.forEach(
-      (button) => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            requestAnimationFrame(
-              applyNorthCaseMode
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-    nextButton?.addEventListener(
-      "click",
-      () => {
-
-        requestAnimationFrame(
-          applyNorthCaseMode
-        );
-
-      }
-    );
-
-
-    closeButton?.addEventListener(
-      "click",
-      () => {
-
-        caseDialog.classList.remove(
-          "north-active"
-        );
-
-      }
-    );
-
-
-    caseDialog.addEventListener(
-      "close",
-      () => {
-
-        caseDialog.classList.remove(
-          "north-active"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       SERVICE DATA
-    ===================================================== */
-
-    const serviceData = {
-
-      repairs: {
-
-        index:
-          "SERVICE / 01",
-
-        title:
-          "Small problems should stay small.",
-
-        description:
-          "General residential repairs for everyday issues that need attention before they become larger problems.",
-
-        items: [
-          "Walls, surfaces and small repairs",
-          "Doors, fittings and fixtures",
-          "General residential troubleshooting"
-        ]
-
-      },
-
-
-      maintenance: {
-
-        index:
-          "SERVICE / 02",
-
-        title:
-          "Care before something goes wrong.",
-
-        description:
-          "Preventive and recurring maintenance for homes, condos and rental properties that need consistent attention.",
-
-        items: [
-          "Routine residential checks",
-          "Preventive fixes and adjustments",
-          "Recurring property support"
-        ]
-
-      },
-
-
-      installation: {
-
-        index:
-          "SERVICE / 03",
-
-        title:
-          "The finishing details matter.",
-
-        description:
-          "Installation for fixtures, fittings and practical home upgrades where careful placement and finish matter.",
-
-        items: [
-          "Fixtures and fittings",
-          "Shelving and storage additions",
-          "Small residential upgrades"
-        ]
-
-      }
-
-    };
-
-
-    const serviceTabs =
-      sourceWebsite.querySelectorAll(
-        ".nh-service-tab"
-      );
-
-
-    const servicePhoto =
-      sourceWebsite.querySelector(
-        "#nh-service-photo"
-      );
-
-
-    const serviceIndex =
-      sourceWebsite.querySelector(
-        "#nh-service-index"
-      );
-
-
-    const serviceTitle =
-      sourceWebsite.querySelector(
-        "#nh-service-title"
-      );
-
-
-    const serviceDescription =
-      sourceWebsite.querySelector(
-        "#nh-service-description"
-      );
-
-
-    const serviceItems =
-      sourceWebsite.querySelector(
-        "#nh-service-items"
-      );
-
-
-    function setNorthService(
-      key
-    ) {
-
-      const data =
-        serviceData[
-          key
-        ];
-
-
-      if (!data) {
-
-        return;
-
-      }
-
-
-      serviceTabs.forEach(
-        (tab) => {
-
-          const active =
-            tab.dataset.nhService ===
-            key;
-
-
-          tab.classList.toggle(
-            "active",
-            active
-          );
-
-
-          tab.setAttribute(
-            "aria-selected",
-            String(
-              active
-            )
-          );
-
-        }
-      );
-
-
-      if (servicePhoto) {
-
-        servicePhoto.dataset.service =
-          key;
-
-      }
-
-
-      if (serviceIndex) {
-
-        serviceIndex.textContent =
-          data.index;
-
-      }
-
-
-      if (serviceTitle) {
-
-        serviceTitle.textContent =
-          data.title;
-
-      }
-
-
-      if (serviceDescription) {
-
-        serviceDescription.textContent =
-          data.description;
-
-      }
-
-
-      if (serviceItems) {
-
-        serviceItems.replaceChildren();
-
-
-        data.items.forEach(
-          (item) => {
-
-            const li =
-              document.createElement(
-                "li"
-              );
-
-
-            li.textContent =
-              item;
-
-
-            serviceItems.append(
-              li
-            );
-
-          }
-        );
-
-      }
-
-
-      if (
-        !prefersReducedMotion &&
-        servicePhoto
-      ) {
-
-        servicePhoto.animate(
-          [
-            {
-              opacity:
-                .4,
-
-              transform:
-                "scale(1.015)"
-            },
-
-            {
-              opacity:
-                1,
-
-              transform:
-                "scale(1)"
-            }
-          ],
-          {
-            duration:
-              360,
-
-            easing:
-              "cubic-bezier(.2,.75,.25,1)"
-          }
-        );
-
-      }
-
-
-      if (
-        !prefersReducedMotion &&
-        serviceTitle
-      ) {
-
-        serviceTitle.animate(
-          [
-            {
-              opacity:
-                0,
-
-              transform:
-                "translateY(8px)"
-            },
-
-            {
-              opacity:
-                1,
-
-              transform:
-                "translateY(0)"
-            }
-          ],
-          {
-            duration:
-              330,
-
-            easing:
-              "cubic-bezier(.2,.75,.25,1)"
-          }
-        );
-
-      }
-
-    }
-
-
-    serviceTabs.forEach(
-      (tab) => {
-
-        tab.addEventListener(
-          "click",
-          () => {
-
-            setNorthService(
-              tab.dataset.nhService
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       INTERNAL NAVIGATION
-    ===================================================== */
-
-    sourceWebsite
-      .querySelectorAll(
-        'a[href^="#nh-"]'
-      )
-      .forEach(
-        (link) => {
-
-          link.addEventListener(
-            "click",
-            (event) => {
-
-              const selector =
-                link.getAttribute(
-                  "href"
-                );
-
-
-              if (!selector) {
-
-                return;
-
-              }
-
-
-              const target =
-                sourceWebsite.querySelector(
-                  selector
-                );
-
-
-              if (!target) {
-
-                return;
-
-              }
-
-
-              event.preventDefault();
-
-
-              target.scrollIntoView(
-                {
-                  behavior:
-                    prefersReducedMotion
-                      ? "auto"
-                      : "smooth",
-
-                  block:
-                    "start"
-                }
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =====================================================
-       FRONT-END QUOTE DEMO
-    ===================================================== */
-
-    const form =
-      sourceWebsite.querySelector(
-        "#nh-form"
-      );
-
-
-    const formButton =
-      sourceWebsite.querySelector(
-        "#nh-form-button"
-      );
-
-
-    const formStatus =
-      sourceWebsite.querySelector(
-        "#nh-form-status"
-      );
-
-
-    form?.addEventListener(
-      "submit",
-      (event) => {
-
-        event.preventDefault();
-
-
-        if (
-          !form.checkValidity()
-        ) {
-
-          form.reportValidity();
-
-          return;
-
-        }
-
-
-        const data =
-          new FormData(
-            form
-          );
-
-
-        const service =
-          data.get(
-            "service"
-          );
-
-
-        const area =
-          String(
-            data.get(
-              "area"
-            ) ||
-            ""
-          ).trim();
-
-
-        if (formButton) {
-
-          formButton.textContent =
-            "Request reviewed ✓";
-
-        }
-
-
-        if (formStatus) {
-
-          formStatus.textContent =
-            area
-              ? `Demo complete — ${service} request in ${area}. Nothing was sent.`
-              : `Demo complete — ${service} request. Nothing was sent.`;
-
-        }
-
-
-        if (
-          !prefersReducedMotion
-        ) {
-
-          form.animate(
-            [
-              {
-                transform:
-                  "translateY(0)"
-              },
-
-              {
-                transform:
-                  "translateY(-4px)"
-              },
-
-              {
-                transform:
-                  "translateY(0)"
-              }
-            ],
-            {
-              duration:
-                360,
-
-              easing:
-                "ease"
-            }
-          );
-
-        }
-
-
-        window.setTimeout(
-          () => {
-
-            if (formButton) {
-
-              formButton.textContent =
-                "Review request";
-
-            }
-
-          },
-          2500
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       CASE STUDY REVEALS
-    ===================================================== */
-
-    const revealItems =
-      caseStudy.querySelectorAll(
-        "[data-nh-reveal]"
-      );
-
-
-    if (
-      "IntersectionObserver" in window &&
-      !prefersReducedMotion
-    ) {
-
-      const observer =
-        new IntersectionObserver(
-          (
-            entries,
-            instance
-          ) => {
-
-            entries.forEach(
-              (entry) => {
-
-                if (
-                  !entry.isIntersecting
-                ) {
-
-                  return;
-
-                }
-
-
-                entry.target.animate(
-                  [
-                    {
-                      opacity:
-                        0,
-
-                      transform:
-                        "translateY(22px)"
-                    },
-
-                    {
-                      opacity:
-                        1,
-
-                      transform:
-                        "translateY(0)"
-                    }
-                  ],
-                  {
-                    duration:
-                      650,
-
-                    easing:
-                      "cubic-bezier(.18,.78,.22,1)",
-
-                    fill:
-                      "both"
-                  }
-                );
-
-
-                instance.unobserve(
-                  entry.target
-                );
-
-              }
-            );
-
-          },
-          {
-            threshold:
-              .07,
-
-            root:
-              caseDialog,
-
-            rootMargin:
-              "0px 0px -5% 0px"
-          }
-        );
-
-
-      revealItems.forEach(
-        (item) => {
-
-          observer.observe(
-            item
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       HERO POINTER RESPONSE
-
-       Limited to the interactive case-study source.
-       Decorative canonical previews are untouched.
-    ===================================================== */
-
-    const heroMedia =
-      sourceWebsite.querySelector(
-        ".nh-hero-media"
-      );
-
-
-    if (
-      heroMedia &&
-      !prefersReducedMotion &&
-      window.matchMedia(
-        "(pointer: fine)"
-      ).matches
-    ) {
-
-      heroMedia.addEventListener(
-        "pointermove",
-        (event) => {
-
-          const rect =
-            heroMedia.getBoundingClientRect();
-
-
-          const x =
-            (
-              event.clientX -
-              rect.left
-            ) /
-            rect.width -
-            .5;
-
-
-          const y =
-            (
-              event.clientY -
-              rect.top
-            ) /
-            rect.height -
-            .5;
-
-
-          heroMedia.style.transform =
-            `
-              perspective(1100px)
-              rotateX(${y * -1.1}deg)
-              rotateY(${x * 1.3}deg)
-            `;
-
-        }
-      );
-
-
-      heroMedia.addEventListener(
-        "pointerleave",
-        () => {
-
-          heroMedia.style.transform =
-            "perspective(1100px) rotateX(0deg) rotateY(0deg)";
-
-        }
-      );
-
-    }
+    bindCaseMode();
 
 
     /*
-     * Initialize the first service state.
+     * Under the current defer order, project-north.js
+     * registers before DOMContentLoaded finishes.
+
+     * This immediate registry check also makes initialization
+     * resilient if that ordering changes later.
      */
 
-    setNorthService(
-      "repairs"
-    );
+    mountNorthCaseSurfaces();
 
 
     document.dispatchEvent(
       new CustomEvent(
-        "north:case-source-ready",
+        "north:case-study-ready",
         {
           detail: {
-            source:
-              sourceWebsite
+            key:
+              PROJECT_KEY
           }
         }
       )
     );
 
   }
+
+
+  /* =======================================================
+     PROJECT READY
+
+     project-north.js may register before or after the case
+     markup is initialized.
+
+     Both execution orders are supported.
+  ======================================================= */
+
+  document.addEventListener(
+    "north:project-ready",
+    () => {
+
+      if (!initialized) {
+
+        return;
+
+      }
+
+
+      mountNorthCaseSurfaces();
+
+    }
+  );
+
+
+  document.addEventListener(
+    "portfolio:project-registered",
+    (event) => {
+
+      if (
+        event.detail?.key !==
+        PROJECT_KEY ||
+        !initialized
+      ) {
+
+        return;
+
+      }
+
+
+      mountNorthCaseSurfaces();
+
+    }
+  );
 
 
   /* =======================================================
@@ -2330,7 +1504,7 @@
 
     document.addEventListener(
       "DOMContentLoaded",
-      initNorthHome,
+      initNorthHomeCaseStudy,
       {
         once:
           true
@@ -2339,7 +1513,7 @@
 
   } else {
 
-    initNorthHome();
+    initNorthHomeCaseStudy();
 
   }
 
