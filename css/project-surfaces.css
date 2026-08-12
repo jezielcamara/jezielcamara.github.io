@@ -1,0 +1,266 @@
+/* =========================================================
+   JEZIEL CAMARA / PROJECT SURFACES
+
+   Generic presentation rules for registered portfolio
+   projects.
+
+   RESPONSIBILITY:
+   - Hero project preview surfaces
+   - Selected Work project preview surfaces
+   - canonical iframe presentation
+   - project viewer launch affordance
+
+   NOT RESPONSIBLE FOR:
+   - project typography
+   - project colors
+   - project responsive layouts
+   - project photography
+   - project-specific website design
+
+   The presentation frame changes.
+   The project design does not.
+========================================================= */
+
+
+/* =========================================================
+   PROJECT SURFACE TOKENS
+========================================================= */
+
+:root {
+  --project-preview-surface:
+    #f3f0e9;
+}
+
+
+/* =========================================================
+   ALL CANONICAL PROJECT PREVIEWS
+========================================================= */
+
+.has-canonical-project-preview {
+  position:
+    relative;
+
+  min-width:
+    0;
+
+  min-height:
+    0;
+
+  overflow:
+    hidden;
+
+  background:
+    var(
+      --project-preview-surface
+    ) !important;
+
+  background-image:
+    none !important;
+}
+
+
+/* =========================================================
+   REMOVE LEGACY PLACEHOLDER CONTENT
+
+   Canonical project previews replace the old placeholder
+   presentation entirely.
+========================================================= */
+
+.has-canonical-project-preview
+> .placeholder-cross,
+
+.has-canonical-project-preview
+> span,
+
+.has-canonical-project-preview
+> small {
+  display:
+    none !important;
+}
+
+
+/* =========================================================
+   HERO PROJECT SURFACES
+========================================================= */
+
+.window-placeholder.has-canonical-project-preview {
+  padding:
+    0 !important;
+
+  background:
+    var(
+      --project-preview-surface
+    ) !important;
+
+  background-image:
+    none !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK PROJECT SURFACES
+========================================================= */
+
+.project-image.has-canonical-project-preview {
+  display:
+    block;
+
+  align-items:
+    stretch;
+
+  justify-content:
+    stretch;
+
+  padding:
+    0;
+
+  background:
+    var(
+      --project-preview-surface
+    ) !important;
+
+  background-image:
+    none !important;
+}
+
+
+/* =========================================================
+   DIRECT CANONICAL PROJECT INSTANCE
+========================================================= */
+
+.has-canonical-project-preview
+> .portfolio-project-view-only,
+
+.has-canonical-project-preview
+> .featured-project-site {
+  display:
+    block;
+
+  max-width:
+    none;
+}
+
+
+/* =========================================================
+   ISOLATED PROJECT FRAME
+========================================================= */
+
+.has-canonical-project-preview
+> .portfolio-project-frame,
+
+.has-canonical-project-preview
+> .featured-project-frame,
+
+.has-canonical-project-preview
+> .portfolio-work-project-frame {
+  display:
+    block;
+
+  max-width:
+    none;
+
+  border:
+    0;
+
+  background:
+    transparent;
+}
+
+
+/* =========================================================
+   VIEWER LAUNCH SURFACE
+========================================================= */
+
+.project-view-launch {
+  cursor:
+    zoom-in;
+}
+
+
+.project-view-launch:focus-visible {
+  outline:
+    2px
+    solid
+    var(--blue);
+
+  outline-offset:
+    3px;
+}
+
+
+/* =========================================================
+   VIEW-ONLY PROJECT STATE
+
+   Interactive controls inside decorative direct previews
+   are already disabled by PortfolioProjects.
+
+   This provides the visual cursor state as well.
+========================================================= */
+
+.portfolio-project-view-only
+a,
+
+.portfolio-project-view-only
+button,
+
+.portfolio-project-view-only
+input,
+
+.portfolio-project-view-only
+select,
+
+.portfolio-project-view-only
+textarea {
+  cursor:
+    default;
+}
+
+
+/* =========================================================
+   HERO DESKTOP
+========================================================= */
+
+.has-canonical-desktop-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   HERO MOBILE
+========================================================= */
+
+.has-canonical-mobile-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   SELECTED WORK
+========================================================= */
+
+.has-canonical-work-preview {
+  isolation:
+    isolate;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .has-canonical-project-preview,
+  .has-canonical-project-preview
+  *,
+  .project-view-launch {
+    transition:
+      none !important;
+  }
+
+}
