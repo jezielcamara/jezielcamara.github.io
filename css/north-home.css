@@ -3817,3 +3817,351 @@ span {
   }
 
 }
+
+
+/* =========================================================
+   NORTH HOME / REAL STOCK PHOTOGRAPHY
+   Source: Pexels
+   These overrides intentionally replace all generated /
+   placeholder imagery with real stock photography.
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   HERO
+   Pexels photo 4626268
+   Modern residential exterior at twilight
+--------------------------------------------------------- */
+
+.nh-thumb-hero,
+.nh-hero-media {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 26, .02),
+      rgba(10, 18, 26, .68)
+    ),
+    url("https://images.pexels.com/photos/4626268/pexels-photo-4626268.jpeg?auto=compress&cs=tinysrgb&w=2200"),
+    linear-gradient(
+      145deg,
+      #aab4bd,
+      #283946
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center 52% !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/*
+ * Portfolio thumbnail needs slightly
+ * darker contrast behind its text.
+ */
+
+.nh-thumb-hero::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 12, 17, .52),
+      rgba(7, 12, 17, .12) 64%,
+      rgba(7, 12, 17, .04)
+    ) !important;
+}
+
+
+/*
+ * Embedded website hero.
+ */
+
+.nh-hero-media::before {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 12, 17, .55),
+      rgba(7, 12, 17, .17) 58%,
+      rgba(7, 12, 17, .05)
+    ) !important;
+}
+
+
+/* ---------------------------------------------------------
+   REPAIRS
+   Pexels photo 5691668
+   Handyman working inside a residential room
+--------------------------------------------------------- */
+
+.nh-service-photo {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 26, .02),
+      rgba(10, 18, 26, .08)
+    ),
+    url("https://images.pexels.com/photos/5691668/pexels-photo-5691668.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    linear-gradient(
+      145deg,
+      #c9c1b6,
+      #8b918f
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* ---------------------------------------------------------
+   MAINTENANCE
+   Pexels photo 10161225
+   Modern residential living room
+--------------------------------------------------------- */
+
+.nh-service-photo[
+  data-service="maintenance"
+] {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 26, .01),
+      rgba(10, 18, 26, .07)
+    ),
+    url("https://images.pexels.com/photos/10161225/pexels-photo-10161225.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    linear-gradient(
+      145deg,
+      #b5b8ad,
+      #777e76
+    ) !important;
+
+  background-position:
+    center !important;
+}
+
+
+/* ---------------------------------------------------------
+   INSTALLATION
+   Pexels photo 4792522
+   Professional installing a ceiling light
+--------------------------------------------------------- */
+
+.nh-service-photo[
+  data-service="installation"
+] {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 26, .01),
+      rgba(10, 18, 26, .08)
+    ),
+    url("https://images.pexels.com/photos/4792522/pexels-photo-4792522.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+    linear-gradient(
+      145deg,
+      #d2c8ba,
+      #8d7e6e
+    ) !important;
+
+  background-position:
+    center 42% !important;
+}
+
+
+/* ---------------------------------------------------------
+   HOME-CARE STORY
+   Pexels photo 9976128
+   High-end contemporary living room
+--------------------------------------------------------- */
+
+.nh-story-photo {
+  background-image:
+    url("https://images.pexels.com/photos/9976128/pexels-photo-9976128.jpeg?auto=compress&cs=tinysrgb&w=1800"),
+    linear-gradient(
+      145deg,
+      #d6d0c7,
+      #87909a
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* ---------------------------------------------------------
+   SELECTED WORK / PROJECT 01
+   Pexels photo 8082300
+   Premium residential kitchen
+--------------------------------------------------------- */
+
+.nh-work-card {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 20, .02) 32%,
+      rgba(10, 15, 20, .74)
+    ),
+    url("https://images.pexels.com/photos/8082300/pexels-photo-8082300.jpeg?auto=compress&cs=tinysrgb&w=1800"),
+    linear-gradient(
+      145deg,
+      #aab3b9,
+      #56636d
+    ) !important;
+
+  background-size:
+    cover !important;
+
+  background-position:
+    center !important;
+
+  background-repeat:
+    no-repeat !important;
+}
+
+
+/* ---------------------------------------------------------
+   SELECTED WORK / PROJECT 02
+   Pexels photo 9976124
+   Modern finished living room
+--------------------------------------------------------- */
+
+.nh-work-card-two {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 20, .02) 28%,
+      rgba(10, 15, 20, .72)
+    ),
+    url("https://images.pexels.com/photos/9976124/pexels-photo-9976124.jpeg?auto=compress&cs=tinysrgb&w=1500"),
+    linear-gradient(
+      145deg,
+      #b5b4ad,
+      #65706d
+    ) !important;
+
+  background-position:
+    center !important;
+}
+
+
+/* ---------------------------------------------------------
+   SELECTED WORK / PROJECT 03
+   Pexels photo 5353892
+   Bright modern residential interior
+--------------------------------------------------------- */
+
+.nh-work-card-three {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 15, 20, .02) 28%,
+      rgba(10, 15, 20, .72)
+    ),
+    url("https://images.pexels.com/photos/5353892/pexels-photo-5353892.jpeg?auto=compress&cs=tinysrgb&w=1500"),
+    linear-gradient(
+      145deg,
+      #c5b8aa,
+      #76695c
+    ) !important;
+
+  background-position:
+    center !important;
+}
+
+
+/* ---------------------------------------------------------
+   IMAGE PRESENTATION
+--------------------------------------------------------- */
+
+.nh-service-photo,
+.nh-story-photo,
+.nh-work-card,
+.nh-thumb-hero,
+.nh-hero-media {
+  image-rendering:
+    auto;
+}
+
+
+/*
+ * Very subtle zoom response on project imagery.
+ * Keeps the photography feeling alive without
+ * making the site resemble the portfolio motion.
+ */
+
+.nh-work-card {
+  transition:
+    background-size
+    700ms
+    cubic-bezier(.2, .75, .25, 1);
+}
+
+
+@media (
+  pointer: fine
+) {
+
+  .nh-work-card:hover {
+    background-size:
+      auto 104% !important;
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE CROPS
+--------------------------------------------------------- */
+
+@media (
+  max-width: 700px
+) {
+
+  .nh-hero-media,
+  .nh-thumb-hero {
+    background-position:
+      57% center !important;
+  }
+
+
+  .nh-service-photo {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-service-photo[
+    data-service="installation"
+  ] {
+    background-position:
+      52% center !important;
+  }
+
+
+  .nh-story-photo {
+    background-position:
+      center !important;
+  }
+
+
+  .nh-work-card,
+  .nh-work-card-two,
+  .nh-work-card-three {
+    background-position:
+      center !important;
+  }
+
+}
