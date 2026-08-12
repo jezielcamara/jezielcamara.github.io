@@ -1,16 +1,15 @@
 /* =========================================================
-   JEZIEL CAMARA / FEATURED HERO PROJECT
+   JEZIEL CAMARA / PORTFOLIO PROJECT SURFACES
 
    ONE PROJECT SOURCE.
-   TWO REAL VIEWPORTS.
+   MULTIPLE REAL VIEWPORTS.
 
-   LARGE WINDOW
-   = canonical project website / desktop viewport
+   Current surfaces:
+   - featured hero / desktop
+   - featured hero / mobile
+   - selected work preview
 
-   SMALL WINDOW
-   = canonical project website / mobile viewport
-
-   No project-specific preview HTML is created here.
+   Project-specific preview HTML must NOT be created here.
 ========================================================= */
 
 (function () {
@@ -34,8 +33,16 @@
     1000;
 
 
+  const WORK_VIEWPORT_WIDTH =
+    1200;
+
+
+  const WORK_VIEWPORT_HEIGHT =
+    820;
+
+
   /* =======================================================
-     ELEMENTS
+     HERO ELEMENTS
   ======================================================= */
 
   const desktopWindow =
@@ -106,12 +113,23 @@
     null;
 
 
+  const workFrames =
+    new Map();
+
+
+  const workResizeObservers =
+    new Map();
+
+
   let started =
     false;
 
 
   /* =======================================================
      WEBSITE VIEWER
+
+     North still uses its existing viewer.
+     This will become generic in a later migration step.
   ======================================================= */
 
   function openNorthViewer() {
@@ -156,8 +174,8 @@
 
 
     /*
-     * Fallback:
-     * use the existing North Home viewer launcher.
+     * Fallback to the existing North Home
+     * Work-preview launcher.
      */
 
     const existingLauncher =
@@ -172,12 +190,12 @@
 
 
   /* =======================================================
-     PREVIEW LAUNCHER
+     HERO PREVIEW LAUNCHER
   ======================================================= */
 
   function makePreviewLaunchable(
     element,
-    label
+    project
   ) {
 
     if (!element) {
@@ -195,6 +213,21 @@
 
     element.dataset.featuredViewerBound =
       "true";
+
+
+    /*
+     * North currently owns the finished website viewer.
+     *
+     * Once Sola exists, the viewer itself will also move
+     * into the shared project system.
+     */
+
+    if (
+      project.key !==
+      "north"
+    ) {
+      return;
+    }
 
 
     element.classList.add(
@@ -216,7 +249,7 @@
 
     element.setAttribute(
       "aria-label",
-      label
+      `View ${project.name} website`
     );
 
 
@@ -258,7 +291,7 @@
 
 
   /* =======================================================
-     DESKTOP PREVIEW
+     HERO / DESKTOP
   ======================================================= */
 
   function fitDesktopSite() {
@@ -281,10 +314,9 @@
 
 
     /*
-     * Render North Home at its intended desktop width.
+     * Render the project at a real desktop width.
      *
-     * Scale only the presentation.
-     * Never redesign the project for the portfolio window.
+     * Only the presentation is scaled.
      */
 
     const scale =
@@ -411,10 +443,21 @@
 
 
     desktopPreview.classList.add(
-      "has-north-preview",
       "has-canonical-project-preview",
       "has-canonical-desktop-preview"
     );
+
+
+    if (
+      project.key ===
+      "north"
+    ) {
+
+      desktopPreview.classList.add(
+        "has-north-preview"
+      );
+
+    }
 
 
     desktopSite =
@@ -448,7 +491,7 @@
 
     makePreviewLaunchable(
       desktopPreview,
-      `View ${project.name} website`
+      project
     );
 
 
@@ -468,7 +511,7 @@
 
 
   /* =======================================================
-     MOBILE PREVIEW
+     HERO / MOBILE
   ======================================================= */
 
   function fitMobileFrame() {
@@ -491,13 +534,10 @@
 
 
     /*
-     * The iframe itself stays 390px wide.
+     * The iframe stays at a genuine phone width.
      *
-     * Therefore North Home's real mobile media queries
-     * respond to a genuine 390px viewport.
-     *
-     * We scale only the finished viewport so that it fits
-     * inside the small draggable portfolio window.
+     * This makes the project's own mobile media queries
+     * activate naturally.
      */
 
     const scale =
@@ -506,6 +546,18 @@
         availableWidth /
         MOBILE_VIEWPORT_WIDTH
       );
+
+
+    mobileFrame.style.position =
+      "absolute";
+
+
+    mobileFrame.style.top =
+      "0";
+
+
+    mobileFrame.style.left =
+      "0";
 
 
     mobileFrame.style.width =
@@ -624,30 +676,36 @@
     `;
 
 
-    /*
-     * Remove the old handmade mobile-preview state.
-     */
-
     mobilePreview.classList.remove(
       "has-north-mobile-preview"
     );
 
 
     mobilePreview.classList.add(
-      "has-north-preview",
       "has-canonical-project-preview",
       "has-canonical-mobile-preview"
     );
 
 
-    /*
-     * THIS IS THE IMPORTANT CHANGE.
-     *
-     * Mobile receives exactly the same registered
-     * project source as desktop.
-     *
-     * The only difference is the viewport width.
-     */
+    if (
+      project.key ===
+      "north"
+    ) {
+
+      mobilePreview.classList.add(
+        "has-north-preview"
+      );
+
+    }
+
+
+    mobilePreview.style.position =
+      "relative";
+
+
+    mobilePreview.style.overflow =
+      "hidden";
+
 
     mobileFrame =
       window.PortfolioProjects.mountFrame(
@@ -686,7 +744,7 @@
 
     makePreviewLaunchable(
       mobilePreview,
-      `View ${project.name} website`
+      project
     );
 
 
@@ -706,7 +764,391 @@
 
 
   /* =======================================================
-     PROJECT SELECTION
+     SELECTED WORK / FRAME FITTING
+  ======================================================= */
+
+  function fitWorkFrame(
+    projectKey
+  ) {
+
+    const entry =
+      workFrames.get(
+        projectKey
+      );
+
+
+    if (!entry) {
+      return;
+    }
+
+
+    const {
+      target,
+      frame
+    } =
+      entry;
+
+
+    const availableWidth =
+      target.clientWidth;
+
+
+    if (!availableWidth) {
+      return;
+    }
+
+
+    /*
+     * Selected Work displays the same real project at
+     * a desktop viewport.
+     *
+     * It is essentially a cropped browser screenshot,
+     * but remains generated from the live canonical source.
+     */
+
+    const scale =
+      Math.min(
+        1,
+        availableWidth /
+        WORK_VIEWPORT_WIDTH
+      );
+
+
+    frame.style.position =
+      "absolute";
+
+
+    frame.style.top =
+      "0";
+
+
+    frame.style.left =
+      "0";
+
+
+    frame.style.width =
+      `${WORK_VIEWPORT_WIDTH}px`;
+
+
+    frame.style.minWidth =
+      `${WORK_VIEWPORT_WIDTH}px`;
+
+
+    frame.style.height =
+      `${WORK_VIEWPORT_HEIGHT}px`;
+
+
+    frame.style.maxWidth =
+      "none";
+
+
+    frame.style.margin =
+      "0";
+
+
+    frame.style.transformOrigin =
+      "top left";
+
+
+    frame.style.transform =
+      `scale(${scale})`;
+
+
+    frame.style.pointerEvents =
+      "none";
+
+
+    target.dataset.previewScale =
+      scale.toFixed(
+        4
+      );
+
+  }
+
+
+  function watchWorkFrame(
+    projectKey
+  ) {
+
+    const entry =
+      workFrames.get(
+        projectKey
+      );
+
+
+    if (!entry) {
+      return;
+    }
+
+
+    const oldObserver =
+      workResizeObservers.get(
+        projectKey
+      );
+
+
+    oldObserver?.disconnect();
+
+
+    if (
+      "ResizeObserver" in window
+    ) {
+
+      const observer =
+        new ResizeObserver(
+          () => {
+
+            fitWorkFrame(
+              projectKey
+            );
+
+          }
+        );
+
+
+      observer.observe(
+        entry.target
+      );
+
+
+      workResizeObservers.set(
+        projectKey,
+        observer
+      );
+
+
+      return;
+
+    }
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        fitWorkFrame(
+          projectKey
+        );
+
+      },
+      {
+        passive:
+          true
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     SELECTED WORK / CANONICAL PROJECT
+  ======================================================= */
+
+  function renderCanonicalWorkPreview(
+    project
+  ) {
+
+    if (
+      !window.PortfolioProjects ||
+      !window.PortfolioProjects.has(
+        project.key
+      ) ||
+      typeof window.PortfolioProjects.mountFrame !==
+        "function"
+    ) {
+
+      return false;
+
+    }
+
+
+    const projectSlide =
+      document.querySelector(
+        `.project-slide[data-project="${project.key}"]`
+      );
+
+
+    const target =
+      projectSlide?.querySelector(
+        ".project-image"
+      );
+
+
+    if (!target) {
+      return false;
+    }
+
+
+    /*
+     * Avoid rebuilding a Work preview repeatedly
+     * when registry events fire.
+     */
+
+    if (
+      target.dataset.canonicalWorkPreview ===
+      "true"
+    ) {
+
+      return true;
+
+    }
+
+
+    target.dataset.canonicalWorkPreview =
+      "true";
+
+
+    target.classList.add(
+      "has-canonical-project-preview",
+      "has-canonical-work-preview"
+    );
+
+
+    if (
+      project.key ===
+      "north"
+    ) {
+
+      /*
+       * Keep North's existing presentation and viewer
+       * compatibility while removing its old thumbnail.
+       */
+
+      target.classList.add(
+        "has-north-preview"
+      );
+
+    }
+
+
+    /*
+     * Presentation rules belong to the portfolio wrapper,
+     * not the project itself.
+     */
+
+    target.style.position =
+      "relative";
+
+
+    target.style.display =
+      "block";
+
+
+    target.style.alignItems =
+      "";
+
+
+    target.style.justifyContent =
+      "";
+
+
+    target.style.padding =
+      "0";
+
+
+    target.style.overflow =
+      "hidden";
+
+
+    /*
+     * THIS REPLACES THE OLD northThumbMarkup().
+     *
+     * The Work card now receives the exact registered
+     * project source inside a desktop viewport.
+     */
+
+    const frame =
+      window.PortfolioProjects.mountFrame(
+        project.key,
+        target,
+        {
+
+          instance:
+            "selected-work",
+
+          viewport:
+            "desktop",
+
+          width:
+            WORK_VIEWPORT_WIDTH,
+
+          height:
+            WORK_VIEWPORT_HEIGHT,
+
+          label:
+            `${project.name} selected work preview`
+
+        }
+      );
+
+
+    frame.classList.add(
+      "portfolio-work-project-frame"
+    );
+
+
+    workFrames.set(
+      project.key,
+      {
+
+        target,
+        frame
+
+      }
+    );
+
+
+    requestAnimationFrame(
+      () => {
+
+        fitWorkFrame(
+          project.key
+        );
+
+
+        watchWorkFrame(
+          project.key
+        );
+
+      }
+    );
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     RENDER ALL REGISTERED WORK
+  ======================================================= */
+
+  function renderRegisteredWorkPreviews() {
+
+    if (
+      !window.PortfolioProjects
+    ) {
+      return;
+    }
+
+
+    window.PortfolioProjects
+      .list()
+      .forEach(
+        (project) => {
+
+          renderCanonicalWorkPreview(
+            project
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =======================================================
+     FEATURED PROJECT SELECTION
   ======================================================= */
 
   function chooseProject() {
@@ -788,7 +1230,7 @@
 
 
   /* =======================================================
-     FEATURE RENDER
+     FEATURED PROJECT RENDER
   ======================================================= */
 
   function renderFeaturedProject(
@@ -799,12 +1241,6 @@
       return false;
     }
 
-
-    /*
-     * Only completed projects should ever reach this list.
-     *
-     * North is currently the only completed project.
-     */
 
     const desktopRendered =
       renderCanonicalDesktop(
@@ -844,8 +1280,7 @@
     } catch (error) {
 
       /*
-       * Storage can be unavailable.
-       * Featured rendering still works.
+       * Storage is optional.
        */
 
     }
@@ -863,6 +1298,14 @@
   function start(
     attempt = 0
   ) {
+
+    /*
+     * Work previews are independent of which project
+     * happens to be selected for the hero.
+     */
+
+    renderRegisteredWorkPreviews();
+
 
     if (started) {
       return;
@@ -938,6 +1381,14 @@
 
       requestAnimationFrame(
         () => {
+
+          /*
+           * When Sola or Avance is registered later,
+           * their Selected Work preview will automatically
+           * be created from their canonical source.
+           */
+
+          renderRegisteredWorkPreviews();
 
           start();
 
