@@ -4,24 +4,15 @@
    Compatibility filename:
    js/north-home-repair.js
 
-   This is now shared portfolio infrastructure.
+   This file is shared portfolio infrastructure.
 
    RESPONSIBILITY:
-   - create the website-viewer dialog shell
+   - create one generic website viewer
    - mount any registered canonical project
-   - provide one generic viewer API
-   - keep project design isolated from portfolio chrome
+   - provide PortfolioProjectViewer
+   - isolate project design from portfolio chrome
 
-   IMPORTANT:
-
-   This file must NOT contain:
-   - North Home website markup
-   - North Home responsive layout rules
-   - project-specific typography
-   - project-specific spacing
-   - project-specific mobile redesigns
-
-   The project itself always comes from:
+   Project HTML always comes from:
 
    window.PortfolioProjects
 ========================================================= */
@@ -36,11 +27,11 @@
   ======================================================= */
 
   const VIEWER_ID =
-    "nh-site-viewer";
+    "portfolio-project-viewer";
 
 
-  const DEFAULT_PROJECT_KEY =
-    "north";
+  const VIEWER_STYLE_ID =
+    "portfolio-project-viewer-styles";
 
 
   const DEFAULT_VIEWPORT_WIDTH =
@@ -49,10 +40,6 @@
 
   const DEFAULT_VIEWPORT_HEIGHT =
     820;
-
-
-  const MAX_START_ATTEMPTS =
-    90;
 
 
   /* =======================================================
@@ -64,10 +51,6 @@
 
 
   let canvas =
-    null;
-
-
-  let browserFrame =
     null;
 
 
@@ -84,9 +67,9 @@
 
 
   /* =======================================================
-     VIEWER SHELL CSS
+     VIEWER CSS
 
-     Only portfolio presentation chrome belongs here.
+     This CSS styles only portfolio presentation chrome.
 
      Nothing inside the embedded project is redesigned.
   ======================================================= */
@@ -94,11 +77,20 @@
   const viewerCSS = `
 
     /* =====================================================
+       BODY STATE
+    ===================================================== */
+
+    body.portfolio-viewer-open {
+      overflow:
+        hidden;
+    }
+
+
+    /* =====================================================
        VIEWER DIALOG
     ===================================================== */
 
-    .portfolio-project-viewer,
-    .nh-site-viewer {
+    .portfolio-project-viewer {
       width:
         min(
           76vw,
@@ -155,8 +147,7 @@
     }
 
 
-    .portfolio-project-viewer::backdrop,
-    .nh-site-viewer::backdrop {
+    .portfolio-project-viewer::backdrop {
       background:
         rgba(
           0,
@@ -173,8 +164,7 @@
     }
 
 
-    .portfolio-project-viewer[open],
-    .nh-site-viewer[open] {
+    .portfolio-project-viewer[open] {
       animation:
         portfolio-project-viewer-in
         260ms
@@ -216,7 +206,7 @@
        SHELL
     ===================================================== */
 
-    .nh-site-viewer-shell {
+    .portfolio-project-viewer-shell {
       width:
         100%;
 
@@ -248,7 +238,7 @@
        TOP BAR
     ===================================================== */
 
-    .nh-site-viewer-topbar {
+    .portfolio-project-viewer-topbar {
       min-height:
         58px;
 
@@ -296,8 +286,7 @@
     }
 
 
-    .nh-site-viewer-topbar
-    > div {
+    .portfolio-project-viewer-identity {
       min-width:
         0;
 
@@ -312,9 +301,7 @@
     }
 
 
-    .nh-site-viewer-topbar
-    > div
-    > span {
+    .portfolio-project-viewer-title {
       color:
         #fff;
 
@@ -329,8 +316,7 @@
     }
 
 
-    .nh-site-viewer-topbar
-    small {
+    .portfolio-project-viewer-description {
       overflow:
         hidden;
 
@@ -356,17 +342,11 @@
     }
 
 
-    .nh-site-viewer-close {
+    .portfolio-project-viewer-close {
       flex:
         0
         0
         auto;
-
-      display:
-        inline-flex;
-
-      align-items:
-        center;
 
       gap:
         12px;
@@ -375,32 +355,14 @@
         10px
         0;
 
-      color:
-        #fff;
-
-      background:
-        transparent;
-
-      border:
-        0;
-
-      cursor:
-        pointer;
-
-      font:
-        inherit;
-
       font-family:
         "TASA Orbiter",
         Arial,
         sans-serif;
-
-      font-size:
-        .6rem;
     }
 
 
-    .nh-site-viewer-close
+    .portfolio-project-viewer-close
     span {
       font-size:
         1rem;
@@ -414,7 +376,7 @@
        VIEWER BODY
     ===================================================== */
 
-    .nh-site-viewer-scroll {
+    .portfolio-project-viewer-body {
       width:
         100%;
 
@@ -445,7 +407,7 @@
        BROWSER FRAME
     ===================================================== */
 
-    .nh-site-viewer-browser {
+    .portfolio-project-viewer-browser {
       width:
         100%;
 
@@ -497,7 +459,7 @@
     }
 
 
-    .nh-site-viewer-browserbar {
+    .portfolio-project-viewer-browserbar {
       min-height:
         38px;
 
@@ -548,8 +510,7 @@
     }
 
 
-    .nh-site-viewer-browserbar
-    > div {
+    .portfolio-project-viewer-dots {
       display:
         flex;
 
@@ -558,7 +519,7 @@
     }
 
 
-    .nh-site-viewer-browserbar
+    .portfolio-project-viewer-dots
     i {
       width:
         6px;
@@ -579,15 +540,13 @@
     }
 
 
-    .nh-site-viewer-browserbar
-    > span {
+    .portfolio-project-viewer-url {
       justify-self:
         center;
     }
 
 
-    .nh-site-viewer-browserbar
-    strong {
+    .portfolio-project-viewer-state {
       justify-self:
         end;
 
@@ -603,7 +562,7 @@
        CANONICAL PROJECT VIEWPORT
     ===================================================== */
 
-    .nh-site-viewer-canvas {
+    .portfolio-project-viewer-canvas {
       position:
         relative;
 
@@ -627,7 +586,7 @@
     }
 
 
-    .nh-site-viewer-canvas
+    .portfolio-project-viewer-canvas
     > .portfolio-project-frame {
       position:
         absolute !important;
@@ -675,7 +634,7 @@
 
 
     /* =====================================================
-       GENERIC SELECTED-WORK VIEW CONTROL
+       SELECTED WORK LAUNCHER
     ===================================================== */
 
     .project-image.has-canonical-work-preview {
@@ -718,8 +677,7 @@
     }
 
 
-    .project-view-button,
-    .nh-project-view-button {
+    .project-view-button {
       position:
         absolute;
 
@@ -747,73 +705,18 @@
       padding:
         0
         14px;
-
-      color:
-        #182433;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          .95
-        );
-
-      border:
-        0;
-
-      border-radius:
-        999px;
-
-      cursor:
-        pointer;
-
-      font-family:
-        "TASA Orbiter",
-        Arial,
-        sans-serif;
-
-      font-size:
-        .54rem;
-
-      font-weight:
-        600;
-
-      box-shadow:
-        0
-        8px
-        25px
-        rgba(
-          0,
-          0,
-          0,
-          .18
-        );
-    }
-
-
-    /*
-     * Legacy North badges are no longer part of the
-     * presentation system.
-     */
-
-    .nh-view-badge,
-    .nh-hero-view-badge {
-      display:
-        none !important;
     }
 
 
     /* =====================================================
-       LAPTOP PORTFOLIO VIEWER
+       LAPTOP
     ===================================================== */
 
     @media (
       max-width: 1100px
     ) {
 
-      .portfolio-project-viewer,
-      .nh-site-viewer {
+      .portfolio-project-viewer {
         width:
           86vw !important;
 
@@ -825,20 +728,14 @@
 
 
     /* =====================================================
-       MOBILE PORTFOLIO VIEWER
-
-       These rules change only the viewer shell.
-
-       The embedded project sees the narrower iframe and
-       activates its own responsive CSS.
+       MOBILE
     ===================================================== */
 
     @media (
       max-width: 700px
     ) {
 
-      .portfolio-project-viewer,
-      .nh-site-viewer {
+      .portfolio-project-viewer {
         width:
           calc(
             100vw - 20px
@@ -854,8 +751,7 @@
       }
 
 
-      .portfolio-project-viewer::backdrop,
-      .nh-site-viewer::backdrop {
+      .portfolio-project-viewer::backdrop {
         background:
           rgba(
             0,
@@ -866,7 +762,7 @@
       }
 
 
-      .nh-site-viewer-topbar {
+      .portfolio-project-viewer-topbar {
         min-height:
           52px;
 
@@ -876,48 +772,44 @@
       }
 
 
-      .nh-site-viewer-topbar
-      small {
+      .portfolio-project-viewer-description {
         display:
           none;
       }
 
 
-      .nh-site-viewer-scroll {
+      .portfolio-project-viewer-body {
         padding:
           7px;
       }
 
 
-      .nh-site-viewer-browser {
+      .portfolio-project-viewer-browser {
         border-radius:
           10px;
       }
 
 
-      .nh-site-viewer-browserbar {
+      .portfolio-project-viewer-browserbar {
         grid-template-columns:
           1fr
           auto;
       }
 
 
-      .nh-site-viewer-browserbar
-      strong {
+      .portfolio-project-viewer-state {
         display:
           none;
       }
 
 
-      .nh-site-viewer-browserbar
-      > span {
+      .portfolio-project-viewer-url {
         justify-self:
           end;
       }
 
 
-      .project-view-button,
-      .nh-project-view-button {
+      .project-view-button {
         right:
           14px;
 
@@ -937,8 +829,7 @@
       reduce
     ) {
 
-      .portfolio-project-viewer[open],
-      .nh-site-viewer[open] {
+      .portfolio-project-viewer[open] {
         animation:
           none !important;
       }
@@ -956,11 +847,23 @@
 
     const existingStyles =
       document.querySelector(
-        "#north-home-repair-styles"
+        `#${VIEWER_STYLE_ID}`
       );
 
 
     existingStyles?.remove();
+
+
+    /*
+     * Remove the old compatibility style block if a cached
+     * version exists during deployment.
+     */
+
+    document
+      .querySelector(
+        "#north-home-repair-styles"
+      )
+      ?.remove();
 
 
     const style =
@@ -970,7 +873,7 @@
 
 
     style.id =
-      "north-home-repair-styles";
+      VIEWER_STYLE_ID;
 
 
     style.textContent =
@@ -985,13 +888,7 @@
 
 
   /* =======================================================
-     CREATE VIEWER SHELL
-
-     This is the important infrastructure change.
-
-     The shared viewer now owns its dialog shell.
-
-     north-home.js is no longer required to create it.
+     VIEWER SHELL
   ======================================================= */
 
   function createViewerShell() {
@@ -1007,7 +904,7 @@
 
 
     dialog.className =
-      "nh-site-viewer portfolio-project-viewer";
+      "portfolio-project-viewer";
 
 
     dialog.setAttribute(
@@ -1021,17 +918,17 @@
 
 
     dialog.innerHTML = `
-      <div class="nh-site-viewer-shell">
+      <div class="portfolio-project-viewer-shell">
 
-        <header class="nh-site-viewer-topbar">
+        <header class="portfolio-project-viewer-topbar">
 
-          <div>
+          <div class="portfolio-project-viewer-identity">
 
-            <span>
+            <span class="portfolio-project-viewer-title">
               PROJECT
             </span>
 
-            <small>
+            <small class="portfolio-project-viewer-description">
               WEBSITE PREVIEW / CONCEPT PROJECT
             </small>
 
@@ -1039,43 +936,42 @@
 
 
           <button
-            class="nh-site-viewer-close"
+            class="portfolio-project-viewer-close"
             type="button"
             aria-label="Close project website preview"
           >
-
             Close
 
             <span aria-hidden="true">
               ×
             </span>
-
           </button>
 
         </header>
 
 
-        <div class="nh-site-viewer-scroll">
+        <div class="portfolio-project-viewer-body">
 
-          <div class="nh-site-viewer-browser">
+          <div class="portfolio-project-viewer-browser">
 
-            <div class="nh-site-viewer-browserbar">
+            <div class="portfolio-project-viewer-browserbar">
 
-              <div aria-hidden="true">
-
+              <div
+                class="portfolio-project-viewer-dots"
+                aria-hidden="true"
+              >
                 <i></i>
                 <i></i>
                 <i></i>
-
               </div>
 
 
-              <span>
+              <span class="portfolio-project-viewer-url">
                 project.example
               </span>
 
 
-              <strong>
+              <strong class="portfolio-project-viewer-state">
                 VIEW-ONLY CONCEPT
               </strong>
 
@@ -1083,7 +979,7 @@
 
 
             <div
-              class="nh-site-viewer-canvas"
+              class="portfolio-project-viewer-canvas"
             ></div>
 
           </div>
@@ -1112,32 +1008,24 @@
       );
 
 
-    /*
-     * During this transition the old north-home.js
-     * viewer may still create the dialog first.
-     *
-     * Reuse it now.
-     *
-     * After that old block is removed, this function
-     * creates the shell itself.
-     */
-
     if (!existingViewer) {
+
+      /*
+       * Remove an obsolete cached compatibility shell if it
+       * exists before creating the new generic one.
+       */
+
+      document
+        .querySelector(
+          "#nh-site-viewer"
+        )
+        ?.remove();
+
 
       existingViewer =
         createViewerShell();
 
     }
-
-
-    existingViewer.classList.add(
-      "nh-site-viewer",
-      "portfolio-project-viewer"
-    );
-
-
-    existingViewer.dataset.viewerOwner =
-      "portfolio-project-viewer";
 
 
     return existingViewer;
@@ -1146,7 +1034,7 @@
 
 
   /* =======================================================
-     GET VIEWER ELEMENTS
+     ELEMENT LOOKUP
   ======================================================= */
 
   function getViewerElements() {
@@ -1156,28 +1044,26 @@
 
 
     canvas =
-      viewer?.querySelector(
-        ".nh-site-viewer-canvas"
-      ) || null;
-
-
-    browserFrame =
-      viewer?.querySelector(
-        ".nh-site-viewer-browser"
-      ) || null;
+      viewer.querySelector(
+        ".portfolio-project-viewer-canvas"
+      );
 
 
     return Boolean(
       viewer &&
-      canvas &&
-      browserFrame
+      canvas
     );
 
   }
 
 
   /* =======================================================
-     PROJECT METADATA
+     PROJECT DISPLAY URL
+
+     These values are presentation metadata only.
+
+     We will move this metadata into each project
+     registration separately.
   ======================================================= */
 
   function getProjectUrl(
@@ -1225,31 +1111,31 @@
 
     const title =
       viewer.querySelector(
-        ".nh-site-viewer-topbar > div > span"
+        ".portfolio-project-viewer-title"
       );
 
 
     const description =
       viewer.querySelector(
-        ".nh-site-viewer-topbar small"
+        ".portfolio-project-viewer-description"
       );
 
 
     const url =
       viewer.querySelector(
-        ".nh-site-viewer-browserbar > span"
+        ".portfolio-project-viewer-url"
       );
 
 
     const state =
       viewer.querySelector(
-        ".nh-site-viewer-browserbar strong"
+        ".portfolio-project-viewer-state"
       );
 
 
     const closeButton =
       viewer.querySelector(
-        ".nh-site-viewer-close"
+        ".portfolio-project-viewer-close"
       );
 
 
@@ -1310,7 +1196,7 @@
 
 
   /* =======================================================
-     CONFIGURE PROJECT FRAME
+     PROJECT FRAME
   ======================================================= */
 
   function configureProjectFrame(
@@ -1325,10 +1211,9 @@
 
 
     /*
-     * Hero and Work previews disable scrolling.
+     * Decorative previews disable scrolling.
      *
-     * The full website viewer must allow the visitor to
-     * scroll vertically through the project.
+     * The full viewer must allow normal website scrolling.
      */
 
     frame.removeAttribute(
@@ -1398,7 +1283,7 @@
 
 
   /* =======================================================
-     MOUNT CANONICAL PROJECT
+     MOUNT PROJECT
   ======================================================= */
 
   function mountProject(
@@ -1406,18 +1291,10 @@
   ) {
 
     if (
+      !key ||
       !window.PortfolioProjects ||
       typeof window.PortfolioProjects.mountFrame !==
         "function"
-    ) {
-
-      return false;
-
-    }
-
-
-    if (
-      !getViewerElements()
     ) {
 
       return false;
@@ -1438,15 +1315,25 @@
     }
 
 
-    /*
-     * Avoid rebuilding the same project unnecessarily.
-     */
+    if (
+      !getViewerElements()
+    ) {
+
+      return false;
+
+    }
+
 
     const existingFrame =
       canvas.querySelector(
         ".portfolio-project-frame"
       );
 
+
+    /*
+     * Reuse the current iframe when reopening the same
+     * project.
+     */
 
     if (
       currentProjectKey ===
@@ -1477,14 +1364,6 @@
       project
     );
 
-
-    /*
-     * The viewer receives the project's registered
-     * canonical website source.
-     *
-     * mountFrame() replaces anything previously inside
-     * the viewer canvas.
-     */
 
     projectFrame =
       window.PortfolioProjects.mountFrame(
@@ -1530,12 +1409,19 @@
 
 
   /* =======================================================
-     OPEN PROJECT
+     OPEN
   ======================================================= */
 
   function openProject(
-    key = DEFAULT_PROJECT_KEY
+    key
   ) {
+
+    if (!key) {
+
+      return false;
+
+    }
+
 
     const mounted =
       mountProject(
@@ -1553,9 +1439,7 @@
     }
 
 
-    if (
-      !viewer.open
-    ) {
+    if (!viewer.open) {
 
       viewer.showModal();
 
@@ -1563,16 +1447,15 @@
 
 
     document.body.classList.add(
-      "portfolio-viewer-open",
-      "nh-viewer-open"
+      "portfolio-viewer-open"
     );
 
 
     /*
-     * Attempt to reset the embedded website to the top.
+     * Reset the embedded website to the top when possible.
      *
-     * The sandbox may prevent direct frame access, which
-     * is acceptable. The viewer still functions normally.
+     * Sandboxed frame access can be restricted, which does
+     * not affect normal viewer scrolling.
      */
 
     function resetFrameScroll() {
@@ -1616,7 +1499,7 @@
 
 
   /* =======================================================
-     CLOSE VIEWER
+     CLOSE
   ======================================================= */
 
   function closeViewer() {
@@ -1631,8 +1514,7 @@
 
 
     document.body.classList.remove(
-      "portfolio-viewer-open",
-      "nh-viewer-open"
+      "portfolio-viewer-open"
     );
 
   }
@@ -1641,13 +1523,11 @@
   /* =======================================================
      PUBLIC API
 
-     Every current and future project uses this API.
+     Every project uses exactly the same viewer API.
 
-     Examples:
+     Example:
 
      PortfolioProjectViewer.open("north")
-     PortfolioProjectViewer.open("sola")
-     PortfolioProjectViewer.open("avance")
   ======================================================= */
 
   window.PortfolioProjectViewer = {
@@ -1671,14 +1551,14 @@
 
 
   /* =======================================================
-     VIEWER CHROME EVENTS
+     VIEWER EVENTS
   ======================================================= */
 
-  function bindViewerChrome() {
+  function bindViewerEvents() {
 
     if (
       !viewer ||
-      viewer.dataset.genericViewerBound ===
+      viewer.dataset.viewerEventsBound ===
         "true"
     ) {
 
@@ -1687,23 +1567,19 @@
     }
 
 
-    viewer.dataset.genericViewerBound =
+    viewer.dataset.viewerEventsBound =
       "true";
 
 
     const closeButton =
       viewer.querySelector(
-        ".nh-site-viewer-close"
+        ".portfolio-project-viewer-close"
       );
 
 
     closeButton?.addEventListener(
       "click",
-      () => {
-
-        closeViewer();
-
-      }
+      closeViewer
     );
 
 
@@ -1713,7 +1589,6 @@
 
         event.preventDefault();
 
-
         closeViewer();
 
       }
@@ -1723,6 +1598,10 @@
     viewer.addEventListener(
       "click",
       (event) => {
+
+        /*
+         * Clicking the dialog backdrop closes it.
+         */
 
         if (
           event.target ===
@@ -1742,8 +1621,7 @@
       () => {
 
         document.body.classList.remove(
-          "portfolio-viewer-open",
-          "nh-viewer-open"
+          "portfolio-viewer-open"
         );
 
       }
@@ -1754,61 +1632,17 @@
 
   /* =======================================================
      START
+
+     The viewer no longer waits for North Home or any
+     specific project.
+
+     It becomes available immediately and mounts whichever
+     registered project is requested later.
   ======================================================= */
 
-  function start(
-    attempt = 0
-  ) {
+  function start() {
 
     if (started) {
-
-      return;
-
-    }
-
-
-    /*
-     * The viewer shell no longer depends on north-home.js.
-     *
-     * We can create it immediately.
-     */
-
-    getViewerElements();
-
-
-    const projectReady =
-      window.PortfolioProjects?.has(
-        DEFAULT_PROJECT_KEY
-      );
-
-
-    /*
-     * North is currently the first completed project.
-     *
-     * Once another project is registered first, the viewer
-     * API itself still works because openProject() mounts
-     * any requested registered project.
-     */
-
-    if (!projectReady) {
-
-      if (
-        attempt <
-        MAX_START_ATTEMPTS
-      ) {
-
-        requestAnimationFrame(
-          () => {
-
-            start(
-              attempt + 1
-            );
-
-          }
-        );
-
-      }
-
 
       return;
 
@@ -1818,17 +1652,16 @@
     addViewerStyles();
 
 
-    bindViewerChrome();
+    if (
+      !getViewerElements()
+    ) {
+
+      return;
+
+    }
 
 
-    /*
-     * Prepare North in the viewer so the first launch
-     * is immediate.
-     */
-
-    mountProject(
-      DEFAULT_PROJECT_KEY
-    );
+    bindViewerEvents();
 
 
     started =
@@ -1852,26 +1685,6 @@
 
 
   /* =======================================================
-     PROJECT REGISTRATION EVENTS
-  ======================================================= */
-
-  document.addEventListener(
-    "portfolio:project-registered",
-    () => {
-
-      requestAnimationFrame(
-        () => {
-
-          start();
-
-        }
-      );
-
-    }
-  );
-
-
-  /* =======================================================
      LOAD
   ======================================================= */
 
@@ -1882,17 +1695,7 @@
 
     document.addEventListener(
       "DOMContentLoaded",
-      () => {
-
-        requestAnimationFrame(
-          () => {
-
-            start();
-
-          }
-        );
-
-      },
+      start,
       {
         once:
           true
@@ -1901,13 +1704,7 @@
 
   } else {
 
-    requestAnimationFrame(
-      () => {
-
-        start();
-
-      }
-    );
+    start();
 
   }
 
