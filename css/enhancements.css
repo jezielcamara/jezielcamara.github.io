@@ -1090,3 +1090,426 @@ body.case-open {
     transition: none !important;
   }
 }
+
+/* -------------------------------------------------
+   BALANCED TYPE SCALE
+   Keeps the hero dramatic while giving later
+   sections a clearer hierarchy.
+-------------------------------------------------- */
+
+/* HERO — still the biggest moment */
+.hero-word {
+  font-size: clamp(
+    7.2rem,
+    17vw,
+    17.5rem
+  );
+
+  line-height: 0.74;
+}
+
+
+/* HOW I THINK */
+.thinking {
+  padding:
+    90px
+    6vw;
+}
+
+.thinking-intro {
+  margin-bottom: 58px;
+}
+
+.thinking-lines article {
+  min-height: 118px;
+}
+
+.thinking-lines h2 {
+  font-size: clamp(
+    2.1rem,
+    4vw,
+    4.2rem
+  );
+
+  line-height: 0.94;
+}
+
+
+/* WORK */
+.work-section {
+  padding:
+    90px
+    0
+    70px;
+}
+
+.work-heading {
+  margin-bottom: 42px;
+}
+
+.work-heading h2 {
+  font-size: clamp(
+    3rem,
+    5.2vw,
+    5.4rem
+  );
+
+  line-height: 0.94;
+}
+
+
+/* RESPONSIVE LAB */
+.lab-top {
+  padding:
+    90px
+    6vw
+    100px;
+}
+
+.lab-top .lab-heading {
+  margin-bottom: 45px;
+}
+
+.lab-top .lab-heading h2 {
+  max-width: 800px;
+
+  font-size: clamp(
+    3.6rem,
+    6.5vw,
+    6.7rem
+  );
+
+  line-height: 0.86;
+}
+
+
+/* ABOUT */
+.about-section {
+  min-height: 760px;
+
+  padding:
+    100px
+    7vw;
+}
+
+.about-word {
+  font-size: clamp(
+    7rem,
+    19vw,
+    18rem
+  );
+}
+
+.about-copy h2 {
+  max-width: 650px;
+
+  font-size: clamp(
+    3rem,
+    4.9vw,
+    5rem
+  );
+
+  line-height: 0.94;
+}
+
+.about-copy .about-lead {
+  font-size: 1.15rem;
+}
+
+.story-step h3 {
+  font-size: clamp(
+    1.35rem,
+    1.9vw,
+    1.95rem
+  );
+
+  line-height: 1.05;
+}
+
+
+/* NOTES */
+.notes-section {
+  padding:
+    90px
+    7vw;
+}
+
+.notes-heading {
+  margin-bottom: 55px;
+}
+
+.notes-heading h2 {
+  max-width: 760px;
+
+  font-size: clamp(
+    3rem,
+    4.8vw,
+    5rem
+  );
+
+  line-height: 0.94;
+}
+
+.note-item summary strong {
+  font-size: clamp(
+    1.25rem,
+    2vw,
+    2.05rem
+  );
+
+  line-height: 1.08;
+}
+
+
+/* CONTACT */
+.contact-section {
+  min-height: 75vh;
+
+  padding:
+    95px
+    7vw;
+}
+
+.contact-index {
+  font-size: clamp(
+    3rem,
+    5.5vw,
+    5.5rem
+  );
+}
+
+.contact-main h2 {
+  max-width: 950px;
+
+  font-size: clamp(
+    4rem,
+    7.2vw,
+    7.3rem
+  );
+
+  line-height: 0.84;
+}
+
+.contact-main > p {
+  margin-bottom: 50px;
+}
+
+
+/* CASE STUDY */
+.case-hero-copy h2 {
+  font-size: clamp(
+    3.4rem,
+    5.4vw,
+    5.7rem
+  );
+
+  line-height: 0.88;
+}
+
+.case-section {
+  padding:
+    90px
+    7vw;
+}
+
+.case-section > h3,
+.case-section-heading h3 {
+  max-width: 760px;
+
+  font-size: clamp(
+    2.7rem,
+    4.3vw,
+    4.5rem
+  );
+
+  line-height: 0.92;
+}
+
+
+/* -------------------------------------------------
+   TABLET TYPE BALANCE
+-------------------------------------------------- */
+
+@media (
+  min-width: 681px
+) and (
+  max-width: 950px
+) {
+
+  .hero-word {
+    font-size: clamp(
+      6.5rem,
+      18vw,
+      11.5rem
+    );
+  }
+
+  .lab-top .lab-heading h2 {
+    font-size: clamp(
+      3.8rem,
+      7.5vw,
+      5.4rem
+    );
+  }
+
+  .about-copy h2 {
+    font-size: clamp(
+      3rem,
+      5.8vw,
+      4.3rem
+    );
+  }
+
+  .contact-main h2 {
+    font-size: clamp(
+      4rem,
+      8vw,
+      5.8rem
+    );
+  }
+
+}
+
+
+/* -------------------------------------------------
+   MOBILE TYPE BALANCE
+-------------------------------------------------- */
+
+@media (
+  max-width: 680px
+) {
+
+  .hero-word {
+    font-size: clamp(
+      5rem,
+      25vw,
+      7.5rem
+    );
+
+    line-height: 0.78;
+  }
+
+
+  .thinking,
+  .about-section,
+  .contact-section {
+    padding:
+      68px
+      16px;
+  }
+
+
+  .thinking-intro {
+    margin-bottom: 42px;
+  }
+
+  .thinking-lines article {
+    min-height: 88px;
+  }
+
+  .thinking-lines h2 {
+    font-size: 1.9rem;
+  }
+
+
+  .work-section {
+    padding:
+      68px
+      0;
+  }
+
+  .work-heading h2 {
+    font-size: 3.1rem;
+  }
+
+
+  .lab-top {
+    padding:
+      68px
+      16px;
+  }
+
+  .lab-top .lab-heading h2 {
+    font-size: clamp(
+      3.25rem,
+      14.5vw,
+      4.6rem
+    );
+
+    line-height: 0.88;
+  }
+
+
+  .about-word {
+    font-size: 29vw;
+  }
+
+  .about-copy h2 {
+    font-size: 3rem;
+  }
+
+  .about-copy .about-lead {
+    font-size: 1.05rem;
+  }
+
+  .story-step h3 {
+    font-size: 1.45rem;
+  }
+
+
+  .notes-section {
+    padding:
+      68px
+      16px;
+  }
+
+  .notes-heading {
+    margin-bottom: 42px;
+  }
+
+  .notes-heading h2 {
+    font-size: 3rem;
+  }
+
+  .note-item summary strong {
+    font-size: clamp(
+      1.15rem,
+      5.2vw,
+      1.5rem
+    );
+  }
+
+
+  .contact-section {
+    min-height: 650px;
+  }
+
+  .contact-index {
+    font-size: 2.7rem;
+  }
+
+  .contact-main h2 {
+    font-size: clamp(
+      3.4rem,
+      15vw,
+      4.9rem
+    );
+
+    line-height: 0.86;
+  }
+
+
+  .case-hero-copy h2 {
+    font-size: 3.4rem;
+  }
+
+  .case-section > h3,
+  .case-section-heading h3 {
+    font-size: clamp(
+      2.4rem,
+      11vw,
+      3.25rem
+    );
+  }
+
+}
