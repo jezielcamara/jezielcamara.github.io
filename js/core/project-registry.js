@@ -569,10 +569,8 @@ function createProjectRecord(
       /* ---------------------------------------------------
          LAZY CASE STUDY
 
-         Expected future usage:
-
-         loadCase: () =>
-           import("./case.js")
+         Project manifests provide a loadCase function that
+         imports their case module only when it is requested.
 
          The case module is therefore downloaded only when
          the visitor requests that case study.

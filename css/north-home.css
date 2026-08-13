@@ -993,7 +993,6 @@ nav a:hover {
       rgba(10, 18, 26, .02),
       rgba(10, 18, 26, .68)
     ),
-    url("../images/north-home-hero.jpg"),
     linear-gradient(
       145deg,
       #aab4bd,
@@ -1619,7 +1618,6 @@ i {
     );
 
   background-image:
-    url("../images/north-home-repairs.jpg"),
     linear-gradient(
       145deg,
       #c9c1b6,
@@ -1643,7 +1641,6 @@ i {
   data-service="maintenance"
 ] {
   background-image:
-    url("../images/north-home-maintenance.jpg"),
     linear-gradient(
       145deg,
       #b5b8ad,
@@ -1656,7 +1653,6 @@ i {
   data-service="installation"
 ] {
   background-image:
-    url("../images/north-home-installation.jpg"),
     linear-gradient(
       145deg,
       #d2c8ba,
@@ -1894,7 +1890,6 @@ p {
     );
 
   background-image:
-    url("../images/north-home-interior.jpg"),
     linear-gradient(
       145deg,
       #d6d0c7,
@@ -2156,7 +2151,6 @@ p {
         .72
       )
     ),
-    url("../images/north-home-project-1.jpg"),
     linear-gradient(
       145deg,
       #aab3b9,
@@ -2202,7 +2196,6 @@ p {
         .7
       )
     ),
-    url("../images/north-home-project-2.jpg"),
     linear-gradient(
       145deg,
       #b5b4ad,
@@ -2223,7 +2216,6 @@ p {
         .7
       )
     ),
-    url("../images/north-home-project-3.jpg"),
     linear-gradient(
       145deg,
       #c5b8aa,

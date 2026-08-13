@@ -2623,8 +2623,8 @@ strong {
 /* =========================================================
    LIVE INTERACTIVE IFRAME
 
-   js/sola-case-study.js intentionally mounts this as an
-   isolated interactive PortfolioProjects frame.
+   The modular Sola case controller mounts this as an
+   isolated interactive project frame.
 
    These declarations win over generic iframe geometry.
 ========================================================= */

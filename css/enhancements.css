@@ -2087,6 +2087,10 @@ summary i {
   max-width: 680px
 ) {
 
+  .rail-nav {
+    gap: 0;
+  }
+
   .hero-word-two {
     margin-left:
       0;

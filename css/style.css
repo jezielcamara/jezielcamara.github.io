@@ -188,11 +188,15 @@ main {
 
 
 .rail-nav a {
+  min-width: 44px;
+  min-height: 44px;
+
   display: flex;
 
   flex-direction: column;
 
   align-items: center;
+  justify-content: center;
 
   gap: 5px;
 
@@ -293,6 +297,8 @@ main {
 
 .hero-name {
   position: absolute;
+
+  margin: 0;
 
   inset:
     70px
@@ -1981,16 +1987,13 @@ span {
     /
     5;
 
-  background-image:
-    url(
-      "../images/jeziel-portrait.jpg"
-    );
-
-  background-size: cover;
-
-  background-position:
-    62%
-    50%;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(49, 87, 232, .14),
+      rgba(223, 255, 82, .26)
+    ),
+    #d4d9e7;
 
   border: 1px solid var(--ink);
 
@@ -2595,22 +2598,30 @@ span {
 
 
   .rail-nav {
-    margin:
-      0
-      15px
-      0
-      auto;
+    width: calc(100% - 58px);
+    height: 100%;
+
+    margin: 0;
 
     flex-direction: row;
 
-    gap: 14px;
+    justify-content: space-evenly;
+
+    gap: 0 !important;
   }
 
 
   .rail-nav a {
+    min-width: 44px;
+    min-height: 44px;
+
     flex-direction: row;
 
+    justify-content: center;
+
     gap: 3px;
+
+    padding: 0 4px;
 
     font-size: 0.56rem;
 
