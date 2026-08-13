@@ -13,9 +13,9 @@
    CURRENT FEATURES
    - Hero
    - Selected Work
+   - Responsive Lab
 
    FUTURE FEATURES
-   - Responsive Lab
    - Viewer
    - Case dialog
    - Page motion
@@ -35,13 +35,6 @@
 
 /* =========================================================
    PROJECT MANIFESTS
-
-   Importing a manifest synchronously registers that project
-   with the shared ProjectRegistry singleton.
-
-   Only completed projects are imported.
-
-   Avance is deliberately absent.
 ========================================================= */
 
 import "./projects/north/project.js";
@@ -71,6 +64,11 @@ import {
 } from "./features/work.js";
 
 
+import {
+  initLab
+} from "./features/lab.js";
+
+
 /* =========================================================
    APPLICATION STATE
 ========================================================= */
@@ -90,19 +88,7 @@ let startResult =
 /* =========================================================
    TEMPORARY VISIBILITY BRIDGE
 
-   The current production CSS expects main.js to add:
-
-   body.ready
-   .reveal.in-view
-
-   page-motion.js will own that behavior later.
-
-   Until that module exists, staging must still expose the
-   page so Hero and Work can be tested.
-
-   This is presentation compatibility only.
-
-   No project rendering logic lives here.
+   page-motion.js will replace this later.
 ========================================================= */
 
 function activateCurrentVisualState() {
@@ -188,11 +174,6 @@ function startFeature(
 
 /* =========================================================
    APPLICATION SNAPSHOT
-
-   Useful while the refactor-preview page is being tested.
-
-   It deliberately exposes metadata rather than internal
-   mutable maps.
 ========================================================= */
 
 function getAppState() {
@@ -292,10 +273,6 @@ export function startApp() {
 
   /* =======================================================
      HERO
-
-     Hero is immediate because it is above the fold.
-
-     Its project frames explicitly use loading:"eager".
   ======================================================= */
 
   startFeature(
@@ -306,16 +283,21 @@ export function startApp() {
 
   /* =======================================================
      SELECTED WORK
-
-     Work immediately creates lightweight project cards.
-
-     Its project frames remain uncreated until Work
-     approaches the viewport.
   ======================================================= */
 
   startFeature(
     "work",
     initWork
+  );
+
+
+  /* =======================================================
+     RESPONSIVE LAB
+  ======================================================= */
+
+  startFeature(
+    "lab",
+    initLab
   );
 
 
@@ -348,11 +330,6 @@ export function startApp() {
 
 /* =========================================================
    STOP APPLICATION
-
-   Explicit lifecycle support is useful during staging and
-   keeps feature ownership clear.
-
-   Each feature destroys only the resources it owns.
 ========================================================= */
 
 export function stopApp() {
@@ -433,12 +410,6 @@ export function stopApp() {
 
 /* =========================================================
    BOOT
-
-   type="module" scripts are deferred automatically.
-
-   The readyState guard also keeps this entry point safe if
-   it is moved into <head> during the final production
-   cutover.
 ========================================================= */
 
 function boot() {
@@ -488,10 +459,6 @@ if (
 
 /* =========================================================
    PUBLIC DIAGNOSTIC API
-
-   ES-module exports only.
-
-   Nothing is attached to window.
 ========================================================= */
 
 export {
