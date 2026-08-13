@@ -33,7 +33,7 @@ import {
   SOLA_CAFE_KEY,
   createSolaSite,
   initializeSolaSite
-} from "./site.js";
+} from "./site.js?v=20260814-2";
 
 
 /* =========================================================
@@ -223,7 +223,7 @@ export const solaProject =
     loadCase:
       () =>
         import(
-          "./case.js"
+          "./case.js?v=20260814-2"
         )
 
   });
