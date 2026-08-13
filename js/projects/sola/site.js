@@ -1113,7 +1113,7 @@ const SITE_MARKUP = `
           <figure class="sola-gallery-card sola-gallery-card-large">
 
             <img
-              src="https://images.pexels.com/photos/34304021/pexels-photo-34304021.jpeg?auto=compress&cs=tinysrgb&w=1800"
+              src="https://images.pexels.com/photos/28708577/pexels-photo-28708577.jpeg?auto=compress&cs=tinysrgb&w=1800"
               alt="Barista preparing coffee"
               loading="lazy"
             >
