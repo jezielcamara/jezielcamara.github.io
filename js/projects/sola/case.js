@@ -6,7 +6,7 @@
    RESPONSIBILITY
    - Sola-specific case metadata
    - Sola-specific case narrative
-   - Sola antique case Hero
+   - Sola editorial case Hero
    - Sola live website frame
    - Sola case frame geometry
    - Sola case lifecycle
@@ -38,7 +38,7 @@ import {
 
 export const caseStyles =
   Object.freeze([
-    "css/sola-case-study.css"
+    "css/sola-case-study.css?v=20260814-2"
   ]);
 
 
@@ -52,13 +52,13 @@ export const caseMeta =
       "SELF-INITIATED / HOSPITALITY",
 
     summary:
-      "A fictional neighborhood café built as an antique tabletop composition of typography, collected photography, paper, menus and everyday ephemera.",
+      "A fictional neighborhood cafe built as a parchment-and-ink editorial experience with original engraved artwork, expressive typography, menus, field notes, and practical visit details.",
 
     goal:
-      "Create a memorable café identity while keeping menu, hours and visit information practical on every screen.",
+      "Create a memorable cafe identity while keeping menu, hours, and visit information practical on every screen.",
 
     pages:
-      "Menu / Notebook / Gallery / Visit"
+      "Story / Menu / Field Notes / Visit"
 
   });
 
@@ -136,8 +136,8 @@ function createPreviewMarkup(
           class="sola-case-preview-note"
           aria-hidden="true"
         >
-          some things<br>
-          are worth keeping
+          coffee / food<br>
+          a room to stay
         </div>
 
       </div>
@@ -174,18 +174,18 @@ function createCaseMarkup(
           </span>
 
           <h3>
-            Build a café
-            website that feels
-            assembled, not laid out.
+            Build a cafe
+            website that reads
+            like an editorial object.
           </h3>
 
           <p>
-            Sola is a fictional neighborhood café concept
-            inspired by old restaurant websites, recipe
-            books, printed menus, family-kitchen ephemera,
-            faded photographs and the visual clutter of a
-            desk where useful things have accumulated over
-            time.
+            Sola is a fictional neighborhood cafe shaped
+            around Metro Manila mornings. The redesign uses
+            a disciplined editorial grid, high-contrast
+            typography, parchment surfaces, and original
+            engraved coffee illustrations to make the brand
+            feel considered without resembling the portfolio.
           </p>
 
         </div>
@@ -210,12 +210,12 @@ function createCaseMarkup(
 
           <div>
             <span>ART DIRECTION</span>
-            <strong>Antique tableau / collected ephemera</strong>
+            <strong>Editorial modernism / engraved cafe studies</strong>
           </div>
 
           <div>
             <span>SCOPE</span>
-            <strong>Menu / Notebook / Gallery / Visit</strong>
+            <strong>Story / Menu / Field Notes / Visit</strong>
           </div>
 
           <div>
@@ -237,17 +237,17 @@ function createCaseMarkup(
           </span>
 
           <h3>
-            A small world
-            made from old
-            material.
+            A quiet world
+            drawn in ink
+            and paper.
           </h3>
 
           <p>
             The reference direction is intentionally
-            different from a contemporary hospitality
-            template. Sola treats the screen like a
-            physical surface covered with collected
-            objects and printed material.
+            different from both the portfolio and a typical
+            hospitality template. Sola treats the screen as
+            a sequence of editorial plates: type, rules,
+            negative space, and illustration share the page.
           </p>
 
         </div>
@@ -260,14 +260,14 @@ function createCaseMarkup(
             <span>01</span>
 
             <strong>
-              TABLEAU
+              SCALE
             </strong>
 
             <p>
-              The opening composition is centered like an
-              antique illustration rather than divided into
-              the standard copy-left, image-right business
-              website pattern.
+              Oversized display typography meets a single
+              diagonal object study, creating an opening that
+              feels like a magazine cover rather than a
+              conventional conversion-led Hero.
             </p>
 
           </article>
@@ -282,10 +282,9 @@ function createCaseMarkup(
             </strong>
 
             <p>
-              Parchment surfaces, imperfect edges,
-              ornamental rules and muted ink create the
-              feeling of printed material that has been
-              handled over time.
+              Parchment surfaces, precise hairline rules,
+              warm ivory, and near-black ink create a calm
+              print-like field without decorative clutter.
             </p>
 
           </article>
@@ -296,14 +295,14 @@ function createCaseMarkup(
             <span>03</span>
 
             <strong>
-              EPHEMERA
+              ENGRAVING
             </strong>
 
             <p>
-              Photographs behave like found prints.
-              Notes, stamps and small ornamental marks
-              occupy the screen as physical objects rather
-              than interface decoration.
+              Original copperplate-style illustrations turn
+              coffee cultivation and daily brewing into a
+              visual language that belongs specifically to
+              the Sola concept.
             </p>
 
           </article>
@@ -327,16 +326,15 @@ function createCaseMarkup(
             <span>01</span>
 
             <h4>
-              Center the world,
-              not a conversion funnel.
+              Lead with atmosphere,
+              then reveal utility.
             </h4>
 
             <p>
               North Home uses the clarity of a conventional
-              service-business Hero. Sola deliberately
-              rejects that structure. Its identity,
-              typography and collected objects form one
-              central composition.
+              service-business Hero. Sola uses editorial
+              scale, a sculptural coffee object, and a drawn
+              landscape before unfolding practical content.
             </p>
 
           </article>
@@ -347,15 +345,15 @@ function createCaseMarkup(
             <span>02</span>
 
             <h4>
-              Make photography
-              feel found.
+              Give illustration
+              a real job.
             </h4>
 
             <p>
-              Images are smaller, faded, tilted and framed
-              like prints on a desk. They support the brand
-              world instead of becoming a full-width
-              photographic Hero.
+              The engravings establish origin, material, and
+              ritual. Different crops let the same original
+              artwork become panorama, product study, and
+              sectional texture without feeling repetitive.
             </p>
 
           </article>
@@ -366,15 +364,15 @@ function createCaseMarkup(
             <span>03</span>
 
             <h4>
-              Treat the menu
-              like a ledger.
+              Make the menu
+              an editorial spread.
             </h4>
 
             <p>
-              The interactive menu keeps useful category
-              switching while the visual system behaves
-              like one large printed page rather than a
-              collection of modern UI cards.
+              Category switching stays clear and accessible,
+              while ruled rows and typographic contrast make
+              the menu feel like a composed print spread
+              rather than a collection of UI cards.
             </p>
 
           </article>
@@ -386,14 +384,14 @@ function createCaseMarkup(
 
             <h4>
               Let mobile become
-              a pocket scrapbook.
+              a pocket journal.
             </h4>
 
             <p>
               The same canonical website reorganizes its
-              overlapping desktop compositions into a
-              sequential collection of paper, photographs,
-              menu entries and practical visit information.
+              wide modular grid into a deliberate sequence
+              of typography, engravings, menu entries, field
+              notes, and practical visit information.
             </p>
 
           </article>
@@ -412,10 +410,10 @@ function createCaseMarkup(
           </span>
 
           <h3>
-            Faded paper.
-            Dark ink.
-            Small traces
-            of color.
+            Warm paper.
+            Near-black ink.
+            Nothing
+            unnecessary.
           </h3>
 
         </div>
@@ -425,55 +423,55 @@ function createCaseMarkup(
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#E4CCA2"
+            style="--swatch:#E9DFCD"
           >
-            <span>AGED PAPER</span>
-            <strong>#E4CCA2</strong>
+            <span>PARCHMENT</span>
+            <strong>#E9DFCD</strong>
           </div>
 
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#F3E7CC"
+            style="--swatch:#F2EADC"
           >
             <span>WARM IVORY</span>
-            <strong>#F3E7CC</strong>
+            <strong>#F2EADC</strong>
           </div>
 
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#38251A"
+            style="--swatch:#15120E"
           >
             <span>DARK INK</span>
-            <strong>#38251A</strong>
+            <strong>#15120E</strong>
           </div>
 
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#253427"
+            style="--swatch:#50483D"
           >
-            <span>DEEP GREEN</span>
-            <strong>#253427</strong>
+            <span>SOFT INK</span>
+            <strong>#50483D</strong>
           </div>
 
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#79463B"
+            style="--swatch:#D8C9B1"
           >
-            <span>FADED RED</span>
-            <strong>#79463B</strong>
+            <span>PAPER DEEP</span>
+            <strong>#D8C9B1</strong>
           </div>
 
 
           <div
             class="sola-case-swatch"
-            style="--swatch:#9B7A46"
+            style="--swatch:#8B7A63"
           >
-            <span>AGED BRASS</span>
-            <strong>#9B7A46</strong>
+            <span>SEPIA RULE</span>
+            <strong>#8B7A63</strong>
           </div>
 
         </div>
@@ -486,15 +484,15 @@ function createCaseMarkup(
           </span>
 
           <strong>
-            Some things
-            are worth keeping.
+            The quiet cup.
+            The long morning.
           </strong>
 
           <p>
-            Traditional serif typography carries the main
-            voice. Italics and small annotations provide
-            the imperfect human layer, while a restrained
-            sans-serif is reserved for functional labels.
+            Bodoni Moda carries the expressive display voice.
+            Its dramatic stroke contrast is balanced by DM
+            Sans for navigation, captions, and functional
+            labels across every viewport.
           </p>
 
         </div>
@@ -606,9 +604,9 @@ function createCaseMarkup(
             </strong>
 
             <span>
-              Overlapping antique desktop compositions
-              reorganize into readable sequential mobile
-              layouts from the same canonical DOM.
+              The asymmetrical desktop grid reorganizes into
+              readable sequential mobile layouts from the
+              same canonical DOM.
             </span>
 
           </article>
