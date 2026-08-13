@@ -128,7 +128,7 @@ function loadViewerModule() {
 
   viewerModulePromise =
     import(
-      "./viewer.js"
+      "./viewer.js?v=20260814-2"
     )
       .then(
         (module) => {
@@ -351,8 +351,8 @@ function createActionButton({
   button.className =
     action ===
       "viewer"
-      ? "case-open project-view-launch"
-      : "case-open";
+      ? "case-open project-view-launch portfolio-button"
+      : "case-open portfolio-button";
 
 
   button.type =
