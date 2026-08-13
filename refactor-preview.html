@@ -228,15 +228,6 @@
 
   <!-- =====================================================
        SIDE RAIL
-
-       This already follows the intended final information
-       order:
-
-       Work
-       Lab
-       About
-       Notes
-       Contact
   ====================================================== -->
 
   <header class="side-rail">
@@ -257,47 +248,57 @@
     >
 
       <a href="#work">
+
         <span>
           01
         </span>
 
         Work
+
       </a>
 
 
       <a href="#lab">
+
         <span>
           02
         </span>
 
         Lab
+
       </a>
 
 
       <a href="#about">
+
         <span>
           03
         </span>
 
         About
+
       </a>
 
 
       <a href="#notes">
+
         <span>
           04
         </span>
 
         Notes
+
       </a>
 
 
       <a href="#contact">
+
         <span>
           05
         </span>
 
         Contact
+
       </a>
 
     </nav>
@@ -393,8 +394,6 @@
 
       <!-- ===============================================
            FEATURED PROJECT / DESKTOP
-
-           New hero.js will mount an isolated frame here.
       ================================================ -->
 
       <div
@@ -443,9 +442,6 @@
 
       <!-- ===============================================
            FEATURED PROJECT / MOBILE
-
-           New hero.js will mount the same project source
-           at a real mobile viewport.
       ================================================ -->
 
       <div
@@ -629,16 +625,6 @@
 
     <!-- ===================================================
          SELECTED WORK
-
-         IMPORTANT:
-
-         No project cards are hardcoded here.
-
-         work.js will render published projects from the
-         project registry.
-
-         Draft projects such as Avance cannot leak into the
-         public interface.
     ==================================================== -->
 
     <section
@@ -711,14 +697,6 @@
 
     <!-- ===================================================
          RESPONSIVE LAB
-
-         One future lab.js controller owns:
-         - slider
-         - output
-         - replay
-         - frame
-         - project metadata
-         - responsive explanation
     ==================================================== -->
 
     <section
@@ -739,6 +717,7 @@
 
           <h2>
             One website.<br>
+
             <em>
               Every screen.
             </em>
@@ -1272,6 +1251,7 @@
         <h2>
           Let’s give it<br>
           a better home<br>
+
           <em>
             online.
           </em>
@@ -1310,10 +1290,11 @@
   <!-- =====================================================
        GENERIC CASE DIALOG
 
-       The new case-dialog.js owns this shell.
+       The case controller is not connected yet.
 
-       Project-specific case modules populate the content
-       only after the visitor asks to explore a project.
+       It remains in the staging structure so the next case
+       architecture can be built without another structural
+       HTML change.
   ====================================================== -->
 
   <dialog
@@ -1480,15 +1461,24 @@
 
 
   <!-- =====================================================
-       RUNTIME
+       MODULAR STAGING RUNTIME
 
-       Intentionally not connected yet.
+       This is now the only JavaScript entry point on the
+       refactor preview.
 
-       Step 2 creates the new module runtime.
+       app.js imports:
+       - North manifest
+       - Sola manifest
+       - Hero
+       - Selected Work
 
-       Until then this page is a safe structural staging
-       shell and does not execute the old portfolio JS.
+       No legacy portfolio JavaScript executes here.
   ====================================================== -->
+
+  <script
+    type="module"
+    src="js/app.js"
+  ></script>
 
 
 </body>
