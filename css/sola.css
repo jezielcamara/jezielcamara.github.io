@@ -1002,6 +1002,7 @@ em {
    Explicit vertical separation from title.
 ========================================================= */
 
+.sola-site
 .sola-hero-intro {
   position:
     relative;
@@ -4585,6 +4586,7 @@ button:focus-visible {
   }
 
 
+  .sola-site
   .sola-hero-intro {
     margin-top:
       26px;
@@ -4957,6 +4959,7 @@ button:focus-visible {
   }
 
 
+  .sola-site
   .sola-hero-intro {
     max-width:
       330px;
@@ -5452,6 +5455,7 @@ button:focus-visible {
   }
 
 
+  .sola-site
   .sola-hero-intro {
     max-width:
       290px;

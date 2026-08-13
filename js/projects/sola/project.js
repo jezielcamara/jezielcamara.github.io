@@ -90,7 +90,7 @@ export const solaProject =
 
     styles:
       [
-        "css/sola.css"
+        "css/sola.css?v=20260814-1"
       ],
 
 
