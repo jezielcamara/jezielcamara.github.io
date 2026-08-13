@@ -1,7 +1,7 @@
 /* =========================================================
    JEZIEL CAMARA / SELECTED WORK
 
-   NEW MODULAR ARCHITECTURE
+   MODULAR PORTFOLIO ARCHITECTURE
 
    RESPONSIBILITY
    - render published project cards
@@ -11,7 +11,8 @@
    - manage reel drag behavior
    - manage reel progress
    - track the active project slide
-   - expose project-action hooks for Viewer / Case modules
+   - lazily open the website viewer
+   - lazily open project case studies
    - clean up Work resources
 
    NOT RESPONSIBLE FOR
@@ -26,26 +27,23 @@
 
    ProjectRegistry
         ↓
-   Work
+   published projects
         ↓
-   published projects only
+   Selected Work cards
         ↓
-   project cards
-        ↓
-   near viewport
-        ↓
-   ProjectFrame
-        ↓
-   canonical project website
+   ProjectFrame preview
 
-   IMPORTANT
+   ACTIONS
 
-   Project cards are generated from the registry.
+   View Website
+        ↓
+   dynamic import("./viewer.js")
 
-   There is no hardcoded:
-   - North card
-   - Sola card
-   - Avance placeholder
+   Explore Project
+        ↓
+   dynamic import("./case-dialog.js")
+        ↓
+   project.loadCase()
 ========================================================= */
 
 
@@ -60,14 +58,7 @@ import {
 
 
 /* =========================================================
-   PROJECT VIEWPORT
-
-   All Selected Work previews receive the same genuine
-   desktop project viewport.
-
-   Portfolio scaling changes.
-
-   Project layout does not.
+   PROJECT PREVIEW VIEWPORT
 ========================================================= */
 
 const WORK_VIEWPORT_WIDTH =
@@ -79,24 +70,148 @@ const WORK_VIEWPORT_HEIGHT =
 
 
 /* =========================================================
-   LAZY-MOUNT DISTANCE
-
-   Work project documents are not created during initial
-   Hero load.
-
-   Mount them only when the Work section approaches the
-   viewport.
-
-   700px gives the browser time to:
-   - create srcdoc
-   - request project CSS
-   - request visible project imagery
-
-   before the user actually reaches the section.
+   PREVIEW LAZY-MOUNT DISTANCE
 ========================================================= */
 
 const WORK_ROOT_MARGIN =
   "700px 0px 700px 0px";
+
+
+/* =========================================================
+   LAZY ACTION MODULES
+
+   These modules are deliberately absent from the initial
+   app dependency graph.
+
+   The first click loads them.
+
+   Native ES-module caching handles subsequent requests.
+========================================================= */
+
+let viewerModulePromise =
+  null;
+
+
+let viewerModule =
+  null;
+
+
+let caseDialogModulePromise =
+  null;
+
+
+let caseDialogModule =
+  null;
+
+
+/* =========================================================
+   LAZY VIEWER
+========================================================= */
+
+function loadViewerModule() {
+
+  if (viewerModule) {
+
+    return Promise.resolve(
+      viewerModule
+    );
+
+  }
+
+
+  if (viewerModulePromise) {
+
+    return viewerModulePromise;
+
+  }
+
+
+  viewerModulePromise =
+    import(
+      "./viewer.js"
+    )
+      .then(
+        (module) => {
+
+          viewerModule =
+            module;
+
+
+          return module;
+
+        }
+      )
+      .catch(
+        (error) => {
+
+          viewerModulePromise =
+            null;
+
+
+          throw error;
+
+        }
+      );
+
+
+  return viewerModulePromise;
+
+}
+
+
+/* =========================================================
+   LAZY CASE CONTROLLER
+========================================================= */
+
+function loadCaseDialogModule() {
+
+  if (caseDialogModule) {
+
+    return Promise.resolve(
+      caseDialogModule
+    );
+
+  }
+
+
+  if (caseDialogModulePromise) {
+
+    return caseDialogModulePromise;
+
+  }
+
+
+  caseDialogModulePromise =
+    import(
+      "./case-dialog.js"
+    )
+      .then(
+        (module) => {
+
+          caseDialogModule =
+            module;
+
+
+          return module;
+
+        }
+      )
+      .catch(
+        (error) => {
+
+          caseDialogModulePromise =
+            null;
+
+
+          throw error;
+
+        }
+      );
+
+
+  return caseDialogModulePromise;
+
+}
 
 
 /* =========================================================
@@ -167,16 +282,10 @@ function getWorkElements() {
 /* =========================================================
    SLIDE CLASS COMPATIBILITY
 
-   The current CSS still contains historical alternate slide
-   class names.
+   Temporary compatibility with the current CSS system.
 
-   All of them now share the same dimensions.
-
-   We retain the ordinal classes temporarily so the staging
-   page preserves the current visual system until the later
-   CSS consolidation pass.
-
-   This is based on POSITION, not project identity.
+   These classes depend on ordinal position rather than
+   project identity.
 ========================================================= */
 
 function getSlideClassName(
@@ -188,7 +297,9 @@ function getSlideClassName(
     1
   ) {
 
-    return "project-slide project-slide-alt";
+    return (
+      "project-slide project-slide-alt"
+    );
 
   }
 
@@ -198,12 +309,129 @@ function getSlideClassName(
     2
   ) {
 
-    return "project-slide project-slide-third";
+    return (
+      "project-slide project-slide-third"
+    );
 
   }
 
 
   return "project-slide";
+
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+
+function createActionButton({
+  project,
+  action,
+  text
+}) {
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+
+  /*
+   * case-open currently contains the approved text-button
+   * presentation in enhancements.css.
+   *
+   * project-view-launch adds the existing Viewer focus /
+   * cursor treatment.
+   *
+   * These style names can be consolidated later without
+   * changing the action architecture.
+   */
+
+  button.className =
+    action ===
+      "viewer"
+      ? "case-open project-view-launch"
+      : "case-open";
+
+
+  button.type =
+    "button";
+
+
+  button.dataset.project =
+    project.key;
+
+
+  button.dataset.projectAction =
+    action;
+
+
+  button.dataset.reelNoDrag =
+    "true";
+
+
+  button.setAttribute(
+    "aria-haspopup",
+    "dialog"
+  );
+
+
+  if (
+    action ===
+    "case"
+  ) {
+
+    button.dataset.caseProject =
+      project.key;
+
+
+    button.setAttribute(
+      "aria-controls",
+      "case-dialog"
+    );
+
+  }
+
+
+  button.setAttribute(
+    "aria-label",
+    action ===
+      "viewer"
+      ? `View ${project.name} website`
+      : `Explore ${project.name} project`
+  );
+
+
+  const label =
+    document.createTextNode(
+      text
+    );
+
+
+  const arrow =
+    document.createElement(
+      "span"
+    );
+
+
+  arrow.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  arrow.textContent =
+    "↗";
+
+
+  button.append(
+    label,
+    arrow
+  );
+
+
+  return button;
 
 }
 
@@ -251,19 +479,15 @@ function createProjectCard(
   );
 
 
-  /* -------------------------------------------------------
+  /* =======================================================
      PROJECT MEDIA
 
-     IMPORTANT:
+     Deliberately NOT role="img".
 
-     This is deliberately NOT role="img".
-
-     A project surface will later receive controls such as
-     the View Website button.
-
-     Interactive descendants must never be placed inside an
-     element exposed as role="img".
-  ------------------------------------------------------- */
+     The surface contains a canonical iframe and may later
+     sit beside interactive controls. It is not a static
+     semantic image.
+  ======================================================= */
 
   const media =
     document.createElement(
@@ -283,12 +507,11 @@ function createProjectCard(
     "waiting";
 
 
-  /* -------------------------------------------------------
-     TEMPORARY PREVIEW PLACEHOLDER
+  /* =======================================================
+     TEMPORARY PLACEHOLDER
 
-     ProjectFrame.mount() replaces these children when the
-     Work section approaches the viewport.
-  ------------------------------------------------------- */
+     Removed automatically by ProjectFrame.mount().
+  ======================================================= */
 
   const placeholderCross =
     document.createElement(
@@ -328,9 +551,9 @@ function createProjectCard(
   );
 
 
-  /* -------------------------------------------------------
+  /* =======================================================
      CAPTION
-  ------------------------------------------------------- */
+  ======================================================= */
 
   const caption =
     document.createElement(
@@ -378,18 +601,9 @@ function createProjectCard(
   );
 
 
-  /* -------------------------------------------------------
+  /* =======================================================
      ACTIONS
-
-     The Work module creates the action hook.
-
-     It does NOT open case studies itself.
-
-     The future case-dialog.js module owns the dialog and
-     binds to:
-
-     [data-case-project]
-  ------------------------------------------------------- */
+  ======================================================= */
 
   const actions =
     document.createElement(
@@ -412,82 +626,75 @@ function createProjectCard(
     project.type;
 
 
-  const caseButton =
-    document.createElement(
-      "button"
-    );
-
-
-  caseButton.className =
-    "case-open";
-
-
-  caseButton.type =
-    "button";
-
-
-  caseButton.dataset.project =
-    project.key;
-
-
-  caseButton.dataset.caseProject =
-    project.key;
-
-
-  caseButton.dataset.projectAction =
-    "case";
-
-
-  caseButton.setAttribute(
-    "aria-haspopup",
-    "dialog"
-  );
-
-
-  caseButton.setAttribute(
-    "aria-controls",
-    "case-dialog"
-  );
-
-
-  caseButton.setAttribute(
-    "aria-label",
-    `Explore ${project.name} project`
-  );
-
-
-  const caseText =
-    document.createTextNode(
-      "Explore project"
-    );
-
-
-  const caseArrow =
-    document.createElement(
-      "span"
-    );
-
-
-  caseArrow.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-
-  caseArrow.textContent =
-    "↗";
-
-
-  caseButton.append(
-    caseText,
-    caseArrow
-  );
-
-
   actions.append(
-    pages,
-    caseButton
+    pages
   );
+
+
+  /*
+   * Website Viewer
+   *
+   * viewer.enabled defaults to usable unless explicitly
+   * disabled by project metadata.
+   */
+
+  if (
+    project.viewer.enabled !==
+    false
+  ) {
+
+    const viewerButton =
+      createActionButton({
+
+        project,
+
+        action:
+          "viewer",
+
+        text:
+          "View website"
+
+      });
+
+
+    actions.append(
+      viewerButton
+    );
+
+  }
+
+
+  /*
+   * Case Study
+   *
+   * Only projects with an actual loadCase() function receive
+   * the case action.
+   */
+
+  if (
+    typeof project.loadCase ===
+      "function"
+  ) {
+
+    const caseButton =
+      createActionButton({
+
+        project,
+
+        action:
+          "case",
+
+        text:
+          "Explore project"
+
+      });
+
+
+    actions.append(
+      caseButton
+    );
+
+  }
 
 
   caption.append(
@@ -516,16 +723,14 @@ function createProjectCard(
 /* =========================================================
    RENDER PUBLISHED PROJECTS
 
-   This is the public publication boundary.
+   This is the publication boundary.
 
-   Draft projects never receive:
-   - a card
-   - a preview
-   - a case button
-   - active reel state
-
-   Avance can safely exist as status:"draft" later without
-   appearing here.
+   Draft projects receive no:
+   - card
+   - frame
+   - Viewer button
+   - case action
+   - reel state
 ========================================================= */
 
 function renderProjects(
@@ -652,9 +857,9 @@ function prepareProjectHost(
 /* =========================================================
    FRAME FITTING
 
-   Keep a genuine 1200 × 820 project viewport.
+   The project receives a real 1200 × 820 desktop viewport.
 
-   Scale only its presentation inside the portfolio card.
+   Only the surrounding portfolio presentation scales.
 ========================================================= */
 
 function fitProjectFrame(
@@ -682,9 +887,7 @@ function fitProjectFrame(
     host.clientWidth;
 
 
-  if (
-    !availableWidth
-  ) {
+  if (!availableWidth) {
 
     return;
 
@@ -875,14 +1078,6 @@ function mountProjectPreview(
 
 /* =========================================================
    ACTIVE SLIDE
-
-   The current production reel does not explicitly maintain
-   one active project.
-
-   This module does.
-
-   CSS can therefore cleanly de-emphasize neighboring
-   captions later without changing Work JavaScript again.
 ========================================================= */
 
 function findActiveEntry(
@@ -953,6 +1148,159 @@ function findActiveEntry(
 
 
 /* =========================================================
+   ACTION STATE
+========================================================= */
+
+function setActionState(
+  button,
+  state
+) {
+
+  if (
+    !button
+  ) {
+
+    return;
+
+  }
+
+
+  button.dataset.actionState =
+    state;
+
+
+  if (
+    state ===
+    "loading"
+  ) {
+
+    button.disabled =
+      true;
+
+
+    button.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+
+    return;
+
+  }
+
+
+  button.disabled =
+    false;
+
+
+  button.removeAttribute(
+    "aria-busy"
+  );
+
+}
+
+
+/* =========================================================
+   OPEN VIEWER
+========================================================= */
+
+async function openViewer(
+  project,
+  button
+) {
+
+  try {
+
+    const module =
+      await loadViewerModule();
+
+
+    if (
+      typeof module.openProjectViewer !==
+        "function"
+    ) {
+
+      throw new Error(
+        "Viewer module does not export openProjectViewer()."
+      );
+
+    }
+
+
+    return await module.openProjectViewer(
+      project.key,
+      {
+        returnFocus:
+          button
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      `[Work] Could not open "${project.key}" website viewer.`,
+      error
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   OPEN CASE STUDY
+========================================================= */
+
+async function openCase(
+  project,
+  button
+) {
+
+  try {
+
+    const module =
+      await loadCaseDialogModule();
+
+
+    if (
+      typeof module.openProjectCase !==
+        "function"
+    ) {
+
+      throw new Error(
+        "Case controller does not export openProjectCase()."
+      );
+
+    }
+
+
+    return await module.openProjectCase(
+      project.key,
+      {
+        returnFocus:
+          button
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      `[Work] Could not open "${project.key}" case study.`,
+      error
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
    INITIALIZE SELECTED WORK
 ========================================================= */
 
@@ -970,10 +1318,15 @@ export function initWork() {
 
 
   const {
+
     section,
+
     reel,
+
     track,
+
     progress
+
   } =
     elements;
 
@@ -1039,6 +1392,159 @@ export function initWork() {
 
 
   /* =======================================================
+     PROJECT LOOKUP FOR ACTIONS
+  ======================================================= */
+
+  function getEntryByKey(
+    key
+  ) {
+
+    return entries.find(
+      (entry) =>
+        entry.project.key ===
+        key
+    ) ||
+    null;
+
+  }
+
+
+  /* =======================================================
+     ACTION DELEGATION
+
+     No Viewer or Case listener is attached individually to
+     each generated card.
+
+     One Work-owned listener handles all project actions.
+  ======================================================= */
+
+  track.addEventListener(
+    "click",
+    async (event) => {
+
+      const button =
+        event.target
+          ?.closest?.(
+            "[data-project-action]"
+          );
+
+
+      if (
+        !button ||
+        !track.contains(
+          button
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      event.preventDefault();
+
+
+      if (
+        button.dataset.actionState ===
+        "loading"
+      ) {
+
+        return;
+
+      }
+
+
+      const key =
+        String(
+          button.dataset.project ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      const action =
+        String(
+          button.dataset.projectAction ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      const entry =
+        getEntryByKey(
+          key
+        );
+
+
+      if (!entry) {
+
+        return;
+
+      }
+
+
+      setActionState(
+        button,
+        "loading"
+      );
+
+
+      let success =
+        false;
+
+
+      if (
+        action ===
+        "viewer"
+      ) {
+
+        success =
+          await openViewer(
+            entry.project,
+            button
+          );
+
+      } else if (
+        action ===
+        "case"
+      ) {
+
+        success =
+          await openCase(
+            entry.project,
+            button
+          );
+
+      }
+
+
+      if (
+        destroyed ||
+        !button.isConnected
+      ) {
+
+        return;
+
+      }
+
+
+      setActionState(
+        button,
+        success
+          ? "ready"
+          : "error"
+      );
+
+    },
+    {
+      signal
+    }
+  );
+
+
+  /* =======================================================
      FIT ALL MOUNTED FRAMES
   ======================================================= */
 
@@ -1093,11 +1599,6 @@ export function initWork() {
 
   /* =======================================================
      PREVIEW MOUNTING
-
-     One near-viewport event mounts the Work previews.
-
-     We do not construct Work iframes during initial Hero
-     startup.
   ======================================================= */
 
   function mountPreviews() {
@@ -1134,7 +1635,7 @@ export function initWork() {
 
     if (
       "ResizeObserver" in
-        window
+      window
     ) {
 
       resizeObserver =
@@ -1159,10 +1660,12 @@ export function initWork() {
         "resize",
         scheduleFit,
         {
+
           passive:
             true,
 
           signal
+
         }
       );
 
@@ -1173,6 +1676,10 @@ export function initWork() {
 
   }
 
+
+  /* =======================================================
+     NEAR-VIEWPORT PREVIEW ACTIVATION
+  ======================================================= */
 
   if (
     entries.length
@@ -1234,10 +1741,6 @@ export function initWork() {
       );
 
     } else {
-
-      /*
-       * Older browser fallback.
-       */
 
       mountPreviews();
 
@@ -1365,17 +1868,6 @@ export function initWork() {
       activeEntry.project.key;
 
 
-    /*
-     * Generic integration event for future portfolio
-     * features.
-     *
-     * This is NOT a dependency-readiness event.
-     *
-     * All modules are already synchronously imported.
-     *
-     * This event represents an actual UI state change.
-     */
-
     document.dispatchEvent(
       new CustomEvent(
         "portfolio:work-active",
@@ -1404,10 +1896,6 @@ export function initWork() {
 
   /* =======================================================
      SCROLL STATE
-
-     Progress and active-slide calculation share one
-     requestAnimationFrame rather than doing work directly
-     for every native scroll event.
   ======================================================= */
 
   function updateScrollState() {
@@ -1463,11 +1951,11 @@ export function initWork() {
   /* =======================================================
      POINTER DRAG
 
-     Touch keeps native browser scrolling.
+     Touch retains native scrolling.
 
-     Mouse / pen receive the desktop grab interaction.
+     Mouse and pen receive the grab interaction.
 
-     Interactive controls never begin a reel drag.
+     Interactive controls never initiate drag.
   ======================================================= */
 
   function isInteractiveTarget(
@@ -1539,9 +2027,7 @@ export function initWork() {
 
     },
     {
-
       signal
-
     }
   );
 
@@ -1570,9 +2056,7 @@ export function initWork() {
 
     },
     {
-
       signal
-
     }
   );
 
@@ -1581,9 +2065,7 @@ export function initWork() {
     event
   ) {
 
-    if (
-      !dragging
-    ) {
+    if (!dragging) {
 
       return;
 
@@ -1644,9 +2126,7 @@ export function initWork() {
     "pointerup",
     finishDrag,
     {
-
       signal
-
     }
   );
 
@@ -1655,9 +2135,7 @@ export function initWork() {
     "pointercancel",
     finishDrag,
     {
-
       signal
-
     }
   );
 
@@ -1666,46 +2144,37 @@ export function initWork() {
     "lostpointercapture",
     () => {
 
-      if (
-        dragging
-      ) {
+      if (!dragging) {
 
-        dragging =
-          false;
-
-
-        dragPointerId =
-          null;
-
-
-        reel.classList.remove(
-          "dragging"
-        );
-
-
-        scheduleScrollState();
+        return;
 
       }
 
+
+      dragging =
+        false;
+
+
+      dragPointerId =
+        null;
+
+
+      reel.classList.remove(
+        "dragging"
+      );
+
+
+      scheduleScrollState();
+
     },
     {
-
       signal
-
     }
   );
 
 
   /* =======================================================
-     KEYBOARD / PROGRAMMATIC RESIZE SUPPORT
-
-     Native horizontal scrolling remains available to
-     keyboard users.
-
-     Resize recalculates:
-     - frame scaling
-     - progress
-     - active slide
+     RESIZE
   ======================================================= */
 
   function handleResize() {
@@ -1733,11 +2202,7 @@ export function initWork() {
   /* =======================================================
      INITIAL POSITION
 
-     A fresh page always begins on the first published
-     project.
-
-     This fixes stale reel positions caused by browser
-     scroll restoration or previous runtime state.
+     Fresh runtime always starts on project 01.
   ======================================================= */
 
   reel.scrollLeft =
@@ -1753,9 +2218,7 @@ export function initWork() {
 
   function destroy() {
 
-    if (
-      destroyed
-    ) {
+    if (destroyed) {
 
       return;
 
@@ -1783,9 +2246,7 @@ export function initWork() {
       null;
 
 
-    if (
-      resizeFrame
-    ) {
+    if (resizeFrame) {
 
       window.cancelAnimationFrame(
         resizeFrame
@@ -1798,9 +2259,7 @@ export function initWork() {
     }
 
 
-    if (
-      scrollFrame
-    ) {
+    if (scrollFrame) {
 
       window.cancelAnimationFrame(
         scrollFrame
@@ -1832,6 +2291,46 @@ export function initWork() {
 
       }
     );
+
+
+    /*
+     * Viewer and Case are loaded through Work actions rather
+     * than through app.js.
+     *
+     * When Work itself is explicitly destroyed during
+     * staging, clean up those optional surfaces as well.
+     */
+
+    try {
+
+      viewerModule
+        ?.destroyProjectViewer
+        ?.();
+
+    } catch (error) {
+
+      console.warn(
+        "[Work] Viewer cleanup failed.",
+        error
+      );
+
+    }
+
+
+    try {
+
+      caseDialogModule
+        ?.destroyCaseDialog
+        ?.();
+
+    } catch (error) {
+
+      console.warn(
+        "[Work] Case cleanup failed.",
+        error
+      );
+
+    }
 
 
     delete section.dataset
