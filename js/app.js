@@ -10,26 +10,23 @@
    - provide staging diagnostics
    - keep feature initialization isolated
 
-   CURRENT FEATURES
+   INITIAL FEATURES
    - Hero
    - Selected Work
    - Responsive Lab
+   - Page Motion
 
-   FUTURE FEATURES
-   - Viewer
-   - Case dialog
-   - Page motion
+   LAZY FEATURES
+   - Website Viewer
+   - Case Dialog
+   - Project Case Studies
 
    IMPORTANT
 
-   Project registration happens through native ES-module
-   imports before any feature initialization begins.
+   Viewer and case-study modules are intentionally absent
+   from this initial dependency graph.
 
-   There is no:
-   - requestAnimationFrame dependency polling
-   - global ready event
-   - window.PortfolioProjects dependency
-   - script-order retry system
+   Work dynamically imports them only when requested.
 ========================================================= */
 
 
@@ -69,6 +66,11 @@ import {
 } from "./features/lab.js";
 
 
+import {
+  initPageMotion
+} from "./features/page-motion.js";
+
+
 /* =========================================================
    APPLICATION STATE
 ========================================================= */
@@ -86,37 +88,10 @@ let startResult =
 
 
 /* =========================================================
-   TEMPORARY VISIBILITY BRIDGE
-
-   page-motion.js will replace this later.
-========================================================= */
-
-function activateCurrentVisualState() {
-
-  document.body.classList.add(
-    "ready"
-  );
-
-
-  document
-    .querySelectorAll(
-      ".reveal"
-    )
-    .forEach(
-      (element) => {
-
-        element.classList.add(
-          "in-view"
-        );
-
-      }
-    );
-
-}
-
-
-/* =========================================================
    FEATURE INITIALIZATION
+
+   A failure inside one independent feature does not stop
+   unrelated features from initializing.
 ========================================================= */
 
 function startFeature(
@@ -240,9 +215,6 @@ export function startApp() {
       "starting";
 
 
-  activateCurrentVisualState();
-
-
   const publishedProjects =
     ProjectRegistry.published();
 
@@ -250,6 +222,31 @@ export function startApp() {
   if (
     !publishedProjects.length
   ) {
+
+    /*
+     * Keep the page visible even if project registration is
+     * unexpectedly empty.
+     */
+
+    document.body.classList.add(
+      "ready"
+    );
+
+
+    document
+      .querySelectorAll(
+        ".reveal"
+      )
+      .forEach(
+        (element) => {
+
+          element.classList.add(
+            "in-view"
+          );
+
+        }
+      );
+
 
     document.documentElement
       .dataset
@@ -273,6 +270,11 @@ export function startApp() {
 
   /* =======================================================
      HERO
+
+     Above-the-fold canonical project frames.
+
+     Hero itself does not own page-level dragging or
+     parallax.
   ======================================================= */
 
   startFeature(
@@ -283,6 +285,13 @@ export function startApp() {
 
   /* =======================================================
      SELECTED WORK
+
+     Cards are generated synchronously from published
+     registry records.
+
+     Preview iframes remain near-viewport lazy.
+
+     Viewer and Case modules remain click-lazy.
   ======================================================= */
 
   startFeature(
@@ -293,11 +302,30 @@ export function startApp() {
 
   /* =======================================================
      RESPONSIVE LAB
+
+     Lab owns its slider, project frame, replay and
+     responsive explanation.
   ======================================================= */
 
   startFeature(
     "lab",
     initLab
+  );
+
+
+  /* =======================================================
+     PAGE MOTION
+
+     Start this AFTER Work has generated its project cards.
+
+     That allows its reveal system to discover the generated
+     .project-slide elements without mutation observers,
+     polling or cross-module readiness events.
+  ======================================================= */
+
+  startFeature(
+    "page-motion",
+    initPageMotion
   );
 
 
@@ -330,6 +358,14 @@ export function startApp() {
 
 /* =========================================================
    STOP APPLICATION
+
+   Controllers are destroyed in reverse initialization
+   order:
+
+   Page Motion
+   Lab
+   Work
+   Hero
 ========================================================= */
 
 export function stopApp() {
@@ -410,6 +446,11 @@ export function stopApp() {
 
 /* =========================================================
    BOOT
+
+   Native module scripts are deferred automatically.
+
+   The readyState guard keeps this entry point safe if the
+   module later moves into <head>.
 ========================================================= */
 
 function boot() {
@@ -419,6 +460,26 @@ function boot() {
     startApp();
 
   } catch (error) {
+
+    document.body.classList.add(
+      "ready"
+    );
+
+
+    document
+      .querySelectorAll(
+        ".reveal"
+      )
+      .forEach(
+        (element) => {
+
+          element.classList.add(
+            "in-view"
+          );
+
+        }
+      );
+
 
     document.documentElement
       .dataset
@@ -459,6 +520,10 @@ if (
 
 /* =========================================================
    PUBLIC DIAGNOSTIC API
+
+   ES-module exports only.
+
+   No runtime API is attached to window.
 ========================================================= */
 
 export {
