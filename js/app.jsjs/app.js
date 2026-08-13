@@ -13,9 +13,9 @@
    CURRENT FEATURES
    - Hero
    - Selected Work
+   - Responsive Lab
 
    FUTURE FEATURES
-   - Responsive Lab
    - Viewer
    - Case dialog
    - Page motion
@@ -71,6 +71,11 @@ import {
 } from "./features/work.js";
 
 
+import {
+  initLab
+} from "./features/lab.js";
+
+
 /* =========================================================
    APPLICATION STATE
 ========================================================= */
@@ -98,7 +103,7 @@ let startResult =
    page-motion.js will own that behavior later.
 
    Until that module exists, staging must still expose the
-   page so Hero and Work can be tested.
+   page so the modular features can be tested.
 
    This is presentation compatibility only.
 
@@ -131,6 +136,9 @@ function activateCurrentVisualState() {
 
 /* =========================================================
    FEATURE INITIALIZATION
+
+   A failure in one feature does not prevent unrelated
+   portfolio features from starting.
 ========================================================= */
 
 function startFeature(
@@ -189,10 +197,9 @@ function startFeature(
 /* =========================================================
    APPLICATION SNAPSHOT
 
-   Useful while the refactor-preview page is being tested.
+   Metadata-only diagnostic state.
 
-   It deliberately exposes metadata rather than internal
-   mutable maps.
+   Internal mutable feature maps are not exposed.
 ========================================================= */
 
 function getAppState() {
@@ -293,9 +300,9 @@ export function startApp() {
   /* =======================================================
      HERO
 
-     Hero is immediate because it is above the fold.
+     Immediate / above the fold.
 
-     Its project frames explicitly use loading:"eager".
+     Hero project frames explicitly request eager loading.
   ======================================================= */
 
   startFeature(
@@ -307,15 +314,30 @@ export function startApp() {
   /* =======================================================
      SELECTED WORK
 
-     Work immediately creates lightweight project cards.
+     Lightweight cards are generated immediately.
 
-     Its project frames remain uncreated until Work
-     approaches the viewport.
+     Project iframes are not created until Work approaches
+     the viewport.
   ======================================================= */
 
   startFeature(
     "work",
     initWork
+  );
+
+
+  /* =======================================================
+     RESPONSIVE LAB
+
+     Lab owns its complete responsive interaction.
+
+     Its project iframe is deferred until the section
+     approaches the viewport.
+  ======================================================= */
+
+  startFeature(
+    "lab",
+    initLab
   );
 
 
@@ -349,10 +371,13 @@ export function startApp() {
 /* =========================================================
    STOP APPLICATION
 
-   Explicit lifecycle support is useful during staging and
-   keeps feature ownership clear.
+   Controllers are destroyed in reverse initialization order.
 
-   Each feature destroys only the resources it owns.
+   Lab
+   ↓
+   Work
+   ↓
+   Hero
 ========================================================= */
 
 export function stopApp() {
@@ -436,8 +461,8 @@ export function stopApp() {
 
    type="module" scripts are deferred automatically.
 
-   The readyState guard also keeps this entry point safe if
-   it is moved into <head> during the final production
+   The readyState guard also keeps the application safe if
+   the module script moves into <head> during production
    cutover.
 ========================================================= */
 
