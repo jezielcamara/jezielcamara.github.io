@@ -1,17 +1,18 @@
 /* =========================================================
    JEZIEL CAMARA / PROJECT CASE DIALOG
 
-   NEW MODULAR ARCHITECTURE
+   MODULAR PORTFOLIO ARCHITECTURE
 
    RESPONSIBILITY
-   - open the shared case-study dialog
+   - resolve the shared case-study dialog
    - resolve published projects
    - dynamically import project case modules
-   - lazily load project case CSS
+   - lazily load project case styles
    - populate shared project metadata
    - manage Next Project
    - preserve and restore focus
-   - own shared dialog lifecycle
+   - manage dialog lifecycle
+   - cleanly support app stop / restart cycles
 
    NOT RESPONSIBLE FOR
    - project-specific case markup
@@ -38,11 +39,10 @@
 
    IMPORTANT
 
-   Case-study modules are not imported during initial page
-   load.
+   Project case modules are not imported during initial
+   portfolio load.
 
-   Project-specific case DOM is not created until the
-   visitor opens that project.
+   Project-specific case DOM is not created until requested.
 ========================================================= */
 
 
@@ -91,8 +91,60 @@ let openVersion =
   0;
 
 
+/*
+ * One promise per stylesheet URL.
+ *
+ * This prevents two rapid case requests from creating
+ * duplicate links or treating a still-loading stylesheet
+ * as ready.
+ */
+
 const stylesheetPromises =
   new Map();
+
+
+/* =========================================================
+   CASE STATE
+========================================================= */
+
+function setCaseState(
+  state
+) {
+
+  const dialog =
+    caseElements?.dialog;
+
+
+  if (!dialog) {
+
+    return;
+
+  }
+
+
+  dialog.dataset.caseState =
+    state;
+
+
+  if (
+    state ===
+    "loading"
+  ) {
+
+    dialog.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+  } else {
+
+    dialog.removeAttribute(
+      "aria-busy"
+    );
+
+  }
+
+}
 
 
 /* =========================================================
@@ -101,9 +153,28 @@ const stylesheetPromises =
 
 function getCaseElements() {
 
+  /*
+   * The dialog itself is static portfolio markup.
+   *
+   * The controller may have been destroyed during a
+   * stopApp() cycle while the DOM remained connected.
+   *
+   * If so, rebind its events before returning the cache.
+   */
+
   if (
     caseElements?.dialog?.isConnected
   ) {
+
+    if (
+      !eventController ||
+      eventController.signal.aborted
+    ) {
+
+      bindCaseEvents();
+
+    }
+
 
     return caseElements;
 
@@ -333,6 +404,146 @@ function findExistingStylesheet(
 }
 
 
+/* =========================================================
+   WAIT FOR STYLESHEET
+
+   link.sheet becomes available once a stylesheet has loaded.
+
+   An existing link with sheet === null may still be loading,
+   so it must not be treated as ready immediately.
+========================================================= */
+
+function waitForStylesheet(
+  link,
+  href,
+  {
+    removeOnError = false
+  } = {}
+) {
+
+  if (
+    link.sheet
+  ) {
+
+    const ready =
+      Promise.resolve(
+        link
+      );
+
+
+    stylesheetPromises.set(
+      href,
+      ready
+    );
+
+
+    return ready;
+
+  }
+
+
+  const cached =
+    stylesheetPromises.get(
+      href
+    );
+
+
+  if (cached) {
+
+    return cached;
+
+  }
+
+
+  const promise =
+    new Promise(
+      (
+        resolve,
+        reject
+      ) => {
+
+        function cleanup() {
+
+          link.removeEventListener(
+            "load",
+            handleLoad
+          );
+
+
+          link.removeEventListener(
+            "error",
+            handleError
+          );
+
+        }
+
+
+        function handleLoad() {
+
+          cleanup();
+
+
+          resolve(
+            link
+          );
+
+        }
+
+
+        function handleError() {
+
+          cleanup();
+
+
+          stylesheetPromises.delete(
+            href
+          );
+
+
+          if (
+            removeOnError
+          ) {
+
+            link.remove();
+
+          }
+
+
+          reject(
+            new Error(
+              `Case stylesheet could not load: ${href}`
+            )
+          );
+
+        }
+
+
+        link.addEventListener(
+          "load",
+          handleLoad
+        );
+
+
+        link.addEventListener(
+          "error",
+          handleError
+        );
+
+      }
+    );
+
+
+  stylesheetPromises.set(
+    href,
+    promise
+  );
+
+
+  return promise;
+
+}
+
+
 function loadCaseStylesheet(
   path
 ) {
@@ -354,6 +565,26 @@ function loadCaseStylesheet(
   }
 
 
+  /*
+   * Check the shared promise cache first.
+   *
+   * This matters when a link already exists but is still
+   * loading.
+   */
+
+  const cached =
+    stylesheetPromises.get(
+      href
+    );
+
+
+  if (cached) {
+
+    return cached;
+
+  }
+
+
   const existing =
     findExistingStylesheet(
       href
@@ -362,104 +593,50 @@ function loadCaseStylesheet(
 
   if (existing) {
 
-    return Promise.resolve(
-      existing
-    );
-
-  }
-
-
-  if (
-    stylesheetPromises.has(
-      href
-    )
-  ) {
-
-    return stylesheetPromises.get(
+    return waitForStylesheet(
+      existing,
       href
     );
 
   }
 
+
+  const link =
+    document.createElement(
+      "link"
+    );
+
+
+  link.rel =
+    "stylesheet";
+
+
+  link.href =
+    href;
+
+
+  link.dataset.caseStylesheet =
+    "true";
+
+
+  /*
+   * Bind load/error before insertion so even a very fast
+   * cached stylesheet cannot finish before handlers exist.
+   */
 
   const promise =
-    new Promise(
-      (
-        resolve,
-        reject
-      ) => {
-
-        const link =
-          document.createElement(
-            "link"
-          );
-
-
-        link.rel =
-          "stylesheet";
-
-
-        link.href =
-          href;
-
-
-        link.dataset.caseStylesheet =
-          "true";
-
-
-        link.addEventListener(
-          "load",
-          () => {
-
-            resolve(
-              link
-            );
-
-          },
-          {
-            once:
-              true
-          }
-        );
-
-
-        link.addEventListener(
-          "error",
-          () => {
-
-            stylesheetPromises.delete(
-              href
-            );
-
-
-            link.remove();
-
-
-            reject(
-              new Error(
-                `Case stylesheet could not load: ${path}`
-              )
-            );
-
-          },
-          {
-            once:
-              true
-          }
-        );
-
-
-        document.head.append(
-          link
-        );
-
+    waitForStylesheet(
+      link,
+      href,
+      {
+        removeOnError:
+          true
       }
     );
 
 
-  stylesheetPromises.set(
-    href,
-    promise
+  document.head.append(
+    link
   );
 
 
@@ -761,22 +938,30 @@ function updateNextButton() {
     !nextKey;
 
 
-  if (nextKey) {
+  if (!nextKey) {
 
-    const nextProject =
-      ProjectRegistry.get(
-        nextKey
-      );
+    caseElements.nextButton.removeAttribute(
+      "aria-label"
+    );
 
 
-    if (nextProject) {
+    return;
 
-      caseElements.nextButton.setAttribute(
-        "aria-label",
-        `Open next project: ${nextProject.name}`
-      );
+  }
 
-    }
+
+  const nextProject =
+    ProjectRegistry.get(
+      nextKey
+    );
+
+
+  if (nextProject) {
+
+    caseElements.nextButton.setAttribute(
+      "aria-label",
+      `Open next project: ${nextProject.name}`
+    );
 
   }
 
@@ -902,8 +1087,9 @@ function bindCaseEvents() {
       );
 
 
-      caseElements.dialog.dataset.caseState =
-        "closed";
+      setCaseState(
+        "closed"
+      );
 
 
       delete caseElements.dialog.dataset
@@ -983,15 +1169,16 @@ export async function openProjectCase(
   }
 
 
-  elements.dialog.dataset.caseState =
-    "loading";
+  setCaseState(
+    "loading"
+  );
 
 
   try {
 
-    /*
-     * This is the actual project-specific lazy boundary.
-     */
+    /* =====================================================
+       LAZY PROJECT MODULE
+    ===================================================== */
 
     const caseModule =
       await project.loadCase();
@@ -1019,6 +1206,10 @@ export async function openProjectCase(
     }
 
 
+    /* =====================================================
+       LAZY PROJECT CASE STYLES
+    ===================================================== */
+
     await ensureCaseStyles(
       caseModule.caseStyles ||
       []
@@ -1034,6 +1225,10 @@ export async function openProjectCase(
 
     }
 
+
+    /* =====================================================
+       REPLACE CURRENT CASE
+    ===================================================== */
 
     destroyCurrentCase();
 
@@ -1072,6 +1267,11 @@ export async function openProjectCase(
     updateNextButton();
 
 
+    /*
+     * Open the shared shell before project initialization so
+     * its dimensions are available to case-frame observers.
+     */
+
     if (
       !elements.dialog.open
     ) {
@@ -1086,6 +1286,10 @@ export async function openProjectCase(
     );
 
 
+    /* =====================================================
+       CREATE PROJECT CASE
+    ===================================================== */
+
     const controller =
       await caseModule.createProjectCase({
         project,
@@ -1094,6 +1298,11 @@ export async function openProjectCase(
         elements
       });
 
+
+    /*
+     * The visitor may have closed the case or selected a
+     * different project while asynchronous work completed.
+     */
 
     if (
       version !==
@@ -1113,12 +1322,22 @@ export async function openProjectCase(
       null;
 
 
-    elements.dialog.dataset.caseState =
-      "ready";
+    setCaseState(
+      "ready"
+    );
 
 
     window.requestAnimationFrame(
       () => {
+
+        if (
+          !elements.dialog.open
+        ) {
+
+          return;
+
+        }
+
 
         elements.dialog.scrollTo({
           top:
@@ -1144,8 +1363,9 @@ export async function openProjectCase(
     destroyCurrentCase();
 
 
-    elements.dialog.dataset.caseState =
-      "error";
+    setCaseState(
+      "error"
+    );
 
 
     if (
@@ -1183,9 +1403,7 @@ export function closeProjectCase() {
     getCaseElements();
 
 
-  if (
-    !elements
-  ) {
+  if (!elements) {
 
     return false;
 
@@ -1216,6 +1434,15 @@ export function closeProjectCase() {
   );
 
 
+  setCaseState(
+    "closed"
+  );
+
+
+  delete elements.dialog.dataset
+    .project;
+
+
   restoreFocus();
 
 
@@ -1226,6 +1453,12 @@ export function closeProjectCase() {
 
 /* =========================================================
    DESTROY
+
+   The shared dialog belongs to portfolio HTML, so it is not
+   removed.
+
+   Its controller cache IS released so a future app restart
+   reacquires the DOM and binds fresh event handlers.
 ========================================================= */
 
 export function destroyCaseDialog() {
@@ -1250,6 +1483,36 @@ export function destroyCaseDialog() {
   destroyCurrentCase();
 
 
+  document.body.classList.remove(
+    "case-open"
+  );
+
+
+  if (
+    elements?.dialog
+  ) {
+
+    elements.dialog.classList.remove(
+      "north-active",
+      "sola-active"
+    );
+
+
+    elements.dialog.dataset.caseState =
+      "closed";
+
+
+    elements.dialog.removeAttribute(
+      "aria-busy"
+    );
+
+
+    delete elements.dialog.dataset
+      .project;
+
+  }
+
+
   eventController?.abort();
 
 
@@ -1257,9 +1520,15 @@ export function destroyCaseDialog() {
     null;
 
 
-  document.body.classList.remove(
-    "case-open"
-  );
+  /*
+   * Critical lifecycle reset.
+   *
+   * The DOM remains in the document, but the next
+   * openProjectCase() call must reacquire and rebind it.
+   */
+
+  caseElements =
+    null;
 
 
   restoreFocus();
@@ -1276,16 +1545,30 @@ export function destroyCaseDialog() {
 
 export function getCaseDialogState() {
 
+  const dialog =
+    caseElements?.dialog ||
+    document.getElementById(
+      CASE_DIALOG_ID
+    );
+
+
   return Object.freeze({
 
     created:
       Boolean(
-        caseElements?.dialog?.isConnected
+        dialog?.isConnected
+      ),
+
+    bound:
+      Boolean(
+        caseElements &&
+        eventController &&
+        !eventController.signal.aborted
       ),
 
     open:
       Boolean(
-        caseElements?.dialog?.open
+        dialog?.open
       ),
 
     project:
@@ -1293,8 +1576,7 @@ export function getCaseDialogState() {
       null,
 
     state:
-      caseElements?.dialog
-        ?.dataset
+      dialog?.dataset
         .caseState ||
       "idle"
 
