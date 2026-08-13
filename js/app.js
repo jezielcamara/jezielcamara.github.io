@@ -58,7 +58,7 @@ import {
 
 import {
   initWork
-} from "./features/work.js";
+} from "./features/work.js?v=20260814-2";
 
 
 import {

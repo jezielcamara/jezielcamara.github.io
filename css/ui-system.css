@@ -726,6 +726,190 @@ button:focus-visible {
 
 
 /* =========================================================
+   UNIFIED PORTFOLIO BUTTON
+
+   Matches the Start a project control across portfolio
+   actions without changing project-specific website UI.
+========================================================= */
+
+.portfolio-button,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button {
+  min-width:
+    160px;
+
+  min-height:
+    var(--ui-control-height-large);
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    var(--ui-control-gap);
+
+  padding:
+    0
+    var(--ui-control-padding);
+
+  color:
+    var(--ink);
+
+  background:
+    rgba(
+      243,
+      240,
+      231,
+      .98
+    );
+
+  border:
+    var(--ui-border);
+
+  border-radius:
+    var(--ui-radius);
+
+  box-shadow:
+    4px
+    4px
+    0
+    var(--blue);
+
+  cursor:
+    pointer;
+
+  font-family:
+    inherit;
+
+  font-size:
+    var(--ui-control-font);
+
+  font-weight:
+    500;
+
+  letter-spacing:
+    var(--ui-control-tracking);
+
+  line-height:
+    1;
+
+  text-decoration:
+    none;
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    background-color
+    var(--ui-speed)
+    var(--ui-ease),
+    border-color
+    var(--ui-speed)
+    var(--ui-ease),
+    box-shadow
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.hero-contact.portfolio-button {
+  min-width:
+    210px;
+}
+
+
+.portfolio-button:hover,
+.portfolio-button:focus-visible,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button:hover,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button:focus-visible {
+  color:
+    #fff;
+
+  background:
+    var(--blue);
+
+  border-color:
+    var(--blue);
+
+  box-shadow:
+    4px
+    4px
+    0
+    var(--lime);
+
+  transform:
+    translate(
+      -2px,
+      -2px
+    );
+}
+
+
+.portfolio-button:focus-visible,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button:focus-visible {
+  outline:
+    0;
+
+  box-shadow:
+    4px
+    4px
+    0
+    var(--lime),
+    var(--ui-focus);
+}
+
+
+.portfolio-button
+span,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button
+span {
+  color:
+    var(--blue);
+
+  transition:
+    color
+    var(--ui-speed)
+    var(--ui-ease),
+    transform
+    var(--ui-speed)
+    var(--ui-ease);
+}
+
+
+.portfolio-button:hover
+span,
+.portfolio-button:focus-visible
+span,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button:hover
+span,
+.portfolio-project-viewer
+.portfolio-project-viewer-close.portfolio-button:focus-visible
+span {
+  color:
+    var(--lime);
+
+  transform:
+    translate(
+      3px,
+      -3px
+    );
+}
+
+
+/* =========================================================
    CONTACT ACTION
 ========================================================= */
 
@@ -1787,7 +1971,8 @@ button:disabled,
   }
 
 
-  .hero-contact {
+  .hero-contact,
+  .hero-contact.portfolio-button {
     min-width:
       160px;
   }
