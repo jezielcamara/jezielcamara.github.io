@@ -4,12 +4,12 @@
    SELF-INITIATED HOSPITALITY CONCEPT
 
    CASE-STUDY DIRECTION:
-   - antique desk
-   - archival paper
-   - restaurant ephemera
-   - collected notes
-   - stamps and labels
-   - imperfect physical layering
+   - editorial grid
+   - warm parchment
+   - high-contrast typography
+   - engraved cafe studies
+   - precise rules and labels
+   - restrained ink palette
 
    IMPORTANT:
 
@@ -30,68 +30,66 @@
 
 :root {
   --sola-case-paper:
-    #e4cca2;
+    #e9dfcd;
 
   --sola-case-paper-light:
-    #f3e7cc;
+    #f2eadc;
 
   --sola-case-paper-pale:
-    #f8efd9;
+    #f7f1e7;
 
   --sola-case-paper-deep:
-    #c9a878;
+    #d8c9b1;
 
   --sola-case-brown:
-    #38251a;
+    #15120e;
 
   --sola-case-brown-soft:
-    #65503c;
+    #50483d;
 
   --sola-case-brown-fade:
-    #90765a;
+    #8b7a63;
 
   --sola-case-green:
-    #334531;
+    #50483d;
 
   --sola-case-green-dark:
-    #253427;
+    #15120e;
 
   --sola-case-red:
-    #79463b;
+    #8b7a63;
 
   --sola-case-gold:
-    #9b7a46;
+    #b29d7d;
 
   --sola-case-line:
     rgba(
-      56,
-      37,
-      26,
+      21,
+      18,
+      14,
       .22
     );
 
   --sola-case-line-dark:
     rgba(
-      56,
-      37,
-      26,
+      21,
+      18,
+      14,
       .55
     );
 
   --sola-case-serif:
-    "Palatino Linotype",
-    Palatino,
-    Georgia,
+    "Bodoni Moda",
     "Times New Roman",
     serif;
 
   --sola-case-display:
-    Georgia,
+    "Bodoni Moda",
     "Times New Roman",
     serif;
 
   --sola-case-sans:
-    "TASA Orbiter",
+    "DM Sans",
     Arial,
     sans-serif;
 }

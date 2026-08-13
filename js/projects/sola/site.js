@@ -1,2151 +1,396 @@
 /* =========================================================
    SOLA / CANONICAL WEBSITE MODULE
 
-   SELF-INITIATED HOSPITALITY CONCEPT
-
-   NEW MODULAR ARCHITECTURE
-
-   ONE PROJECT.
-   ONE WEBSITE SOURCE.
-
-   RESPONSIBILITY
-   - Sola canonical website DOM
-   - Sola website interactions
-   - Sola responsive content structure
-   - Sola website lifecycle
-
-   NOT RESPONSIBLE FOR
-   - portfolio Hero placement
-   - Selected Work placement
-   - Responsive Lab placement
-   - project iframe creation
-   - viewer chrome
-   - case-study presentation
-   - project registration
-
-   ARCHITECTURAL CHANGES
-   - native ES module exports
-   - no window.SolaCafeSite global
-   - no factory-ready CustomEvent
-   - no registration polling
-   - explicit cleanup lifecycle
+   A self-contained editorial cafe website. The portfolio
+   mounts this same source in Hero, Work, Viewer, Lab, and
+   the Sola case study.
 ========================================================= */
 
-
-/* =========================================================
-   PROJECT IDENTITY
-========================================================= */
-
-export const SOLA_CAFE_KEY =
-  "sola";
-
-
-/* =========================================================
-   CANONICAL WEBSITE MARKUP
-========================================================= */
+export const SOLA_CAFE_KEY = "sola";
 
 const SITE_MARKUP = `
-  <div
-    class="sola-site"
-    data-canonical-project="sola"
-  >
-
-
-    <!-- =================================================
-         TOP NOTICE
-    ================================================== -->
-
-    <div class="sola-notice">
-
-      <span>
-        SELF-INITIATED CAFÉ CONCEPT
-      </span>
-
-      <span>
-        MAKATI / METRO MANILA
-      </span>
-
-      <span>
-        COFFEE · FOOD · SLOW MORNINGS
-      </span>
-
-    </div>
-
-
-    <!-- =================================================
-         HEADER
-    ================================================== -->
-
+  <div class="sola-site" data-canonical-project="sola">
     <header class="sola-header">
-
-
-      <a
-        class="sola-brand"
-        href="#sola-home"
-        aria-label="Sola home"
-      >
-
-        <span class="sola-brand-mark">
-          S
+      <a class="sola-wordmark" href="#sola-home" aria-label="Sola home">
+        <span class="sola-wordmark-mark" aria-hidden="true">S</span>
+        <span class="sola-wordmark-copy">
+          <strong>SOLA</strong>
+          <small>NEIGHBORHOOD CAFE</small>
         </span>
-
-
-        <span class="sola-brand-name">
-          SOLA
-        </span>
-
-
-        <small>
-          café & kitchen
-        </small>
-
       </a>
 
+      <p class="sola-header-edition">MAKATI / MMXXVI</p>
 
-      <nav
-        class="sola-nav"
-        aria-label="Sola navigation"
+      <button
+        class="sola-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="sola-navigation"
+        data-sola-menu-toggle
       >
+        <span class="sola-menu-toggle-label">INDEX</span>
+        <span class="sola-menu-toggle-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
 
-        <a href="#sola-menu">
-          Menu
-        </a>
-
-        <a href="#sola-notebook">
-          Notebook
-        </a>
-
-        <a href="#sola-gallery">
-          Gallery
-        </a>
-
-        <a href="#sola-visit">
-          Visit
-        </a>
-
+      <nav class="sola-navigation" id="sola-navigation" aria-label="Sola navigation" data-sola-navigation>
+        <div class="sola-navigation-number">01—04</div>
+        <a href="#sola-story"><span>01</span>Our story</a>
+        <a href="#sola-menu"><span>02</span>Menu</a>
+        <a href="#sola-notes"><span>03</span>Field notes</a>
+        <a href="#sola-visit"><span>04</span>Visit</a>
+        <p>COFFEE / FOOD / A ROOM TO STAY</p>
       </nav>
-
-
-      <a
-        class="sola-header-note"
-        href="#sola-menu"
-      >
-
-        <span>
-          TODAY
-        </span>
-
-        <strong>
-          7 — 8
-        </strong>
-
-      </a>
-
-
     </header>
 
-
-    <!-- =================================================
-         MAIN
-    ================================================== -->
-
-    <main>
-
-
-      <!-- =================================================
-           HERO
-      ================================================== -->
-
-      <section
-        class="sola-hero"
-        id="sola-home"
-        data-sola-reveal
-      >
-
-
-        <div class="sola-hero-copy">
-
-
-          <p class="sola-overline">
-            COFFEE / FOOD / PLACE
-          </p>
-
-
-          <h1>
-
-            <span>
-              Some things
-            </span>
-
-            <em>
-              are worth
-            </em>
-
-            <span>
-              keeping.
-            </span>
-
+    <main id="sola-home">
+      <section class="sola-hero" aria-labelledby="sola-hero-title">
+        <div class="sola-hero-copy" data-sola-reveal>
+          <p class="sola-kicker">ROASTED DAILY / SERVED SLOWLY</p>
+          <h1 id="sola-hero-title">
+            <span>THE</span>
+            <span>QUIET</span>
+            <span>CUP</span>
           </h1>
-
-
-          <p class="sola-hero-intro">
-            A neighborhood café concept inspired
-            by handwritten recipes, familiar food,
-            old table linens, and the way coffee
-            anchors a morning.
-          </p>
-
-
-          <div class="sola-hero-actions">
-
-            <a
-              class="sola-primary-link"
-              href="#sola-menu"
-            >
-              See today's menu
-
-              <span>
-                →
-              </span>
-            </a>
-
-
-            <a
-              class="sola-text-link"
-              href="#sola-visit"
-            >
-              Plan a visit
-            </a>
-
+          <div class="sola-hero-hours" aria-label="Open 7 AM to 6 PM">
+            <span>0700</span><i></i><span>1800</span>
           </div>
-
-
         </div>
 
-
-        <!-- HERO ART -->
-
-        <div class="sola-hero-art">
-
-
-          <div
-            class="sola-ornament sola-ornament-top"
-            aria-hidden="true"
+        <figure class="sola-hero-object" data-sola-reveal>
+          <img
+            src="images/sola/sola-engraved-pour-over.webp"
+            alt="Engraved ceramic pour-over, coffee cup, and coffee branch"
           >
-            ❧
-          </div>
+          <figcaption>PLATE NO. 02 / THE DAILY POUR</figcaption>
+        </figure>
 
-
-          <figure class="sola-hero-frame">
-
-
-            <span
-              class="sola-frame-corner sola-frame-corner-tl"
-              aria-hidden="true"
-            ></span>
-
-            <span
-              class="sola-frame-corner sola-frame-corner-tr"
-              aria-hidden="true"
-            ></span>
-
-            <span
-              class="sola-frame-corner sola-frame-corner-bl"
-              aria-hidden="true"
-            ></span>
-
-            <span
-              class="sola-frame-corner sola-frame-corner-br"
-              aria-hidden="true"
-            ></span>
-
-
-            <img
-              src="https://images.pexels.com/photos/28708577/pexels-photo-28708577.jpeg?auto=compress&cs=tinysrgb&w=1800"
-              alt="Coffee, journal, and baked goods arranged on a cafe table"
-            >
-
-
-            <figcaption>
-
-              <span>
-                MORNING TABLE / 01
-              </span>
-
-              <strong>
-                Stay a little longer.
-              </strong>
-
-            </figcaption>
-
-
-          </figure>
-
-
-          <div class="sola-hero-stamp">
-
-            <span>
-              SOLA
-            </span>
-
-            <small>
-              DAILY
-            </small>
-
-            <strong>
-              7—8
-            </strong>
-
-          </div>
-
-
-          <p class="sola-hand-note">
-            coffee first,<br>
-            everything else after
-          </p>
-
-
-        </div>
-
-
-        <!-- HERO FOOT -->
-
-        <div class="sola-hero-foot">
-
-          <span>
-            EST. IN A SKETCHBOOK
-          </span>
-
-          <span aria-hidden="true">
-            ✦
-          </span>
-
-          <span>
-            A FICTIONAL HOSPITALITY PROJECT
-          </span>
-
-        </div>
-
-
+        <figure class="sola-hero-landscape" data-sola-reveal>
+          <img
+            src="images/sola/sola-engraved-landscape.webp"
+            alt="Engraved coffee-growing landscape opening into a neighborhood cafe"
+          >
+          <figcaption>
+            <span>FROM THE HILLS TO THE TABLE</span>
+            <span>14.5547° N / 121.0244° E</span>
+          </figcaption>
+        </figure>
       </section>
 
-
-      <!-- =================================================
-           FROM THE TABLE
-      ================================================== -->
-
-      <section
-        class="sola-table"
-        data-sola-reveal
-      >
-
-
-        <div class="sola-section-index">
-
-          <span>
-            01
-          </span>
-
-          <strong>
-            FROM THE TABLE
-          </strong>
-
+      <section class="sola-intro" id="sola-story">
+        <div class="sola-section-index" data-sola-reveal>
+          <span>01</span>
+          <span>OUR MEASURE OF A GOOD DAY</span>
         </div>
-
-
-        <div class="sola-table-copy">
-
-          <p class="sola-drop-copy">
-
-            <span>
-              A
-            </span>
-
-            café does not need a complicated
-            story to feel familiar. Sometimes it
-            is warm bread, strong coffee, something
-            sweet, and enough time to sit down.
-
-          </p>
-
-        </div>
-
-
-        <div class="sola-table-circles">
-
-
-          <figure class="sola-circle-card sola-circle-one">
-
-            <img
-              src="https://images.pexels.com/photos/6896282/pexels-photo-6896282.jpeg?auto=compress&cs=tinysrgb&w=1200"
-              alt="Fresh pandesal with ube filling"
-              loading="lazy"
-            >
-
-            <figcaption>
-              PANDESAL / BAKED DAILY
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="sola-circle-card sola-circle-two">
-
-            <img
-              src="https://images.pexels.com/photos/26647839/pexels-photo-26647839.jpeg?auto=compress&cs=tinysrgb&w=1200"
-              alt="Cup of coffee in a warm neutral setting"
-              loading="lazy"
-            >
-
-            <figcaption>
-              COFFEE / BEFORE ANYTHING
-            </figcaption>
-
-          </figure>
-
-
-          <div class="sola-table-note">
-
-            <span>
-              A small rule
-            </span>
-
-            <strong>
-              Simple things
-              still deserve
-              attention.
-            </strong>
-
-            <i aria-hidden="true">
-              ❦
-            </i>
-
-          </div>
-
-
-        </div>
-
-
-      </section>
-
-
-      <!-- =================================================
-           MENU
-      ================================================== -->
-
-      <section
-        class="sola-menu"
-        id="sola-menu"
-        data-sola-reveal
-      >
-
-
-        <header class="sola-menu-heading">
-
-
-          <div>
-
-            <span class="sola-section-number">
-              02
-            </span>
-
-            <span>
-              THE MENU
-            </span>
-
-          </div>
-
-
-          <h2>
-            What we would
-            put on the table.
-          </h2>
-
-
+        <div class="sola-intro-copy" data-sola-reveal>
+          <h2>A neighborhood room for the hours between.</h2>
           <p>
-            A fictional menu for the Sola concept:
-            familiar café staples alongside Filipino
-            breakfast and bakery references.
+            Sola is a fictional cafe shaped around the familiar rituals of Metro Manila mornings:
+            coffee poured by hand, warm bread passed across the table, and enough time to stay for one more cup.
           </p>
-
-
-        </header>
-
-
-        <!-- MENU TABS -->
-
-        <div
-          class="sola-menu-tabs"
-          role="tablist"
-          aria-label="Sola menu categories"
-        >
-
-
-          <button
-            type="button"
-            class="sola-menu-tab active"
-            role="tab"
-            aria-selected="true"
-            data-sola-menu="coffee"
-          >
-            Coffee
-          </button>
-
-
-          <button
-            type="button"
-            class="sola-menu-tab"
-            role="tab"
-            aria-selected="false"
-            data-sola-menu="breakfast"
-          >
-            Breakfast
-          </button>
-
-
-          <button
-            type="button"
-            class="sola-menu-tab"
-            role="tab"
-            aria-selected="false"
-            data-sola-menu="sweets"
-          >
-            Sweets
-          </button>
-
-
         </div>
-
-
-        <!-- COFFEE -->
-
-        <div
-          class="sola-menu-panel active"
-          data-sola-panel="coffee"
-        >
-
-
-          <div class="sola-menu-list">
-
-
-            <article>
-
-              <span>
-                01
-              </span>
-
-              <div>
-
-                <h3>
-                  Sola House Coffee
-                </h3>
-
-                <p>
-                  Balanced / chocolate / warm spice
-                </p>
-
-              </div>
-
-              <strong>
-                ₱150
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                02
-              </span>
-
-              <div>
-
-                <h3>
-                  Kapeng Barako
-                </h3>
-
-                <p>
-                  Strong / aromatic / straightforward
-                </p>
-
-              </div>
-
-              <strong>
-                ₱145
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                03
-              </span>
-
-              <div>
-
-                <h3>
-                  Café con Leche
-                </h3>
-
-                <p>
-                  Espresso / steamed milk
-                </p>
-
-              </div>
-
-              <strong>
-                ₱175
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                04
-              </span>
-
-              <div>
-
-                <h3>
-                  Iced Tablea Mocha
-                </h3>
-
-                <p>
-                  Espresso / tablea / milk
-                </p>
-
-              </div>
-
-              <strong>
-                ₱195
-              </strong>
-
-            </article>
-
-
-          </div>
-
-
-          <aside class="sola-menu-aside">
-
-            <span>
-              HOUSE NOTE
-            </span>
-
-            <p>
-              Start strong.
-              Add milk only
-              if you want it.
-            </p>
-
-            <small>
-              written in the margin
-            </small>
-
-          </aside>
-
-
-        </div>
-
-
-        <!-- BREAKFAST -->
-
-        <div
-          class="sola-menu-panel"
-          data-sola-panel="breakfast"
-          hidden
-        >
-
-
-          <div class="sola-menu-list">
-
-
-            <article>
-
-              <span>
-                01
-              </span>
-
-              <div>
-
-                <h3>
-                  Pandesal + Butter
-                </h3>
-
-                <p>
-                  Warm bread / cultured butter
-                </p>
-
-              </div>
-
-              <strong>
-                ₱150
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                02
-              </span>
-
-              <div>
-
-                <h3>
-                  Longganisa Toast
-                </h3>
-
-                <p>
-                  Garlic toast / egg / pickled papaya
-                </p>
-
-              </div>
-
-              <strong>
-                ₱285
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                03
-              </span>
-
-              <div>
-
-                <h3>
-                  Champorado Bowl
-                </h3>
-
-                <p>
-                  Tablea / rice / milk / toasted cacao
-                </p>
-
-              </div>
-
-              <strong>
-                ₱240
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                04
-              </span>
-
-              <div>
-
-                <h3>
-                  Kesong Puti Tartine
-                </h3>
-
-                <p>
-                  Country bread / tomato / local cheese
-                </p>
-
-              </div>
-
-              <strong>
-                ₱260
-              </strong>
-
-            </article>
-
-
-          </div>
-
-
-          <aside class="sola-menu-aside">
-
-            <span>
-              MORNING RULE
-            </span>
-
-            <p>
-              Bread should
-              arrive warm.
-            </p>
-
-            <small>
-              preferably with coffee
-            </small>
-
-          </aside>
-
-
-        </div>
-
-
-        <!-- SWEETS -->
-
-        <div
-          class="sola-menu-panel"
-          data-sola-panel="sweets"
-          hidden
-        >
-
-
-          <div class="sola-menu-list">
-
-
-            <article>
-
-              <span>
-                01
-              </span>
-
-              <div>
-
-                <h3>
-                  Ube Pandesal
-                </h3>
-
-                <p>
-                  Soft bread / ube filling
-                </p>
-
-              </div>
-
-              <strong>
-                ₱120
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                02
-              </span>
-
-              <div>
-
-                <h3>
-                  Tablea Cake
-                </h3>
-
-                <p>
-                  Dark cacao / muscovado
-                </p>
-
-              </div>
-
-              <strong>
-                ₱190
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                03
-              </span>
-
-              <div>
-
-                <h3>
-                  Ensaymada
-                </h3>
-
-                <p>
-                  Butter / sugar / cheese
-                </p>
-
-              </div>
-
-              <strong>
-                ₱165
-              </strong>
-
-            </article>
-
-
-            <article>
-
-              <span>
-                04
-              </span>
-
-              <div>
-
-                <h3>
-                  Bibingka Butter Cake
-                </h3>
-
-                <p>
-                  Coconut / salted egg / butter
-                </p>
-
-              </div>
-
-              <strong>
-                ₱175
-              </strong>
-
-            </article>
-
-
-          </div>
-
-
-          <aside class="sola-menu-aside">
-
-            <span>
-              AFTER
-            </span>
-
-            <p>
-              Save room.
-            </p>
-
-            <small>
-              someone always orders cake
-            </small>
-
-          </aside>
-
-
-        </div>
-
-
       </section>
 
+      <section class="sola-editorial-grid" aria-label="The Sola philosophy">
+        <article class="sola-grid-card sola-grid-card--statement" data-sola-reveal>
+          <p class="sola-card-label">HOUSE PRINCIPLE / I</p>
+          <h3>Nothing hurried.<br>Nothing hidden.</h3>
+          <p>Thoughtful sourcing, direct flavors, and hospitality that never needs to announce itself.</p>
+        </article>
 
-      <!-- =================================================
-           NOTEBOOK
-      ================================================== -->
+        <figure class="sola-grid-card sola-grid-card--art" data-sola-reveal>
+          <img
+            src="images/sola/sola-engraved-pour-over.webp"
+            alt="Detail of an engraved coffee pour-over"
+          >
+          <figcaption>THE VESSEL / STUDY IN CLAY</figcaption>
+        </figure>
 
-      <section
-        class="sola-notebook"
-        id="sola-notebook"
-        data-sola-reveal
-      >
+        <article class="sola-grid-card sola-grid-card--dark" data-sola-reveal>
+          <p class="sola-card-label">HOUSE PRINCIPLE / II</p>
+          <blockquote>“Good coffee should leave room for conversation.”</blockquote>
+          <span>— SOLA NOTEBOOK, ENTRY 07</span>
+        </article>
 
+        <article class="sola-grid-card sola-grid-card--origin" data-sola-reveal>
+          <p class="sola-card-label">THE NAME</p>
+          <h3>Sola</h3>
+          <p>
+            Drawn from the feeling of sun finding a quiet table. A small name for warmth,
+            clarity, and the everyday comfort of being welcomed back.
+          </p>
+        </article>
 
-        <header class="sola-notebook-heading">
+        <figure class="sola-grid-card sola-grid-card--landscape" data-sola-reveal>
+          <img
+            src="images/sola/sola-engraved-landscape.webp"
+            alt="Detail of an engraved Philippine coffee landscape"
+          >
+          <figcaption>THE LONG WAY HOME / ORIGIN STUDY</figcaption>
+        </figure>
+      </section>
 
-          <span>
-            03 / FROM THE NOTEBOOK
-          </span>
-
-          <h2>
-            Things that
-            belong in
-            the margins.
-          </h2>
-
+      <section class="sola-menu" id="sola-menu">
+        <header class="sola-menu-heading" data-sola-reveal>
+          <div class="sola-section-index">
+            <span>02</span>
+            <span>THE DAY'S OFFERING</span>
+          </div>
+          <h2>Menu,<br>by the hour.</h2>
+          <p>A compact fictional menu built around morning appetite, familiar ingredients, and the ritual of a second cup.</p>
         </header>
 
+        <div class="sola-menu-book" data-sola-reveal>
+          <div class="sola-menu-tabs" role="tablist" aria-label="Sola menu categories">
+            <button type="button" role="tab" aria-selected="true" data-sola-menu="coffee">Coffee</button>
+            <button type="button" role="tab" aria-selected="false" data-sola-menu="kitchen">Kitchen</button>
+            <button type="button" role="tab" aria-selected="false" data-sola-menu="bakes">Bakes</button>
+          </div>
 
-        <div class="sola-scrapbook">
+          <div class="sola-menu-panel" role="tabpanel" data-sola-panel="coffee">
+            <div class="sola-menu-row"><div><strong>House Pour</strong><small>single origin / daily roast</small></div><span>150</span></div>
+            <div class="sola-menu-row"><div><strong>Salted Muscovado Latte</strong><small>espresso / fresh milk / muscovado</small></div><span>190</span></div>
+            <div class="sola-menu-row"><div><strong>Long Black</strong><small>double espresso / hot water</small></div><span>145</span></div>
+            <div class="sola-menu-row"><div><strong>Cacao Cloud</strong><small>local tablea / espresso / cream</small></div><span>205</span></div>
+          </div>
 
+          <div class="sola-menu-panel" role="tabpanel" data-sola-panel="kitchen" hidden>
+            <div class="sola-menu-row"><div><strong>Soft Egg &amp; Rice</strong><small>garlic rice / soy egg / herbs</small></div><span>260</span></div>
+            <div class="sola-menu-row"><div><strong>Kesong Puti Toast</strong><small>sourdough / tomato / basil</small></div><span>245</span></div>
+            <div class="sola-menu-row"><div><strong>Longganisa Plate</strong><small>house sausage / atchara / egg</small></div><span>295</span></div>
+            <div class="sola-menu-row"><div><strong>Market Greens</strong><small>seasonal leaves / calamansi dressing</small></div><span>225</span></div>
+          </div>
 
-          <figure class="sola-paper-photo sola-paper-photo-recipe">
+          <div class="sola-menu-panel" role="tabpanel" data-sola-panel="bakes" hidden>
+            <div class="sola-menu-row"><div><strong>Pandesal &amp; Butter</strong><small>warm roll / cultured butter</small></div><span>120</span></div>
+            <div class="sola-menu-row"><div><strong>Guava Danish</strong><small>laminated pastry / guava jam</small></div><span>165</span></div>
+            <div class="sola-menu-row"><div><strong>Banana Cacao Loaf</strong><small>dark cacao / sea salt</small></div><span>155</span></div>
+            <div class="sola-menu-row"><div><strong>Day's Cake</strong><small>ask what came out of the oven</small></div><span>180</span></div>
+          </div>
+        </div>
+      </section>
 
-            <img
-              src="https://images.pexels.com/photos/29666875/pexels-photo-29666875.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt="Bread, coffee, and recipe book on a kitchen table"
-              loading="lazy"
-            >
+      <section class="sola-notes" id="sola-notes">
+        <header class="sola-notes-heading" data-sola-reveal>
+          <div class="sola-section-index">
+            <span>03</span>
+            <span>FIELD NOTES</span>
+          </div>
+          <h2>Small observations,<br>kept close.</h2>
+        </header>
 
-            <figcaption>
-              flour / coffee / notes
-            </figcaption>
-
-          </figure>
-
-
-          <article class="sola-recipe-card">
-
-            <span class="sola-card-label">
-              NOTE / 04
-            </span>
-
-            <h3>
-              For a slow morning
-            </h3>
-
-
-            <ol>
-
-              <li>
-                Put the coffee on.
-              </li>
-
-              <li>
-                Warm the bread.
-              </li>
-
-              <li>
-                Sit down before checking anything.
-              </li>
-
-              <li>
-                Stay for another cup.
-              </li>
-
-            </ol>
-
-
-            <p>
-              This is not a real inherited recipe.
-              It is a piece of the fictional Sola
-              brand world.
-            </p>
-
-
+        <div class="sola-note-list">
+          <article data-sola-reveal>
+            <span>01 / BEANS</span>
+            <h3>Why we let the pour take its time</h3>
+            <p>A short note on bloom, temperature, and the value of waiting thirty more seconds.</p>
+            <time datetime="2026-07-18">18.07.26</time>
           </article>
+          <article data-sola-reveal>
+            <span>02 / TABLE</span>
+            <h3>The corner seat at eight in the morning</h3>
+            <p>Before the city gets loud, light moves slowly across the room and everyone speaks a little softer.</p>
+            <time datetime="2026-06-02">02.06.26</time>
+          </article>
+          <article data-sola-reveal>
+            <span>03 / KITCHEN</span>
+            <h3>On warm bread and familiar things</h3>
+            <p>Our fictional kitchen starts with recipes that feel remembered, then edits only what it needs.</p>
+            <time datetime="2026-05-12">12.05.26</time>
+          </article>
+        </div>
+      </section>
 
-
-          <figure class="sola-paper-photo sola-paper-photo-interior">
-
-            <img
-              src="https://images.pexels.com/photos/14827000/pexels-photo-14827000.jpeg?auto=compress&cs=tinysrgb&w=1400"
-              alt="Warm cafe interior with seating and framed wall art"
-              loading="lazy"
-            >
-
-            <figcaption>
-              corner table / afternoon
-            </figcaption>
-
-          </figure>
-
-
-          <blockquote class="sola-written-note">
-
-            <span aria-hidden="true">
-              “
-            </span>
-
-            Some things
-            are worth
-            keeping.
-
-            <small>
-              — Sola
-            </small>
-
-          </blockquote>
-
-
-          <div
-            class="sola-postmark"
-            aria-hidden="true"
+      <section class="sola-visit" id="sola-visit">
+        <div class="sola-visit-art" data-sola-reveal>
+          <img
+            src="images/sola/sola-engraved-landscape.webp"
+            alt="Engraved Sola cafe and surrounding coffee landscape"
           >
-
-            <span>
-              MANILA
-            </span>
-
-            <strong>
-              SOLA
-            </strong>
-
-            <span>
-              MORNING
-            </span>
-
-          </div>
-
-
         </div>
-
-
-      </section>
-
-
-      <!-- =================================================
-           GALLERY
-      ================================================== -->
-
-      <section
-        class="sola-gallery"
-        id="sola-gallery"
-        data-sola-reveal
-      >
-
-
-        <header class="sola-gallery-heading">
-
-          <div>
-
-            <span>
-              04 / SMALL MOMENTS
-            </span>
-
-            <h2>
-              A café in
-              four frames.
-            </h2>
-
+        <div class="sola-visit-copy" data-sola-reveal>
+          <div class="sola-section-index">
+            <span>04</span>
+            <span>COME BY</span>
           </div>
-
-
-          <p>
-            The visual language treats photography
-            like collected prints rather than a
-            polished social-media grid.
-          </p>
-
-        </header>
-
-
-        <div class="sola-contact-sheet">
-
-
-          <figure class="sola-gallery-card sola-gallery-card-large">
-
-            <img
-              src="https://images.pexels.com/photos/28708577/pexels-photo-28708577.jpeg?auto=compress&cs=tinysrgb&w=1800"
-              alt="Barista preparing coffee"
-              loading="lazy"
-            >
-
-            <figcaption>
-
-              <span>
-                FRAME 01
-              </span>
-
-              <strong>
-                FIRST POUR
-              </strong>
-
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="sola-gallery-card">
-
-            <img
-              src="https://images.pexels.com/photos/28708578/pexels-photo-28708578.jpeg?auto=compress&cs=tinysrgb&w=1400"
-              alt="Cafe table with journal and baked goods"
-              loading="lazy"
-            >
-
-            <figcaption>
-
-              <span>
-                FRAME 02
-              </span>
-
-              <strong>
-                TABLE FOR ONE
-              </strong>
-
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="sola-gallery-card">
-
-            <img
-              src="https://images.pexels.com/photos/6896282/pexels-photo-6896282.jpeg?auto=compress&cs=tinysrgb&w=1400"
-              alt="Pandesal on a plate"
-              loading="lazy"
-            >
-
-            <figcaption>
-
-              <span>
-                FRAME 03
-              </span>
-
-              <strong>
-                BAKED THIS MORNING
-              </strong>
-
-            </figcaption>
-
-          </figure>
-
-
-          <figure class="sola-gallery-card sola-gallery-card-wide">
-
-            <img
-              src="https://images.pexels.com/photos/24554396/pexels-photo-24554396.jpeg?auto=compress&cs=tinysrgb&w=1800"
-              alt="Cafe tables and chairs beneath an outdoor canopy"
-              loading="lazy"
-            >
-
-            <figcaption>
-
-              <span>
-                FRAME 04
-              </span>
-
-              <strong>
-                OUTSIDE / LATE AFTERNOON
-              </strong>
-
-            </figcaption>
-
-          </figure>
-
-
-        </div>
-
-
-      </section>
-
-
-      <!-- =================================================
-           VISIT
-      ================================================== -->
-
-      <section
-        class="sola-visit"
-        id="sola-visit"
-        data-sola-reveal
-      >
-
-
-        <div class="sola-visit-art">
-
-
-          <div class="sola-visit-frame">
-
-            <img
-              src="https://images.pexels.com/photos/24554396/pexels-photo-24554396.jpeg?auto=compress&cs=tinysrgb&w=1800"
-              alt="Outdoor cafe seating"
-              loading="lazy"
-            >
-
-          </div>
-
-
-          <span class="sola-visit-caption">
-            CONCEPT LOCATION / METRO MANILA
-          </span>
-
-
-        </div>
-
-
-        <div class="sola-visit-copy">
-
-
-          <span class="sola-section-number">
-            05 / VISIT
-          </span>
-
-
-          <h2>
-            Come by.<br>
-            Stay awhile.
-          </h2>
-
-
+          <h2>Find a table<br>in the sun.</h2>
           <div class="sola-visit-details">
-
-
-            <div>
-
-              <span>
-                LOCATION
-              </span>
-
-              <strong>
-                Makati<br>
-                Metro Manila
-              </strong>
-
-              <small>
-                concept location
-              </small>
-
-            </div>
-
-
-            <div>
-
-              <span>
-                MON — FRI
-              </span>
-
-              <strong>
-                7:00 — 20:00
-              </strong>
-
-              <small>
-                concept hours
-              </small>
-
-            </div>
-
-
-            <div>
-
-              <span>
-                SAT — SUN
-              </span>
-
-              <strong>
-                8:00 — 20:00
-              </strong>
-
-              <small>
-                concept hours
-              </small>
-
-            </div>
-
-
+            <p><strong>ADDRESS</strong><span>Legazpi Village<br>Makati, Metro Manila</span></p>
+            <p><strong>HOURS</strong><span>Mon—Fri / 7—6<br>Sat—Sun / 8—7</span></p>
+            <p><strong>CONTACT</strong><span>hello@sola.cafe<br>+63 2 8000 2026</span></p>
           </div>
-
-
-          <a
-            class="sola-primary-link"
-            href="#sola-home"
-          >
-            Back to the beginning
-
-            <span>
-              ↑
-            </span>
+          <a class="sola-direction-link" href="mailto:hello@sola.cafe">
+            <span>PLAN A VISIT</span><span aria-hidden="true">↗</span>
           </a>
-
-
         </div>
-
-
       </section>
-
-
     </main>
 
-
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
-
     <footer class="sola-footer">
-
-
-      <div class="sola-footer-name">
-        SOLA
-      </div>
-
-
-      <div class="sola-footer-meta">
-
-        <span>
-          COFFEE / FOOD / PLACE
-        </span>
-
-        <span>
-          SOME THINGS ARE WORTH KEEPING.
-        </span>
-
-        <span>
-          SELF-INITIATED CONCEPT PROJECT
-        </span>
-
-      </div>
-
-
+      <a href="#sola-home" aria-label="Back to top">SOLA</a>
+      <p>COFFEE / FOOD / A ROOM TO STAY</p>
+      <p>SELF-INITIATED HOSPITALITY CONCEPT / 2026</p>
     </footer>
-
-
   </div>
 `;
 
-
-/* =========================================================
-   CREATE FRESH WEBSITE
-========================================================= */
-
 export function createSolaSite() {
+  const template = document.createElement("template");
+  template.innerHTML = SITE_MARKUP.trim();
 
-  const template =
-    document.createElement(
-      "template"
-    );
+  const site = template.content.firstElementChild;
 
-
-  template.innerHTML =
-    SITE_MARKUP.trim();
-
-
-  const site =
-    template.content
-      .firstElementChild;
-
-
-  if (
-    !site ||
-    site.nodeType !==
-      1
-  ) {
-
-    throw new Error(
-      "Sola website factory could not create the site."
-    );
-
+  if (!site || site.nodeType !== 1) {
+    throw new Error("Sola website factory could not create the site.");
   }
-
 
   return site;
-
 }
 
-
-/* =========================================================
-   INITIALIZE WEBSITE
-
-   Interactive behavior is activated only for interactive
-   ProjectFrame instances.
-
-   Returning cleanup() gives the frame engine ownership of
-   listeners, observers and temporary interaction state.
-========================================================= */
-
-export function initializeSolaSite(
-  root,
-  options = {}
-) {
-
-  if (
-    !root ||
-    root.nodeType !==
-      1
-  ) {
-
+export function initializeSolaSite(root, options = {}) {
+  if (!root || root.nodeType !== 1) {
     return null;
-
   }
 
-
-  if (
-    root.dataset.solaInitialized ===
-      "true"
-  ) {
-
+  if (root.dataset.solaInitialized === "true") {
     return root;
-
   }
 
+  root.dataset.solaInitialized = "true";
 
-  root.dataset.solaInitialized =
-    "true";
+  const doc = root.ownerDocument || document;
+  const win = doc.defaultView || window;
+  const reducedMotion = win.matchMedia?.("(prefers-reduced-motion: reduce)").matches || false;
+  const cleanups = [];
+  let revealObserver = null;
+  let cleaned = false;
 
-
-  const doc =
-    root.ownerDocument ||
-    document;
-
-
-  const windowObject =
-    doc.defaultView ||
-    window;
-
-
-  const prefersReducedMotion =
-    windowObject.matchMedia?.(
-      "(prefers-reduced-motion: reduce)"
-    ).matches ||
-    false;
-
-
-  const cleanups =
-    [];
-
-
-  let revealObserver =
-    null;
-
-
-  let cleaned =
-    false;
-
-
-  /* =======================================================
-     EVENT LIFECYCLE
-  ======================================================= */
-
-  function on(
-    target,
-    type,
-    listener,
-    eventOptions
-  ) {
-
-    if (
-      !target ||
-      typeof target.addEventListener !==
-        "function"
-    ) {
-
+  function on(target, type, listener, eventOptions) {
+    if (!target?.addEventListener) {
       return;
-
     }
 
-
-    target.addEventListener(
-      type,
-      listener,
-      eventOptions
-    );
-
-
-    cleanups.push(
-      () => {
-
-        target.removeEventListener(
-          type,
-          listener,
-          eventOptions
-        );
-
-      }
-    );
-
+    target.addEventListener(type, listener, eventOptions);
+    cleanups.push(() => target.removeEventListener(type, listener, eventOptions));
   }
 
+  const menuToggle = root.querySelector("[data-sola-menu-toggle]");
+  const navigation = root.querySelector("[data-sola-navigation]");
+
+  function setNavigation(open) {
+    root.classList.toggle("sola-navigation-open", open);
+    menuToggle?.setAttribute("aria-expanded", String(open));
+    navigation?.setAttribute("aria-hidden", String(!open));
+  }
+
+  if (menuToggle && navigation) {
+    navigation.setAttribute("aria-hidden", "true");
+    on(menuToggle, "click", () => setNavigation(!root.classList.contains("sola-navigation-open")));
+    on(doc, "keydown", (event) => {
+      if (event.key === "Escape") {
+        setNavigation(false);
+      }
+    });
+  }
+
+  root.querySelectorAll('a[href^="#sola-"]').forEach((link) => {
+    on(link, "click", (event) => {
+      const selector = link.getAttribute("href");
+      const target = selector ? root.querySelector(selector) : null;
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      setNavigation(false);
+      target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+    });
+  });
+
+  const menuTabs = Array.from(root.querySelectorAll("[data-sola-menu]"));
+  const menuPanels = Array.from(root.querySelectorAll("[data-sola-panel]"));
+
+  function selectMenu(key) {
+    menuTabs.forEach((tab) => {
+      const active = tab.dataset.solaMenu === key;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+
+    menuPanels.forEach((panel) => {
+      const active = panel.dataset.solaPanel === key;
+      panel.hidden = !active;
+      panel.classList.toggle("sola-menu-panel--active", active);
+    });
+  }
+
+  menuTabs.forEach((tab, index) => {
+    on(tab, "click", () => selectMenu(tab.dataset.solaMenu));
+    on(tab, "keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+        return;
+      }
+
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const next = (index + direction + menuTabs.length) % menuTabs.length;
+      menuTabs[next].focus();
+      selectMenu(menuTabs[next].dataset.solaMenu);
+    });
+  });
+
+  if (menuTabs.length) {
+    selectMenu(menuTabs[0].dataset.solaMenu);
+  }
+
+  const revealItems = Array.from(root.querySelectorAll("[data-sola-reveal]"));
+
+  if (reducedMotion || typeof win.IntersectionObserver !== "function") {
+    revealItems.forEach((item) => item.classList.add("sola-revealed"));
+  } else {
+    revealObserver = new win.IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("sola-revealed");
+        revealObserver?.unobserve(entry.target);
+      });
+    }, { root: options.revealRoot || null, rootMargin: "0px 0px -8%", threshold: 0.08 });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+  }
+
+  if (options.signal?.addEventListener) {
+    if (options.signal.aborted) {
+      cleanup();
+      return cleanup;
+    }
+
+    on(options.signal, "abort", cleanup, { once: true });
+  }
 
   function cleanup() {
-
     if (cleaned) {
-
       return;
-
     }
 
-
-    cleaned =
-      true;
-
-
+    cleaned = true;
     revealObserver?.disconnect();
+    revealObserver = null;
 
-
-    revealObserver =
-      null;
-
-
-    while (
-      cleanups.length
-    ) {
-
-      const dispose =
-        cleanups.pop();
-
-
+    while (cleanups.length) {
       try {
-
-        dispose();
-
+        cleanups.pop()();
       } catch (error) {
-
-        console.warn(
-          "[Sola] Cleanup failed.",
-          error
-        );
-
+        console.warn("[Sola] Cleanup failed.", error);
       }
-
     }
 
-
-    root
-      .querySelectorAll(
-        ".sola-gallery-card"
-      )
-      .forEach(
-        (card) => {
-
-          card.style.removeProperty(
-            "--sola-photo-x"
-          );
-
-
-          card.style.removeProperty(
-            "--sola-photo-y"
-          );
-
-        }
-      );
-
-
-    const heroFrame =
-      root.querySelector(
-        ".sola-hero-frame"
-      );
-
-
-    if (heroFrame) {
-
-      heroFrame.style.transform =
-        "";
-
-    }
-
-
-    delete root.dataset
-      .solaInitialized;
-
+    root.classList.remove("sola-navigation-open");
+    delete root.dataset.solaInitialized;
   }
-
-
-  /* =======================================================
-     FRAME ABORT SIGNAL
-  ======================================================= */
-
-  const signal =
-    options.signal;
-
-
-  if (
-    signal &&
-    typeof signal.addEventListener ===
-      "function"
-  ) {
-
-    if (
-      signal.aborted
-    ) {
-
-      cleanup();
-
-
-      return cleanup;
-
-    }
-
-
-    on(
-      signal,
-      "abort",
-      cleanup,
-      {
-        once:
-          true
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     INTERNAL NAVIGATION
-  ======================================================= */
-
-  root
-    .querySelectorAll(
-      'a[href^="#sola-"]'
-    )
-    .forEach(
-      (link) => {
-
-        on(
-          link,
-          "click",
-          (event) => {
-
-            const selector =
-              link.getAttribute(
-                "href"
-              );
-
-
-            if (!selector) {
-
-              return;
-
-            }
-
-
-            let target =
-              null;
-
-
-            try {
-
-              target =
-                root.querySelector(
-                  selector
-                );
-
-            } catch (error) {
-
-              target =
-                null;
-
-            }
-
-
-            if (!target) {
-
-              return;
-
-            }
-
-
-            event.preventDefault();
-
-
-            target.scrollIntoView(
-              {
-                behavior:
-                  prefersReducedMotion
-                    ? "auto"
-                    : "smooth",
-
-                block:
-                  "start"
-              }
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-  /* =======================================================
-     MENU SWITCHER
-  ======================================================= */
-
-  const menuTabs =
-    Array.from(
-      root.querySelectorAll(
-        "[data-sola-menu]"
-      )
-    );
-
-
-  const menuPanels =
-    Array.from(
-      root.querySelectorAll(
-        "[data-sola-panel]"
-      )
-    );
-
-
-  function selectMenu(
-    key,
-    animate = true
-  ) {
-
-    if (!key) {
-
-      return;
-
-    }
-
-
-    menuTabs.forEach(
-      (tab) => {
-
-        const active =
-          tab.dataset.solaMenu ===
-          key;
-
-
-        tab.classList.toggle(
-          "active",
-          active
-        );
-
-
-        tab.setAttribute(
-          "aria-selected",
-          String(
-            active
-          )
-        );
-
-      }
-    );
-
-
-    menuPanels.forEach(
-      (panel) => {
-
-        const active =
-          panel.dataset.solaPanel ===
-          key;
-
-
-        panel.hidden =
-          !active;
-
-
-        panel.classList.toggle(
-          "active",
-          active
-        );
-
-
-        if (
-          active &&
-          animate &&
-          !prefersReducedMotion &&
-          typeof panel.animate ===
-            "function"
-        ) {
-
-          panel.animate(
-            [
-              {
-                opacity:
-                  0,
-
-                transform:
-                  "translateY(12px)"
-              },
-
-              {
-                opacity:
-                  1,
-
-                transform:
-                  "translateY(0)"
-              }
-            ],
-            {
-              duration:
-                420,
-
-              easing:
-                "cubic-bezier(.2,.75,.25,1)"
-            }
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-  menuTabs.forEach(
-    (tab) => {
-
-      on(
-        tab,
-        "click",
-        () => {
-
-          selectMenu(
-            tab.dataset.solaMenu
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-  selectMenu(
-    "coffee",
-    false
-  );
-
-
-  /* =======================================================
-     POINTER CAPABILITY
-  ======================================================= */
-
-  const hasFinePointer =
-    windowObject.matchMedia?.(
-      "(pointer: fine)"
-    ).matches ||
-    false;
-
-
-  /* =======================================================
-     GALLERY PHOTO RESPONSE
-  ======================================================= */
-
-  const galleryCards =
-    root.querySelectorAll(
-      ".sola-gallery-card"
-    );
-
-
-  if (
-    hasFinePointer &&
-    !prefersReducedMotion
-  ) {
-
-    galleryCards.forEach(
-      (card) => {
-
-        on(
-          card,
-          "pointermove",
-          (event) => {
-
-            const rect =
-              card.getBoundingClientRect();
-
-
-            if (
-              !rect.width ||
-              !rect.height
-            ) {
-
-              return;
-
-            }
-
-
-            const x =
-              (
-                event.clientX -
-                rect.left
-              ) /
-              rect.width -
-              .5;
-
-
-            const y =
-              (
-                event.clientY -
-                rect.top
-              ) /
-              rect.height -
-              .5;
-
-
-            card.style.setProperty(
-              "--sola-photo-x",
-              `${x * 5}px`
-            );
-
-
-            card.style.setProperty(
-              "--sola-photo-y",
-              `${y * 5}px`
-            );
-
-          }
-        );
-
-
-        on(
-          card,
-          "pointerleave",
-          () => {
-
-            card.style.setProperty(
-              "--sola-photo-x",
-              "0px"
-            );
-
-
-            card.style.setProperty(
-              "--sola-photo-y",
-              "0px"
-            );
-
-          }
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     REVEALS
-  ======================================================= */
-
-  const revealItems =
-    root.querySelectorAll(
-      "[data-sola-reveal]"
-    );
-
-
-  const suppliedRevealRoot =
-    options.revealRoot &&
-    options.revealRoot.nodeType ===
-      1
-      ? options.revealRoot
-      : null;
-
-
-  if (
-    "IntersectionObserver" in
-      windowObject &&
-    !prefersReducedMotion
-  ) {
-
-    revealObserver =
-      new windowObject.IntersectionObserver(
-        (
-          entries,
-          instance
-        ) => {
-
-          entries.forEach(
-            (entry) => {
-
-              if (
-                !entry.isIntersecting
-              ) {
-
-                return;
-
-              }
-
-
-              entry.target.classList.add(
-                "sola-visible"
-              );
-
-
-              instance.unobserve(
-                entry.target
-              );
-
-            }
-          );
-
-        },
-        {
-          threshold:
-            .06,
-
-          root:
-            suppliedRevealRoot,
-
-          rootMargin:
-            "0px 0px -5% 0px"
-        }
-      );
-
-
-    revealItems.forEach(
-      (item) => {
-
-        revealObserver.observe(
-          item
-        );
-
-      }
-    );
-
-  } else {
-
-    revealItems.forEach(
-      (item) => {
-
-        item.classList.add(
-          "sola-visible"
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     HERO FRAME RESPONSE
-  ======================================================= */
-
-  const heroFrame =
-    root.querySelector(
-      ".sola-hero-frame"
-    );
-
-
-  if (
-    heroFrame &&
-    hasFinePointer &&
-    !prefersReducedMotion
-  ) {
-
-    on(
-      heroFrame,
-      "pointermove",
-      (event) => {
-
-        const rect =
-          heroFrame
-            .getBoundingClientRect();
-
-
-        if (
-          !rect.width ||
-          !rect.height
-        ) {
-
-          return;
-
-        }
-
-
-        const x =
-          (
-            event.clientX -
-            rect.left
-          ) /
-          rect.width -
-          .5;
-
-
-        const y =
-          (
-            event.clientY -
-            rect.top
-          ) /
-          rect.height -
-          .5;
-
-
-        heroFrame.style.transform =
-          `
-            rotate(${x * .8}deg)
-            translate(
-              ${x * 3}px,
-              ${y * 3}px
-            )
-          `;
-
-      }
-    );
-
-
-    on(
-      heroFrame,
-      "pointerleave",
-      () => {
-
-        heroFrame.style.transform =
-          "";
-
-      }
-    );
-
-  }
-
 
   return cleanup;
-
 }

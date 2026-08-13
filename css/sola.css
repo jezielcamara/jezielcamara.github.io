@@ -1,6269 +1,1102 @@
-/* =========================================================
-   SOLA / CANONICAL WEBSITE DESIGN SYSTEM
-
-   SELF-INITIATED HOSPITALITY CONCEPT
-
-   DESIGN LANGUAGE
-   - antique illustrated website
-   - restaurant ephemera
-   - recipe books
-   - parchment and aged ink
-   - collected photographs
-   - stamps / notes / archival objects
-   - deliberately unlike North Home
-
-   RESPONSIVE RULE
-
-   ONE CANONICAL DOM
-          ↓
-   CONTAINER RESPONSIVE
-          ↓
-   HERO / WORK / VIEWER / CASE / MOBILE
-========================================================= */
-
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap");
 
 /* =========================================================
-   ROOT
+   SOLA / EDITORIAL CAFE WEBSITE
+
+   Project-scoped visual system: parchment, ink, engraved
+   artwork, high-contrast display type, and modular rules.
 ========================================================= */
 
 .sola-site {
-  --sola-paper:
-    #e4cca2;
-
-  --sola-paper-light:
-    #f3e7cc;
-
-  --sola-paper-pale:
-    #f8efd9;
-
-  --sola-paper-deep:
-    #c9a878;
-
-  --sola-brown:
-    #38251a;
-
-  --sola-brown-soft:
-    #65503c;
-
-  --sola-brown-fade:
-    #90765a;
-
-  --sola-red:
-    #79463b;
-
-  --sola-green:
-    #334531;
-
-  --sola-green-dark:
-    #253427;
-
-  --sola-gold:
-    #9b7a46;
-
-  --sola-line:
-    rgba(
-      56,
-      37,
-      26,
-      .23
-    );
-
-  --sola-line-dark:
-    rgba(
-      56,
-      37,
-      26,
-      .56
-    );
-
-  --sola-serif:
-    "Palatino Linotype",
-    Palatino,
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  --sola-display:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  --sola-sans:
-    "TASA Orbiter",
-    Arial,
-    sans-serif;
-
-  position:
-    relative;
-
-  width:
-    100%;
-
-  min-width:
-    0;
-
-  overflow-x:
-    hidden;
-
-  color:
-    var(--sola-brown);
-
-  background-color:
-    var(--sola-paper-light);
-
-  background-image:
-    url(
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%239b7a46' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M75 18c5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30 17-5 25-13 30-30Z'/%3E%3Cpath d='M18 75c17-5 25-13 30-30 5 17 13 25 30 30-17 5-25 13-30 30-5-17-13-25-30-30Z'/%3E%3Ccircle cx='75' cy='75' r='4'/%3E%3C/g%3E%3C/svg%3E"
-    );
-
-  background-repeat:
-    repeat;
-
-  background-size:
-    150px
-    150px;
-
-  box-shadow:
-    inset
-    0
-    0
-    110px
-    rgba(
-      56,
-      37,
-      26,
-      .08
-    );
-
-  font-family:
-    var(--sola-serif);
-
-  line-height:
-    1.5;
-
-  text-rendering:
-    optimizeLegibility;
-
-  container-type:
-    inline-size;
-
-  container-name:
-    sola;
+  --sola-paper: #e9dfcd;
+  --sola-paper-light: #f2eadc;
+  --sola-paper-deep: #d8c9b1;
+  --sola-ink: #15120e;
+  --sola-ink-soft: #50483d;
+  --sola-rule: rgba(21, 18, 14, 0.22);
+  --sola-display: "Bodoni Moda", "Times New Roman", serif;
+  --sola-sans: "DM Sans", Arial, sans-serif;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  overflow: clip;
+  color: var(--sola-ink);
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.3), transparent 22%),
+    linear-gradient(90deg, rgba(36, 25, 11, 0.025) 1px, transparent 1px),
+    var(--sola-paper);
+  background-size: auto, min(25vw, 280px) 100%, auto;
+  font-family: var(--sola-sans);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
 }
 
-
-/* =========================================================
-   RESET
-========================================================= */
-
-.sola-site *,
-.sola-site *::before,
-.sola-site *::after {
-  box-sizing:
-    border-box;
+.sola-site,
+.sola-site * {
+  box-sizing: border-box;
 }
-
-
-.sola-site h1,
-.sola-site h2,
-.sola-site h3,
-.sola-site p,
-.sola-site figure,
-.sola-site blockquote {
-  margin:
-    0;
-}
-
 
 .sola-site img {
-  display:
-    block;
-
-  width:
-    100%;
-
-  max-width:
-    100%;
+  display: block;
+  max-width: 100%;
 }
 
+.sola-site a,
+.sola-site button {
+  color: inherit;
+}
 
 .sola-site a {
-  color:
-    inherit;
-
-  text-decoration:
-    none;
+  text-decoration: none;
 }
 
-
-.sola-site button,
-.sola-site input,
-.sola-site select,
-.sola-site textarea {
-  font:
-    inherit;
+.sola-site button {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
 }
 
-
-/* =========================================================
-   SMALL LABELS
-========================================================= */
-
-.sola-overline,
-.sola-section-number,
-.sola-section-index,
-.sola-menu-heading
-> div,
-.sola-notebook-heading
-> span,
-.sola-gallery-heading
-span {
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .52rem;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .12em;
-
-  text-transform:
-    uppercase;
+.sola-site [hidden] {
+  display: none !important;
 }
-
-
-/* =========================================================
-   TOP NOTICE
-========================================================= */
-
-.sola-notice {
-  min-height:
-    27px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
-
-  align-items:
-    center;
-
-  gap:
-    18px;
-
-  padding:
-    0
-    clamp(
-      18px,
-      4cqi,
-      46px
-    );
-
-  color:
-    var(--sola-paper-light);
-
-  background:
-    var(--sola-brown);
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .2
-    );
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .38rem;
-
-  font-weight:
-    500;
-
-  letter-spacing:
-    .11em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.sola-notice
-span:nth-child(2) {
-  text-align:
-    center;
-}
-
-
-.sola-notice
-span:last-child {
-  text-align:
-    right;
-}
-
-
-/* =========================================================
-   MASTHEAD
-
-   Sola uses a centered restaurant/catalogue masthead,
-   deliberately unlike North Home.
-========================================================= */
 
 .sola-header {
-  position:
-    relative;
-
-  z-index:
-    30;
-
-  min-height:
-    108px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
-
-  grid-template-rows:
-    69px
-    39px;
-
-  align-items:
-    center;
-
-  padding:
-    0
-    clamp(
-      20px,
-      5cqi,
-      60px
-    );
-
-  background:
-    rgba(
-      243,
-      231,
-      204,
-      .95
-    );
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
+  position: relative;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 92px;
+  padding: 18px clamp(20px, 3.5vw, 58px);
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-/* =========================================================
-   BRAND
-========================================================= */
-
-.sola-brand {
-  grid-column:
-    2;
-
-  grid-row:
-    1;
-
-  justify-self:
-    center;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    37px
-    auto;
-
-  grid-template-rows:
-    auto
-    auto;
-
-  column-gap:
-    9px;
-
-  align-items:
-    center;
+.sola-wordmark {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 11px;
 }
 
-
-.sola-brand-mark {
-  grid-row:
-    1
-    /
-    span
-    2;
-
-  width:
-    37px;
-
-  height:
-    37px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-brown);
-
-  border-radius:
-    50%;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    1.2rem;
-
-  line-height:
-    1;
+.sola-wordmark-mark {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  border: 1px solid var(--sola-ink);
+  font-family: var(--sola-display);
+  font-size: 27px;
+  line-height: 1;
 }
 
-
-.sola-brand-name {
-  align-self:
-    end;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    1.48rem;
-
-  letter-spacing:
-    .05em;
-
-  line-height:
-    .88;
+.sola-wordmark-copy {
+  display: grid;
+  gap: 2px;
 }
 
-
-.sola-brand
-small {
-  align-self:
-    start;
-
-  color:
-    var(--sola-red);
-
-  font-size:
-    .48rem;
-
-  font-style:
-    italic;
-
-  letter-spacing:
-    .04em;
+.sola-wordmark-copy strong {
+  font-family: var(--sola-display);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 1;
 }
 
-
-/* =========================================================
-   HOURS
-========================================================= */
-
-.sola-header-note {
-  position:
-    absolute;
-
-  top:
-    23px;
-
-  right:
-    clamp(
-      20px,
-      5cqi,
-      60px
-    );
-
-  display:
-    flex;
-
-  align-items:
-    baseline;
-
-  gap:
-    7px;
-
-  color:
-    var(--sola-brown-fade);
+.sola-wordmark-copy small,
+.sola-header-edition,
+.sola-menu-toggle,
+.sola-navigation {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
 }
 
-
-.sola-header-note
-span {
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .35rem;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .1em;
+.sola-header-edition {
+  margin: 0;
+  text-align: center;
 }
 
-
-.sola-header-note
-strong {
-  color:
-    var(--sola-brown);
-
-  font-size:
-    .7rem;
-
-  font-weight:
-    400;
+.sola-menu-toggle {
+  position: relative;
+  z-index: 41;
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+  min-width: 78px;
+  padding: 10px 0;
+  cursor: pointer;
 }
 
-
-/* =========================================================
-   ORNAMENTAL NAVIGATION
-========================================================= */
-
-.sola-nav {
-  grid-column:
-    1
-    /
-    -1;
-
-  grid-row:
-    2;
-
-  min-height:
-    39px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  gap:
-    clamp(
-      24px,
-      5cqi,
-      58px
-    );
-
-  border-top:
-    1px
-    solid
-    var(--sola-line);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line);
+.sola-menu-toggle-lines {
+  display: grid;
+  width: 22px;
+  gap: 5px;
 }
 
-
-.sola-nav::before,
-.sola-nav::after {
-  content:
-    "❦";
-
-  color:
-    var(--sola-gold);
-
-  font-size:
-    .82rem;
+.sola-menu-toggle-lines i {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  transition: transform 240ms ease;
 }
 
-
-.sola-nav
-a {
-  position:
-    relative;
-
-  padding:
-    5px
-    0;
-
-  font-size:
-    .64rem;
+.sola-navigation-open .sola-menu-toggle-lines i:first-child {
+  transform: translateY(3px) rotate(45deg);
 }
 
-
-.sola-nav
-a::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  right:
-    50%;
-
-  bottom:
-    1px;
-
-  left:
-    50%;
-
-  height:
-    1px;
-
-  background:
-    var(--sola-red);
-
-  transition:
-    right
-    180ms
-    ease,
-    left
-    180ms
-    ease;
+.sola-navigation-open .sola-menu-toggle-lines i:last-child {
+  transform: translateY(-3px) rotate(-45deg);
 }
 
-
-.sola-nav
-a:hover::after,
-.sola-nav
-a:focus-visible::after {
-  right:
-    0;
-
-  left:
-    0;
+.sola-navigation {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  padding: clamp(80px, 12vh, 150px) clamp(24px, 9vw, 140px);
+  color: var(--sola-paper-light);
+  background: var(--sola-ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-18px);
+  transition: opacity 260ms ease, transform 260ms ease, visibility 260ms;
 }
 
+.sola-navigation-open .sola-navigation {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 
-/* =========================================================
-   HERO / ANTIQUE TABLEAU
+.sola-navigation-open .sola-menu-toggle {
+  color: var(--sola-paper-light);
+}
 
-   Critical architecture:
+.sola-navigation-number {
+  margin-bottom: clamp(24px, 5vh, 70px);
+  color: rgba(242, 234, 220, 0.48);
+}
 
-   Hero COPY is now NORMAL GRID CONTENT.
+.sola-navigation a {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(242, 234, 220, 0.24);
+  font-family: var(--sola-display);
+  font-size: clamp(2.2rem, 7vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
 
-   Only ephemera is absolutely positioned.
+.sola-navigation a span {
+  font-family: var(--sola-sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
 
-   This prevents the title, paragraph and buttons from
-   colliding at scaled portfolio viewport sizes.
-========================================================= */
+.sola-navigation > p {
+  margin: 28px 0 0;
+  color: rgba(242, 234, 220, 0.54);
+}
 
 .sola-hero {
-  position:
-    relative;
-
-  min-height:
-    630px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    minmax(
-      0,
-      1fr
-    )
-    minmax(
-      380px,
-      540px
-    )
-    minmax(
-      0,
-      1fr
-    );
-
-  grid-template-rows:
-    minmax(
-      0,
-      1fr
-    )
-    auto;
-
-  align-items:
-    center;
-
-  overflow:
-    hidden;
-
-  padding:
-    46px
-    clamp(
-      18px,
-      4cqi,
-      48px
-    )
-    20px;
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: minmax(420px, 55vw) auto;
+  min-height: 900px;
+  padding-top: clamp(36px, 7vw, 100px);
 }
-
-
-/* =========================================================
-   LEFT PAPER
-========================================================= */
-
-.sola-hero::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  z-index:
-    1;
-
-  top:
-    24%;
-
-  left:
-    -4%;
-
-  width:
-    21%;
-
-  min-width:
-    145px;
-
-  aspect-ratio:
-    1
-    /
-    1.3;
-
-  background:
-    rgba(
-      228,
-      204,
-      162,
-      .5
-    );
-
-  border:
-    1px
-    solid
-    rgba(
-      56,
-      37,
-      26,
-      .18
-    );
-
-  clip-path:
-    polygon(
-      3% 2%,
-      96% 0,
-      100% 94%,
-      92% 100%,
-      1% 97%,
-      0 8%
-    );
-
-  transform:
-    rotate(
-      -7deg
-    );
-
-  pointer-events:
-    none;
-}
-
-
-/* =========================================================
-   ORNAMENTAL OVAL
-========================================================= */
-
-.sola-hero::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  z-index:
-    2;
-
-  top:
-    48%;
-
-  left:
-    50%;
-
-  width:
-    min(
-      53%,
-      620px
-    );
-
-  height:
-    min(
-      68%,
-      430px
-    );
-
-  border:
-    1px
-    solid
-    rgba(
-      155,
-      122,
-      70,
-      .43
-    );
-
-  border-radius:
-    50%;
-
-  transform:
-    translate(
-      -50%,
-      -50%
-    )
-    rotate(
-      -.8deg
-    );
-
-  pointer-events:
-    none;
-}
-
-
-/* =========================================================
-   HERO COPY
-
-   NO ABSOLUTE POSITIONING.
-========================================================= */
 
 .sola-hero-copy {
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  grid-column:
-    2;
-
-  grid-row:
-    1;
-
-  width:
-    100%;
-
-  max-width:
-    540px;
-
-  justify-self:
-    center;
-
-  align-self:
-    center;
-
-  text-align:
-    center;
-
-  transform:
-    none;
+  position: relative;
+  z-index: 3;
+  grid-column: 4 / 10;
+  grid-row: 1;
+  align-self: center;
+  padding-bottom: clamp(36px, 6vw, 88px);
 }
 
-
-.sola-hero-copy::before {
-  content:
-    "✦";
-
-  display:
-    block;
-
-  margin-bottom:
-    10px;
-
-  color:
-    var(--sola-gold);
-
-  font-size:
-    .78rem;
+.sola-kicker,
+.sola-card-label {
+  margin: 0 0 22px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  line-height: 1.3;
 }
 
-
-.sola-overline {
-  margin-bottom:
-    12px;
+.sola-hero h1 {
+  margin: 0;
+  font-family: var(--sola-display);
+  font-size: clamp(4.2rem, 11.8vw, 10.6rem);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.74;
 }
 
-
-/* =========================================================
-   HERO TITLE
-
-   More breathing room than the previous .76 line-height.
-========================================================= */
-
-.sola-hero
-h1 {
-  color:
-    var(--sola-brown);
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      3.55rem,
-      6cqi,
-      5.7rem
-    );
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.055em;
-
-  line-height:
-    .88;
+.sola-hero h1 span {
+  display: block;
 }
 
-
-.sola-hero
-h1
-span,
-
-.sola-hero
-h1
-em {
-  display:
-    block;
+.sola-hero h1 span:nth-child(2) {
+  transform: translateX(-0.06em);
 }
 
-
-.sola-hero
-h1
-span:first-child::before {
-  content:
-    none;
+.sola-hero h1 span:nth-child(3) {
+  transform: translateX(0.32em);
 }
 
-
-.sola-hero
-h1
-em {
-  margin:
-    .06em
-    0
-    .04em;
-
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-serif);
-
-  font-size:
-    .92em;
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.045em;
-
-  line-height:
-    .92;
+.sola-hero-hours {
+  display: flex;
+  align-items: center;
+  width: 58%;
+  margin-top: 24px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
-
-/* =========================================================
-   HERO INTRO
-
-   Explicit vertical separation from title.
-========================================================= */
-
-.sola-site
-.sola-hero-intro {
-  position:
-    relative;
-
-  max-width:
-    360px;
-
-  margin:
-    28px
-    auto
-    0;
-
-  color:
-    var(--sola-brown-soft);
-
-  font-size:
-    .78rem;
-
-  line-height:
-    1.62;
+.sola-hero-hours i {
+  flex: 1;
+  height: 1px;
+  margin: 0 12px;
+  background: var(--sola-ink);
 }
 
-
-/* =========================================================
-   HERO ACTIONS
-========================================================= */
-
-.sola-hero-actions {
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  gap:
-    10px
-    21px;
-
-  margin-top:
-    22px;
+.sola-hero-object {
+  position: relative;
+  z-index: 2;
+  grid-column: 7 / 11;
+  grid-row: 1;
+  align-self: center;
+  margin: 0;
+  transform: rotate(4deg) translate(9%, -2%);
 }
 
-
-.sola-primary-link {
-  min-height:
-    37px;
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    18px;
-
-  padding:
-    0
-    13px;
-
-  color:
-    var(--sola-paper-pale) !important;
-
-  background:
-    var(--sola-green);
-
-  border:
-    1px
-    solid
-    var(--sola-green-dark);
-
-  box-shadow:
-    3px
-    4px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .11
-    );
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .45rem;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .08em;
-
-  text-transform:
-    uppercase;
+.sola-hero-object img {
+  width: 100%;
+  aspect-ratio: 0.8;
+  object-fit: cover;
+  object-position: 52% 50%;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(0.72);
+  clip-path: polygon(7% 3%, 100% 0, 93% 97%, 0 100%);
 }
 
-
-.sola-primary-link
-span {
-  font-size:
-    .8rem;
+.sola-hero-object figcaption,
+.sola-hero-landscape figcaption,
+.sola-grid-card figcaption {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
-
-.sola-text-link {
-  padding:
-    7px
-    0;
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-brown);
-
-  font-size:
-    .68rem;
+.sola-hero-object figcaption {
+  position: absolute;
+  right: 0;
+  bottom: -18px;
 }
 
-
-/* =========================================================
-   HERO ART FIELD
-
-   Decorative objects may overlap one another.
-   They never control text geometry.
-========================================================= */
-
-.sola-hero-art {
-  position:
-    absolute;
-
-  z-index:
-    5;
-
-  inset:
-    0;
-
-  width:
-    auto;
-
-  min-height:
-    0;
-
-  pointer-events:
-    none;
+.sola-hero-landscape {
+  position: relative;
+  z-index: 4;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: -13vw 0 0;
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-/* =========================================================
-   FOUND PHOTO
-========================================================= */
-
-.sola-hero-frame {
-  position:
-    absolute;
-
-  z-index:
-    5;
-
-  top:
-    23%;
-
-  right:
-    3%;
-
-  width:
-    min(
-      21%,
-      235px
-    );
-
-  padding:
-    8px
-    8px
-    29px;
-
-  background:
-    #ead5b0;
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    8px
-    10px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .08
-    );
-
-  transform:
-    rotate(
-      4deg
-    );
+.sola-hero-landscape img {
+  width: 100%;
+  max-height: 580px;
+  object-fit: cover;
+  object-position: center bottom;
+  mix-blend-mode: multiply;
+  filter: contrast(1.08) saturate(0.65);
 }
 
-
-.sola-hero-frame::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  top:
-    -9px;
-
-  left:
-    30%;
-
-  width:
-    61px;
-
-  height:
-    17px;
-
-  background:
-    rgba(
-      155,
-      122,
-      70,
-      .24
-    );
-
-  transform:
-    rotate(
-      -5deg
-    );
+.sola-hero-landscape figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px clamp(20px, 3.5vw, 58px) 15px;
+  border-top: 1px solid var(--sola-rule);
 }
-
-
-.sola-hero-frame
-img {
-  aspect-ratio:
-    4
-    /
-    5;
-
-  object-fit:
-    cover;
-
-  object-position:
-    center;
-
-  border:
-    1px
-    solid
-    var(--sola-line);
-
-  filter:
-    sepia(
-      .42
-    )
-    saturate(
-      .56
-    )
-    contrast(
-      .92
-    );
-}
-
-
-.sola-hero-frame
-figcaption {
-  position:
-    absolute;
-
-  right:
-    8px;
-
-  bottom:
-    6px;
-
-  left:
-    8px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    8px;
-}
-
-
-.sola-hero-frame
-figcaption
-span {
-  color:
-    var(--sola-brown-fade);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .3rem;
-
-  letter-spacing:
-    .07em;
-}
-
-
-.sola-hero-frame
-figcaption
-strong {
-  color:
-    var(--sola-red);
-
-  font-size:
-    .5rem;
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-}
-
-
-/* =========================================================
-   FRAME CORNERS
-========================================================= */
-
-.sola-frame-corner {
-  position:
-    absolute;
-
-  z-index:
-    7;
-
-  width:
-    18px;
-
-  height:
-    18px;
-
-  pointer-events:
-    none;
-}
-
-
-.sola-frame-corner::before,
-.sola-frame-corner::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  background:
-    var(--sola-gold);
-}
-
-
-.sola-frame-corner::before {
-  width:
-    100%;
-
-  height:
-    1px;
-}
-
-
-.sola-frame-corner::after {
-  width:
-    1px;
-
-  height:
-    100%;
-}
-
-
-.sola-frame-corner-tl {
-  top:
-    4px;
-
-  left:
-    4px;
-}
-
-
-.sola-frame-corner-tr {
-  top:
-    4px;
-
-  right:
-    4px;
-
-  transform:
-    rotate(
-      90deg
-    );
-}
-
-
-.sola-frame-corner-bl {
-  bottom:
-    4px;
-
-  left:
-    4px;
-
-  transform:
-    rotate(
-      -90deg
-    );
-}
-
-
-.sola-frame-corner-br {
-  right:
-    4px;
-
-  bottom:
-    4px;
-
-  transform:
-    rotate(
-      180deg
-    );
-}
-
-
-/* =========================================================
-   STAMP
-========================================================= */
-
-.sola-hero-stamp {
-  position:
-    absolute;
-
-  z-index:
-    9;
-
-  top:
-    25%;
-
-  left:
-    7%;
-
-  width:
-    74px;
-
-  height:
-    74px;
-
-  display:
-    grid;
-
-  place-content:
-    center;
-
-  text-align:
-    center;
-
-  color:
-    var(--sola-red);
-
-  background:
-    rgba(
-      243,
-      231,
-      204,
-      .5
-    );
-
-  border:
-    2px
-    dashed
-    var(--sola-red);
-
-  border-radius:
-    50%;
-
-  opacity:
-    .7;
-
-  transform:
-    rotate(
-      -12deg
-    );
-}
-
-
-.sola-hero-stamp
-span {
-  font-size:
-    .8rem;
-}
-
-
-.sola-hero-stamp
-small {
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .28rem;
-
-  letter-spacing:
-    .12em;
-}
-
-
-.sola-hero-stamp
-strong {
-  font-size:
-    .55rem;
-
-  font-weight:
-    400;
-}
-
-
-/* =========================================================
-   HAND NOTE
-========================================================= */
-
-.sola-hand-note {
-  position:
-    absolute;
-
-  z-index:
-    8;
-
-  top:
-    13%;
-
-  right:
-    16%;
-
-  max-width:
-    145px;
-
-  color:
-    var(--sola-red);
-
-  font-size:
-    .7rem;
-
-  font-style:
-    italic;
-
-  line-height:
-    1.08;
-
-  transform:
-    rotate(
-      -6deg
-    );
-}
-
-
-/* =========================================================
-   ORNAMENT
-========================================================= */
-
-.sola-ornament-top {
-  position:
-    absolute;
-
-  z-index:
-    7;
-
-  left:
-    9%;
-
-  bottom:
-    21%;
-
-  color:
-    rgba(
-      56,
-      37,
-      26,
-      .42
-    );
-
-  font-size:
-    3rem;
-
-  transform:
-    rotate(
-      16deg
-    );
-}
-
-
-/* =========================================================
-   HERO FOOT
-
-   Normal second grid row.
-========================================================= */
-
-.sola-hero-foot {
-  position:
-    relative;
-
-  z-index:
-    11;
-
-  grid-column:
-    1
-    /
-    -1;
-
-  grid-row:
-    2;
-
-  width:
-    86%;
-
-  justify-self:
-    center;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
-
-  align-items:
-    center;
-
-  gap:
-    15px;
-
-  padding-top:
-    12px;
-
-  color:
-    var(--sola-brown-fade);
-
-  border-top:
-    1px
-    solid
-    var(--sola-line);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .33rem;
-
-  letter-spacing:
-    .1em;
-
-  text-transform:
-    uppercase;
-}
-
-
-.sola-hero-foot
-span:nth-child(2) {
-  color:
-    var(--sola-gold);
-}
-
-
-.sola-hero-foot
-span:last-child {
-  text-align:
-    right;
-}
-
-
-/* =========================================================
-   FROM THE TABLE
-========================================================= */
-
-.sola-table {
-  position:
-    relative;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    120px
-    minmax(
-      230px,
-      .72fr
-    )
-    minmax(
-      420px,
-      1.28fr
-    );
-
-  gap:
-    clamp(
-      28px,
-      5cqi,
-      64px
-    );
-
-  align-items:
-    start;
-
-  padding:
-    clamp(
-      70px,
-      8cqi,
-      108px
-    )
-    clamp(
-      28px,
-      7cqi,
-      90px
-    );
-
-  background:
-    var(--sola-paper);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
-}
-
-
-.sola-table::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    28px
-    4%;
-
-  z-index:
-    0;
-
-  background:
-    rgba(
-      248,
-      239,
-      217,
-      .26
-    );
-
-  border:
-    1px
-    solid
-    rgba(
-      56,
-      37,
-      26,
-      .12
-    );
-
-  clip-path:
-    polygon(
-      1% 2%,
-      99% 0,
-      98% 96%,
-      93% 100%,
-      2% 98%,
-      0 7%
-    );
-
-  transform:
-    rotate(
-      -.4deg
-    );
-}
-
-
-.sola-table
-> * {
-  position:
-    relative;
-
-  z-index:
-    2;
-}
-
-
-/* =========================================================
-   TABLE INDEX
-========================================================= */
 
 .sola-section-index {
-  color:
-    var(--sola-red);
+  display: flex;
+  gap: 16px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
 }
 
-
-.sola-section-index
-span,
-
-.sola-section-index
-strong {
-  display:
-    block;
+.sola-section-index span:first-child {
+  min-width: 30px;
 }
 
-
-.sola-section-index
-span {
-  margin-bottom:
-    5px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    2.5rem;
-
-  font-weight:
-    400;
-
-  line-height:
-    1;
+.sola-intro {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  min-height: 520px;
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-.sola-section-index::after {
-  content:
-    "✦";
-
-  width:
-    70px;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  margin-top:
-    18px;
-
-  color:
-    var(--sola-gold);
-
-  border-top:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  line-height:
-    18px;
+.sola-intro > * {
+  padding: clamp(28px, 4.5vw, 72px) clamp(20px, 3.5vw, 58px);
 }
 
-
-/* =========================================================
-   TABLE COPY
-========================================================= */
-
-.sola-table-copy {
-  padding-top:
-    4px;
+.sola-intro-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(220px, 1fr);
+  align-items: end;
+  gap: clamp(30px, 7vw, 110px);
+  border-left: 1px solid var(--sola-rule);
 }
 
-
-.sola-drop-copy {
-  max-width:
-    420px;
-
-  color:
-    var(--sola-brown-soft);
-
-  font-size:
-    clamp(
-      1.23rem,
-      2.3cqi,
-      1.9rem
-    );
-
-  line-height:
-    1.43;
+.sola-intro h2,
+.sola-menu h2,
+.sola-notes h2,
+.sola-visit h2 {
+  margin: 0;
+  font-family: var(--sola-display);
+  font-size: clamp(3.4rem, 8.1vw, 8.8rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.86;
 }
 
-
-.sola-drop-copy
-> span {
-  float:
-    left;
-
-  margin:
-    -.03em
-    .09em
-    0
-    0;
-
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    4em;
-
-  line-height:
-    .72;
+.sola-intro-copy > p,
+.sola-menu-heading > p {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--sola-ink-soft);
+  font-family: Georgia, serif;
+  font-size: clamp(0.86rem, 1.2vw, 1.05rem);
+  line-height: 1.55;
 }
 
-
-/* =========================================================
-   TABLE COLLAGE
-========================================================= */
-
-.sola-table-circles {
-  position:
-    relative;
-
-  min-height:
-    340px;
+.sola-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(390px, 43vw));
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-.sola-circle-card {
-  position:
-    absolute;
-
-  width:
-    min(
-      35%,
-      175px
-    );
-
-  padding:
-    7px
-    7px
-    24px;
-
-  background:
-    var(--sola-paper-pale);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    6px
-    8px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .07
-    );
+.sola-grid-card {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: clamp(22px, 3.4vw, 52px);
+  border-right: 1px solid var(--sola-rule);
+  border-bottom: 1px solid var(--sola-rule);
+  overflow: hidden;
 }
 
-
-.sola-circle-card
-img {
-  aspect-ratio:
-    1
-    /
-    1;
-
-  object-fit:
-    cover;
-
-  border:
-    1px
-    solid
-    var(--sola-line);
-
-  filter:
-    sepia(
-      .4
-    )
-    saturate(
-      .55
-    )
-    contrast(
-      .94
-    );
+.sola-grid-card--statement {
+  grid-column: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-
-.sola-circle-card
-figcaption {
-  margin-top:
-    8px;
-
-  color:
-    var(--sola-brown-fade);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .35rem;
-
-  letter-spacing:
-    .08em;
-
-  text-align:
-    center;
+.sola-grid-card h3 {
+  margin: 0;
+  font-family: var(--sola-display);
+  font-size: clamp(2.5rem, 5.5vw, 6.7rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
 }
 
-
-.sola-circle-one {
-  top:
-    0;
-
-  left:
-    0;
-
-  transform:
-    rotate(
-      -5deg
-    );
+.sola-grid-card--statement > p:last-child,
+.sola-grid-card--origin > p:last-child {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--sola-ink-soft);
+  font-family: Georgia, serif;
+  font-size: 0.86rem;
+  line-height: 1.55;
 }
 
-
-.sola-circle-two {
-  right:
-    0;
-
-  bottom:
-    0;
-
-  transform:
-    rotate(
-      5deg
-    );
+.sola-grid-card--art {
+  grid-column: 3 / 5;
+  padding: 0;
+  background: var(--sola-paper-deep);
 }
 
-
-/* =========================================================
-   TABLE NOTE
-========================================================= */
-
-.sola-table-note {
-  position:
-    absolute;
-
-  z-index:
-    5;
-
-  top:
-    49%;
-
-  left:
-    52%;
-
-  width:
-    min(
-      58%,
-      255px
-    );
-
-  padding:
-    23px
-    20px;
-
-  text-align:
-    center;
-
-  background:
-    var(--sola-paper-pale);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    5px
-    7px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .07
-    );
-
-  transform:
-    translate(
-      -50%,
-      -50%
-    )
-    rotate(
-      -2deg
-    );
+.sola-grid-card--art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 48%;
+  mix-blend-mode: multiply;
+  filter: contrast(1.08) saturate(0.75);
 }
 
-
-.sola-table-note::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  top:
-    -10px;
-
-  left:
-    36%;
-
-  width:
-    62px;
-
-  height:
-    18px;
-
-  background:
-    rgba(
-      155,
-      122,
-      70,
-      .22
-    );
-
-  transform:
-    rotate(
-      4deg
-    );
+.sola-grid-card--art figcaption,
+.sola-grid-card--landscape figcaption {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  left: 18px;
+  padding: 9px 12px;
+  color: var(--sola-paper-light);
+  background: var(--sola-ink);
 }
 
-
-.sola-table-note
-span {
-  color:
-    var(--sola-red);
-
-  font-size:
-    .72rem;
-
-  font-style:
-    italic;
+.sola-grid-card--dark {
+  grid-column: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--sola-paper-light);
+  background: var(--sola-ink);
 }
 
-
-.sola-table-note
-strong {
-  display:
-    block;
-
-  margin-top:
-    9px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      1.25rem,
-      2.15cqi,
-      1.9rem
-    );
-
-  font-weight:
-    400;
-
-  line-height:
-    1;
+.sola-grid-card--dark blockquote {
+  margin: auto 0;
+  font-family: var(--sola-display);
+  font-size: clamp(2.1rem, 3.8vw, 4.7rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
 }
 
-
-.sola-table-note
-i {
-  display:
-    block;
-
-  margin-top:
-    13px;
-
-  color:
-    var(--sola-gold);
-
-  font-style:
-    normal;
+.sola-grid-card--dark > span {
+  color: rgba(242, 234, 220, 0.55);
+  font-size: 8px;
+  letter-spacing: 0.12em;
 }
 
+.sola-grid-card--origin {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-/* =========================================================
-   MENU / OPEN LEDGER
-========================================================= */
+.sola-grid-card--landscape {
+  grid-column: 3 / 5;
+  padding: 0;
+  background: var(--sola-paper-light);
+}
+
+.sola-grid-card--landscape img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% bottom;
+  mix-blend-mode: multiply;
+  filter: contrast(1.1) saturate(0.62);
+}
 
 .sola-menu {
-  position:
-    relative;
-
-  padding:
-    clamp(
-      75px,
-      8cqi,
-      110px
-    )
-    clamp(
-      28px,
-      7cqi,
-      90px
-    )
-    clamp(
-      90px,
-      9cqi,
-      125px
-    );
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-green-dark);
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .2
-    );
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: 880px;
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-.sola-menu::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    48px
-    4%;
-
-  background:
-    var(--sola-paper-pale);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    10px
-    13px
-    0
-    rgba(
-      0,
-      0,
-      0,
-      .16
-    );
-
-  clip-path:
-    polygon(
-      1% 1%,
-      98% 0,
-      100% 95%,
-      96% 100%,
-      2% 98%,
-      0 4%
-    );
+.sola-menu-heading,
+.sola-menu-book {
+  padding: clamp(34px, 5.2vw, 82px) clamp(20px, 4.2vw, 68px);
 }
-
-
-.sola-menu
-> * {
-  position:
-    relative;
-
-  z-index:
-    3;
-
-  color:
-    var(--sola-brown);
-}
-
-
-/* =========================================================
-   MENU HEADING
-========================================================= */
 
 .sola-menu-heading {
-  width:
-    min(
-      100%,
-      1050px
-    );
-
-  display:
-    grid;
-
-  grid-template-columns:
-    100px
-    minmax(
-      0,
-      1fr
-    )
-    minmax(
-      220px,
-      300px
-    );
-
-  gap:
-    32px;
-
-  align-items:
-    end;
-
-  margin:
-    0
-    auto;
+  display: flex;
+  flex-direction: column;
 }
 
-
-.sola-menu-heading
-> div {
-  color:
-    var(--sola-red);
+.sola-menu-heading h2 {
+  margin: auto 0 44px;
 }
 
-
-.sola-menu-heading
-h2 {
-  max-width:
-    600px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      2.7rem,
-      5.2cqi,
-      5.1rem
-    );
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.055em;
-
-  line-height:
-    .9;
+.sola-menu-book {
+  border-left: 1px solid var(--sola-rule);
 }
-
-
-.sola-menu-heading
-> p {
-  color:
-    var(--sola-brown-soft);
-
-  font-size:
-    .72rem;
-
-  line-height:
-    1.62;
-}
-
-
-.sola-menu-heading::after {
-  content:
-    "←   ❦   →";
-
-  grid-column:
-    1
-    /
-    -1;
-
-  display:
-    block;
-
-  margin-top:
-    16px;
-
-  color:
-    var(--sola-gold);
-
-  text-align:
-    center;
-
-  border-top:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  font-size:
-    .66rem;
-
-  line-height:
-    19px;
-
-  letter-spacing:
-    .2em;
-}
-
-
-/* =========================================================
-   MENU TABS
-========================================================= */
 
 .sola-menu-tabs {
-  width:
-    min(
-      100%,
-      780px
-    );
-
-  display:
-    flex;
-
-  justify-content:
-    center;
-
-  gap:
-    6px;
-
-  margin:
-    36px
-    auto
-    0;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3.2vw, 48px);
+  min-height: 46px;
+  margin-bottom: clamp(48px, 8vw, 118px);
+  border-bottom: 1px solid var(--sola-ink);
 }
 
-
-.sola-menu-tab {
-  min-width:
-    125px;
-
-  min-height:
-    35px;
-
-  padding:
-    0
-    14px;
-
-  color:
-    var(--sola-brown);
-
-  background:
-    var(--sola-paper);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    2px
-    3px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .07
-    );
-
-  cursor:
-    pointer;
-
-  font-family:
-    var(--sola-serif);
-
-  font-size:
-    .7rem;
+.sola-menu-tabs button {
+  position: relative;
+  padding: 12px 0;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-
-.sola-menu-tab:nth-child(1) {
-  transform:
-    rotate(
-      -1deg
-    );
+.sola-menu-tabs button::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 3px;
+  background: var(--sola-ink);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
-
-.sola-menu-tab:nth-child(2) {
-  transform:
-    rotate(
-      .8deg
-    );
+.sola-menu-tabs button[aria-selected="true"]::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
-
-
-.sola-menu-tab:nth-child(3) {
-  transform:
-    rotate(
-      -.5deg
-    );
-}
-
-
-.sola-menu-tab:hover,
-.sola-menu-tab:focus-visible,
-.sola-menu-tab.active {
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-red);
-}
-
-
-/* =========================================================
-   MENU PANEL
-========================================================= */
 
 .sola-menu-panel {
-  width:
-    min(
-      100%,
-      960px
-    );
-
-  display:
-    grid;
-
-  grid-template-columns:
-    minmax(
-      0,
-      1fr
-    )
-    220px;
-
-  gap:
-    clamp(
-      30px,
-      5cqi,
-      64px
-    );
-
-  margin:
-    34px
-    auto
-    0;
-
-  padding:
-    28px
-    32px;
-
-  background:
-    rgba(
-      228,
-      204,
-      162,
-      .35
-    );
-
-  border:
-    1px
-    solid
-    var(--sola-line);
+  animation: sola-panel-in 260ms ease both;
 }
 
-
-.sola-menu-panel[hidden] {
-  display:
-    none !important;
+.sola-menu-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  padding: 21px 0;
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-/* =========================================================
-   MENU ITEMS
-========================================================= */
-
-.sola-menu-list {
-  border-top:
-    1px
-    solid
-    var(--sola-brown);
+.sola-menu-row div {
+  display: grid;
+  gap: 4px;
 }
 
-
-.sola-menu-list
-article {
-  min-height:
-    76px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    29px
-    minmax(
-      0,
-      1fr
-    )
-    auto;
-
-  gap:
-    14px;
-
-  align-items:
-    center;
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line);
+.sola-menu-row strong {
+  font-family: var(--sola-display);
+  font-size: clamp(1.35rem, 2.2vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
 }
 
-
-.sola-menu-list
-article
-> span {
-  color:
-    var(--sola-gold);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .4rem;
+.sola-menu-row small,
+.sola-menu-row > span {
+  color: var(--sola-ink-soft);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-
-.sola-menu-list
-h3 {
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      1.08rem,
-      1.65cqi,
-      1.55rem
-    );
-
-  font-weight:
-    400;
-
-  line-height:
-    1.05;
+.sola-menu-row > span {
+  padding-top: 10px;
 }
 
-
-.sola-menu-list
-p {
-  margin-top:
-    4px;
-
-  color:
-    var(--sola-brown-fade);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .45rem;
+.sola-notes {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-.sola-menu-list
-article
-> strong {
-  font-size:
-    .77rem;
-
-  font-weight:
-    400;
+.sola-notes-heading {
+  min-height: 760px;
+  padding: clamp(34px, 5.2vw, 82px) clamp(20px, 4.2vw, 68px);
+  border-right: 1px solid var(--sola-rule);
 }
 
-
-/* =========================================================
-   MENU NOTE
-========================================================= */
-
-.sola-menu-aside {
-  align-self:
-    center;
-
-  padding:
-    25px
-    19px;
-
-  color:
-    var(--sola-paper-pale) !important;
-
-  background:
-    var(--sola-green);
-
-  border:
-    4px
-    double
-    rgba(
-      243,
-      231,
-      204,
-      .5
-    );
-
-  box-shadow:
-    5px
-    7px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .1
-    );
-
-  transform:
-    rotate(
-      2deg
-    );
+.sola-notes-heading h2 {
+  margin-top: clamp(120px, 20vw, 290px);
 }
 
-
-.sola-menu-aside
-> span {
-  color:
-    var(--sola-paper);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .36rem;
-
-  letter-spacing:
-    .11em;
+.sola-note-list article {
+  position: relative;
+  display: grid;
+  min-height: 253px;
+  padding: clamp(28px, 4vw, 62px);
+  border-bottom: 1px solid var(--sola-rule);
 }
 
-
-.sola-menu-aside
-p {
-  margin-top:
-    15px;
-
-  color:
-    var(--sola-paper-pale);
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      1.25rem,
-      2.15cqi,
-      1.9rem
-    );
-
-  line-height:
-    1;
+.sola-note-list article:last-child {
+  border-bottom: 0;
 }
 
-
-.sola-menu-aside
-small {
-  display:
-    block;
-
-  margin-top:
-    20px;
-
-  color:
-    rgba(
-      243,
-      231,
-      204,
-      .75
-    );
-
-  font-size:
-    .62rem;
-
-  font-style:
-    italic;
+.sola-note-list article > span,
+.sola-note-list time {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
 }
 
-
-/* =========================================================
-   NOTEBOOK / SCRAPBOOK DESK
-========================================================= */
-
-.sola-notebook {
-  position:
-    relative;
-
-  padding:
-    clamp(
-      72px,
-      8cqi,
-      110px
-    )
-    clamp(
-      28px,
-      7cqi,
-      90px
-    )
-    clamp(
-      110px,
-      11cqi,
-      160px
-    );
-
-  background-color:
-    #d5b785;
-
-  background-image:
-    url(
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='105' height='105' viewBox='0 0 105 105'%3E%3Cg fill='none' stroke='%2379463b' stroke-opacity='.05'%3E%3Cpath d='M52 11c4 12 10 18 22 22-12 4-18 10-22 22-4-12-10-18-22-22 12-4 18-10 22-22Z'/%3E%3Cpath d='M19 77c19-12 38-10 54 4'/%3E%3C/g%3E%3C/svg%3E"
-    );
-
-  box-shadow:
-    inset
-    0
-    0
-    100px
-    rgba(
-      56,
-      37,
-      26,
-      .12
-    );
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
+.sola-note-list h3 {
+  max-width: 17ch;
+  margin: 34px 0 13px;
+  font-family: var(--sola-display);
+  font-size: clamp(1.8rem, 3.4vw, 4.1rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
 }
 
-
-.sola-notebook::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  top:
-    7%;
-
-  right:
-    3%;
-
-  width:
-    105px;
-
-  height:
-    105px;
-
-  border:
-    2px
-    double
-    rgba(
-      56,
-      37,
-      26,
-      .32
-    );
-
-  border-radius:
-    50%;
-
-  opacity:
-    .6;
+.sola-note-list p {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--sola-ink-soft);
+  font-family: Georgia, serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
 }
 
-
-.sola-notebook::after {
-  content:
-    "SOLA";
-
-  position:
-    absolute;
-
-  right:
-    4%;
-
-  bottom:
-    7%;
-
-  padding:
-    22px
-    12px;
-
-  color:
-    rgba(
-      121,
-      70,
-      59,
-      .29
-    );
-
-  border:
-    2px
-    dashed
-    rgba(
-      121,
-      70,
-      59,
-      .32
-    );
-
-  border-radius:
-    50%;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    .78rem;
-
-  transform:
-    rotate(
-      13deg
-    );
+.sola-note-list time {
+  position: absolute;
+  top: clamp(28px, 4vw, 62px);
+  right: clamp(28px, 4vw, 62px);
 }
-
-
-/* =========================================================
-   NOTEBOOK HEADING
-========================================================= */
-
-.sola-notebook-heading {
-  position:
-    relative;
-
-  z-index:
-    3;
-
-  max-width:
-    700px;
-
-  margin:
-    0
-    auto;
-
-  text-align:
-    center;
-}
-
-
-.sola-notebook-heading
-h2 {
-  margin-top:
-    11px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      3.1rem,
-      6.1cqi,
-      5.8rem
-    );
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.05em;
-
-  line-height:
-    .88;
-}
-
-
-.sola-notebook-heading::after {
-  content:
-    "←  ❦  →";
-
-  display:
-    block;
-
-  margin-top:
-    17px;
-
-  color:
-    var(--sola-red);
-
-  font-size:
-    .7rem;
-
-  letter-spacing:
-    .22em;
-}
-
-
-/* =========================================================
-   SCRAPBOOK
-========================================================= */
-
-.sola-scrapbook {
-  position:
-    relative;
-
-  z-index:
-    4;
-
-  min-height:
-    710px;
-
-  width:
-    min(
-      100%,
-      1060px
-    );
-
-  margin:
-    50px
-    auto
-    0;
-}
-
-
-/* =========================================================
-   PAPER PHOTOS
-========================================================= */
-
-.sola-paper-photo {
-  position:
-    absolute;
-
-  padding:
-    9px
-    9px
-    30px;
-
-  background:
-    var(--sola-paper-pale);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    7px
-    9px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .08
-    );
-}
-
-
-.sola-paper-photo
-img {
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-  border:
-    1px
-    solid
-    var(--sola-line);
-
-  filter:
-    sepia(
-      .45
-    )
-    saturate(
-      .5
-    )
-    contrast(
-      .94
-    );
-}
-
-
-.sola-paper-photo
-figcaption {
-  position:
-    absolute;
-
-  right:
-    9px;
-
-  bottom:
-    7px;
-
-  left:
-    9px;
-
-  color:
-    var(--sola-brown-soft);
-
-  font-size:
-    .57rem;
-
-  font-style:
-    italic;
-}
-
-
-.sola-paper-photo-recipe {
-  top:
-    0;
-
-  left:
-    1%;
-
-  width:
-    45%;
-
-  height:
-    385px;
-
-  transform:
-    rotate(
-      -4deg
-    );
-}
-
-
-.sola-paper-photo-interior {
-  right:
-    1%;
-
-  bottom:
-    0;
-
-  width:
-    36%;
-
-  height:
-    310px;
-
-  transform:
-    rotate(
-      5deg
-    );
-}
-
-
-/* =========================================================
-   RECIPE PAPER
-========================================================= */
-
-.sola-recipe-card {
-  position:
-    absolute;
-
-  z-index:
-    7;
-
-  top:
-    90px;
-
-  right:
-    6%;
-
-  width:
-    44%;
-
-  max-width:
-    450px;
-
-  padding:
-    31px
-    32px;
-
-  background:
-    #eddbb9;
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    -7px
-    9px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .08
-    );
-
-  transform:
-    rotate(
-      1.6deg
-    );
-}
-
-
-.sola-recipe-card::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  top:
-    -11px;
-
-  left:
-    36%;
-
-  width:
-    73px;
-
-  height:
-    20px;
-
-  background:
-    rgba(
-      155,
-      122,
-      70,
-      .23
-    );
-
-  transform:
-    rotate(
-      -4deg
-    );
-}
-
-
-.sola-card-label {
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .4rem;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .11em;
-}
-
-
-.sola-recipe-card
-h3 {
-  margin-top:
-    9px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      1.8rem,
-      3.15cqi,
-      2.8rem
-    );
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  line-height:
-    .96;
-}
-
-
-.sola-recipe-card
-ol {
-  margin:
-    22px
-    0
-    0;
-
-  padding:
-    0;
-
-  list-style:
-    none;
-
-  counter-reset:
-    sola-recipe;
-}
-
-
-.sola-recipe-card
-li {
-  min-height:
-    36px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    26px
-    1fr;
-
-  gap:
-    9px;
-
-  align-items:
-    center;
-
-  color:
-    var(--sola-brown-soft);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line);
-
-  font-size:
-    .68rem;
-
-  counter-increment:
-    sola-recipe;
-}
-
-
-.sola-recipe-card
-li::before {
-  content:
-    counter(
-      sola-recipe,
-      decimal-leading-zero
-    );
-
-  color:
-    var(--sola-gold);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .37rem;
-}
-
-
-.sola-recipe-card
-> p {
-  margin-top:
-    19px;
-
-  color:
-    var(--sola-brown-fade);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .46rem;
-
-  line-height:
-    1.55;
-}
-
-
-/* =========================================================
-   WRITTEN NOTE
-========================================================= */
-
-.sola-written-note {
-  position:
-    absolute;
-
-  z-index:
-    8;
-
-  bottom:
-    45px;
-
-  left:
-    6%;
-
-  width:
-    35%;
-
-  padding:
-    27px
-    23px;
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-red);
-
-  border:
-    1px
-    solid
-    var(--sola-brown);
-
-  box-shadow:
-    6px
-    8px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .1
-    );
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      1.65rem,
-      3.2cqi,
-      2.8rem
-    );
-
-  font-style:
-    italic;
-
-  line-height:
-    .94;
-
-  transform:
-    rotate(
-      -3deg
-    );
-}
-
-
-.sola-written-note
-> span {
-  position:
-    absolute;
-
-  top:
-    -8px;
-
-  left:
-    7px;
-
-  opacity:
-    .23;
-
-  font-size:
-    4rem;
-}
-
-
-.sola-written-note
-small {
-  display:
-    block;
-
-  margin-top:
-    17px;
-
-  font-size:
-    .5rem;
-}
-
-
-/* =========================================================
-   POSTMARK
-========================================================= */
-
-.sola-postmark {
-  position:
-    absolute;
-
-  z-index:
-    10;
-
-  right:
-    34%;
-
-  bottom:
-    8px;
-
-  width:
-    95px;
-
-  height:
-    95px;
-
-  display:
-    grid;
-
-  place-content:
-    center;
-
-  text-align:
-    center;
-
-  color:
-    var(--sola-red);
-
-  border:
-    2px
-    dashed
-    var(--sola-red);
-
-  border-radius:
-    50%;
-
-  opacity:
-    .65;
-
-  transform:
-    rotate(
-      11deg
-    );
-}
-
-
-.sola-postmark::before,
-.sola-postmark::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  right:
-    -20px;
-
-  left:
-    -20px;
-
-  height:
-    1px;
-
-  background:
-    var(--sola-red);
-}
-
-
-.sola-postmark::before {
-  top:
-    34px;
-}
-
-
-.sola-postmark::after {
-  bottom:
-    34px;
-}
-
-
-.sola-postmark
-span {
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .31rem;
-
-  letter-spacing:
-    .11em;
-}
-
-
-.sola-postmark
-strong {
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    1rem;
-
-  font-weight:
-    400;
-}
-
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-.sola-gallery {
-  position:
-    relative;
-
-  padding:
-    clamp(
-      72px,
-      8cqi,
-      108px
-    )
-    clamp(
-      28px,
-      7cqi,
-      90px
-    );
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-brown);
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .18
-    );
-
-  box-shadow:
-    inset
-    0
-    0
-    90px
-    rgba(
-      0,
-      0,
-      0,
-      .22
-    );
-}
-
-
-/* =========================================================
-   GALLERY HEADING
-========================================================= */
-
-.sola-gallery-heading {
-  display:
-    grid;
-
-  grid-template-columns:
-    minmax(
-      0,
-      1fr
-    )
-    minmax(
-      230px,
-      330px
-    );
-
-  gap:
-    48px;
-
-  align-items:
-    end;
-}
-
-
-.sola-gallery-heading
-span {
-  color:
-    var(--sola-paper);
-}
-
-
-.sola-gallery-heading
-h2 {
-  max-width:
-    650px;
-
-  margin-top:
-    9px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      3.1rem,
-      5.7cqi,
-      5.4rem
-    );
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.05em;
-
-  line-height:
-    .88;
-}
-
-
-.sola-gallery-heading
-> p {
-  color:
-    rgba(
-      243,
-      231,
-      204,
-      .67
-    );
-
-  font-size:
-    .72rem;
-
-  line-height:
-    1.62;
-}
-
-
-.sola-gallery-heading::after {
-  content:
-    "←   ✦   →";
-
-  grid-column:
-    1
-    /
-    -1;
-
-  display:
-    block;
-
-  margin-top:
-    15px;
-
-  color:
-    var(--sola-paper);
-
-  text-align:
-    center;
-
-  border-top:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .27
-    );
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .27
-    );
-
-  font-size:
-    .55rem;
-
-  line-height:
-    18px;
-
-  letter-spacing:
-    .2em;
-}
-
-
-/* =========================================================
-   CONTACT SHEET
-========================================================= */
-
-.sola-contact-sheet {
-  display:
-    grid;
-
-  grid-template-columns:
-    1.18fr
-    .86fr
-    .86fr;
-
-  grid-template-rows:
-    255px
-    230px;
-
-  gap:
-    18px;
-
-  margin-top:
-    42px;
-}
-
-
-.sola-gallery-card {
-  position:
-    relative;
-
-  min-height:
-    210px;
-
-  padding:
-    7px
-    7px
-    28px;
-
-  overflow:
-    hidden;
-
-  color:
-    var(--sola-brown);
-
-  background:
-    var(--sola-paper-pale);
-
-  border:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .3
-    );
-
-  box-shadow:
-    7px
-    9px
-    0
-    rgba(
-      0,
-      0,
-      0,
-      .16
-    );
-}
-
-
-.sola-gallery-card:nth-child(1) {
-  transform:
-    rotate(
-      -1.2deg
-    );
-}
-
-
-.sola-gallery-card:nth-child(2) {
-  transform:
-    rotate(
-      1.7deg
-    );
-}
-
-
-.sola-gallery-card:nth-child(3) {
-  transform:
-    rotate(
-      -2deg
-    );
-}
-
-
-.sola-gallery-card:nth-child(4) {
-  transform:
-    rotate(
-      .7deg
-    );
-}
-
-
-.sola-gallery-card
-img {
-  width:
-    calc(
-      100%
-      +
-      10px
-    );
-
-  height:
-    calc(
-      100%
-      -
-      17px
-    );
-
-  max-width:
-    none;
-
-  margin:
-    -5px;
-
-  object-fit:
-    cover;
-
-  filter:
-    sepia(
-      .45
-    )
-    saturate(
-      .48
-    )
-    contrast(
-      .95
-    );
-
-  transform:
-    translate(
-      var(
-        --sola-photo-x,
-        0
-      ),
-      var(
-        --sola-photo-y,
-        0
-      )
-    )
-    scale(
-      1.02
-    );
-}
-
-
-.sola-gallery-card
-figcaption {
-  position:
-    absolute;
-
-  right:
-    7px;
-
-  bottom:
-    5px;
-
-  left:
-    7px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    10px;
-}
-
-
-.sola-gallery-card
-figcaption
-span {
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .32rem;
-}
-
-
-.sola-gallery-card
-figcaption
-strong {
-  font-size:
-    .53rem;
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-}
-
-
-.sola-gallery-card-large {
-  grid-row:
-    1
-    /
-    span
-    2;
-}
-
-
-.sola-gallery-card-wide {
-  grid-column:
-    2
-    /
-    span
-    2;
-}
-
-
-/* =========================================================
-   VISIT
-========================================================= */
 
 .sola-visit {
-  position:
-    relative;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    minmax(
-      320px,
-      .9fr
-    )
-    minmax(
-      350px,
-      1.1fr
-    );
-
-  gap:
-    clamp(
-      42px,
-      7cqi,
-      88px
-    );
-
-  align-items:
-    center;
-
-  padding:
-    clamp(
-      72px,
-      8cqi,
-      108px
-    )
-    clamp(
-      28px,
-      7cqi,
-      90px
-    );
-
-  background:
-    var(--sola-paper-light);
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line-dark);
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  min-height: 870px;
+  color: var(--sola-paper-light);
+  background: var(--sola-ink);
 }
-
-
-.sola-visit::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    38px
-    4%;
-
-  border:
-    1px
-    solid
-    rgba(
-      56,
-      37,
-      26,
-      .12
-    );
-
-  transform:
-    rotate(
-      .3deg
-    );
-}
-
-
-/* =========================================================
-   VISIT ART
-========================================================= */
 
 .sola-visit-art {
-  position:
-    relative;
-
-  z-index:
-    3;
-
-  max-width:
-    500px;
-
-  padding:
-    10px
-    10px
-    34px;
-
-  background:
-    var(--sola-paper);
-
-  border:
-    1px
-    solid
-    var(--sola-line-dark);
-
-  box-shadow:
-    7px
-    9px
-    0
-    rgba(
-      56,
-      37,
-      26,
-      .08
-    );
-
-  transform:
-    rotate(
-      -2deg
-    );
+  min-width: 0;
+  border-right: 1px solid rgba(242, 234, 220, 0.18);
+  overflow: hidden;
 }
 
-
-.sola-visit-art::before {
-  content:
-    "POSTCARD / 05";
-
-  position:
-    absolute;
-
-  top:
-    -16px;
-
-  left:
-    22px;
-
-  padding:
-    4px
-    7px;
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .34rem;
-
-  letter-spacing:
-    .1em;
+.sola-visit-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 76% bottom;
+  filter: grayscale(1) sepia(0.25) invert(0.92) contrast(0.9);
+  mix-blend-mode: screen;
+  opacity: 0.86;
 }
-
-
-.sola-visit-frame {
-  overflow:
-    hidden;
-
-  border:
-    1px
-    solid
-    var(--sola-line);
-}
-
-
-.sola-visit-frame
-img {
-  aspect-ratio:
-    4
-    /
-    3;
-
-  object-fit:
-    cover;
-
-  filter:
-    sepia(
-      .42
-    )
-    saturate(
-      .5
-    )
-    contrast(
-      .94
-    );
-}
-
-
-.sola-visit-caption {
-  position:
-    absolute;
-
-  right:
-    10px;
-
-  bottom:
-    7px;
-
-  left:
-    10px;
-
-  color:
-    var(--sola-brown-fade);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .34rem;
-
-  letter-spacing:
-    .08em;
-}
-
-
-/* =========================================================
-   VISIT COPY
-========================================================= */
 
 .sola-visit-copy {
-  position:
-    relative;
-
-  z-index:
-    3;
-
-  max-width:
-    570px;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(34px, 5.2vw, 82px) clamp(20px, 4.2vw, 68px);
 }
 
-
-.sola-visit-copy
-h2 {
-  margin-top:
-    9px;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      3rem,
-      5.8cqi,
-      5.5rem
-    );
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.05em;
-
-  line-height:
-    .88;
+.sola-visit h2 {
+  margin: auto 0 clamp(50px, 8vw, 110px);
 }
-
 
 .sola-visit-details {
-  margin:
-    30px
-    0
-    27px;
-
-  border-top:
-    1px
-    solid
-    var(--sola-brown);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(242, 234, 220, 0.32);
 }
 
-
-.sola-visit-details
-> div {
-  min-height:
-    62px;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    88px
-    1fr
-    auto;
-
-  gap:
-    14px;
-
-  align-items:
-    center;
-
-  border-bottom:
-    1px
-    solid
-    var(--sola-line);
+.sola-visit-details p {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  font-size: 9px;
+  line-height: 1.55;
 }
 
-
-.sola-visit-details
-span {
-  color:
-    var(--sola-red);
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .37rem;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .09em;
+.sola-visit-details strong {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
 }
 
-
-.sola-visit-details
-strong {
-  font-size:
-    .78rem;
-
-  font-weight:
-    400;
-
-  line-height:
-    1.2;
+.sola-visit-details span {
+  color: rgba(242, 234, 220, 0.65);
 }
 
-
-.sola-visit-details
-small {
-  color:
-    var(--sola-brown-fade);
-
-  font-size:
-    .57rem;
-
-  font-style:
-    italic;
+.sola-direction-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 44px;
+  padding: 16px 0 13px;
+  border-bottom: 1px solid var(--sola-paper-light);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
 }
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
 
 .sola-footer {
-  padding:
-    52px
-    clamp(
-      28px,
-      7cqi,
-      90px
-    )
-    26px;
-
-  color:
-    var(--sola-paper-pale);
-
-  background:
-    var(--sola-green-dark);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: end;
+  gap: 28px;
+  min-height: 230px;
+  padding: clamp(28px, 4.8vw, 74px) clamp(20px, 3.5vw, 58px);
+  color: var(--sola-paper-light);
+  background: var(--sola-ink);
+  border-top: 1px solid rgba(242, 234, 220, 0.18);
 }
 
-
-.sola-footer-name {
-  overflow:
-    hidden;
-
-  text-align:
-    center;
-
-  font-family:
-    var(--sola-display);
-
-  font-size:
-    clamp(
-      6rem,
-      18cqi,
-      17rem
-    );
-
-  font-style:
-    italic;
-
-  font-weight:
-    400;
-
-  letter-spacing:
-    -.08em;
-
-  line-height:
-    .65;
+.sola-footer > a {
+  font-family: var(--sola-display);
+  font-size: clamp(5rem, 15vw, 13rem);
+  letter-spacing: -0.075em;
+  line-height: 0.62;
 }
 
-
-.sola-footer-meta {
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr
-    1fr
-    1fr;
-
-  gap:
-    20px;
-
-  margin-top:
-    38px;
-
-  padding-top:
-    13px;
-
-  color:
-    rgba(
-      243,
-      231,
-      204,
-      .65
-    );
-
-  border-top:
-    1px
-    solid
-    rgba(
-      243,
-      231,
-      204,
-      .22
-    );
-
-  font-family:
-    var(--sola-sans);
-
-  font-size:
-    .35rem;
-
-  letter-spacing:
-    .09em;
+.sola-footer p {
+  margin: 0;
+  font-size: 8px;
+  letter-spacing: 0.12em;
 }
 
-
-.sola-footer-meta
-span:nth-child(2) {
-  text-align:
-    center;
+.sola-site[data-sola-initialized="true"] [data-sola-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-
-.sola-footer-meta
-span:last-child {
-  text-align:
-    right;
+.sola-site[data-sola-initialized="true"] [data-sola-reveal].sola-revealed {
+  opacity: 1;
+  transform: none;
 }
 
-
-/* =========================================================
-   INTERACTIVE REVEALS
-========================================================= */
-
-.sola-site[
-  data-project-interactive="true"
-]
-[data-sola-reveal] {
-  opacity:
-    0;
-
-  transform:
-    translateY(
-      14px
-    );
-
-  transition:
-    opacity
-    600ms
-    ease,
-    transform
-    720ms
-    cubic-bezier(
-      .18,
-      .78,
-      .22,
-      1
-    );
+@keyframes sola-panel-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .sola-navigation a {
+    transition: padding-left 180ms ease, color 180ms ease;
+  }
 
-.sola-site[
-  data-project-interactive="true"
-]
-[data-sola-reveal].sola-visible {
-  opacity:
-    1;
+  .sola-navigation a:hover {
+    padding-left: 14px;
+    color: #ffffff;
+  }
 
-  transform:
-    translateY(
-      0
-    );
+  .sola-direction-link span:last-child {
+    transition: transform 180ms ease;
+  }
+
+  .sola-direction-link:hover span:last-child {
+    transform: translate(3px, -3px);
+  }
 }
 
-
-/* =========================================================
-   FOCUS
-========================================================= */
-
-.sola-site
-a:focus-visible,
-
-.sola-site
-button:focus-visible {
-  outline:
-    2px
-    solid
-    var(--sola-red);
-
-  outline-offset:
-    3px;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@container sola (
-  max-width: 900px
-) {
-
-  /* -------------------------------------------------------
-     HERO
-  ------------------------------------------------------- */
-
-  .sola-hero {
-    grid-template-columns:
-      minmax(
-        0,
-        1fr
-      )
-      minmax(
-        340px,
-        470px
-      )
-      minmax(
-        0,
-        1fr
-      );
-  }
-
-
-  .sola-hero
-  h1 {
-    font-size:
-      clamp(
-        3.45rem,
-        7cqi,
-        4.8rem
-      );
-  }
-
-
-  .sola-site
-  .sola-hero-intro {
-    margin-top:
-      26px;
-  }
-
-
-  .sola-hero-frame {
-    right:
-      2%;
-
-    width:
-      min(
-        20%,
-        185px
-      );
-  }
-
-
-  .sola-hand-note {
-    right:
-      10%;
-
-    font-size:
-      .6rem;
-  }
-
-
-  .sola-hero-stamp {
-    left:
-      4%;
-
-    width:
-      64px;
-
-    height:
-      64px;
-  }
-
-
-  /* -------------------------------------------------------
-     TABLE
-  ------------------------------------------------------- */
-
-  .sola-table {
-    grid-template-columns:
-      95px
-      1fr;
-
-    gap:
-      28px;
-
-    padding:
-      65px
-      34px;
-  }
-
-
-  .sola-table-circles {
-    grid-column:
-      1
-      /
-      -1;
-
-    width:
-      min(
-        100%,
-        620px
-      );
-
-    min-height:
-      320px;
-
-    justify-self:
-      center;
-
-    margin-top:
-      10px;
-  }
-
-
-  /* -------------------------------------------------------
-     MENU
-  ------------------------------------------------------- */
-
-  .sola-menu {
-    padding:
-      68px
-      34px
-      90px;
-  }
-
-
-  .sola-menu-heading {
-    grid-template-columns:
-      95px
-      1fr;
-  }
-
-
-  .sola-menu-heading
-  > p {
-    grid-column:
-      2;
-
-    max-width:
-      470px;
-  }
-
-
-  /* -------------------------------------------------------
-     NOTEBOOK
-  ------------------------------------------------------- */
-
-  .sola-notebook {
-    padding:
-      68px
-      34px
-      100px;
-  }
-
-
-  .sola-scrapbook {
-    min-height:
-      790px;
-  }
-
-
-  .sola-paper-photo-recipe {
-    width:
-      50%;
-  }
-
-
-  .sola-recipe-card {
-    width:
-      50%;
-  }
-
-
-  /* -------------------------------------------------------
-     GALLERY
-  ------------------------------------------------------- */
-
-  .sola-gallery {
-    padding:
-      68px
-      34px;
-  }
-
-
-  .sola-contact-sheet {
-    grid-template-columns:
-      1fr
-      1fr;
-
-    grid-template-rows:
-      325px
-      230px
-      255px;
-  }
-
-
-  .sola-gallery-card-large {
-    grid-column:
-      1
-      /
-      -1;
-
-    grid-row:
-      auto;
-  }
-
-
-  .sola-gallery-card-wide {
-    grid-column:
-      1
-      /
-      -1;
-  }
-
-
-  /* -------------------------------------------------------
-     VISIT
-  ------------------------------------------------------- */
-
-  .sola-visit {
-    grid-template-columns:
-      .9fr
-      1.1fr;
-
-    gap:
-      40px;
-
-    padding:
-      68px
-      34px;
-  }
-
-
-  .sola-visit-details
-  > div {
-    grid-template-columns:
-      76px
-      1fr;
-  }
-
-
-  .sola-visit-details
-  small {
-    grid-column:
-      2;
-  }
-
-}
-
-
-/* =========================================================
-   SMALL TABLET
-========================================================= */
-
-@container sola (
-  max-width: 700px
-) {
-
-  /* -------------------------------------------------------
-     NOTICE
-  ------------------------------------------------------- */
-
-  .sola-notice {
-    grid-template-columns:
-      1fr
-      1fr;
-
-    padding:
-      0
-      15px;
-  }
-
-
-  .sola-notice
-  span:nth-child(2) {
-    display:
-      none;
-  }
-
-
-  /* -------------------------------------------------------
-     HEADER
-  ------------------------------------------------------- */
-
+@media (max-width: 860px) {
   .sola-header {
-    min-height:
-      103px;
-
-    grid-template-columns:
-      1fr;
-
-    grid-template-rows:
-      64px
-      39px;
-
-    padding:
-      0
-      17px;
+    grid-template-columns: 1fr auto;
   }
 
-
-  .sola-brand {
-    grid-column:
-      1;
+  .sola-header-edition {
+    display: none;
   }
-
-
-  .sola-header-note {
-    display:
-      none;
-  }
-
-
-  .sola-nav {
-    gap:
-      clamp(
-        17px,
-        5cqi,
-        32px
-      );
-  }
-
-
-  /* -------------------------------------------------------
-     HERO
-
-     Copy remains in normal document flow.
-  ------------------------------------------------------- */
 
   .sola-hero {
-    min-height:
-      670px;
-
-    grid-template-columns:
-      1fr;
-
-    grid-template-rows:
-      1fr
-      auto;
-
-    align-items:
-      start;
-
-    padding:
-      52px
-      18px
-      18px;
+    grid-template-rows: minmax(470px, 72vw) auto;
+    min-height: 760px;
   }
-
-
-  .sola-hero::before {
-    top:
-      57%;
-
-    width:
-      32%;
-  }
-
-
-  .sola-hero::after {
-    top:
-      32%;
-
-    width:
-      min(
-        82%,
-        500px
-      );
-
-    height:
-      355px;
-  }
-
 
   .sola-hero-copy {
-    grid-column:
-      1;
-
-    width:
-      min(
-        84%,
-        450px
-      );
-
-    justify-self:
-      center;
-
-    align-self:
-      start;
+    grid-column: 2 / 10;
   }
 
-
-  .sola-hero
-  h1 {
-    font-size:
-      clamp(
-        3.4rem,
-        11cqi,
-        4.8rem
-      );
-
-    line-height:
-      .89;
+  .sola-hero-object {
+    grid-column: 7 / 12;
+    transform: rotate(4deg) translate(7%, 1%);
   }
 
-
-  .sola-site
-  .sola-hero-intro {
-    max-width:
-      330px;
-
-    margin-top:
-      25px;
+  .sola-hero-landscape {
+    margin-top: -12vw;
   }
 
-
-  .sola-hero-frame {
-    top:
-      auto;
-
-    right:
-      7%;
-
-    bottom:
-      57px;
-
-    width:
-      min(
-        30%,
-        175px
-      );
+  .sola-intro {
+    grid-template-columns: 1fr;
+    min-height: 0;
   }
 
-
-  .sola-hand-note {
-    display:
-      none;
+  .sola-intro-copy {
+    border-top: 1px solid var(--sola-rule);
+    border-left: 0;
   }
 
-
-  .sola-hero-stamp {
-    top:
-      13%;
-
-    left:
-      3%;
-
-    width:
-      59px;
-
-    height:
-      59px;
+  .sola-editorial-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(360px, 65vw));
   }
 
-
-  .sola-ornament-top {
-    left:
-      8%;
-
-    bottom:
-      15%;
-
-    font-size:
-      2.2rem;
+  .sola-grid-card--statement,
+  .sola-grid-card--art,
+  .sola-grid-card--landscape {
+    grid-column: 1 / 3;
   }
 
-
-  .sola-hero-foot {
-    width:
-      100%;
+  .sola-grid-card--dark {
+    grid-column: 1 / 2;
   }
 
-
-  /* -------------------------------------------------------
-     TABLE
-  ------------------------------------------------------- */
-
-  .sola-table {
-    grid-template-columns:
-      1fr;
-
-    padding:
-      58px
-      20px;
+  .sola-grid-card--origin {
+    grid-column: 2 / 3;
   }
 
-
-  .sola-section-index {
-    display:
-      flex;
-
-    align-items:
-      center;
-
-    gap:
-      12px;
+  .sola-menu,
+  .sola-notes,
+  .sola-visit {
+    grid-template-columns: 1fr;
   }
-
-
-  .sola-section-index
-  span {
-    margin:
-      0;
-  }
-
-
-  .sola-section-index::after {
-    display:
-      none;
-  }
-
-
-  .sola-table-circles {
-    grid-column:
-      auto;
-  }
-
-
-  /* -------------------------------------------------------
-     MENU
-  ------------------------------------------------------- */
 
   .sola-menu {
-    padding:
-      63px
-      20px
-      82px;
+    min-height: 0;
   }
-
-
-  .sola-menu::before {
-    inset:
-      30px
-      8px;
-  }
-
 
   .sola-menu-heading {
-    grid-template-columns:
-      1fr;
+    min-height: 600px;
   }
 
-
-  .sola-menu-heading
-  > p {
-    grid-column:
-      auto;
-  }
-
-
-  .sola-menu-panel {
-    grid-template-columns:
-      1fr;
-
-    padding:
-      23px;
-  }
-
-
-  .sola-menu-aside {
-    width:
-      min(
-        100%,
-        380px
-      );
-
-    justify-self:
-      center;
-  }
-
-
-  /* -------------------------------------------------------
-     NOTEBOOK
-  ------------------------------------------------------- */
-
-  .sola-notebook {
-    padding:
-      62px
-      20px
-      85px;
-  }
-
-
-  .sola-scrapbook {
-    min-height:
-      880px;
-  }
-
-
-  .sola-paper-photo-recipe {
-    width:
-      56%;
-  }
-
-
-  .sola-recipe-card {
-    top:
-      275px;
-
-    right:
-      0;
-
-    width:
-      57%;
-  }
-
-
-  .sola-written-note {
-    left:
-      0;
-
-    width:
-      42%;
-  }
-
-
-  .sola-paper-photo-interior {
-    width:
-      46%;
-  }
-
-
-  .sola-postmark {
-    right:
-      39%;
-  }
-
-
-  /* -------------------------------------------------------
-     GALLERY
-  ------------------------------------------------------- */
-
-  .sola-gallery {
-    padding:
-      62px
-      20px;
-  }
-
-
-  .sola-gallery-heading {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  .sola-gallery-heading
-  > p {
-    max-width:
-      470px;
-  }
-
-
-  /* -------------------------------------------------------
-     VISIT
-  ------------------------------------------------------- */
-
-  .sola-visit {
-    grid-template-columns:
-      1fr;
-
-    padding:
-      62px
-      20px;
-  }
-
-
+  .sola-menu-book,
+  .sola-notes-heading,
   .sola-visit-art {
-    width:
-      min(
-        100%,
-        510px
-      );
-
-    justify-self:
-      center;
+    border-top: 1px solid var(--sola-rule);
+    border-left: 0;
+    border-right: 0;
   }
-
-
-  .sola-visit-copy {
-    width:
-      min(
-        100%,
-        570px
-      );
-
-    justify-self:
-      center;
-  }
-
-}
-
-
-/* =========================================================
-   PHONE
-========================================================= */
-
-@container sola (
-  max-width: 500px
-) {
-
-  /* -------------------------------------------------------
-     NOTICE
-  ------------------------------------------------------- */
-
-  .sola-notice {
-    min-height:
-      23px;
-
-    grid-template-columns:
-      1fr;
-
-    padding:
-      0
-      10px;
-
-    font-size:
-      .32rem;
-  }
-
-
-  .sola-notice
-  span:first-child,
-
-  .sola-notice
-  span:nth-child(2) {
-    display:
-      none;
-  }
-
-
-  .sola-notice
-  span:last-child {
-    text-align:
-      center;
-  }
-
-
-  /* -------------------------------------------------------
-     HEADER
-  ------------------------------------------------------- */
-
-  .sola-header {
-    min-height:
-      91px;
-
-    grid-template-rows:
-      56px
-      35px;
-
-    padding:
-      0
-      10px;
-  }
-
-
-  .sola-brand {
-    grid-template-columns:
-      31px
-      auto;
-
-    column-gap:
-      7px;
-  }
-
-
-  .sola-brand-mark {
-    width:
-      31px;
-
-    height:
-      31px;
-
-    font-size:
-      .96rem;
-  }
-
-
-  .sola-brand-name {
-    font-size:
-      1.08rem;
-  }
-
-
-  .sola-brand
-  small {
-    font-size:
-      .41rem;
-  }
-
-
-  .sola-nav {
-    min-height:
-      35px;
-
-    gap:
-      clamp(
-        13px,
-        5cqi,
-        22px
-      );
-  }
-
-
-  .sola-nav::before,
-  .sola-nav::after {
-    display:
-      none;
-  }
-
-
-  .sola-nav
-  a {
-    font-size:
-      .51rem;
-  }
-
-
-  /* -------------------------------------------------------
-     HERO
-
-     Mobile remains a tableau but with a clean vertical
-     separation between typography and photograph.
-  ------------------------------------------------------- */
-
-  .sola-hero {
-    min-height:
-      650px;
-
-    padding:
-      39px
-      12px
-      13px;
-  }
-
-
-  .sola-hero::before {
-    display:
-      none;
-  }
-
-
-  .sola-hero::after {
-    top:
-      31%;
-
-    width:
-      90%;
-
-    height:
-      330px;
-  }
-
-
-  .sola-hero-copy {
-    width:
-      calc(
-        100%
-        -
-        24px
-      );
-
-    max-width:
-      370px;
-  }
-
-
-  .sola-overline {
-    margin-bottom:
-      8px;
-
-    font-size:
-      .38rem;
-  }
-
-
-  .sola-hero
-  h1 {
-    font-size:
-      clamp(
-        3rem,
-        14cqi,
-        4rem
-      );
-
-    line-height:
-      .9;
-  }
-
-
-  .sola-hero
-  h1
-  em {
-    margin:
-      .07em
-      0
-      .05em;
-
-    line-height:
-      .94;
-  }
-
-
-  .sola-site
-  .sola-hero-intro {
-    max-width:
-      290px;
-
-    margin-top:
-      23px;
-
-    font-size:
-      .65rem;
-
-    line-height:
-      1.52;
-  }
-
-
-  .sola-hero-actions {
-    gap:
-      8px
-      17px;
-
-    margin-top:
-      17px;
-  }
-
-
-  .sola-primary-link {
-    min-height:
-      33px;
-
-    padding:
-      0
-      10px;
-
-    font-size:
-      .37rem;
-  }
-
-
-  .sola-text-link {
-    font-size:
-      .57rem;
-  }
-
-
-  .sola-hero-frame {
-    right:
-      7%;
-
-    bottom:
-      48px;
-
-    width:
-      42%;
-
-    max-width:
-      160px;
-
-    padding:
-      6px
-      6px
-      23px;
-  }
-
-
-  .sola-hero-frame
-  img {
-    aspect-ratio:
-      1.2
-      /
-      1;
-  }
-
-
-  .sola-hero-frame
-  figcaption {
-    right:
-      6px;
-
-    bottom:
-      5px;
-
-    left:
-      6px;
-  }
-
-
-  .sola-hero-frame
-  figcaption
-  strong {
-    display:
-      none;
-  }
-
-
-  .sola-hand-note {
-    display:
-      none;
-  }
-
-
-  .sola-hero-stamp {
-    top:
-      8%;
-
-    left:
-      2%;
-
-    width:
-      50px;
-
-    height:
-      50px;
-  }
-
-
-  .sola-hero-stamp
-  span {
-    font-size:
-      .6rem;
-  }
-
-
-  .sola-hero-stamp
-  strong {
-    font-size:
-      .42rem;
-  }
-
-
-  .sola-ornament-top {
-    left:
-      7%;
-
-    bottom:
-      12%;
-
-    font-size:
-      1.8rem;
-  }
-
-
-  .sola-hero-foot {
-    grid-template-columns:
-      1fr
-      auto;
-
-    gap:
-      7px;
-
-    font-size:
-      .28rem;
-  }
-
-
-  .sola-hero-foot
-  span:first-child {
-    display:
-      none;
-  }
-
-
-  .sola-hero-foot
-  span:last-child {
-    text-align:
-      left;
-  }
-
-
-  /* -------------------------------------------------------
-     TABLE
-  ------------------------------------------------------- */
-
-  .sola-table {
-    padding:
-      52px
-      13px;
-  }
-
-
-  .sola-table::before {
-    inset:
-      15px
-      5px;
-  }
-
-
-  .sola-section-index
-  span {
-    font-size:
-      1.9rem;
-  }
-
-
-  .sola-drop-copy {
-    font-size:
-      1.13rem;
-  }
-
-
-  .sola-table-circles {
-    min-height:
-      455px;
-  }
-
-
-  .sola-circle-card {
-    width:
-      48%;
-  }
-
-
-  .sola-circle-one {
-    top:
-      0;
-
-    left:
-      0;
-  }
-
-
-  .sola-circle-two {
-    right:
-      0;
-
-    bottom:
-      0;
-  }
-
-
-  .sola-table-note {
-    top:
-      50%;
-
-    width:
-      70%;
-
-    padding:
-      19px
-      15px;
-  }
-
-
-  .sola-table-note
-  strong {
-    font-size:
-      1.32rem;
-  }
-
-
-  /* -------------------------------------------------------
-     MENU
-  ------------------------------------------------------- */
-
-  .sola-menu {
-    padding:
-      53px
-      13px
-      70px;
-  }
-
-
-  .sola-menu::before {
-    inset:
-      19px
-      4px;
-  }
-
-
-  .sola-menu-heading
-  h2 {
-    font-size:
-      clamp(
-        2.6rem,
-        13cqi,
-        3.8rem
-      );
-  }
-
-
-  .sola-menu-heading
-  > p {
-    font-size:
-      .64rem;
-  }
-
 
   .sola-menu-tabs {
-    gap:
-      3px;
-
-    margin-top:
-      27px;
+    margin-bottom: 54px;
   }
 
-
-  .sola-menu-tab {
-    min-width:
-      0;
-
-    flex:
-      1;
-
-    min-height:
-      32px;
-
-    padding:
-      0
-      5px;
-
-    font-size:
-      .56rem;
+  .sola-notes-heading {
+    min-height: 540px;
   }
 
-
-  .sola-menu-panel {
-    margin-top:
-      25px;
-
-    padding:
-      16px;
+  .sola-notes-heading h2 {
+    margin-top: 160px;
   }
-
-
-  .sola-menu-list
-  article {
-    min-height:
-      68px;
-
-    grid-template-columns:
-      20px
-      1fr
-      auto;
-
-    gap:
-      8px;
-  }
-
-
-  .sola-menu-list
-  h3 {
-    font-size:
-      .98rem;
-  }
-
-
-  .sola-menu-list
-  p {
-    max-width:
-      165px;
-
-    font-size:
-      .4rem;
-
-    line-height:
-      1.35;
-  }
-
-
-  .sola-menu-list
-  article
-  > strong {
-    font-size:
-      .65rem;
-  }
-
-
-  .sola-menu-aside {
-    padding:
-      21px
-      17px;
-  }
-
-
-  /* -------------------------------------------------------
-     NOTEBOOK
-
-     Absolute scrapbook becomes sequential on phones.
-  ------------------------------------------------------- */
-
-  .sola-notebook {
-    padding:
-      53px
-      13px
-      66px;
-  }
-
-
-  .sola-notebook::before,
-  .sola-notebook::after {
-    display:
-      none;
-  }
-
-
-  .sola-notebook-heading
-  h2 {
-    font-size:
-      clamp(
-        2.9rem,
-        15cqi,
-        4.2rem
-      );
-  }
-
-
-  .sola-scrapbook {
-    min-height:
-      auto;
-
-    display:
-      flex;
-
-    flex-direction:
-      column;
-
-    gap:
-      22px;
-
-    margin-top:
-      34px;
-  }
-
-
-  .sola-paper-photo,
-
-  .sola-recipe-card,
-
-  .sola-written-note,
-
-  .sola-postmark {
-    position:
-      relative;
-
-    inset:
-      auto;
-
-    width:
-      100%;
-
-    max-width:
-      none;
-  }
-
-
-  .sola-paper-photo-recipe {
-    height:
-      310px;
-
-    transform:
-      rotate(
-        -1.5deg
-      );
-  }
-
-
-  .sola-recipe-card {
-    padding:
-      25px
-      18px;
-
-    transform:
-      rotate(
-        1deg
-      );
-  }
-
-
-  .sola-recipe-card
-  h3 {
-    font-size:
-      2rem;
-  }
-
-
-  .sola-paper-photo-interior {
-    height:
-      260px;
-
-    transform:
-      rotate(
-        1.5deg
-      );
-  }
-
-
-  .sola-written-note {
-    padding:
-      27px
-      20px;
-
-    font-size:
-      2rem;
-  }
-
-
-  .sola-postmark {
-    align-self:
-      center;
-
-    width:
-      84px;
-
-    height:
-      84px;
-
-    flex:
-      0
-      0
-      84px;
-  }
-
-
-  /* -------------------------------------------------------
-     GALLERY
-  ------------------------------------------------------- */
-
-  .sola-gallery {
-    padding:
-      53px
-      13px;
-  }
-
-
-  .sola-gallery-heading
-  h2 {
-    font-size:
-      clamp(
-        2.8rem,
-        15cqi,
-        4.2rem
-      );
-  }
-
-
-  .sola-gallery-heading
-  > p {
-    font-size:
-      .64rem;
-  }
-
-
-  .sola-contact-sheet {
-    grid-template-columns:
-      1fr;
-
-    grid-template-rows:
-      none;
-
-    gap:
-      16px;
-
-    margin-top:
-      30px;
-  }
-
-
-  .sola-gallery-card,
-
-  .sola-gallery-card-large,
-
-  .sola-gallery-card-wide {
-    grid-column:
-      auto;
-
-    grid-row:
-      auto;
-
-    min-height:
-      250px;
-  }
-
-
-  .sola-gallery-card-large {
-    min-height:
-      335px;
-  }
-
-
-  /* -------------------------------------------------------
-     VISIT
-  ------------------------------------------------------- */
-
-  .sola-visit {
-    gap:
-      34px;
-
-    padding:
-      53px
-      13px;
-  }
-
-
-  .sola-visit::before {
-    inset:
-      19px
-      5px;
-  }
-
 
   .sola-visit-art {
-    padding:
-      7px
-      7px
-      27px;
+    min-height: 580px;
   }
 
-
-  .sola-visit-copy
-  h2 {
-    font-size:
-      clamp(
-        3rem,
-        16cqi,
-        4.5rem
-      );
+  .sola-visit-copy {
+    min-height: 700px;
   }
-
-
-  .sola-visit-details {
-    margin:
-      25px
-      0
-      22px;
-  }
-
-
-  .sola-visit-details
-  > div {
-    min-height:
-      74px;
-
-    grid-template-columns:
-      70px
-      1fr;
-  }
-
-
-  /* -------------------------------------------------------
-     FOOTER
-  ------------------------------------------------------- */
 
   .sola-footer {
-    padding:
-      43px
-      13px
-      21px;
+    grid-template-columns: 1fr 1fr;
   }
 
-
-  .sola-footer-name {
-    font-size:
-      31cqi;
+  .sola-footer > a {
+    grid-column: 1 / -1;
   }
-
-
-  .sola-footer-meta {
-    grid-template-columns:
-      1fr;
-
-    gap:
-      4px;
-
-    margin-top:
-      26px;
-  }
-
-
-  .sola-footer-meta
-  span:nth-child(2),
-
-  .sola-footer-meta
-  span:last-child {
-    text-align:
-      left;
-  }
-
 }
 
-
-/* =========================================================
-   VERY NARROW
-========================================================= */
-
-@container sola (
-  max-width: 350px
-) {
-
-  .sola-nav {
-    gap:
-      10px;
+@media (max-width: 560px) {
+  .sola-header {
+    min-height: 74px;
+    padding: 13px 18px;
   }
 
-
-  .sola-nav
-  a {
-    font-size:
-      .45rem;
+  .sola-wordmark-copy,
+  .sola-menu-toggle-label {
+    display: none;
   }
 
+  .sola-wordmark-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 23px;
+  }
+
+  .sola-menu-toggle {
+    min-width: 30px;
+  }
+
+  .sola-navigation {
+    padding: 90px 20px 48px;
+  }
+
+  .sola-navigation a {
+    grid-template-columns: 32px 1fr;
+    padding: 13px 0;
+    font-size: clamp(2.2rem, 13vw, 4.2rem);
+  }
 
   .sola-hero {
-    min-height:
-      630px;
+    grid-template-rows: 430px auto;
+    min-height: 650px;
+    padding-top: 28px;
   }
 
-
-  .sola-hero
-  h1 {
-    font-size:
-      14cqi;
+  .sola-hero-copy {
+    grid-column: 2 / 12;
+    align-self: start;
+    padding-top: 42px;
   }
 
-
-  .sola-hero-frame {
-    width:
-      46%;
+  .sola-kicker {
+    margin-bottom: 18px;
   }
 
-
-  .sola-menu-list
-  p {
-    max-width:
-      140px;
+  .sola-hero h1 {
+    font-size: clamp(3.8rem, 20vw, 6.4rem);
+    line-height: 0.77;
   }
 
+  .sola-hero h1 span:nth-child(3) {
+    transform: translateX(0.17em);
+  }
+
+  .sola-hero-hours {
+    width: 52%;
+    margin-top: 17px;
+  }
+
+  .sola-hero-object {
+    grid-column: 7 / 13;
+    align-self: end;
+    transform: rotate(5deg) translate(13%, 4%);
+  }
+
+  .sola-hero-object figcaption {
+    display: none;
+  }
+
+  .sola-hero-landscape {
+    margin-top: -48px;
+  }
+
+  .sola-hero-landscape img {
+    min-height: 230px;
+    object-position: 66% bottom;
+  }
+
+  .sola-hero-landscape figcaption span:last-child {
+    display: none;
+  }
+
+  .sola-intro > *,
+  .sola-menu-heading,
+  .sola-menu-book,
+  .sola-notes-heading,
+  .sola-visit-copy {
+    padding: 30px 20px;
+  }
+
+  .sola-intro-copy {
+    grid-template-columns: 1fr;
+    gap: 46px;
+  }
+
+  .sola-intro h2,
+  .sola-menu h2,
+  .sola-notes h2,
+  .sola-visit h2 {
+    font-size: clamp(3.1rem, 16vw, 5.2rem);
+  }
+
+  .sola-editorial-grid {
+    display: block;
+  }
+
+  .sola-grid-card {
+    min-height: 420px;
+    padding: 26px 20px;
+    border-right: 0;
+  }
+
+  .sola-grid-card--art,
+  .sola-grid-card--landscape {
+    padding: 0;
+  }
+
+  .sola-grid-card--dark {
+    min-height: 460px;
+  }
+
+  .sola-menu-heading {
+    min-height: 520px;
+  }
+
+  .sola-menu-heading h2 {
+    margin-top: auto;
+  }
+
+  .sola-menu-tabs {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .sola-menu-row {
+    padding: 19px 0;
+  }
+
+  .sola-menu-row strong {
+    font-size: 1.35rem;
+  }
+
+  .sola-notes-heading {
+    min-height: 440px;
+  }
+
+  .sola-notes-heading h2 {
+    margin-top: 120px;
+  }
+
+  .sola-note-list article {
+    min-height: 300px;
+    padding: 28px 20px;
+  }
+
+  .sola-note-list time {
+    top: 29px;
+    right: 20px;
+  }
+
+  .sola-visit-art {
+    min-height: 420px;
+  }
+
+  .sola-visit-copy {
+    min-height: 680px;
+  }
+
+  .sola-visit-details {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .sola-visit-details p:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .sola-footer {
+    display: flex;
+    min-height: 280px;
+    padding: 44px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  .sola-footer > a {
+    margin-bottom: auto;
+    font-size: 28vw;
+  }
 }
 
-
-/* =========================================================
-   POINTER
-========================================================= */
-
-@media (
-  pointer: fine
-) {
-
-  .sola-circle-card,
-
-  .sola-paper-photo,
-
-  .sola-gallery-card {
-    transition:
-      box-shadow
-      220ms
-      ease;
-  }
-
-
-  .sola-circle-card:hover {
-    box-shadow:
-      9px
-      11px
-      0
-      rgba(
-        56,
-        37,
-        26,
-        .1
-      );
-  }
-
-
-  .sola-paper-photo:hover {
-    box-shadow:
-      11px
-      13px
-      0
-      rgba(
-        56,
-        37,
-        26,
-        .11
-      );
-  }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-
+@media (prefers-reduced-motion: reduce) {
   .sola-site *,
   .sola-site *::before,
   .sola-site *::after {
-    animation:
-      none !important;
-
-    transition:
-      none !important;
-
-    scroll-behavior:
-      auto !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
-
-
-  .sola-site
-  [data-sola-reveal] {
-    opacity:
-      1 !important;
-
-    transform:
-      none !important;
-  }
-
 }

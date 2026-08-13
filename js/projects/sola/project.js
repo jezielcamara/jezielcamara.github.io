@@ -90,7 +90,7 @@ export const solaProject =
 
     styles:
       [
-        "css/sola.css?v=20260814-1"
+        "css/sola.css?v=20260814-2"
       ],
 
 
@@ -102,7 +102,7 @@ export const solaProject =
       {
 
         pages:
-          "Menu / Notebook / Gallery / Visit"
+          "Story / Menu / Field Notes / Visit"
 
       },
 
@@ -148,7 +148,7 @@ export const solaProject =
           1000,
 
         intro:
-          "Drag the slider and watch the Sola Cafe website reorganize its antique composition for desktop, tablet, and phone.",
+          "Drag the slider and watch Sola's editorial grid reorganize its typography, engraved artwork, menu, and visit details for desktop, tablet, and phone.",
 
 
         phone:
@@ -161,7 +161,7 @@ export const solaProject =
               "Phone",
 
             text:
-              "Phone: Sola becomes a compact vertical café journal while preserving its antique typography, photographs, menu, notebook, gallery, and visit information."
+              "Phone: Sola becomes a compact vertical cafe journal with large display type, stacked engraved artwork, menu categories, field notes, and visit information."
 
           },
 
@@ -176,7 +176,7 @@ export const solaProject =
               "Tablet",
 
             text:
-              "Tablet: Sola reduces the scale of its archival composition, reorganizes floating ephemera, and keeps the menu and collected photography readable."
+              "Tablet: Sola turns its four-column editorial system into paired panels while keeping the engravings, menu, and field notes readable."
 
           },
 
@@ -188,7 +188,7 @@ export const solaProject =
               "Desktop",
 
             text:
-              "Desktop: Sola uses its full antique tabletop composition with layered photography, paper details, ornamental typography, and wider editorial layouts."
+              "Desktop: Sola uses the full parchment-and-ink editorial system with oversized typography, engraved cafe artwork, and an asymmetrical modular grid."
 
           }
 
