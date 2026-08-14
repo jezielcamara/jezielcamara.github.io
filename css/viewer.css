@@ -809,3 +809,205 @@ i {
   }
 
 }
+
+
+/* =========================================================
+   NEUTRAL MACOS-STYLE WINDOW
+
+   The Work viewer is one browser window, not a portfolio
+   card wrapped around a second browser frame. The red
+   traffic-light control is the real accessible close button.
+========================================================= */
+
+.portfolio-project-viewer {
+  width: min(94vw, 1440px);
+  height: min(92dvh, 980px);
+  color: #202124;
+  background: #d9d9da;
+  border: 1px solid #8d8e91;
+  border-radius: 12px;
+  box-shadow: 0 38px 120px rgba(0, 0, 0, .66), 0 1px 0 rgba(255, 255, 255, .8) inset;
+}
+
+.portfolio-project-viewer::backdrop {
+  background: rgba(7, 8, 10, .82);
+  backdrop-filter: blur(9px) saturate(.75);
+  -webkit-backdrop-filter: blur(9px) saturate(.75);
+}
+
+.portfolio-project-viewer-topbar {
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 520px) 1fr;
+  gap: 18px;
+  padding: 0 18px;
+  color: #303134;
+  background: linear-gradient(#eeeeef, #d7d7d8);
+  border-bottom: 1px solid #b2b2b4;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .7) inset;
+}
+
+.portfolio-project-viewer-window-controls {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-self: start;
+}
+
+.portfolio-project-viewer-window-controls > i,
+.portfolio-project-viewer .portfolio-project-viewer-close {
+  width: 13px;
+  min-width: 13px !important;
+  height: 13px;
+  min-height: 13px !important;
+  display: grid;
+  flex: 0 0 13px;
+  padding: 0 !important;
+  place-items: center;
+  overflow: hidden;
+  color: rgba(45, 0, 0, .7);
+  background: #ff5f57;
+  border: 1px solid #e0443e;
+  border-radius: 50%;
+  box-shadow: none;
+  line-height: 1;
+  transform: none;
+}
+
+.portfolio-project-viewer-window-controls > i:nth-of-type(1) {
+  background: #febc2e;
+  border-color: #e0a322;
+}
+
+.portfolio-project-viewer-window-controls > i:nth-of-type(2) {
+  background: #28c840;
+  border-color: #1eaa34;
+}
+
+.portfolio-project-viewer .portfolio-project-viewer-close span {
+  color: #71110e;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  transform: none;
+}
+
+.portfolio-project-viewer .portfolio-project-viewer-close:hover,
+.portfolio-project-viewer .portfolio-project-viewer-close:focus-visible {
+  color: #71110e;
+  background: #ff5f57;
+  border-color: #c9322d;
+  box-shadow: none;
+  transform: none;
+}
+
+.portfolio-project-viewer .portfolio-project-viewer-close:hover span,
+.portfolio-project-viewer .portfolio-project-viewer-close:focus-visible span {
+  color: #71110e;
+  opacity: 1;
+  transform: none;
+}
+
+.portfolio-project-viewer .portfolio-project-viewer-close:focus-visible {
+  outline: 1px solid rgba(29, 30, 33, .8);
+  outline-offset: 2px;
+}
+
+.portfolio-project-viewer-address {
+  width: 100%;
+  height: 29px;
+  min-width: 0;
+  align-items: center;
+  align-self: center;
+  display: flex;
+  gap: 9px;
+  justify-self: center;
+  padding: 0 12px;
+  color: #77797d;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid #c5c5c7;
+  border-radius: 7px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .04) inset;
+  font-size: .5rem;
+  letter-spacing: .035em;
+}
+
+.portfolio-project-viewer-address > span:first-child {
+  color: #9a9b9e;
+}
+
+.portfolio-project-viewer-url {
+  min-width: 0;
+  overflow: hidden;
+  justify-self: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portfolio-project-viewer-identity {
+  min-width: 0;
+  justify-content: flex-end;
+  justify-self: end;
+  gap: 10px;
+}
+
+.portfolio-project-viewer-title {
+  color: #2b2d31;
+  font-size: .57rem;
+  letter-spacing: .05em;
+}
+
+.portfolio-project-viewer-description {
+  display: none;
+}
+
+.portfolio-project-viewer-state {
+  color: #77797d;
+  font-size: .43rem;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.portfolio-project-viewer-legacy-close,
+.portfolio-project-viewer-browserbar {
+  display: none !important;
+}
+
+.portfolio-project-viewer-body {
+  padding: 0;
+  background: #fff;
+}
+
+.portfolio-project-viewer-browser {
+  max-width: none;
+  grid-template-rows: minmax(0, 1fr);
+  margin: 0;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .portfolio-project-viewer {
+    width: calc(100vw - 12px);
+    height: calc(100dvh - 12px);
+    border-radius: 10px;
+  }
+
+  .portfolio-project-viewer-topbar {
+    min-height: 48px;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    padding: 0 14px;
+  }
+
+  .portfolio-project-viewer-identity {
+    display: none;
+  }
+
+  .portfolio-project-viewer-address {
+    height: 28px;
+  }
+}

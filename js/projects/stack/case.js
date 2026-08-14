@@ -1,6 +1,6 @@
 import { ProjectFrame } from "../../core/project-frame.js";
 
-export const caseStyles = Object.freeze(["css/stack-case-study.css?v=20260814-1"]);
+export const caseStyles = Object.freeze(["css/stack-case-study.css?v=20260814-2"]);
 
 export const caseMeta = Object.freeze({
   modeClass: "stack-active",
