@@ -128,7 +128,7 @@ function loadViewerModule() {
 
   viewerModulePromise =
     import(
-      "./viewer.js?v=20260814-2"
+      "./viewer.js?v=20260814-4"
     )
       .then(
         (module) => {

@@ -36,7 +36,7 @@
 
 import "./projects/north/project.js";
 import "./projects/sola/project.js?v=20260814-2";
-import "./projects/stack/project.js?v=20260814-1";
+import "./projects/stack/project.js?v=20260814-4";
 
 
 /* =========================================================
@@ -59,7 +59,7 @@ import {
 
 import {
   initWork
-} from "./features/work.js?v=20260814-2";
+} from "./features/work.js?v=20260814-4";
 
 
 import {

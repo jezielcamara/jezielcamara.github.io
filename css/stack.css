@@ -44,14 +44,14 @@
 .stack-actions span { color: var(--stack-bronze); }
 .stack-menu { display: none; }
 
-.stack-hero { background: #13110f; color: var(--stack-ivory); height: min(780px, 84vh); min-height: 570px; overflow: hidden; position: relative; }
+.stack-hero { background: #13110f; color: var(--stack-ivory); height: calc(100svh - 72px); max-height: 780px; min-height: 570px; overflow: hidden; position: relative; }
 .stack-hero > img { height: 100%; object-fit: cover; width: 100%; }
 .stack-hero__shade { background: linear-gradient(90deg, #0d0d0df2 0%, #0d0d0da5 32%, transparent 66%); inset: 0; position: absolute; }
-.stack-hero__content { left: clamp(24px, 7vw, 110px); max-width: 710px; position: absolute; top: 50%; transform: translateY(-44%); }
+.stack-hero__content { left: clamp(24px, 7vw, 110px); max-width: 710px; position: absolute; top: 50%; transform: translateY(-50%); }
 .stack-hero__content > p, .stack-hero__caption, .stack-section-head > p, .stack-builder__panel > p, .stack-pdp__details > p:first-child, .stack-journal__lead > p:first-child {
   font-size: 9px; letter-spacing: .17em; text-transform: uppercase;
 }
-.stack-hero h1 { font-size: clamp(52px, 7.1vw, 112px); margin: 22px 0 38px; }
+.stack-hero h1 { font-size: clamp(52px, min(7.1vw, 11svh), 112px); margin: 22px 0 38px; }
 .stack-link { align-items: center; border-bottom: 1px solid currentColor; display: inline-flex; font-size: 10px; gap: 55px; letter-spacing: .12em; padding: 0 0 10px; text-transform: uppercase; }
 .stack-link span { color: var(--stack-bronze); }
 .stack-link--light { color: var(--stack-ivory); }
@@ -167,8 +167,9 @@
 .stack-cart > footer { border-top: 1px solid #aaa69f; display: grid; gap: 13px; margin-top: 16px; padding-top: 20px; }
 .stack-cart > footer > span { display: flex; justify-content: space-between; }.stack-cart > footer small { color: #77726b; font-size: 8px; text-align: center; text-transform: uppercase; }
 
-.stack-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-.stack-reveal.is-visible { opacity: 1; transform: none; }
+.stack-reveal { opacity: 1; transform: none; }
+.stack-site.stack-motion-ready .stack-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.stack-site.stack-motion-ready .stack-reveal.is-visible { opacity: 1; transform: none; }
 
 @media (max-width: 860px) {
   .stack-header { grid-template-columns: 1fr auto auto; }

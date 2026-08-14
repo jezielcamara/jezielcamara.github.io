@@ -65,7 +65,7 @@ const VIEWER_STYLE_ID =
 
 
 const VIEWER_STYLESHEET =
-  "css/viewer.css";
+  "css/viewer.css?v=20260814-2";
 
 
 const DEFAULT_VIEWPORT_WIDTH =
@@ -290,6 +290,37 @@ function createViewerShell() {
 
       <header class="portfolio-project-viewer-topbar">
 
+        <div
+          class="portfolio-project-viewer-window-controls"
+          aria-label="Window controls"
+        >
+
+          <button
+            class="portfolio-project-viewer-close"
+            type="button"
+            aria-label="Close project website preview"
+            title="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <i aria-hidden="true"></i>
+          <i aria-hidden="true"></i>
+
+        </div>
+
+
+        <div class="portfolio-project-viewer-address">
+
+          <span aria-hidden="true">—</span>
+
+          <span class="portfolio-project-viewer-url">
+            project.example
+          </span>
+
+        </div>
+
+
         <div class="portfolio-project-viewer-identity">
 
           <span class="portfolio-project-viewer-title">
@@ -300,11 +331,15 @@ function createViewerShell() {
             WEBSITE PREVIEW / CONCEPT PROJECT
           </small>
 
+          <strong class="portfolio-project-viewer-state">
+            CONCEPT PROJECT
+          </strong>
+
         </div>
 
 
         <button
-          class="portfolio-project-viewer-close portfolio-button"
+          class="portfolio-project-viewer-legacy-close portfolio-button"
           type="button"
           aria-label="Close project website preview"
         >

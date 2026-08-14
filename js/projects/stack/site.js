@@ -228,6 +228,8 @@ export function initializeStackSite(root) {
   const $$ = (selector) => [...root.querySelectorAll(selector)];
   const layer = $("[data-stack-cart-layer]");
 
+  root.classList.add("stack-motion-ready");
+
   function smoothLink(event) {
     const href = event.currentTarget.getAttribute("href");
     const target = href?.startsWith("#") ? root.querySelector(href) : null;
@@ -335,5 +337,8 @@ export function initializeStackSite(root) {
 
   updateBuilder();
   renderCart();
-  return () => controller.abort();
+  return () => {
+    root.classList.remove("stack-motion-ready");
+    controller.abort();
+  };
 }

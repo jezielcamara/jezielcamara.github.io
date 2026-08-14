@@ -10,7 +10,7 @@ export const stackProject = ProjectRegistry.register({
   type: "MODULAR FURNITURE",
   url: "stack-system.example",
   featured: true,
-  styles: ["css/stack.css?v=20260814-1"],
+  styles: ["css/stack.css?v=20260814-3"],
   work: { pages: "Shop / Builder / Product / Journal" },
   viewer: {
     description: "SELF-INITIATED ECOMMERCE CONCEPT / INTERACTIVE PROTOTYPE",
@@ -28,5 +28,5 @@ export const stackProject = ProjectRegistry.register({
   },
   createSite: createStackSite,
   initialize: initializeStackSite,
-  loadCase: () => import("./case.js?v=20260814-1")
+  loadCase: () => import("./case.js?v=20260814-2")
 });
