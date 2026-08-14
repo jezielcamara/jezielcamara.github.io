@@ -36,6 +36,7 @@
 
 import "./projects/north/project.js";
 import "./projects/sola/project.js?v=20260814-2";
+import "./projects/stack/project.js?v=20260814-1";
 
 
 /* =========================================================
