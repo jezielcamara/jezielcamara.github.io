@@ -902,13 +902,22 @@ body.rail-lime .rail-nav a span {
 
 .project-caption-actions {
   display:
-    flex;
+    grid;
 
-  flex-direction:
-    column;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
 
   align-items:
-    flex-end;
+    stretch;
+
+  justify-content:
+    end;
 
   gap:
     11px;
@@ -916,6 +925,9 @@ body.rail-lime .rail-nav a span {
 
 
 .project-caption-actions p {
+  grid-column:
+    1 / -1;
+
   margin:
     0;
 
@@ -924,6 +936,16 @@ body.rail-lime .rail-nav a span {
 
   font-size:
     .64rem;
+
+  text-align:
+    right;
+}
+
+
+.project-caption-actions
+.portfolio-button {
+  width:
+    100%;
 }
 
 

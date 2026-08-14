@@ -2022,7 +2022,21 @@ button:disabled,
       100%;
 
     align-items:
-      flex-start;
+      stretch;
+  }
+
+
+  .project-caption-actions
+  p {
+    text-align:
+      left;
+  }
+
+
+  .project-caption-actions
+  .portfolio-button {
+    min-width:
+      0;
   }
 
 
