@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="8" fill="#3157e8"/>
-  <path d="M17 16h12v27c0 9-5 14-14 14H9V46h5c2 0 3-1 3-4V16Zm19 0h19v11H48v19h7v11H36V16Z" fill="#dfff52"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="favicon-title">
+  <title id="favicon-title">Jeziel Camara</title>
+  <rect x="58" y="56" width="414" height="414" rx="94" fill="#ff5a56"/>
+  <rect x="30" y="24" width="414" height="414" rx="94" fill="#dfff52" stroke="#11130f" stroke-width="8"/>
+  <path d="M134 142h86v205l-47 47H82v-76h52V142Z" fill="#11130f"/>
+  <path d="M295 142h127v76h-73v100h73v76H295l-47-47V189l47-47Z" fill="#11130f"/>
 </svg>
