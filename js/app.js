@@ -55,7 +55,7 @@ import {
 
 import {
   initHero
-} from "./features/hero.js";
+} from "./features/hero.js?v=20260816-1";
 
 
 import {
