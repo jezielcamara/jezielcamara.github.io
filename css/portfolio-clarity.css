@@ -70,13 +70,13 @@ main p,
   margin: 0;
   display: flex;
   align-items: center;
-  gap: .4em;
+  gap: .3em;
   color: var(--ink);
   background: var(--paper);
   border-top: 1px solid var(--ink);
-  font-size: .43rem;
+  font-size: .36rem;
   font-weight: 500;
-  letter-spacing: .055em;
+  letter-spacing: .04em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -86,7 +86,7 @@ main p,
 }
 
 .photo-credit--hero {
-  padding: 5px 8px;
+  padding: 4px 6px;
 }
 
 .window-portrait {
@@ -103,7 +103,7 @@ main p,
 .photo-credit--about {
   flex: 0 0 auto;
   justify-content: flex-end;
-  padding: 7px 10px;
+  padding: 5px 8px;
 }
 
 @media (max-width: 950px) {
@@ -117,6 +117,20 @@ main p,
   .about-photo {
     height: 440px;
     min-height: 440px;
+  }
+
+  .photo-credit {
+    gap: .22em;
+    font-size: .28rem;
+    letter-spacing: .025em;
+  }
+
+  .photo-credit--hero {
+    padding: 3px 5px;
+  }
+
+  .photo-credit--about {
+    padding: 4px 6px;
   }
 }
 
