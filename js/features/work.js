@@ -183,7 +183,7 @@ function loadCaseDialogModule() {
 
   caseDialogModulePromise =
     import(
-      "./case-dialog.js?v=20260816-1"
+      "./case-dialog.js?v=20260816-2"
     )
       .then(
         (module) => {
@@ -420,6 +420,75 @@ function createActionButton({
 }
 
 
+function createExternalWebsiteLink(
+  project
+) {
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  link.className =
+    "case-open project-view-launch portfolio-button";
+
+
+  link.href =
+    project.work.websiteUrl;
+
+
+  link.target =
+    "_blank";
+
+
+  link.rel =
+    "noopener noreferrer";
+
+
+  link.dataset.reelNoDrag =
+    "true";
+
+
+  link.setAttribute(
+    "aria-label",
+    `View ${project.name} live website (opens in a new tab)`
+  );
+
+
+  link.append(
+    document.createTextNode(
+      "View website"
+    )
+  );
+
+
+  const arrow =
+    document.createElement(
+      "span"
+    );
+
+
+  arrow.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  arrow.textContent =
+    "↗";
+
+
+  link.append(
+    arrow
+  );
+
+
+  return link;
+
+}
+
+
 /* =========================================================
    PROJECT CARD
 ========================================================= */
@@ -617,6 +686,16 @@ function createProjectCard(
    */
 
   if (
+    project.work.websiteUrl
+  ) {
+
+    actions.append(
+      createExternalWebsiteLink(
+        project
+      )
+    );
+
+  } else if (
     project.viewer.enabled !==
     false
   ) {
