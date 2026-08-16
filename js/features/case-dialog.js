@@ -241,6 +241,12 @@ function getCaseElements() {
     );
 
 
+  const caseBuiltWith =
+    dialog?.querySelector(
+      "#case-built-with"
+    );
+
+
   const previewHost =
     dialog?.querySelector(
       "[data-case-preview-host]"
@@ -264,6 +270,7 @@ function getCaseElements() {
     !caseSummary ||
     !caseGoal ||
     !casePages ||
+    !caseBuiltWith ||
     !previewHost ||
     !bodyHost
   ) {
@@ -295,6 +302,8 @@ function getCaseElements() {
       caseGoal,
 
       casePages,
+
+      caseBuiltWith,
 
       previewHost,
 
@@ -787,6 +796,11 @@ function populateCaseMetadata(
     meta.pages ||
     project.work.pages ||
     project.type;
+
+
+  caseElements.caseBuiltWith.textContent =
+    meta.builtWith ||
+    "HTML / CSS / JavaScript";
 
 
   caseElements.closeButton.setAttribute(

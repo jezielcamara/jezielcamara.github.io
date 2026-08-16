@@ -1,0 +1,224 @@
+.argyll-case-study {
+  --argyll-blue: #5f9dca;
+  --argyll-aqua: #63c7c5;
+  --argyll-ink: #202a31;
+  color: var(--argyll-ink);
+  background: #f7fafb;
+}
+
+.argyll-case-study h2,
+.argyll-case-study p,
+.argyll-case-study figure,
+.argyll-case-study dl,
+.argyll-case-study ol {
+  margin: 0;
+}
+
+.argyll-case-study h2 {
+  max-width: 18ch;
+  font-size: clamp(2.2rem, 5vw, 5.6rem);
+  line-height: .96;
+  letter-spacing: -.045em;
+}
+
+.argyll-case-label {
+  color: #477ca2;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.argyll-case-intro {
+  display: grid;
+  grid-template-columns: .65fr 1.6fr .8fr;
+  gap: clamp(30px, 5vw, 80px);
+  padding: clamp(55px, 9vw, 120px) clamp(24px, 7vw, 100px);
+  align-items: start;
+}
+
+.argyll-case-intro > div > p,
+.argyll-case-system > div > p,
+.argyll-case-result > p {
+  max-width: 62ch;
+  margin-top: 28px;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.argyll-case-intro dl {
+  display: grid;
+  gap: 20px;
+}
+
+.argyll-case-intro dl div {
+  padding-top: 12px;
+  border-top: 1px solid #bdd1dc;
+}
+
+.argyll-case-intro dt {
+  color: #59717d;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.argyll-case-intro dd {
+  margin: 7px 0 0;
+  line-height: 1.4;
+}
+
+.argyll-case-homepage {
+  background: #d9edf2;
+}
+
+.argyll-case-homepage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.argyll-case-homepage figcaption {
+  padding: 12px clamp(24px, 7vw, 100px);
+  color: #4d6571;
+  font-size: .68rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.argyll-case-principles {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(45px, 8vw, 130px);
+  padding: clamp(70px, 11vw, 150px) clamp(24px, 7vw, 100px);
+}
+
+.argyll-case-principles h2 {
+  margin-top: 18px;
+}
+
+.argyll-case-principles ol {
+  padding: 0;
+  list-style: none;
+}
+
+.argyll-case-principles li {
+  display: grid;
+  grid-template-columns: 46px minmax(130px, .75fr) 1fr;
+  gap: 18px;
+  padding: 24px 0;
+  border-top: 1px solid #bdd1dc;
+}
+
+.argyll-case-principles li > span {
+  color: var(--argyll-blue);
+  font-size: .72rem;
+}
+
+.argyll-case-principles li p {
+  color: #51636d;
+  line-height: 1.55;
+}
+
+.argyll-case-system {
+  display: grid;
+  grid-template-columns: .5fr 1fr;
+  gap: clamp(35px, 7vw, 110px);
+  padding: clamp(70px, 10vw, 140px) clamp(24px, 7vw, 100px);
+  color: white;
+  background: #234657;
+}
+
+.argyll-case-swatches {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 25px;
+}
+
+.argyll-case-swatches span {
+  min-height: 150px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  color: var(--argyll-ink);
+  background: var(--swatch);
+  border: 1px solid rgba(32, 42, 49, .18);
+  font-size: .7rem;
+}
+
+.argyll-case-swatches b {
+  font-size: .85rem;
+}
+
+.argyll-case-result {
+  padding: clamp(75px, 12vw, 170px) clamp(24px, 12vw, 170px);
+  text-align: center;
+  background: #e6f3f5;
+}
+
+.argyll-case-result h2,
+.argyll-case-result > p {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.argyll-case-result h2 {
+  margin-top: 18px;
+}
+
+.argyll-case-result a {
+  display: inline-flex;
+  gap: 30px;
+  margin-top: 38px;
+  padding: 16px 22px;
+  color: white;
+  background: #3157e8;
+  border: 1px solid #3157e8;
+  text-decoration: none;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.argyll-case-result a:hover,
+.argyll-case-result a:focus-visible {
+  color: #3157e8;
+  background: white;
+}
+
+.argyll-case-preview {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: white;
+}
+
+.argyll-case-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (max-width: 760px) {
+  .argyll-case-intro,
+  .argyll-case-principles,
+  .argyll-case-system {
+    grid-template-columns: 1fr;
+  }
+
+  .argyll-case-principles li {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .argyll-case-principles li p {
+    grid-column: 2;
+  }
+
+  .argyll-case-swatches {
+    grid-column: 1;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
