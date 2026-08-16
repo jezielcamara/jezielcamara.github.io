@@ -821,7 +821,7 @@ export function initPageMotion() {
   /* =======================================================
      HERO VISIBILITY OBSERVER
 
-     This replaces the legacy permanent Hero rAF loop.
+     Hero motion runs only while the section is visible.
 
      When the Hero leaves the relevant viewport area:
      - pointer interpolation stops
@@ -1937,7 +1937,7 @@ export function initPageMotion() {
      REVEAL PREPARATION
 
      Work cards already exist by the time Page Motion starts,
-     so the dynamically generated project slides are included.
+     so the dynamically rendered project slides are included.
   ======================================================= */
 
   detailElements.forEach(

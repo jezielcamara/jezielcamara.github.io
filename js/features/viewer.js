@@ -338,18 +338,6 @@ function createViewerShell() {
         </div>
 
 
-        <button
-          class="portfolio-project-viewer-legacy-close portfolio-button"
-          type="button"
-          aria-label="Close project website preview"
-        >
-          Close
-
-          <span aria-hidden="true">
-            ×
-          </span>
-        </button>
-
       </header>
 
 

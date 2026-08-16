@@ -34,7 +34,7 @@ function caseMarkup() {
         <aside><span>Design question</span><strong>How might modularity feel desirable before it feels technical?</strong></aside>
       </section>
 
-      <section class="stack-case-image stack-case-image--wide"><img src="images/stack/stack-hero.webp" alt="STACK's cinematic modular living environment"><div><span>Campaign image / Living system</span><span>Original AI-assisted art direction</span></div></section>
+      <section class="stack-case-image stack-case-image--wide"><img src="images/stack/stack-hero.webp" alt="STACK's cinematic modular living environment"><div><span>Campaign image / Living system</span><span>Original campaign art direction</span></div></section>
 
       <section class="stack-case-system">
         <div class="stack-case-system__title"><p class="stack-case-eyebrow">03 / Visual system</p><h2>Dark, exact, and built on contrast.</h2></div>

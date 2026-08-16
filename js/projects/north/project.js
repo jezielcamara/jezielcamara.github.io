@@ -79,19 +79,6 @@ export const northProject =
 
     /* -----------------------------------------------------
        PROJECT-OWNED STYLES
-
-       TEMPORARY DURING THE ARCHITECTURE MIGRATION.
-
-       North currently uses:
-
-       css/north-home.css
-       css/north-home-ph.css
-
-       These remain separate for now so this migration does
-       not alter North's approved visual design.
-
-       They can be consolidated later without changing the
-       project manifest or frame system.
     ----------------------------------------------------- */
 
     styles:
@@ -227,7 +214,7 @@ export const northProject =
     /* -----------------------------------------------------
        LAZY CASE STUDY
 
-       case.js will be migrated later.
+       The case study is loaded only when requested.
 
        Dynamic import means this file is not requested until
        the visitor actually opens the North case study.

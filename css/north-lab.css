@@ -1,9 +1,6 @@
 /* =========================================================
    PORTFOLIO / RESPONSIVE PROJECT LAB
 
-   Compatibility filename:
-   css/north-lab.css
-
    This file no longer contains North Home design rules.
 
    RESPONSIBILITY:
@@ -153,7 +150,7 @@ span {
 }
 
 
-/* Remove any legacy demo presentation behavior */
+/* Keep the embedded layout inside its assigned frame. */
 
 #responsive-preview
 #demo-site.portfolio-lab-project-host::before,

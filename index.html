@@ -102,6 +102,11 @@
     href="css/ui-system.css?v=20260814-3"
   >
 
+  <link
+    rel="stylesheet"
+    href="css/portfolio-clarity.css?v=20260816-2"
+  >
+
 </head>
 
 
@@ -426,7 +431,7 @@
 
       <a
         class="hero-contact portfolio-button"
-        href="mailto:camarajeziel@gmail.com?subject=Website%20Inquiry"
+        href="#contact"
       >
 
         Start a project
@@ -543,7 +548,7 @@
           </span>
 
           <h2>
-            Open the work.
+            Website projects.
           </h2>
 
         </div>
@@ -616,7 +621,7 @@
 
 
           <h2>
-            One website.<br>
+            One website.
 
             <em>
               Every screen.
@@ -1149,8 +1154,7 @@
 
 
         <h2>
-          Let’s give it<br>
-          a better home<br>
+          Let’s give it a better home
 
           <em>
             online.
@@ -1159,23 +1163,66 @@
 
 
         <p>
-          Tell me what your business does
-          and what you need the website to do.
+          Tell me about your business and what the website
+          needs to help you accomplish.
         </p>
 
 
-        <a
-          class="contact-email"
-          href="mailto:camarajeziel@gmail.com?subject=Website%20Inquiry&body=Business%20name%3A%0AWhat%20we%20do%3A%0APages%20needed%3A%0ATarget%20date%3A"
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="https://formsubmit.co/camarajeziel@gmail.com"
+          method="post"
+          enctype="multipart/form-data"
         >
 
-          camarajeziel@gmail.com
+          <input type="hidden" name="_subject" value="New portfolio website inquiry">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://jezielcamara.github.io/#contact">
+          <input class="contact-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
 
-          <span aria-hidden="true">
-            ↗
-          </span>
+          <div class="contact-form-grid">
 
-        </a>
+            <label>
+              Your name
+              <input type="text" name="name" autocomplete="name" required>
+            </label>
+
+            <label>
+              Email address
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+
+            <label>
+              Business or organization
+              <input type="text" name="business" autocomplete="organization">
+            </label>
+
+            <label>
+              Preferred target date
+              <input type="text" name="targetDate" placeholder="Example: November 2026">
+            </label>
+
+          </div>
+
+          <label>
+            What should the website help you do?
+            <textarea name="project" rows="5" required placeholder="Tell me what you offer, who the website is for, and the result you need."></textarea>
+          </label>
+
+          <button class="portfolio-button contact-submit" type="submit">
+            Start a Project
+            <span aria-hidden="true">↗</span>
+          </button>
+
+        </form>
+
+
+        <div class="contact-details" aria-label="Contact details">
+          <span>Based in the Philippines</span>
+          <span>camarajeziel@gmail.com</span>
+          <a href="https://github.com/jezielcamara" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
 
 
       </div>
@@ -1379,7 +1426,7 @@
 
   <script
     type="module"
-    src="js/app.js?v=20260814-8"
+    src="js/app.js?v=20260816-2"
   ></script>
 
 

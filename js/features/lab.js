@@ -1290,15 +1290,6 @@ export function initLab() {
       );
 
 
-      /*
-       * north-lab.css currently applies permanent
-       * will-change: transform.
-       *
-       * Override it until a replay animation is actually
-       * running. The CSS compatibility file will be cleaned
-       * up during the later stylesheet architecture pass.
-       */
-
       projectFrame.style.willChange =
         "auto";
 

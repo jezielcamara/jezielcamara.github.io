@@ -218,8 +218,8 @@ const SITE_MARKUP = `
             <p><strong>HOURS</strong><span>Mon—Fri / 7—6<br>Sat—Sun / 8—7</span></p>
             <p><strong>CONTACT</strong><span>hello@sola.cafe<br>+63 2 8000 2026</span></p>
           </div>
-          <a class="sola-direction-link" href="mailto:hello@sola.cafe">
-            <span>PLAN A VISIT</span><span aria-hidden="true">↗</span>
+          <a class="sola-direction-link" href="#sola-menu">
+            <span>VIEW THE MENU</span><span aria-hidden="true">↗</span>
           </a>
         </div>
       </section>

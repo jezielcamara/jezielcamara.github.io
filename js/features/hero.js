@@ -845,9 +845,6 @@ export function initHero() {
      RESIZE MANAGEMENT
 
      One ResizeObserver owns both Hero project hosts.
-
-     The old implementation created separate observers for
-     the desktop and mobile surfaces.
   ======================================================= */
 
   let resizeObserver =
