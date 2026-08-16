@@ -148,7 +148,7 @@
 
   <link
     rel="stylesheet"
-    href="css/style.css"
+    href="css/style.css?v=20260816-1"
   >
 
   <link
@@ -1265,6 +1265,7 @@
         <form
           class="contact-form"
           id="contact-form"
+          data-clarity-mask="true"
           action="https://formsubmit.co/camarajeziel@gmail.com"
           method="post"
           enctype="multipart/form-data"
@@ -1273,7 +1274,7 @@
 
           <input type="hidden" name="_subject" value="New portfolio website inquiry">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://jezielcamara.github.io/#contact">
+          <input type="hidden" name="_next" value="https://jezielcamara.github.io/?sent=1#contact">
           <input type="hidden" name="_url" value="https://jezielcamara.github.io/#contact">
           <input type="hidden" name="_blacklist" value="seo services, guest post, backlinks, crypto investment, casino promotion, increase traffic, rank your website, paid link placement, guaranteed ranking, bulk email">
           <input class="contact-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -1516,6 +1517,14 @@
       GITHUB ↗
     </a>
 
+    <button
+      class="footer-privacy"
+      type="button"
+      data-analytics-manage
+    >
+      PRIVACY &amp; ANALYTICS
+    </button>
+
     <a href="#home">
       BACK TO TOP ↑
     </a>
@@ -1523,11 +1532,62 @@
   </footer>
 
 
+  <aside
+    class="analytics-consent"
+    id="analytics-consent"
+    role="dialog"
+    aria-labelledby="analytics-consent-title"
+    aria-describedby="analytics-consent-copy"
+    hidden
+  >
+
+    <p class="analytics-consent-label">
+      PRIVACY CHOICE
+    </p>
+
+    <h2 id="analytics-consent-title">
+      Help me improve this portfolio?
+    </h2>
+
+    <p id="analytics-consent-copy">
+      If you allow analytics, Google Analytics and Microsoft Clarity will measure visits, project interactions, and site usability. Contact-form entries are never recorded.
+    </p>
+
+    <details>
+      <summary>What is collected?</summary>
+      <p>
+        Page and project activity, referral source, approximate location, browser, and device type. Analytics cookies and masked session recordings are used only after you allow them.
+      </p>
+    </details>
+
+    <div class="analytics-consent-actions">
+
+      <button
+        class="portfolio-button"
+        type="button"
+        data-analytics-accept
+      >
+        Allow analytics
+      </button>
+
+      <button
+        class="analytics-decline"
+        type="button"
+        data-analytics-decline
+      >
+        Continue without
+      </button>
+
+    </div>
+
+  </aside>
+
+
   <!-- MODULAR APPLICATION ENTRY POINT -->
 
   <script
     type="module"
-    src="js/app.js?v=20260816-5"
+    src="js/app.js?v=20260816-6"
   ></script>
 
 
