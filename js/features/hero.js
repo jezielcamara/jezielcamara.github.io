@@ -4,7 +4,7 @@
    NEW MODULAR ARCHITECTURE
 
    RESPONSIBILITY
-   - choose one published featured project
+   - choose one published project
    - mount its desktop Hero preview
    - mount its mobile Hero preview
    - fit real project viewports into portfolio windows
@@ -94,7 +94,7 @@ const MOBILE_VIEWPORT_HEIGHT =
 
    Preserve the current portfolio behavior:
 
-   when more than one featured project exists, avoid
+   when more than one published project exists, avoid
    immediately repeating the project shown during the
    previous page view when possible.
 ========================================================= */
@@ -251,13 +251,13 @@ function rememberFeaturedKey(
 
 
 /* =========================================================
-   FEATURED PROJECT SELECTION
+   HERO PROJECT SELECTION
 
    Selection rules:
 
    1. Project must be published.
-   2. Project must be featured.
-   3. An explicit staging override may select a featured
+   2. Every published project is automatically eligible.
+   3. An explicit staging override may select a published
       project by key.
    4. Otherwise avoid immediately repeating the previous
       featured project when another option exists.
@@ -268,7 +268,7 @@ function chooseFeaturedProject(
 ) {
 
   const projects =
-    ProjectRegistry.featured();
+    ProjectRegistry.published();
 
 
   if (
@@ -289,7 +289,7 @@ function chooseFeaturedProject(
    * >
    *
    * The override is honored only when that project is
-   * already in the published featured collection.
+   * already in the published project collection.
    */
 
   const requestedKey =
@@ -727,7 +727,7 @@ export function initHero() {
   if (!project) {
 
     console.warn(
-      "[Hero] No published featured project is registered."
+      "[Hero] No published project is registered."
     );
 
 
