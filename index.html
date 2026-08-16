@@ -17,6 +17,11 @@
   >
 
   <meta name="theme-color" content="#f3f0e7">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="base-uri 'self'; object-src 'none'; form-action https://formsubmit.co"
+  >
 
   <link rel="canonical" href="https://jezielcamara.github.io/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -1174,41 +1179,48 @@
           action="https://formsubmit.co/camarajeziel@gmail.com"
           method="post"
           enctype="multipart/form-data"
+          accept-charset="UTF-8"
         >
 
           <input type="hidden" name="_subject" value="New portfolio website inquiry">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_next" value="https://jezielcamara.github.io/#contact">
-          <input class="contact-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="_url" value="https://jezielcamara.github.io/#contact">
+          <input type="hidden" name="_blacklist" value="seo services, guest post, backlinks, crypto investment, casino promotion, increase traffic, rank your website, paid link placement, guaranteed ranking, bulk email">
+          <input class="contact-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <div class="contact-form-grid">
 
             <label>
               Your name
-              <input type="text" name="name" autocomplete="name" required>
+              <input type="text" name="name" autocomplete="name" minlength="2" maxlength="80" required>
             </label>
 
             <label>
               Email address
-              <input type="email" name="email" autocomplete="email" required>
+              <input type="email" name="email" autocomplete="email" maxlength="254" required>
             </label>
 
             <label>
               Business or organization
-              <input type="text" name="business" autocomplete="organization">
+              <input type="text" name="business" autocomplete="organization" maxlength="120">
             </label>
 
             <label>
               Preferred target date
-              <input type="text" name="targetDate" placeholder="Example: November 2026">
+              <input type="text" name="targetDate" maxlength="80" placeholder="Example: November 2026">
             </label>
 
           </div>
 
           <label>
             What should the website help you do?
-            <textarea name="project" rows="5" required placeholder="Tell me what you offer, who the website is for, and the result you need."></textarea>
+            <textarea name="project" rows="5" minlength="40" maxlength="3000" required spellcheck="true" placeholder="Tell me what you offer, who the website is for, and the result you need."></textarea>
           </label>
+
+          <p class="contact-form-note">
+            Protected by CAPTCHA and spam filtering. Form submissions are processed by FormSubmit and sent to my inbox.
+          </p>
 
           <button class="portfolio-button contact-submit" type="submit">
             Start a Project

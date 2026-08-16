@@ -444,11 +444,14 @@ main p,
 }
 
 .contact-honeypot {
-  position: absolute !important;
-  left: -10000px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
+  display: none !important;
+}
+
+.contact-form-note {
+  max-width: 620px;
+  margin: -8px 0 0 !important;
+  font-size: .82rem;
+  line-height: 1.55;
 }
 
 .contact-details {
