@@ -44,7 +44,7 @@ const SITE_MARKUP = `
         <a href="#stack-journal">Journal</a>
       </nav>
       <div class="stack-actions">
-        <button type="button" aria-label="Search the concept store">Search</button>
+        <button type="button" data-stack-search-open aria-haspopup="dialog">Search</button>
         <button type="button" data-stack-cart-open>Bag <span data-stack-count>0</span></button>
       </div>
     </header>
@@ -203,6 +203,22 @@ const SITE_MARKUP = `
         <footer><span>Subtotal <strong data-stack-subtotal>${money(0)}</strong></span><button class="stack-button" type="button" data-stack-checkout disabled>Checkout concept <span>↗</span></button><small>Prototype only. No payment will be collected.</small></footer>
       </aside>
     </div>
+
+    <div class="stack-search-layer" data-stack-search-layer hidden>
+      <button class="stack-search-overlay" type="button" data-stack-search-close aria-label="Close search"></button>
+      <section class="stack-search" role="dialog" aria-modal="true" aria-labelledby="stack-search-title">
+        <header>
+          <p id="stack-search-title">Search the collection</p>
+          <button type="button" data-stack-search-close>Close</button>
+        </header>
+        <label>
+          <span>Product name or category</span>
+          <input type="search" data-stack-search-input autocomplete="off" placeholder="Try lounge, work, or storage">
+        </label>
+        <p class="stack-search__count" data-stack-search-count aria-live="polite"></p>
+        <div class="stack-search__results" data-stack-search-results></div>
+      </section>
+    </div>
   </div>
 `;
 
@@ -227,6 +243,9 @@ export function initializeStackSite(root) {
   const $ = (selector) => root.querySelector(selector);
   const $$ = (selector) => [...root.querySelectorAll(selector)];
   const layer = $("[data-stack-cart-layer]");
+  const searchLayer = $("[data-stack-search-layer]");
+  const searchInput = $("[data-stack-search-input]");
+  let searchLastFocus = null;
 
   root.classList.add("stack-motion-ready");
 
@@ -250,6 +269,62 @@ export function initializeStackSite(root) {
     $$("[data-stack-filter]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.stackFilter === filter)));
     $$("[data-stack-product]").forEach((card) => { card.hidden = filter !== "all" && card.dataset.type !== filter; });
   }
+
+  function renderSearch(query = "") {
+    const normalized = query.trim().toLowerCase();
+    const matches = PRODUCT_DATA.filter((product) =>
+      [product.name, product.type, product.note]
+        .some((value) => value.toLowerCase().includes(normalized))
+    );
+    const count = $("[data-stack-search-count]");
+    const results = $("[data-stack-search-results]");
+
+    if (count) {
+      count.textContent = `${matches.length} ${matches.length === 1 ? "result" : "results"}`;
+    }
+    if (results) {
+      results.innerHTML = matches.length
+        ? matches.map((product) => `
+          <button type="button" data-stack-search-result="${product.type}">
+            <img src="${product.image}" alt="">
+            <span><strong>${product.name}</strong><small>${product.note} / ${product.type}</small></span>
+            <span>${money(product.price)}</span>
+          </button>`).join("")
+        : "<p>No matching pieces. Try living, work, storage, or a product name.</p>";
+    }
+  }
+
+  function openSearch() {
+    searchLastFocus = document.activeElement;
+    searchLayer.hidden = false;
+    renderSearch();
+    requestAnimationFrame(() => {
+      searchLayer.classList.add("is-open");
+      searchInput?.focus();
+    });
+  }
+
+  function closeSearch() {
+    searchLayer.classList.remove("is-open");
+    setTimeout(() => {
+      searchLayer.hidden = true;
+      searchInput.value = "";
+    }, 220);
+    searchLastFocus?.focus?.();
+  }
+
+  $("[data-stack-search-open]")?.addEventListener("click", openSearch, { signal });
+  $$('[data-stack-search-close]').forEach((button) => button.addEventListener("click", closeSearch, { signal }));
+  searchInput?.addEventListener("input", () => renderSearch(searchInput.value), { signal });
+  $("[data-stack-search-results]")?.addEventListener("click", (event) => {
+    const result = event.target.closest("[data-stack-search-result]");
+    if (!result) return;
+    applyFilter(result.dataset.stackSearchResult);
+    closeSearch();
+    root.querySelector("#stack-collection")?.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    });
+  }, { signal });
   $$("[data-stack-filter]").forEach((button) => button.addEventListener("click", () => applyFilter(button.dataset.stackFilter), { signal }));
   $$("[data-stack-go-filter]").forEach((link) => link.addEventListener("click", () => applyFilter(link.dataset.stackGoFilter), { signal }));
 
@@ -308,7 +383,11 @@ export function initializeStackSite(root) {
   }
   $$("[data-stack-cart-open]").forEach((button) => button.addEventListener("click", openCart, { signal }));
   $$("[data-stack-cart-close]").forEach((button) => button.addEventListener("click", closeCart, { signal }));
-  root.addEventListener("keydown", (event) => { if (event.key === "Escape" && !layer.hidden) closeCart(); }, { signal });
+  root.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (!searchLayer.hidden) closeSearch();
+    else if (!layer.hidden) closeCart();
+  }, { signal });
 
   $("[data-stack-builder-add]")?.addEventListener("click", () => {
     const config = updateBuilder();

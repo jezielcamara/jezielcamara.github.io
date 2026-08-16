@@ -36,7 +36,7 @@
 
 import "./projects/north/project.js";
 import "./projects/sola/project.js?v=20260814-2";
-import "./projects/stack/project.js?v=20260814-4";
+import "./projects/stack/project.js?v=20260816-2";
 
 
 /* =========================================================
@@ -287,7 +287,7 @@ export function startApp() {
   /* =======================================================
      SELECTED WORK
 
-     Cards are generated synchronously from published
+     Cards are rendered synchronously from published
      registry records.
 
      Preview iframes remain near-viewport lazy.
@@ -317,9 +317,9 @@ export function startApp() {
   /* =======================================================
      PAGE MOTION
 
-     Start this AFTER Work has generated its project cards.
+     Start this AFTER Work has rendered its project cards.
 
-     That allows its reveal system to discover the generated
+     That allows its reveal system to discover the rendered
      .project-slide elements without mutation observers,
      polling or cross-module readiness events.
   ======================================================= */
@@ -328,7 +328,6 @@ export function startApp() {
     "page-motion",
     initPageMotion
   );
-
 
   /* =======================================================
      READY

@@ -1,5 +1,5 @@
 import { ProjectRegistry } from "../../core/project-registry.js";
-import { STACK_COMMERCE_KEY, createStackSite, initializeStackSite } from "./site.js?v=20260814-1";
+import { STACK_COMMERCE_KEY, createStackSite, initializeStackSite } from "./site.js?v=20260816-2";
 
 export const stackProject = ProjectRegistry.register({
   key: STACK_COMMERCE_KEY,
@@ -10,7 +10,7 @@ export const stackProject = ProjectRegistry.register({
   type: "MODULAR FURNITURE",
   url: "stack-system.example",
   featured: true,
-  styles: ["css/stack.css?v=20260814-3"],
+  styles: ["css/stack.css?v=20260816-2"],
   work: { pages: "Shop / Builder / Product / Journal" },
   viewer: {
     description: "SELF-INITIATED ECOMMERCE CONCEPT / INTERACTIVE PROTOTYPE",
@@ -28,5 +28,5 @@ export const stackProject = ProjectRegistry.register({
   },
   createSite: createStackSite,
   initialize: initializeStackSite,
-  loadCase: () => import("./case.js?v=20260814-2")
+  loadCase: () => import("./case.js?v=20260816-2")
 });

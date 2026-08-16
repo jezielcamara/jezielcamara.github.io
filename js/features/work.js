@@ -280,12 +280,7 @@ function getWorkElements() {
 
 
 /* =========================================================
-   SLIDE CLASS COMPATIBILITY
-
-   Temporary compatibility with the current CSS system.
-
-   These classes depend on ordinal position rather than
-   project identity.
+   SLIDE CLASS ASSIGNMENT
 ========================================================= */
 
 function getSlideClassName(
@@ -336,17 +331,6 @@ function createActionButton({
       "button"
     );
 
-
-  /*
-   * case-open currently contains the approved text-button
-   * presentation in enhancements.css.
-   *
-   * project-view-launch adds the existing Viewer focus /
-   * cursor treatment.
-   *
-   * These style names can be consolidated later without
-   * changing the action architecture.
-   */
 
   button.className =
     action ===
@@ -506,12 +490,6 @@ function createProjectCard(
   media.dataset.projectPreviewState =
     "waiting";
 
-
-  /* =======================================================
-     TEMPORARY PLACEHOLDER
-
-     Removed automatically by ProjectFrame.mount().
-  ======================================================= */
 
   const placeholderCross =
     document.createElement(
@@ -1413,7 +1391,7 @@ export function initWork() {
      ACTION DELEGATION
 
      No Viewer or Case listener is attached individually to
-     each generated card.
+     each rendered card.
 
      One Work-owned listener handles all project actions.
   ======================================================= */

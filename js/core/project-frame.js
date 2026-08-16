@@ -542,19 +542,6 @@ function prepareProjectRoot(
 /* =========================================================
    STYLESHEET MARKUP
 
-   Old architecture:
-   copy every stylesheet loaded by the portfolio.
-
-   New architecture:
-   shared frame dependency
-        +
-   project.styles
-
-   Example for Sola:
-
-   Google Font
-   css/sola.css
-
    Nothing from North, the Lab, viewer, case study or
    portfolio shell enters that iframe.
 ========================================================= */
@@ -1375,7 +1362,7 @@ function createFrame(
   /* -------------------------------------------------------
      LOADING
 
-     Unlike the old architecture, lazy is the default.
+     Frames use lazy loading by default.
   ------------------------------------------------------- */
 
   frame.loading =

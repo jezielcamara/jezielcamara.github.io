@@ -214,7 +214,7 @@ export const solaProject =
     /* -----------------------------------------------------
        LAZY CASE STUDY
 
-       case.js will be migrated later.
+       The case study is loaded only when requested.
 
        This import does nothing until the generic case
        controller explicitly calls project.loadCase().
