@@ -73,6 +73,11 @@ import {
 } from "./features/page-motion.js";
 
 
+import {
+  initAnalytics
+} from "./features/analytics.js?v=20260816-1";
+
+
 /* =========================================================
    APPLICATION STATE
 ========================================================= */
@@ -219,6 +224,12 @@ export function startApp() {
 
   const publishedProjects =
     ProjectRegistry.published();
+
+
+  startFeature(
+    "analytics",
+    initAnalytics
+  );
 
 
   if (
