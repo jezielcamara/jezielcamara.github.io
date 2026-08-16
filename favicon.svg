@@ -2,6 +2,8 @@
   <title id="favicon-title">Jeziel Camara</title>
   <rect x="58" y="56" width="414" height="414" rx="94" fill="#ff5a56"/>
   <rect x="30" y="24" width="414" height="414" rx="94" fill="#dfff52" stroke="#11130f" stroke-width="8"/>
-  <path d="M134 142h86v205l-47 47H82v-76h52V142Z" fill="#11130f"/>
-  <path d="M295 142h127v76h-73v100h73v76H295l-47-47V189l47-47Z" fill="#11130f"/>
+  <g transform="translate(-15 -37)" fill="#11130f">
+    <path d="M134 142h86v205l-47 47H82v-76h52V142Z"/>
+    <path d="M295 142h127v76h-73v100h73v76H295l-47-47V189l47-47Z"/>
+  </g>
 </svg>
