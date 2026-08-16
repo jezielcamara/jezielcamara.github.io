@@ -68,18 +68,25 @@ main p,
   box-sizing: border-box;
   width: 100%;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: .4em;
   color: var(--ink);
   background: var(--paper);
   border-top: 1px solid var(--ink);
-  font-size: .55rem;
+  font-size: .43rem;
   font-weight: 500;
-  letter-spacing: .08em;
+  letter-spacing: .055em;
   line-height: 1;
   text-transform: uppercase;
 }
 
+.photo-credit > span {
+  font-size: .9em;
+}
+
 .photo-credit--hero {
-  padding: 8px 10px;
+  padding: 5px 8px;
 }
 
 .window-portrait {
@@ -95,8 +102,8 @@ main p,
 
 .photo-credit--about {
   flex: 0 0 auto;
-  padding: 11px 13px;
-  text-align: right;
+  justify-content: flex-end;
+  padding: 7px 10px;
 }
 
 @media (max-width: 950px) {
