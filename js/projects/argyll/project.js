@@ -10,7 +10,7 @@ export const argyllWellnessProject = ProjectRegistry.register({
   type: "CLIENT WEBSITE",
   url: "www.argyllwellnesscentre.com",
   featured: false,
-  styles: ["css/argyll-preview.css?v=20260816-1"],
+  styles: ["css/argyll-preview.css?v=20260816-2"],
   work: {
     pages: "Services / About / Contact / Booking",
     websiteUrl: "https://www.argyllwellnesscentre.com/"
