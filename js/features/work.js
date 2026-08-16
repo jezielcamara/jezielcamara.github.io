@@ -183,7 +183,7 @@ function loadCaseDialogModule() {
 
   caseDialogModulePromise =
     import(
-      "./case-dialog.js"
+      "./case-dialog.js?v=20260816-1"
     )
       .then(
         (module) => {
